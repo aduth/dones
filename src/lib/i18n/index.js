@@ -1,16 +1,20 @@
 /**
  * External dependencies
  */
-import moment from 'moment';
 import { once } from 'lodash';
+import {
+	addHours,
+	parse as parseDate,
+	format as formatDate
+} from 'date-fns';
 
 /**
  * Internal dependencies
  */
 import { I18N, GMT_OFFSET, DATE_FORMAT } from 'constant';
 
-const getSiteMomentFormat = once( () => {
-	const PHP_DATE_FORMAT_TO_MOMENT = {
+const getSiteFormat = once( () => {
+	const PHP_DATE_FORMAT_TO_JS = {
 		d: 'DD',
 		D: 'ddd',
 		j: 'D',
@@ -40,7 +44,7 @@ const getSiteMomentFormat = once( () => {
 	};
 
 	return DATE_FORMAT.replace( /\\?[a-zA-Z]/g, ( format ) => {
-		return PHP_DATE_FORMAT_TO_MOMENT[ format ] || '';
+		return PHP_DATE_FORMAT_TO_JS[ format ] || '';
 	} );
 } );
 
@@ -48,10 +52,14 @@ export function translate( string ) {
 	return I18N[ string ] || string;
 }
 
-export function formatDate( date, format ) {
-	return moment( date ).utcOffset( GMT_OFFSET * 60 ).format( format );
+export function toSiteTime( date ) {
+	return addHours( addHours( date, date.getTimezoneOffset() / 60 ), GMT_OFFSET );
 }
 
 export function formatSiteDate( date ) {
-	return formatDate( date, getSiteMomentFormat() );
+	if ( ! ( date instanceof Date ) ) {
+		date = parseDate( date );
+	}
+
+	return formatDate( date, getSiteFormat() );
 }

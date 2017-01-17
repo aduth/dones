@@ -8,11 +8,12 @@
 		"stage-2"
 	],
 	"plugins": [
+		"date-fns",
+		"lodash",
 		"transform-runtime",
 		"transform-react-display-name",
 		[ "transform-react-jsx", {
 			"pragma": "h"
-		} ],
-		"lodash"
+		} ]
 	]
 }

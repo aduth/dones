@@ -13,8 +13,8 @@ const config = module.exports = {
 		vendor: [
 			'autosize',
 			'classnames',
+			'date-fns',
 			'flatpickr',
-			'moment',
 			'path-to-regexp',
 			'preact',
 			'preact-redux',

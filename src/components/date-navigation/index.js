@@ -3,7 +3,7 @@
  */
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
-import moment from 'moment';
+import { parse as parseDate } from 'date-fns';
 
 /**
  * Internal dependencies
@@ -15,6 +15,7 @@ import Icon from 'components/icon';
 import DatePicker from 'components/date-picker';
 import { formatSiteDate, translate } from 'lib/i18n';
 import { pushRoute } from 'state/routing/actions';
+import { addDays, format as formatDate } from 'date-fns';
 
 class DateNavigation extends Component {
 	constructor() {
@@ -26,7 +27,7 @@ class DateNavigation extends Component {
 
 	incrementDate( multiplier ) {
 		const { date } = this.props;
-		const nextDate = moment( date ).add( 1 * multiplier, 'days' ).format( 'YYYY-MM-DD' );
+		const nextDate = formatDate( addDays( date, 1 * multiplier ), 'YYYY-MM-DD' );
 		this.props.pushRoute( `/date/${ nextDate }/` );
 	}
 

@@ -3,16 +3,18 @@
  */
 import { Component } from 'preact';
 import { connect } from 'preact-redux';
+import { format as formatDate } from 'date-fns';
 
 /**
  * Internal dependencies
  */
 import { replaceRoute } from 'state/routing/actions';
-import { formatDate } from 'lib/i18n';
+import { toSiteTime } from 'lib/i18n';
 
 class HomeRoute extends Component {
 	componentWillMount() {
-		this.props.replaceRoute( `/date/${ formatDate( new Date(), 'YYYY-MM-DD' ) }/` );
+		const date = formatDate( toSiteTime( new Date() ), 'YYYY-MM-DD' );
+		this.props.replaceRoute( `/date/${ date }/` );
 	}
 
 	render() {
