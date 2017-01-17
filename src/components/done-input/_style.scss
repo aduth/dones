@@ -1,0 +1,34 @@
+.done-input {
+	display: flex;
+	align-items: center;
+	position: relative;
+	border: 1px solid $border-color;
+	border-radius: $border-radius;
+}
+
+.done-input .done-status,
+.done-input__actions {
+	flex-shrink: 0;
+}
+
+.done-input__action {
+	margin-right: 0.2rem;
+
+	&.is-filler {
+		visibility: hidden;
+	}
+}
+
+.done-input__textarea {
+	position: relative;
+	flex-basis: 100%;
+}
+
+.done-input__textarea-input {
+	resize: none;
+	display: block;
+	width: 100%;
+	padding-left: 0;
+	border-width: 0;
+}
+

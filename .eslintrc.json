@@ -1,0 +1,16 @@
+{
+	"extends": "wpcalypso/react",
+	"parser": "babel-eslint",
+	"env": {
+		"node": true,
+		"browser": true
+	},
+	"settings": {
+		"react": {
+			"pragma": "h"
+		}
+	},
+	"rules": {
+		"no-cond-assign": 0
+	}
+}

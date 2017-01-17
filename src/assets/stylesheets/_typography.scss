@@ -1,0 +1,15 @@
+%sans {
+	font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+}
+
+%light {
+	font-weight: 300;
+}
+
+%bold {
+	font-weight: 700;
+}
+
+%subtitle {
+	color: lighten( $font-color-body, 20% );
+}

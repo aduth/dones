@@ -1,0 +1,38 @@
+.card {
+	margin-bottom: 1.6rem;
+	background-color: #fff;
+	border-radius: $border-radius;
+	border: 1px solid $border-color;
+}
+
+.card__header {
+	position: relative;
+}
+
+.card__controls {
+	position: absolute;
+	top: 50%;
+	right: 1rem;
+	transform: translateY( -50% );
+}
+
+.card__content {
+	padding: 1rem;
+}
+
+.card__header {
+	padding: 1rem;
+}
+
+.card__header + .card__content {
+	padding-top: 0;
+}
+
+.card__title,
+.card__subtitle {
+	margin: 0;
+}
+
+.card__subtitle {
+	@extend %subtitle;
+}

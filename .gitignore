@@ -1,0 +1,8 @@
+# Dependencies
+node_modules
+
+# Generated
+/dist
+
+# Logs
+*.log

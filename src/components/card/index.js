@@ -1,0 +1,36 @@
+/**
+ * External dependencies
+ */
+import { h } from 'preact';
+import classNames from 'classnames';
+
+export default function Card( { className, title, subtitle, controls, children } ) {
+	const classes = classNames( 'card', className );
+
+	return (
+		<section className={ classes }>
+			{ title && (
+				<header className="card__header">
+					<h4 className="card__title">
+						{ title }
+					</h4>
+					{ subtitle && (
+						<p className="card__subtitle">
+							{ subtitle }
+						</p>
+					) }
+					{ controls && (
+						<div className="card__controls">
+							{ controls }
+						</div>
+					) }
+				</header>
+			) }
+			{ children.length > 0 && (
+				<div className="card__content">
+					{ children }
+				</div>
+			) }
+		</section>
+	);
+}

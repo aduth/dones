@@ -1,0 +1,26 @@
+.date-navigation .card__controls .button {
+	color: darken( $border-color, 40% );
+}
+
+.date-navigation__screen-reader-text {
+	@extend %screen-reader-text;
+}
+
+.date-navigation__picker {
+	position: relative;
+
+	.icon {
+		display: block;
+	}
+}
+
+.date-navigation__picker-input {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	opacity: 0;
+	cursor: pointer;
+}

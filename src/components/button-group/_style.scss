@@ -1,0 +1,21 @@
+.button-group .button {
+	display: inline-block;
+	vertical-align: top;
+	line-height: 1;
+
+	&:not( :first-child ) {
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+
+	&:not( :last-child ) {
+		margin-right: -1px;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+
+	&:hover {
+		position: relative;
+		z-index: 10;
+	}
+}

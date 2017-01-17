@@ -1,0 +1,18 @@
+{
+	"presets": [
+		[ "latest", {
+			"es2015": {
+				"modules": false
+			}
+		} ],
+		"stage-2"
+	],
+	"plugins": [
+		"transform-runtime",
+		"transform-react-display-name",
+		[ "transform-react-jsx", {
+			"pragma": "h"
+		} ],
+		"lodash"
+	]
+}

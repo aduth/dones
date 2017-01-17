@@ -1,0 +1,104 @@
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+html {
+	font-size: $font-size;
+	background-color: $background-color;
+}
+
+body {
+	@extend %sans;
+	margin: 0;
+	padding: 0;
+	font-size: 100%;
+	line-height: 1.5;
+	color: $font-color-body;
+	-webkit-font-smoothing: antialiased;
+	touch-action: manipulation;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	@extend %light;
+}
+
+h1 {
+	font-size: 3.4rem;
+}
+
+h2 {
+	font-size: 2.4rem;
+}
+
+h3 {
+	font-size: 1.8rem;
+}
+
+h4 {
+	font-size: 1.4rem;
+}
+
+h5 {
+	font-size: 1rem;
+}
+
+h6 {
+	font-size: 0.9rem;
+}
+
+hr {
+	height: 1px;
+	border: none;
+	background-color: $border-color;
+	outline: none;
+}
+
+a {
+	text-decoration: none;
+
+	&:hover {
+		opacity: 0.8;
+	}
+}
+
+button {
+	@extend %sans;
+	margin: 0;
+	padding: 0;
+	background: none;
+	border: none;
+	outline: 0;
+	font-size: 1rem;
+}
+
+code {
+	padding: 0.2rem 0.4rem;
+	margin: -0.2rem 0rem;
+	background-color: #eee;
+	border-radius: $border-radius;
+}
+
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="tel"] {
+	background-color: #fff;
+	border: 1px solid $border-color;
+	border-radius: $border-radius;
+	padding: 0.6rem 0.8rem;
+	outline: 0;
+	font-size: 1rem;
+	line-height: 1.5;
+	transition: border-color $transition-duration;
+
+	&:focus {
+		border-color: $border-hover-color;
+	}
+}

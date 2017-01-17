@@ -1,0 +1,30 @@
+@mixin desktop() {
+	@media ( min-width: #{ ( $desktop-width + 1px ) } ) {
+		@content;
+	}
+}
+
+@mixin loading-pulse( $color: $loading-pulse-color ) {
+	background-color: $color;
+	animation: loading-pulse 1.6s ease-in-out infinite;
+}
+
+@mixin loading-pulse-text( $color: $loading-pulse-color ) {
+	position: relative;
+	color: transparent !important;
+	text-shadow: none;
+
+	&:before {
+		@include loading-pulse( $color );
+		content: '';
+		position: absolute;
+		top: 1px;
+		right: 0;
+		bottom: 1px;
+		left: 0;
+	}
+
+	&:after {
+		content: 'Loading';
+	}
+}
