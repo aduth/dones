@@ -4,6 +4,8 @@ if ( ! defined( 'DONES_VERSION' ) ) {
 	define( 'DONES_VERSION', '1.0.0' );
 }
 
+require( dirname( __FILE__ ) . '/inc/tags.php' );
+
 /**
  * Sets up theme defaults and registers support for various WordPress features.
  */
