@@ -8,6 +8,7 @@ import classNames from 'classnames';
  * Internal dependencies
  */
 import Tooltip from 'components/tooltip';
+import Icon from 'components/icon';
 import { translate } from 'lib/i18n';
 
 export default class DoneStatus extends Component {
@@ -35,10 +36,11 @@ export default class DoneStatus extends Component {
 				onClick={ this.onToggle }
 				className={ classes }>
 				<Tooltip>{ text }</Tooltip>
-				<span className="done-status__check">✓</span>
-				<span className="done-status__screen-reader-text">
+				<Icon
+					icon="check"
+					size={ 14 }>
 					{ text }
-				</span>
+				</Icon>
 			</button>
 		);
 	}

@@ -20,10 +20,12 @@
 		border-color: $color-green;
 		color: #fff;
 	}
-}
 
-.done-status__screen-reader-text {
-	@extend %screen-reader-text;
+	.icon {
+		position: relative;
+		display: block;
+		margin: 0 auto;
+	}
 }
 
 .done-status__check {
