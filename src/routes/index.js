@@ -9,11 +9,13 @@ import { map } from 'lodash';
  */
 import HomeRoute from './home';
 import DateRoute from './date';
+import TagsRoute from './tags';
 import NotFoundRoute from './not-found';
 
 export default map( [
 	[ '/', HomeRoute ],
-	[ '/date/:date', DateRoute ],
+	[ '/date/:date/', DateRoute ],
+	[ '/tags/', TagsRoute ],
 	[ '*', NotFoundRoute ]
 ], ( [ path, Route ] ) => {
 	const keys = [];

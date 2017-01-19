@@ -39,6 +39,12 @@ function Sidebar( { path } ) {
 					selected={ startsWith( path, '/date/' ) }>
 					{ translate( 'Dones' ) }
 				</SidebarAction>
+				<SidebarAction
+					icon="hashtag"
+					to="/tags/"
+					selected={ startsWith( path, '/tags/' ) }>
+					{ translate( 'Tags' ) }
+				</SidebarAction>
 			</div>
 			<div className="sidebar__actions is-end">
 				{ isLoggedIn && (
