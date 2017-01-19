@@ -1,5 +1,7 @@
 .page {
-	padding-top: $sidebar-width;
+	@include medium() {
+		padding-top: $sidebar-width;
+	}
 
 	@include desktop() {
 		padding-top: 0;

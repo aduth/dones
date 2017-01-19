@@ -1,3 +1,9 @@
+@mixin medium() {
+	@media ( min-width: #{ ( $medium-width + 1px ) } ) {
+		@content;
+	}
+}
+
 @mixin desktop() {
 	@media ( min-width: #{ ( $desktop-width + 1px ) } ) {
 		@content;
