@@ -13,9 +13,21 @@
 
 .done-input__action {
 	margin-right: 0.2rem;
+}
 
-	&.is-filler {
-		visibility: hidden;
+.done-input__action .icon {
+	display: block;
+
+	@include desktop() {
+		display: none;
+	}
+}
+
+.done-input__action-text {
+	display: none;
+
+	@include desktop() {
+		display: inline;
 	}
 }
 

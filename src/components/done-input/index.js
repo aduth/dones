@@ -10,6 +10,7 @@ import { last, map, filter, includes } from 'lodash';
  * Internal dependencies
  */
 import Button from 'components/button';
+import Icon from 'components/icon';
 import DoneStatus from 'components/done-status';
 import DoneInputTextarea from './textarea';
 import { createDone, updateDone, deleteDone } from 'state/dones/actions';
@@ -158,14 +159,32 @@ class DoneInput extends Component {
 		const actions = [ {
 			type: 'submit',
 			primary: true,
-			children: translate( 'Submit' ),
+			children: [
+				<Icon
+					icon="paper-plane"
+					size={ 12 }>
+					{ translate( 'Submit' ) }
+				</Icon>,
+				<span className="done-input__action-text">
+					{ translate( 'Submit' ) }
+				</span>
+			],
 			disabled: text.length === 0
 		} ];
 
 		if ( this.isEditing() ) {
 			actions.push( {
 				onClick: onCancel,
-				children: translate( 'Cancel' )
+				children: [
+					<Icon
+						icon="times"
+						size={ 12 }>
+						{ translate( 'Cancel' ) }
+					</Icon>,
+					<span className="done-input__action-text">
+						{ translate( 'Cancel' ) }
+					</span>
+				]
 			} );
 		}
 
