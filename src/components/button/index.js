@@ -18,8 +18,7 @@ export default function Button( props ) {
 		to,
 		type: to ? null : type,
 		className: classNames( 'button', className, reduce( [
-			'primary',
-			'translucent'
+			'primary'
 		], ( memo, modifier ) => {
 			memo[ `is-${ modifier }` ] = props[ modifier ];
 			return memo;

@@ -62,10 +62,11 @@ hr {
 
 a {
 	text-decoration: none;
+}
 
-	&:hover {
-		opacity: 0.8;
-	}
+img {
+	max-width: 100%;
+	height: auto;
 }
 
 button {

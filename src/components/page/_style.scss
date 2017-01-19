@@ -1,6 +1,19 @@
+.page {
+	padding-top: $sidebar-width;
+
+	@include desktop() {
+		padding-top: 0;
+		padding-left: $sidebar-width;
+	}
+}
+
 .page__content {
 	width: $content-width;
 	max-width: 100%;
 	margin: 1.6rem auto;
 	padding: 0 1.6rem;
+
+	@include desktop() {
+		margin-top: 2.6rem;
+	}
 }

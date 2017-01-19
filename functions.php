@@ -10,8 +10,8 @@ if ( ! defined( 'DONES_VERSION' ) ) {
 function dones_setup() {
 	// Add theme support for Custom Logo.
 	add_theme_support( 'custom-logo', array(
-		'height'     => 66,
-		'flex-width' => true
+		'width'  => 120,
+		'height' => 120
 	) );
 }
 add_action( 'after_setup_theme', 'dones_setup' );

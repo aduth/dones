@@ -9,7 +9,7 @@ import { connect } from 'preact-redux';
  */
 import { setDocumentHeadTitle } from 'state/document-head/actions';
 import DocumentHead from 'components/document-head';
-import Header from 'components/header';
+import Sidebar from 'components/sidebar';
 
 class Page extends Component {
 	componentWillMount() {
@@ -26,9 +26,9 @@ class Page extends Component {
 		const { children } = this.props;
 
 		return (
-			<main>
+			<main className="page">
 				<DocumentHead />
-				<Header />
+				<Sidebar />
 				<div className="page__content">
 					{ children }
 				</div>

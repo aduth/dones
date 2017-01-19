@@ -27,15 +27,4 @@
 			border-color: lighten( $color-blue, 10% );
 		}
 	}
-
-	&.is-translucent {
-		background-color: rgba( #fff, 0.20 );
-		border-color: transparent;
-		transition: background-color $transition-duration;
-
-		&:not( [disabled] ):hover {
-			background-color: rgba( #fff, 0.28 );
-			border-color: transparent;
-		}
-	}
 }
