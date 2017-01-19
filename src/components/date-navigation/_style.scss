@@ -2,10 +2,6 @@
 	color: darken( $border-color, 40% );
 }
 
-.date-navigation__screen-reader-text {
-	@extend %screen-reader-text;
-}
-
 .date-navigation__picker {
 	position: relative;
 

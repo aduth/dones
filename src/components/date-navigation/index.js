@@ -45,29 +45,30 @@ class DateNavigation extends Component {
 				controls={
 					<ButtonGroup>
 						<Button onClick={ this.toPreviousDate }>
-							❮
-							<span className="date-navigation__screen-reader-text">
+							<Icon
+								icon="chevron-left"
+								size={ 12 }>
 								{ translate( 'Previous' ) }
-							</span>
+							</Icon>
 						</Button>
 						<Button onClick={ this.toNextDate }>
-							❯
-							<span className="date-navigation__screen-reader-text">
+							<Icon
+								icon="chevron-right"
+								size={ 12 }>
 								{ translate( 'Next' ) }
-							</span>
+							</Icon>
 						</Button>
 						<Button
 							className="date-navigation__picker">
-							<span className="date-navigation__screen-reader-text">
-								{ translate( 'Pick Date' ) }
-							</span>
 							<DatePicker
 								className="date-navigation__picker-input"
 								value={ date }
 								onChange={ this.toDate } />
 							<Icon
 								icon="calendar"
-								size={ 12 } />
+								size={ 12 }>
+								{ translate( 'Pick Date' ) }
+							</Icon>
 						</Button>
 					</ButtonGroup>
 				}
