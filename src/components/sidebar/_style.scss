@@ -56,13 +56,18 @@
 .sidebar__actions {
 	flex: 0 1 100%;
 
+	&:not( .is-end ) .sidebar__action {
+		border-left-width: 0;
+		border-top-width: 0;
+	}
+
 	&.is-end {
 		flex-basis: 0;
 	}
 }
 
 .sidebar__action {
-	display: flex;
+	display: inline-flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
@@ -87,11 +92,6 @@
 
 	&.is-selected {
 		box-shadow: inset 0 0 1rem 0 rgba( 0, 0, 0, 0.16 );
-	}
-
-	.sidebar__actions:not( .is-end ) &:first-child {
-		border-left-width: 0;
-		border-top-width: 0;
 	}
 
 	.sidebar__actions.is-end &:last-child {
