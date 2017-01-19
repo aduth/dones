@@ -11,14 +11,16 @@ export default function Card( { className, title, subtitle, controls, children }
 		<section className={ classes }>
 			{ title && (
 				<header className="card__header">
-					<h4 className="card__title">
-						{ title }
-					</h4>
-					{ subtitle && (
-						<p className="card__subtitle">
-							{ subtitle }
-						</p>
-					) }
+					<div className="card__title-subtitle">
+						<h4 className="card__title">
+							{ title }
+						</h4>
+						{ subtitle && (
+							<p className="card__subtitle">
+								{ subtitle }
+							</p>
+						) }
+					</div>
 					{ controls && (
 						<div className="card__controls">
 							{ controls }

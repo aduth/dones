@@ -6,14 +6,41 @@
 }
 
 .card__header {
-	position: relative;
+	display: flex;
+	flex-direction: column;
+
+	@include desktop() {
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
 }
 
-.card__controls {
-	position: absolute;
-	top: 50%;
-	right: 1rem;
-	transform: translateY( -50% );
+.card__title-subtitle {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	@include desktop() {
+		align-items: flex-start;
+	}
+
+	@include desktop() {
+		flex-direction: column;
+	}
+}
+
+.card__controls .button-group {
+	display: flex;
+	margin-top: 0.6rem;
+
+	@include desktop() {
+		margin-top: 0;
+	}
+
+	.button {
+		flex: 1;
+	}
 }
 
 .card__content {
