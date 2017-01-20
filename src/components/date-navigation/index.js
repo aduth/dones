@@ -3,7 +3,6 @@
  */
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
-import { parse as parseDate } from 'date-fns';
 
 /**
  * Internal dependencies
