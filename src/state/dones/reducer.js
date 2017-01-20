@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { combineReducers } from 'redux';
-import { isEqual, get, pick, groupBy, merge } from 'lodash';
+import { reduce, defaults, isEqual, omit } from 'lodash';
 
 /**
  * Internal dependencies
@@ -21,44 +21,51 @@ import {
 function items( state = {}, action ) {
 	switch ( action.type ) {
 		case DONES_RECEIVE:
-			if ( isEqual( get( state, action.date ), action.dones ) ) {
+			return reduce( action.dones, ( memo, done ) => {
+				if ( isEqual( memo[ done.id ], done ) ) {
+					return memo;
+				}
+
+				if ( memo === state ) {
+					memo = { ...state };
+				}
+
+				memo[ done.id ] = done;
+				return memo;
+			}, state );
+
+		case DONE_CREATE: {
+			const { date, text, done, transientId } = action;
+			return {
+				...state,
+				[ transientId ]: {
+					user: USER_ID,
+					date,
+					text,
+					done
+				}
+			};
+		}
+
+		case DONE_UPDATE: {
+			const { id, date, text, done, replaceId } = action;
+			const item = defaults( {
+				date,
+				text,
+				done
+			}, state[ id ], state[ replaceId ] );
+
+			if ( isEqual( state[ id ], item ) ) {
 				return state;
 			}
 
-			return {
-				...state,
-				[ action.date ]: groupBy( action.dones, 'user' )
-			};
-
-		case DONE_CREATE:
-		case DONE_UPDATE: {
-			const dones = [ ...get( state, [ action.date, USER_ID ], [] ) ];
-			const index = DONE_CREATE === action.type ? dones.length : action.index;
-
-			dones[ index ] = {
-				...pick( action, 'text', 'done' ),
-				user: USER_ID
-			};
-
-			return merge( {}, state, {
-				[ action.date ]: {
-					[ USER_ID ]: dones
-				}
-			} );
+			const nextState = { ...state, [ id ]: item };
+			delete nextState[ replaceId ];
+			return nextState;
 		}
 
-		case DONE_DELETE: {
-			const dones = [ ...get( state, [ action.date, USER_ID ] ) ];
-			dones.splice( action.index, 1 );
-
-			return {
-				...state,
-				[ action.date ]: {
-					...state[ action.date ],
-					[ USER_ID ]: dones
-				}
-			};
-		}
+		case DONE_DELETE:
+			return omit( state, action.id );
 	}
 
 	return state;
@@ -83,7 +90,25 @@ function requesting( state = {}, action ) {
 	return state;
 }
 
+function received( state = {}, action ) {
+	switch ( action.type ) {
+		case DONES_RECEIVE:
+			const { date } = action;
+			if ( ! date ) {
+				break;
+			}
+
+			return {
+				...state,
+				[ date ]: true
+			};
+	}
+
+	return state;
+}
+
 export default combineReducers( {
 	items,
-	requesting
+	requesting,
+	received
 } );

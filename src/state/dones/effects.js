@@ -2,12 +2,10 @@
  * External dependencies
  */
 import { stringify as stringifyQuery } from 'querystring';
-import { pick } from 'lodash';
 
 /**
  * Internal dependencies
  */
-import { USER_ID } from 'constant';
 import Request from 'lib/request';
 import {
 	DONE_CREATE,
@@ -19,27 +17,30 @@ import {
 	DONES_REQUEST_SUCCESS
 } from 'state/action-types';
 import { updateDone, receiveDones } from 'state/dones/actions';
-import { getUserDone, isRequestingDones } from 'state/selectors';
+import { getDone, isRequestingDones } from 'state/selectors';
 
 export default {
 	[ DONE_CREATE ]: async ( store, action ) => {
-		Request.post( '/dones/v1/dones', {
-			body: pick( action, 'date', 'text', 'done' )
+		const { date, text, done, transientId } = action;
+		const { id } = await Request.post( '/dones/v1/dones', {
+			body: { date, text, done }
 		} );
-	},
-	[ DONE_DELETE ]: async ( store, action ) => {
-		const url = `/dones/v1/dones?${ stringifyQuery( pick( action, 'index', 'date' ) ) }`;
-		Request.delete( url );
-	},
-	[ DONE_TOGGLE ]: async ( store, action ) => {
-		const { date, index } = action;
-		const done = getUserDone( store.getState(), USER_ID, date, index );
 
-		store.dispatch( updateDone( action.date, action.index, done.text, ! done.done ) );
+		store.dispatch( updateDone( id, text, done, transientId ) );
+	},
+	[ DONE_DELETE ]: async ( store, { id } ) => {
+		Request.delete( `/dones/v1/dones/${ id }` );
+	},
+	[ DONE_TOGGLE ]: async ( store, { id } ) => {
+		const done = getDone( store.getState(), id );
+		if ( done ) {
+			store.dispatch( updateDone( id, done.text, ! done.done ) );
+		}
 	},
 	[ DONE_UPDATE ]: async ( store, action ) => {
-		Request.put( '/dones/v1/dones', {
-			body: pick( action, 'index', 'date', 'text', 'done' )
+		const { id, text, done } = action;
+		Request.put( `/dones/v1/dones/${ id }`, {
+			body: { text, done }
 		} );
 	},
 	[ DONES_REQUEST ]: async ( store, { date } ) => {
@@ -51,7 +52,7 @@ export default {
 		try {
 			const path = `/dones/v1/dones?${ stringifyQuery( { date } ) }`;
 			const dones = await Request.get( path );
-			store.dispatch( receiveDones( date, dones ) );
+			store.dispatch( receiveDones( dones, date ) );
 			store.dispatch( { type: DONES_REQUEST_SUCCESS, date } );
 		} catch ( error ) {
 			store.dispatch( { type: DONES_REQUEST_FAILURE, date, error } );

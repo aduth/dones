@@ -53,7 +53,7 @@ class DoneInput extends Component {
 	}
 
 	isEditing() {
-		return Number.isInteger( this.props.index );
+		return !! this.props.id;
 	}
 
 	getTagFragment( textarea ) {
@@ -118,7 +118,7 @@ class DoneInput extends Component {
 	};
 
 	submit = ( event ) => {
-		const { date, index, initialText, initialDone } = this.props;
+		const { id, date, initialText, initialDone } = this.props;
 		const { done } = this.state;
 		const text = this.state.text.trim();
 
@@ -132,9 +132,9 @@ class DoneInput extends Component {
 
 		if ( this.isEditing() ) {
 			if ( text ) {
-				this.props.updateDone( date, index, text, done );
+				this.props.updateDone( id, text, done );
 			} else if ( confirm( translate( 'Are you sure you want to delete this done?' ) ) ) {
-				this.props.deleteDone( date, index );
+				this.props.deleteDone( id );
 			}
 		} else if ( text ) {
 			this.props.createDone( date, text, done );

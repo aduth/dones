@@ -4,7 +4,7 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 import classNames from 'classnames';
-import { map, partial } from 'lodash';
+import { map, sortBy, partial } from 'lodash';
 
 /**
  * Internal dependencies
@@ -16,7 +16,7 @@ import DoneStatus from 'components/done-status';
 import DoneInput from 'components/done-input';
 import Icon from 'components/icon';
 import { toggleDone, deleteDone } from 'state/dones/actions';
-import { getUserDones } from 'state/selectors';
+import { getUserDones, hasReceivedDones } from 'state/selectors';
 import DonesListItemText from './item-text';
 
 class DonesList extends Component {
@@ -26,12 +26,12 @@ class DonesList extends Component {
 
 	stopEditing = () => this.setState( { editing: null } );
 
-	startTrackingSelection = ( index ) => {
+	startTrackingSelection = ( id ) => {
 		if ( ! this.isEditable() ) {
 			return;
 		}
 
-		this.pendingEdit = index;
+		this.pendingEdit = id;
 		document.addEventListener( 'mouseup', this.editDone, true );
 	};
 
@@ -80,9 +80,9 @@ class DonesList extends Component {
 		} );
 	};
 
-	deleteDone = ( index ) => {
+	deleteDone = ( id ) => {
 		if ( confirm( translate( 'Are you sure you want to delete this done?' ) ) ) {
-			this.props.deleteDone( this.props.date, index );
+			this.props.deleteDone( id );
 		}
 	};
 
@@ -91,7 +91,7 @@ class DonesList extends Component {
 	}
 
 	render() {
-		const { date, dones } = this.props;
+		const { date, dones, hasReceived } = this.props;
 		const { editing } = this.state;
 		const classes = classNames( 'dones-list', {
 			'is-editable': this.isEditable()
@@ -100,18 +100,17 @@ class DonesList extends Component {
 		return (
 			<ul className={ classes }>
 				<QueryDones date={ date } />
-				{ map( dones, ( done, index ) => (
+				{ map( sortBy( dones, 'id' ), ( done, index ) => (
 					<li
 						key={ index }
 						className="dones-list__item">
-						{ index === editing
+						{ done.id === editing
 							? (
 								<DoneInput
 									initialText={ done.text }
 									initialDone={ done.done }
 									selectionOffset={ this.state.editOffset }
-									date={ date }
-									index={ index }
+									id={ done.id }
 									onCancel={ this.stopEditing }
 									onSubmit={ this.stopEditing } />
 							)
@@ -120,25 +119,25 @@ class DonesList extends Component {
 									done={ done.done }
 									onToggle={
 										this.isEditable()
-											? partial( this.props.toggleDone, date, index )
+											? partial( this.props.toggleDone, done.id )
 											: null
 									} />,
 								<DonesListItemText
-									onMouseDown={ partial( this.startTrackingSelection, index ) }
+									onMouseDown={ partial( this.startTrackingSelection, done.id ) }
 									onClick={ this.editDone }>
 									{ done.text }
 								</DonesListItemText>,
 								<button
 									type="button"
-									onClick={ partial( this.deleteDone, index ) }
+									onClick={ partial( this.deleteDone, done.id ) }
 									className="dones-list__trash">
 									<Icon icon="trash" size={ 18 } />
 								</button>
 							] }
 					</li>
 				) ) }
-				{ ! dones && <li className="dones-list__item is-placeholder" /> }
-				{ dones && ! dones.length && (
+				{ ! hasReceived && <li className="dones-list__item is-placeholder" /> }
+				{ hasReceived && 0 === dones.length && (
 					<em>{ translate( 'Nothing reported yet!' ) }</em>
 				) }
 			</ul>
@@ -148,7 +147,8 @@ class DonesList extends Component {
 
 export default connect(
 	( state, ownProps ) => ( {
-		dones: getUserDones( state, ownProps.userId, ownProps.date )
+		dones: getUserDones( state, ownProps.userId, ownProps.date ),
+		hasReceived: hasReceivedDones( state, ownProps.date )
 	} ),
 	{ toggleDone, deleteDone }
 )( DonesList );

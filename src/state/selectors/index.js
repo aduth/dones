@@ -1,3 +1,5 @@
+export { default as getDone } from './get-done';
+export { default as getDones } from './get-dones';
 export { default as getFormattedTitle } from './get-formatted-title';
 export { default as getMatchedRoute } from './get-matched-route';
 export { default as getRouteParam } from './get-route-param';
@@ -5,8 +7,8 @@ export { default as getRoutePath } from './get-route-path';
 export { default as getTags } from './get-tags';
 export { default as getTitle } from './get-title';
 export { default as getUser } from './get-user';
-export { default as getUserDone } from './get-user-done';
 export { default as getUserDones } from './get-user-dones';
 export { default as getUsers } from './get-users';
+export { default as hasReceivedDones } from './has-received-dones';
 export { default as isRequestingDones } from './is-requesting-dones';
 export { default as isRequestingUsers } from './is-requesting-users';

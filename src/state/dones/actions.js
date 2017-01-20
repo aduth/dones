@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import { uniqueId } from 'lodash';
+
+/**
  * Internal dependencies
  */
 import {
@@ -10,11 +15,11 @@ import {
 	DONES_REQUEST
 } from 'state/action-types';
 
-export function receiveDones( date, dones ) {
+export function receiveDones( dones, date ) {
 	return {
 		type: DONES_RECEIVE,
-		date,
-		dones
+		dones,
+		date
 	};
 }
 
@@ -28,34 +33,33 @@ export function requestDones( date ) {
 export function createDone( date, text, done ) {
 	return {
 		type: DONE_CREATE,
+		transientId: uniqueId( 'done' ),
 		date,
 		text,
 		done
 	};
 }
 
-export function toggleDone( date, index ) {
+export function toggleDone( id ) {
 	return {
 		type: DONE_TOGGLE,
-		date,
-		index
+		id
 	};
 }
 
-export function updateDone( date, index, text, done ) {
+export function updateDone( id, text, done, replaceId ) {
 	return {
 		type: DONE_UPDATE,
-		date,
-		index,
+		id,
 		text,
-		done
+		done,
+		replaceId
 	};
 }
 
-export function deleteDone( date, index ) {
+export function deleteDone( id ) {
 	return {
 		type: DONE_DELETE,
-		date,
-		index
+		id
 	};
 }

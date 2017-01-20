@@ -18,7 +18,7 @@ function dones_get_tags() {
 				ON $wpdb->term_taxonomy.term_taxonomy_id = $wpdb->term_relationships.term_taxonomy_id
 			INNER JOIN $wpdb->posts
 				ON $wpdb->posts.ID = $wpdb->term_relationships.object_id
-			WHERE $wpdb->term_taxonomy.taxonomy = 'post_tag'
+			WHERE $wpdb->term_taxonomy.taxonomy = 'done-tag'
 			GROUP BY $wpdb->terms.term_id
 			ORDER BY $wpdb->posts.post_modified DESC
 			LIMIT 250
@@ -39,7 +39,7 @@ function dones_get_tags() {
  * @param string $taxonomy   Taxonomy slug
  */
 function dones_flush_tags_cache( $object_id, $terms, $tt_ids, $taxonomy ) {
-	if ( 'post_tag' === $taxonomy ) {
+	if ( 'done-tag' === $taxonomy ) {
 		wp_cache_delete( 'dones_tags' );
 	}
 }

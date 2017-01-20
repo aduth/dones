@@ -192,3 +192,87 @@ function dones_allow_list_user( $args ) {
 	return $args;
 }
 add_filter( 'rest_user_query', 'dones_allow_list_user' );
+
+/**
+ * Register custom post types and taxonomies.
+ */
+function dones_register_custom_types() {
+	// Done custom post type
+	register_post_type( 'done', array(
+		'labels'                 => array(
+			'name'               => _x( 'Dones', 'post type general name', 'dones' ),
+			'singular_name'      => _x( 'Done', 'post type singular name', 'dones' ),
+			'menu_name'          => _x( 'Dones', 'admin menu', 'dones' ),
+			'name_admin_bar'     => _x( 'Done', 'add new on admin bar', 'dones' ),
+			'add_new'            => _x( 'Add New', 'done', 'dones' ),
+			'add_new_item'       => __( 'Add New Done', 'dones' ),
+			'new_item'           => __( 'New Done', 'dones' ),
+			'edit_item'          => __( 'Edit Done', 'dones' ),
+			'view_item'          => __( 'View Done', 'dones' ),
+			'all_items'          => __( 'All Dones', 'dones' ),
+			'search_items'       => __( 'Search Dones', 'dones' ),
+			'parent_item_colon'  => null,
+			'not_found'          => __( 'No dones found.', 'dones' ),
+			'not_found_in_trash' => __( 'No dones found in Trash.', 'dones' ),
+		),
+		'description'            => __( 'Tasks completed or to be completed.', 'dones' ),
+		'public'                 => true,
+		'show_ui'                => true,
+		'has_archive'            => false,
+		'show_in_menu'           => true,
+		'menu_icon'              => 'dashicons-list-view',
+		'exclude_from_search'    => true,
+		'capability_type'        => 'post',
+		'map_meta_cap'           => true,
+		'rewrite'                => false,
+		'query_var'              => false,
+		'supports'               => array( 'title', 'author' ),
+	) );
+
+	// Done tag custom taxonomy
+	register_taxonomy( 'done-tag', 'done', array(
+		'labels'                => array(
+			'name'              => _x( 'Done Tags', 'taxonomy general name', 'dones' ),
+			'singular_name'     => _x( 'Done Tag', 'taxonomy singular name', 'dones' ),
+			'search_items'      => __( 'Search Done Tags', 'dones' ),
+			'all_items'         => __( 'All Done Tags', 'dones' ),
+			'parent_item'       => null,
+			'parent_item_colon' => null,
+			'edit_item'         => __( 'Edit Done Tag', 'dones' ),
+			'update_item'       => __( 'Update Done Tag', 'dones' ),
+			'add_new_item'      => __( 'Add New Done Tag', 'dones' ),
+			'new_item_name'     => __( 'New Done Tag Name', 'dones' ),
+			'menu_name'         => __( 'Done Tag', 'dones' ),
+		),
+		'rewrite'               => false,
+		'show_ui'               => true,
+		'show_admin_column'     => true,
+		'query_var'             => false,
+		'public'                => true,
+		'update_count_callback' => '_update_post_term_count',
+	) );
+}
+add_action( 'init', 'dones_register_custom_types' );
+
+/**
+ * Removes the Done Tags column from the manage (admin) list view
+ */
+function dones_remove_tags_manage_column( $columns ) {
+	unset( $columns['taxonomy-done-tag'] );
+	$columns['title'] = _x( 'Done Text', 'manage column name', 'dones' );
+	return $columns;
+}
+add_filter( 'manage_done_posts_columns', 'dones_remove_tags_manage_column' );
+
+/**
+ * Reassigns tags for done post upon save, generated from title.
+ *
+ * @param int     $post_id Post ID
+ * @param WP_Post $post    Post object
+ */
+function dones_assign_done_tags( $post_id, $post ) {
+	preg_match_all( '/(^|\s)#(\S+)\b/', $post->post_title, $tag_matches );
+	$tags = $tag_matches[2];
+	wp_set_post_terms( $post_id, $tags, 'done-tag' );
+}
+add_action( 'save_post_done', 'dones_assign_done_tags', 10, 2 );
