@@ -1,8 +1,12 @@
 .card {
-	margin-bottom: 1.6rem;
+	margin-bottom: 0.8rem;
 	background-color: #fff;
 	border-radius: $border-radius;
 	border: 1px solid $border-color;
+
+	@include medium() {
+		margin-bottom: 1.6rem;
+	}
 }
 
 .card__header {

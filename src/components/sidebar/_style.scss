@@ -11,13 +11,14 @@
 		top: 0;
 		right: 0;
 		z-index: 1000;
+		height: $sidebar-width-medium;
 	}
 
 	@include desktop() {
 		right: auto;
 		bottom: 0;
 		flex-direction: column;
-		width: $sidebar-width;
+		width: $sidebar-width-medium;
 		height: auto;
 		border-right-width: 1px;
 		border-bottom-width: 0;
@@ -36,6 +37,11 @@
 .sidebar__action {
 	width: $sidebar-width;
 	height: $sidebar-width;
+
+	@include medium() {
+		width: $sidebar-width-medium;
+		height: $sidebar-width-medium;
+	}
 }
 
 .sidebar__logo-link {
@@ -78,7 +84,7 @@
 	border-bottom-width: 0;
 
 	@include desktop() {
-		height: $sidebar-width;
+		height: $sidebar-width-medium;
 		width: 100%;
 		border-top-width: 1px;
 		border-bottom-width: 1px;

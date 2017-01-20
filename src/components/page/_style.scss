@@ -1,21 +1,27 @@
 .page {
 	@include medium() {
-		padding-top: $sidebar-width;
+		padding-top: $sidebar-width-medium;
 	}
 
 	@include desktop() {
 		padding-top: 0;
-		padding-left: $sidebar-width;
+		padding-left: $sidebar-width-medium;
 	}
 }
 
 .page__content {
 	width: $content-width;
 	max-width: 100%;
-	margin: 1.6rem auto;
-	padding: 0 1.6rem;
+	margin: 0.8rem auto;
+	padding: 0 0.8rem;
+
+	@include medium() {
+		margin: 1.6rem auto;
+		padding: 0 1.6rem;
+	}
 
 	@include desktop() {
-		margin-top: 2.6rem;
+		margin: 2.6rem auto;
+		padding: 0 2.6rem;
 	}
 }

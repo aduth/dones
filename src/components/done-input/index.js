@@ -213,7 +213,7 @@ class DoneInput extends Component {
 					selectionOffset={ selectionOffset }
 					rows="1"
 					suggestions={ suggestions }
-					placeholder={ translate( 'What did you get done today?' ) }
+					placeholder={ translate( 'What have you been up to?' ) }
 					autoFocus />
 				<div className="done-input__actions">
 					{ map( actions, ( action, i ) => (

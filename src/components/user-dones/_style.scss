@@ -6,4 +6,21 @@
 
 .user-dones__input {
 	margin-top: 1rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 0;
+    border-width: 0;
+    border-top-width: 1px;
+    background-color: white;
+    padding: 0.2rem;
+
+    @include medium() {
+    	position: static;
+    	padding: 0;
+    	border-radius: $border-radius;
+    	border-width: 1px;
+    	background-color: transparent;
+    }
 }
