@@ -19,7 +19,7 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 				'callback'            => array( $this, 'get_items' ),
 				'args'                => array(
 					'date'            => array(
-						'description' => _x( 'The date the done was published, in YYYY-MM-DD format.', 'dones' ),
+						'description' => __( 'The date the done was published, in YYYY-MM-DD format.', 'dones' ),
 						'type'        => 'string'
 					)
 				)
@@ -97,7 +97,7 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 		$post['ID'] = wp_insert_post( $post );
 
 		if ( is_wp_error( $post['ID'] ) || 0 === $post['ID'] ) {
-			return new WP_Error( 'rest_cannot_create', _x( 'The done cannot be created.', 'dones' ), array( 'status' => 500 ) );
+			return new WP_Error( 'rest_cannot_create', __( 'The done cannot be created.', 'dones' ), array( 'status' => 500 ) );
 		}
 
 		return $this->prepare_item_for_response( (object) $post, $request );
@@ -129,7 +129,7 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 		$success = ( 0 !== wp_update_post( $post ) );
 
 		if ( ! $success ) {
-			return new WP_Error( 'rest_cannot_update', _x( 'The done cannot be updated.', 'dones' ), array( 'status' => 500 ) );
+			return new WP_Error( 'rest_cannot_update', __( 'The done cannot be updated.', 'dones' ), array( 'status' => 500 ) );
 		}
 
 		return $this->prepare_item_for_response( $post, $request );
@@ -152,7 +152,7 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 			return array( 'deleted' => true );
 		}
 
-		return new WP_Error( 'rest_cannot_delete', _x( 'The done cannot be deleted.', 'dones' ), array( 'status' => 500 ) );
+		return new WP_Error( 'rest_cannot_delete', __( 'The done cannot be deleted.', 'dones' ), array( 'status' => 500 ) );
 	}
 
 	/**
@@ -164,7 +164,7 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 	 */
 	public function is_logged_in_permissions_check( $request ) {
 		if ( ! is_user_logged_in() ) {
-			return new WP_error( 'rest_unauthorized', _x( 'You must be logged in to create dones.', 'dones' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_error( 'rest_unauthorized', __( 'You must be logged in to create dones.', 'dones' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -216,7 +216,7 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 		}
 
 		if ( ! preg_match( '/^(\d{4})-(\d{2})-(\d{2})$/', $date, $date_matches ) ) {
-			return new WP_Error( 'invalid_input', _x( 'Invalid date.', 'dones' ) );
+			return new WP_Error( 'invalid_input', __( 'Invalid date.', 'dones' ) );
 		}
 
 		return array(
@@ -246,25 +246,25 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 					'readonly'    => true,
 				),
 				'user'            => array(
-					'description' => _x( 'Unique identifier of user to which the done belongs.', 'dones' ),
+					'description' => __( 'Unique identifier of user to which the done belongs.', 'dones' ),
 					'type'        => 'integer',
 					'readonly'    => true
 				),
 				'text'            => array(
-					'description' => _x( 'Text of the task completed.', 'dones' ),
+					'description' => __( 'Text of the task completed.', 'dones' ),
 					'type'        => 'string'
 				),
 				'done'            => array(
-					'description' => _x( 'Whether the task has been completed or is a goal to be accomplished.', 'dones' ),
+					'description' => __( 'Whether the task has been completed or is a goal to be accomplished.', 'dones' ),
 					'type'        => 'boolean',
 					'default'     => true
 				),
 				'date'            => array(
-					'description' => _x( 'The date the done was published, in YYYY-MM-DD format.', 'dones' ),
+					'description' => __( 'The date the done was published, in YYYY-MM-DD format.', 'dones' ),
 					'type'        => 'string'
 				),
 				'index'           => array(
-					'description' => _x( 'Index of the done to be updated.', 'dones' ),
+					'description' => __( 'Index of the done to be updated.', 'dones' ),
 					'type'        => 'integer'
 				)
 			)

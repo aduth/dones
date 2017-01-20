@@ -50,12 +50,12 @@ function dones_scripts() {
 			'/wp/v2/users'
 		) ), 'dones_preload_request', array() ),
 		'i18n'       => array(
-			'Done'     => _x( 'Done', 'dones' ),
-			'Goal'     => _x( 'Goal', 'dones' ),
-			'Previous' => _x( 'Previous', 'dones' ),
-			'Next'     => _x( 'Next', 'dones' ),
-			'Log In'   => _x( 'Log In', 'dones' ),
-			'Log Out'  => _x( 'Log Out', 'dones' )
+			'Done'     => __( 'Done', 'dones' ),
+			'Goal'     => __( 'Goal', 'dones' ),
+			'Previous' => __( 'Previous', 'dones' ),
+			'Next'     => __( 'Next', 'dones' ),
+			'Log In'   => __( 'Log In', 'dones' ),
+			'Log Out'  => __( 'Log Out', 'dones' )
 		)
 	) );
 }
