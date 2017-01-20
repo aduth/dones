@@ -8,6 +8,13 @@
  */
 class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 	/**
+	 * Regular expression matching acceptable format of incoming date argument.
+	 *
+	 * @type string
+	 */
+	const DATE_REGEXP = '/^(\d{4})-(\d{2})-(\d{2}).*/';
+
+	/**
 	 * Registers the routes for the objects of the controller.
 	 *
 	 * @see register_rest_route()
@@ -20,7 +27,10 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 				'args'                => array(
 					'date'            => array(
 						'description' => __( 'The date the done was published, in YYYY-MM-DD format.', 'dones' ),
-						'type'        => 'string'
+						'type'        => 'string',
+						'arg_options' => array(
+							'sanitize_callback' => array( $this, 'sanitize_date' )
+						)
 					)
 				)
 			),
@@ -80,19 +90,12 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 	 * @return WP_REST_Response|WP_Error          Response or WP_Error
 	 */
 	public function create_item( $request ) {
-		// Generate date string from request or current time
-		if ( empty( $request['date'] ) ) {
-			$date = current_time( 'Y-m-d' );
-		} else {
-			$date = $request['date'];
-		}
-
 		$post = array(
 			'post_type'   => 'done',
 			'post_author' => get_current_user_id(),
 			'post_title'  => $request['text'],
 			'post_status' => $request['done'] ? 'publish' : 'draft',
-			'post_date'   => $date . ' 00:00:00',
+			'post_date'   => $request['date'],
 		);
 		$post['ID'] = wp_insert_post( $post );
 
@@ -209,15 +212,7 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 	 * @return array                    Base WP_Query arguments
 	 */
 	public function get_done_base_args( $request ) {
-		if ( empty( $request['date'] ) ) {
-			$date = current_time( 'Y-m-d' );
-		} else {
-			$date = $request['date'];
-		}
-
-		if ( ! preg_match( '/^(\d{4})-(\d{2})-(\d{2})$/', $date, $date_matches ) ) {
-			return new WP_Error( 'invalid_input', __( 'Invalid date.', 'dones' ) );
-		}
+		preg_match( self::DATE_REGEXP, $request['date'], $date_matches );
 
 		return array(
 			'post_type'   => 'done',
@@ -227,6 +222,20 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 			'monthnum'    => (int) $date_matches[2],
 			'day'         => (int) $date_matches[3]
 		);
+	}
+
+	/**
+	 * Enforces and coerces incoming date value to proper format.
+	 *
+	 * @param  string $value Incoming date
+	 * @return string        Formatted date
+	 */
+	public function sanitize_date( $value ) {
+		if ( empty( $value ) || ! preg_match( self::DATE_REGEXP, $value ) ) {
+			$value = current_time( 'Y-m-d' );
+		}
+
+		return preg_replace( self::DATE_REGEXP, '$1-$2-$3 00:00:00', $value );
 	}
 
 	/**
@@ -260,8 +269,11 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 					'default'     => true
 				),
 				'date'            => array(
-					'description' => __( 'The date the done was published, in YYYY-MM-DD format.', 'dones' ),
-					'type'        => 'string'
+					'description' => __( 'The date the done was published.', 'dones' ),
+					'type'        => 'string',
+					'arg_options' => array(
+						'sanitize_callback' => array( $this, 'sanitize_date' )
+					)
 				),
 				'index'           => array(
 					'description' => __( 'Index of the done to be updated.', 'dones' ),
