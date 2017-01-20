@@ -86,6 +86,7 @@ if ( 'production' === process.env.NODE_ENV ) {
 		} )
 	);
 } else {
+	config.entry.app.push( 'preact/devtools' );
 	config.module.rules.push( {
 		test: /\.s?css$/,
 		use: [
