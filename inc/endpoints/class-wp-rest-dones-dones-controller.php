@@ -217,6 +217,7 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 		return array(
 			'post_type'      => 'done',
 			'post_status'    => array( 'publish', 'draft' ),
+			'orderby'        => 'ID',
 			'order'          => 'asc',
 			'year'           => (int) $date_matches[1],
 			'monthnum'       => (int) $date_matches[2],
