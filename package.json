@@ -12,7 +12,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "prebuild": "npm run clean",
-    "build": "NODE_ENV=production webpack",
+    "build": "cross-env NODE_ENV=production webpack",
     "lint": "eslint src",
     "predev": "npm run clean",
     "dev": "webpack --watch"
@@ -29,6 +29,7 @@
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-latest": "^6.16.0",
     "babel-preset-stage-2": "^6.18.0",
+    "cross-env": "^3.1.4",
     "css-loader": "^0.26.1",
     "eslint": "^3.13.1",
     "eslint-config-wpcalypso": "^0.6.0",
@@ -41,7 +42,7 @@
     "rimraf": "^2.5.4",
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.1",
-    "webpack": "^2.2.0-rc.7"
+    "webpack": "^2.2.0"
   },
   "dependencies": {
     "autosize": "^3.0.20",
