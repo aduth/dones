@@ -52,9 +52,9 @@ export default {
 			const path = `/dones/v1/dones?${ stringifyQuery( { date } ) }`;
 			const dones = await Request.get( path );
 			store.dispatch( receiveDones( date, dones ) );
-			store.dispatch( { type: DONES_REQUEST_SUCCESS } );
+			store.dispatch( { type: DONES_REQUEST_SUCCESS, date } );
 		} catch ( error ) {
-			store.dispatch( { type: DONES_REQUEST_FAILURE, error } );
+			store.dispatch( { type: DONES_REQUEST_FAILURE, date, error } );
 		}
 	}
 };
