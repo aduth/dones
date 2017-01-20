@@ -215,12 +215,13 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 		preg_match( self::DATE_REGEXP, $request['date'], $date_matches );
 
 		return array(
-			'post_type'   => 'done',
-			'post_status' => array( 'publish', 'draft' ),
-			'order'       => 'asc',
-			'year'        => (int) $date_matches[1],
-			'monthnum'    => (int) $date_matches[2],
-			'day'         => (int) $date_matches[3]
+			'post_type'      => 'done',
+			'post_status'    => array( 'publish', 'draft' ),
+			'order'          => 'asc',
+			'year'           => (int) $date_matches[1],
+			'monthnum'       => (int) $date_matches[2],
+			'day'            => (int) $date_matches[3],
+			'posts_per_page' => -1
 		);
 	}
 
