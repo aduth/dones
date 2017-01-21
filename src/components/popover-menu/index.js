@@ -99,7 +99,11 @@ export default class PopoverMenu extends Component {
 
 						return (
 							<li key={ i } className={ itemClasses }>
-								{ child }
+								<button
+									onMouseDown={ partial( onSelect, child ) }
+									className="popover-menu__button">
+									{ child }
+								</button>
 							</li>
 						);
 					} ) }

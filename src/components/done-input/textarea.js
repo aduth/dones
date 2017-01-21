@@ -70,8 +70,12 @@ export default class DoneInputTextarea extends Component {
 		this.props.onInput( event );
 	};
 
-	onSelect = ( suggestion ) => {
+	onSelectSuggestion = ( suggestion ) => {
+		// Insert suggestion at current caret index
 		this.props.onSuggestionSelected( suggestion, this.textarea.selectionStart );
+
+		// If suggestion inserted via click on PopoverMenu, preserve focus
+		setTimeout( () => this.textarea && this.textarea.focus() );
 	};
 
 	render() {
@@ -88,7 +92,7 @@ export default class DoneInputTextarea extends Component {
 				<PopoverMenu
 					position="bottom-left"
 					selectKeyCode={ 9 }
-					onSelect={ this.onSelect }
+					onSelect={ this.onSelectSuggestion }
 					items={ suggestions }
 					style={ style } />
 			</div>
