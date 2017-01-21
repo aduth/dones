@@ -137,6 +137,8 @@ class DoneInput extends Component {
 			event.preventDefault();
 		}
 
+		this.props.onSubmit();
+
 		if ( text === initialText && done === initialDone ) {
 			return;
 		}
@@ -146,8 +148,6 @@ class DoneInput extends Component {
 		} else if ( text ) {
 			this.props.createDone( date, text, done );
 		}
-
-		this.props.onSubmit();
 
 		this.setState( {
 			text: this.constructor.defaultProps.initialText,
