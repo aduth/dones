@@ -142,11 +142,7 @@ class DoneInput extends Component {
 		}
 
 		if ( this.isEditing() ) {
-			if ( text ) {
-				this.props.updateDone( id, text, done );
-			} else if ( confirm( translate( 'Are you sure you want to delete this done?' ) ) ) {
-				this.props.deleteDone( id );
-			}
+			this.props.updateDone( id, text, done );
 		} else if ( text ) {
 			this.props.createDone( date, text, done );
 		}
