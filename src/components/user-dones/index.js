@@ -45,7 +45,4 @@ function UserDones( { userId, date, avatar, name } ) {
 	);
 }
 
-export default connect( ( state, ownProps ) => ( {
-	...getUser( state, ownProps.userId )
-} ) )( UserDones );
-
+export default connect( ( state, { userId } ) => getUser( state, userId ) )( UserDones );

@@ -15,18 +15,18 @@ import {
 	DONES_REQUEST
 } from 'state/action-types';
 
-export function receiveDones( dones, date ) {
+export function receiveDones( dones, query ) {
 	return {
 		type: DONES_RECEIVE,
 		dones,
-		date
+		query
 	};
 }
 
-export function requestDones( date ) {
+export function requestDones( query ) {
 	return {
 		type: DONES_REQUEST,
-		date
+		query
 	};
 }
 

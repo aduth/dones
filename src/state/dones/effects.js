@@ -43,19 +43,19 @@ export default {
 			body: { text, done }
 		} );
 	},
-	[ DONES_REQUEST ]: async ( store, { date } ) => {
+	[ DONES_REQUEST ]: async ( store, { query } ) => {
 		const state = store.getState();
-		if ( isRequestingDones( state, date ) ) {
+		if ( isRequestingDones( state, query ) ) {
 			return;
 		}
 
 		try {
-			const path = `/dones/v1/dones?${ stringifyQuery( { date } ) }`;
+			const path = `/dones/v1/dones?${ stringifyQuery( query ) }`;
 			const dones = await Request.get( path );
-			store.dispatch( receiveDones( dones, date ) );
-			store.dispatch( { type: DONES_REQUEST_SUCCESS, date } );
+			store.dispatch( receiveDones( dones, query ) );
+			store.dispatch( { type: DONES_REQUEST_SUCCESS, query } );
 		} catch ( error ) {
-			store.dispatch( { type: DONES_REQUEST_FAILURE, date, error } );
+			store.dispatch( { type: DONES_REQUEST_FAILURE, query, error } );
 		}
 	}
 };

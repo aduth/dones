@@ -7,7 +7,6 @@ export { default as getRoutePath } from './get-route-path';
 export { default as getTags } from './get-tags';
 export { default as getTitle } from './get-title';
 export { default as getUser } from './get-user';
-export { default as getUserDones } from './get-user-dones';
 export { default as getUsers } from './get-users';
 export { default as hasReceivedDones } from './has-received-dones';
 export { default as isRequestingDones } from './is-requesting-dones';

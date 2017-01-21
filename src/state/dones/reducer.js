@@ -3,6 +3,7 @@
  */
 import { combineReducers } from 'redux';
 import { reduce, defaults, isEqual, omit } from 'lodash';
+import stringify from 'fast-stable-stringify';
 
 /**
  * Internal dependencies
@@ -77,13 +78,14 @@ function requesting( state = {}, action ) {
 		case DONES_REQUEST_FAILURE:
 		case DONES_REQUEST_SUCCESS:
 			const isRequesting = DONES_REQUEST === action.type;
-			if ( state[ action.date ] === isRequesting ) {
+			const key = stringify( action.query );
+			if ( state[ key ] === isRequesting ) {
 				return state;
 			}
 
 			return {
 				...state,
-				[ action.date ]: isRequesting
+				[ key ]: isRequesting
 			};
 	}
 
@@ -93,14 +95,14 @@ function requesting( state = {}, action ) {
 function received( state = {}, action ) {
 	switch ( action.type ) {
 		case DONES_RECEIVE:
-			const { date } = action;
-			if ( ! date ) {
+			const { query } = action;
+			if ( ! query ) {
 				break;
 			}
 
 			return {
 				...state,
-				[ date ]: true
+				[ stringify( query ) ]: true
 			};
 	}
 

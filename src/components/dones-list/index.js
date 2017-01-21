@@ -16,7 +16,7 @@ import DoneStatus from 'components/done-status';
 import DoneInput from 'components/done-input';
 import Icon from 'components/icon';
 import { toggleDone, deleteDone } from 'state/dones/actions';
-import { getUserDones, hasReceivedDones } from 'state/selectors';
+import { getDones, hasReceivedDones } from 'state/selectors';
 import DonesListItemText from './item-text';
 
 class DonesList extends Component {
@@ -99,7 +99,7 @@ class DonesList extends Component {
 
 		return (
 			<ul className={ classes }>
-				<QueryDones date={ date } />
+				<QueryDones query={ { date } } />
 				{ map( sortBy( dones, 'id' ), ( done, index ) => (
 					<li
 						key={ index }
@@ -146,9 +146,13 @@ class DonesList extends Component {
 }
 
 export default connect(
-	( state, ownProps ) => ( {
-		dones: getUserDones( state, ownProps.userId, ownProps.date ),
-		hasReceived: hasReceivedDones( state, ownProps.date )
-	} ),
+	( state, ownProps ) => {
+		const { date, userId } = ownProps;
+
+		return {
+			dones: getDones( state, { userId, date } ),
+			hasReceived: hasReceivedDones( state, { date } )
+		};
+	},
 	{ toggleDone, deleteDone }
 )( DonesList );
