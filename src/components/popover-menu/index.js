@@ -3,7 +3,7 @@
  */
 import { h, Component } from 'preact';
 import classNames from 'classnames';
-import { map } from 'lodash';
+import { size, map, partial } from 'lodash';
 
 /**
  * Internal dependencies
@@ -39,10 +39,6 @@ export default class PopoverMenu extends Component {
 	}
 
 	isVisible() {
-		if ( 'isVisible' in this.props ) {
-			return this.props.isVisible;
-		}
-
 		return this.props.items.length > 0;
 	}
 
@@ -81,14 +77,17 @@ export default class PopoverMenu extends Component {
 	};
 
 	render() {
-		const { position, target, items, style } = this.props;
+		const { position, items, style, onSelect } = this.props;
 		const { selectedIndex } = this.state;
+
+		if ( 0 === size( items ) ) {
+			return null;
+		}
 
 		return (
 			<Popover
 				isVisible={ this.isVisible() }
 				position={ position }
-				target={ target }
 				style={ style }
 				className="popover-menu">
 				<ul className="popover-menu__list">

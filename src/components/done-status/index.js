@@ -35,12 +35,12 @@ export default class DoneStatus extends Component {
 				type="button"
 				onClick={ this.onToggle }
 				className={ classes }>
-				<Tooltip>{ text }</Tooltip>
 				<Icon
 					icon="check"
 					size={ 14 }>
 					{ text }
 				</Icon>
+				<Tooltip>{ text }</Tooltip>
 			</button>
 		);
 	}

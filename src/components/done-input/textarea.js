@@ -4,7 +4,6 @@
 import { h, Component } from 'preact';
 import autosize from 'autosize';
 import caret from 'textarea-caret';
-import { size } from 'lodash';
 
 /**
  * Internal dependencies
@@ -16,10 +15,6 @@ export default class DoneInputTextarea extends Component {
 		onSuggestionSelected: () => {},
 		onInput: () => {}
 	}
-
-	state = {
-		hasFocus: false
-	};
 
 	componentDidMount() {
 		const { autoFocus, selectionOffset } = this.props;
@@ -59,20 +54,16 @@ export default class DoneInputTextarea extends Component {
 
 	setRef = ( textarea ) => this.textarea = textarea;
 
-	toggleFocus = ( event ) => {
-		this.setState( {
-			hasFocus: document.activeElement === event.target
-		} );
-	};
-
 	setCaretOffset = ( event ) => {
+		// Calculate caret offset for use in positioning suggestions menu
 		const { target } = event;
-		const { left, top } = caret( target, target.selectionEnd );
 		const { lineHeight } = window.getComputedStyle( target );
+		let { left, top } = caret( target, target.selectionEnd );
+		left -= 13;
+		top += parseInt( lineHeight, 10 ) - target.clientHeight;
 		this.setState( {
 			style: {
-				top: top + parseInt( lineHeight, 10 ) - target.clientHeight,
-				left: left - 13
+				transform: `translate( ${ left }px, ${ top }px )`
 			}
 		} );
 
@@ -85,7 +76,7 @@ export default class DoneInputTextarea extends Component {
 
 	render() {
 		const { suggestions } = this.props;
-		const { hasFocus, style } = this.state;
+		const { style } = this.state;
 
 		return (
 			<div className="done-input__textarea">
@@ -93,12 +84,8 @@ export default class DoneInputTextarea extends Component {
 					ref={ this.setRef }
 					{ ...this.props }
 					onInput={ this.setCaretOffset }
-					onFocus={ this.toggleFocus }
-					onFocusOut={ this.toggleFocus }
 					className="done-input__textarea-input" />
 				<PopoverMenu
-					isVisible={ hasFocus && size( suggestions ) > 0 }
-					target={ this.textarea }
 					position="bottom-left"
 					selectKeyCode={ 9 }
 					onSelect={ this.onSelect }

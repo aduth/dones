@@ -1,8 +1,7 @@
 .popover {
 	list-style-type: none;
-	position: fixed;
+	position: absolute;
 	z-index: 100;
-	top: 100%;
 	margin: 0;
 	padding: 0.2rem 0.8rem;
 	background-color: #fff;
@@ -29,8 +28,8 @@
 	}
 
 	&.is-top {
-		transform: translateY( -100% );
-		margin-top: -5px;
+		bottom: 100%;
+		margin-bottom: 5px;
 
 		&::before,
 		&::after {
@@ -49,6 +48,7 @@
 	}
 
 	&.is-bottom {
+		top: 100%;
 		margin-top: 5px;
 
 		&::before,
@@ -68,6 +68,7 @@
 	}
 
 	&.is-left {
+		left: 0;
 		margin-left: -6px;
 
 		&::before {
@@ -80,6 +81,7 @@
 	}
 
 	&.is-center {
+		left: 50%;
 		transform: translateX( -50% );
 
 		&::before {
@@ -94,6 +96,7 @@
 	}
 
 	&.is-right {
+		left: 100%;
 		transform: translateX( -100% );
 		margin-left: 6px;
 
@@ -104,13 +107,5 @@
 		&::after {
 			right: 11px;
 		}
-	}
-
-	&.is-top.is-center {
-		transform: translateX( -50% ) translateY( -100% );
-	}
-
-	&.is-top.is-right {
-		transform: translateX( -100% ) translateY( -100% );
 	}
 }

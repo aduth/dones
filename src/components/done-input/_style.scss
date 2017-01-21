@@ -42,5 +42,13 @@
 	width: 100%;
 	padding-left: 0;
 	border-width: 0;
+
+	& + .popover {
+		display: none;
+	}
+
+	&:focus + .popover {
+		display: block;
+	}
 }
 
