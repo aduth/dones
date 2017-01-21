@@ -41,8 +41,15 @@ export default class DoneInputTextarea extends Component {
 	}
 
 	componentDidUpdate( prevProps ) {
-		if ( this.props.value !== prevProps.value ) {
+		const { value, selectionOffset } = this.props;
+
+		if ( value !== prevProps.value ) {
 			this.resize();
+		}
+
+		if ( selectionOffset && selectionOffset !== prevProps.selectionOffset ) {
+			const [ start, stop ] = selectionOffset;
+			this.textarea.setSelectionRange( start, stop );
 		}
 	}
 
@@ -72,6 +79,10 @@ export default class DoneInputTextarea extends Component {
 		this.props.onInput( event );
 	};
 
+	onSelect = ( suggestion ) => {
+		this.props.onSuggestionSelected( suggestion, this.textarea.selectionStart );
+	};
+
 	render() {
 		const { suggestions } = this.props;
 		const { hasFocus, style } = this.state;
@@ -90,7 +101,7 @@ export default class DoneInputTextarea extends Component {
 					target={ this.textarea }
 					position="bottom-left"
 					selectKeyCode={ 9 }
-					onSelect={ this.props.onSuggestionSelected }
+					onSelect={ this.onSelect }
 					items={ suggestions }
 					style={ style } />
 			</div>

@@ -40,6 +40,9 @@ class DoneInput extends Component {
 
 	componentDidUpdate() {
 		this.attachEventHandler();
+
+		// Clear temporary suggestion offset after assigned
+		delete this._suggestionOffset;
 	}
 
 	componentWillUnmount() {
@@ -93,14 +96,22 @@ class DoneInput extends Component {
 		} );
 	};
 
-	insertSuggestion = ( suggestion ) => {
+	insertSuggestion = ( suggestion, index ) => {
 		const { tagFragment, text } = this.state;
 		if ( ! tagFragment ) {
 			return;
 		}
 
+		// Changing text state will move cursor to end of input, so assign
+		// temporary instance variable to force offset to be preserved
+		const offsetIndex = index - tagFragment.length + suggestion.length + 1;
+		this._suggestionOffset = [ offsetIndex, offsetIndex ];
+
 		this.setState( {
-			text: text.substr( 0, text.length - tagFragment.length ) + suggestion + ' ',
+			text: [
+				text.substr( 0, index - tagFragment.length ) + suggestion,
+				text.substr( index ).replace( /^ /, '' )
+			].join( ' ' ),
 			tagFragment: null
 		} );
 	};
@@ -210,7 +221,7 @@ class DoneInput extends Component {
 					onInput={ this.setText }
 					onKeyDown={ this.maybeSubmit }
 					onSuggestionSelected={ this.insertSuggestion }
-					selectionOffset={ selectionOffset }
+					selectionOffset={ this._suggestionOffset || selectionOffset }
 					rows="1"
 					suggestions={ suggestions }
 					placeholder={ translate( 'What have you been up to?' ) }
