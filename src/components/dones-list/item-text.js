@@ -22,7 +22,7 @@ export default function DonesListItemText( { onClick, onMouseDown, children } ) 
 		/(^|\s)#(\S+)\b/,
 		( [ , whitespace, tag ] ) => [
 			whitespace,
-			<Link to={ `/tag/${ tag }` }>
+			<Link to={ `/tags/${ tag }/` }>
 				#{ tag }
 			</Link>
 		]

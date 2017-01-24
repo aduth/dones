@@ -91,7 +91,7 @@ class DonesList extends Component {
 	}
 
 	render() {
-		const { date, dones, hasReceived } = this.props;
+		const { query, dones, hasReceived } = this.props;
 		const { editing } = this.state;
 		const classes = classNames( 'dones-list', {
 			'is-editable': this.isEditable()
@@ -99,7 +99,7 @@ class DonesList extends Component {
 
 		return (
 			<ul className={ classes }>
-				<QueryDones query={ { date } } />
+				<QueryDones query={ query } />
 				{ map( sortBy( dones, 'id' ), ( done, index ) => (
 					<li
 						key={ index }
@@ -146,13 +146,9 @@ class DonesList extends Component {
 }
 
 export default connect(
-	( state, ownProps ) => {
-		const { date, userId } = ownProps;
-
-		return {
-			dones: getDones( state, { userId, date } ),
-			hasReceived: hasReceivedDones( state, { date } )
-		};
-	},
+	( state, { query } ) => ( {
+		dones: getDones( state, query ),
+		hasReceived: hasReceivedDones( state, query )
+	} ),
 	{ toggleDone, deleteDone }
 )( DonesList );

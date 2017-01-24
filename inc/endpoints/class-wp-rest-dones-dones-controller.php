@@ -31,6 +31,15 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 						'arg_options' => array(
 							'sanitize_callback' => array( $this, 'sanitize_date' )
 						)
+					),
+					'page'            => array(
+						'description' => __( 'When paginating, page of dones to return', 'dones' ),
+						'type'        => 'integer',
+						'default'     => 1
+					),
+					'tag'             => array(
+						'description' => __( 'Include dones by tag.', 'dones' ),
+						'type'        => 'string'
 					)
 				)
 			),
@@ -80,7 +89,16 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 			$dones[] = $this->prepare_item_for_response( $post, $request );
 		}
 
-		return $dones;
+		$response = rest_ensure_response( $dones );
+
+		// Add pagination headers
+		$per_page = (int) $posts_query->query_vars['posts_per_page'];
+		$total_dones = (int) $posts_query->found_posts;
+		$total_pages = -1 === $per_page ? 1 : ceil( $total_dones / $per_page );
+		$response->header( 'X-WP-Total', $total_dones );
+		$response->header( 'X-WP-TotalPages', $total_pages );
+
+		return $response;
 	}
 
 	/**
@@ -212,18 +230,35 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 	 * @return array                    Base WP_Query arguments
 	 */
 	public function get_done_base_args( $request ) {
-		preg_match( self::DATE_REGEXP, $request['date'], $date_matches );
-
-		return array(
-			'post_type'      => 'done',
-			'post_status'    => array( 'publish', 'draft' ),
-			'orderby'        => 'ID',
-			'order'          => 'asc',
-			'year'           => (int) $date_matches[1],
-			'monthnum'       => (int) $date_matches[2],
-			'day'            => (int) $date_matches[3],
-			'posts_per_page' => -1
+		$args = array(
+			'post_type'   => 'done',
+			'post_status' => array( 'publish', 'draft' ),
+			'orderby'     => empty( $request['date'] ) ? 'date' : 'ID',
+			'order'       => empty( $request['date'] ) ? 'desc' : 'asc',
+			'paged'       => (int) $request['page']
 		);
+
+		if ( ! empty( $request['date'] ) ) {
+			// Assumed to match by sanitization
+			preg_match( self::DATE_REGEXP, $request['date'], $date_matches );
+
+			$args['year'] = (int) $date_matches[1];
+			$args['monthnum'] = (int) $date_matches[2];
+			$args['day'] = (int) $date_matches[3];
+			$args['posts_per_page'] = -1;
+		}
+
+		if ( ! empty( $request['tag'] ) ) {
+			$args['tax_query'] = array(
+				array(
+					'taxonomy' => 'done-tag',
+					'field'    => 'slug',
+					'terms'    => $request['tag']
+				)
+			);
+		}
+
+		return $args;
 	}
 
 	/**

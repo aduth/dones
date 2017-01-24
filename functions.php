@@ -101,6 +101,11 @@ function dones_page_specific_preload( $paths ) {
 		$paths[] = '/dones/v1/tags';
 	}
 
+	$tag = get_query_var( 'dones_tag' );
+	if ( ! empty( $tag ) ) {
+		$paths[] = sprintf( '/dones/v1/dones?tag=%s', $tag );
+	}
+
 	return $paths;
 }
 add_filter( 'dones_preload', 'dones_page_specific_preload' );
@@ -169,6 +174,8 @@ add_action( 'rest_api_init', 'dones_create_rest_routes' );
 function dones_add_rewrite_rules() {
 	add_rewrite_rule( '^date(/(\d{4}-\d{2}-\d{2}))?/?$', 'index.php?dones_date=$matches[2]', 'top' );
 	add_rewrite_tag( '%dones_date%', '\d{4}-\d{2}-\d{2}' );
+	add_rewrite_rule( '^tags(/(\S+))?/?$', 'index.php?dones_tag=$matches[2]', 'top' );
+	add_rewrite_tag( '%dones_tag%', '\w+' );
 
 	if ( 'after_switch_theme' === current_filter() ) {
 		global $wp_rewrite;
@@ -283,6 +290,7 @@ function dones_filter_supported_rewrites( $rules ) {
 
 		// Dones rules
 		'^date(/(\d{4}-\d{2}-\d{2}))?/?$',
+		'^tags(/(\S+))?/?$'
 	);
 
 	$filtered_rules = array();
