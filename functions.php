@@ -167,8 +167,8 @@ add_action( 'rest_api_init', 'dones_create_rest_routes' );
  * Add rewrite rules for custom route patterns.
  */
 function dones_add_rewrite_rules() {
-	add_rewrite_rule( '^date/(\d{4}-\d{2}-\d{2})', 'index.php?dones_date=$matches[1]', 'top' );
-	add_rewrite_tag( '%dones_date%', '(\d{4}-\d{2}-\d{2})' );
+	add_rewrite_rule( '^date(/(\d{4}-\d{2}-\d{2}))?/?$', 'index.php?dones_date=$matches[2]', 'top' );
+	add_rewrite_tag( '%dones_date%', '\d{4}-\d{2}-\d{2}' );
 
 	if ( 'after_switch_theme' === current_filter() ) {
 		global $wp_rewrite;
@@ -263,6 +263,36 @@ function dones_remove_tags_manage_column( $columns ) {
 	return $columns;
 }
 add_filter( 'manage_done_posts_columns', 'dones_remove_tags_manage_column' );
+
+/**
+ * Filters the default rewrite rules array, returning only those explicitly
+ * supported by the theme.
+ *
+ * @param  array $rules Original rewrite rules
+ * @return array        Revised rewrite rules
+ */
+function dones_filter_supported_rewrites( $rules ) {
+	$rules_to_keep = array(
+		// Default rules
+		'^wp-json/?$',
+		'^wp-json/(.*)?',
+		'robots\.txt$',
+		'feed/(feed|rdf|rss|rss2|atom)/?$',
+		'(feed|rdf|rss|rss2|atom)/?$',
+		'embed/?$',
+
+		// Dones rules
+		'^date(/(\d{4}-\d{2}-\d{2}))?/?$',
+	);
+
+	$filtered_rules = array();
+	foreach ( $rules_to_keep as $key ) {
+		$filtered_rules[ $key ] = $rules[ $key ];
+	}
+
+    return $filtered_rules;
+}
+add_filter( 'rewrite_rules_array', 'dones_filter_supported_rewrites' );
 
 /**
  * Reassigns tags for done post upon save, generated from title.
