@@ -23,7 +23,7 @@ add_action( 'after_setup_theme', 'dones_setup' );
  */
 function dones_scripts() {
 	// Add custom fonts.
-	wp_enqueue_style( 'dones-fonts', 'http://fonts.googleapis.com/css?family=Roboto:400,700,300', array(), null );
+	wp_enqueue_style( 'dones-fonts', 'http://fonts.googleapis.com/css?family=Roboto:400,400i,700,300', array(), null );
 
 	// Theme stylesheet.
 	wp_enqueue_style( 'dones-style', get_theme_file_uri( '/dist/style.css' ), array(), DONES_VERSION );
