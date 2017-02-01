@@ -1,0 +1,13 @@
+.icon {
+	fill: currentColor;
+
+	&.is-icon-chevron-left,
+	&.is-icon-chevron-right {
+		position: relative;
+		top: 1px;
+	}
+}
+
+.icon__screen-reader-text {
+	@extend %screen-reader-text;
+}
