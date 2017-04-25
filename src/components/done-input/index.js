@@ -61,11 +61,16 @@ class DoneInput extends Component {
 
 	getTagFragment( textarea ) {
 		const { selectionStart, selectionEnd, value } = textarea;
+
+		// Only tracking fragments if not a selection range
 		if ( selectionStart !== selectionEnd ) {
 			return null;
 		}
 
+		// Find word as sequence preceding caret 'til next space
 		const word = last( value.substr( 0, selectionStart ).split( ' ' ) );
+
+		// Only consider as tag fragment if sequence starts with hash
 		if ( '#' !== word[ 0 ] ) {
 			return null;
 		}
@@ -109,7 +114,9 @@ class DoneInput extends Component {
 
 		this.setState( {
 			text: [
+				// Append suggestion to text up to and including hash character
 				text.substr( 0, index - tagFragment.length ) + suggestion,
+				// Concatenate with remainder of original text
 				text.substr( index ).replace( /^ /, '' )
 			].join( ' ' ),
 			tagFragment: null
