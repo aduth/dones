@@ -53,7 +53,7 @@ const config = module.exports = {
 			}
 		} )
 	],
-	devtool: 'source-map'
+	devtool: 'cheap-module-source-map'
 };
 
 if ( 'production' === process.env.NODE_ENV ) {
