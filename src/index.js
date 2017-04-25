@@ -9,7 +9,6 @@ import { createElement, render } from 'preact';
 import Root from 'components/root';
 import createReduxStore from 'state';
 import { replaceRoute } from 'state/routing/actions';
-import 'flatpickr/dist/flatpickr.css';
 import 'assets/stylesheets/main.scss';
 
 /**
