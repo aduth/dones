@@ -35,7 +35,7 @@
     "eslint-config-wpcalypso": "^0.6.0",
     "eslint-plugin-react": "^6.9.0",
     "eslint-plugin-wpcalypso": "^3.0.2",
-    "extract-text-webpack-plugin": "^2.0.0-beta.5",
+    "extract-text-webpack-plugin": "^2.1.0",
     "node-sass": "^4.3.0",
     "postcss-loader": "^1.2.2",
     "raw-loader": "^0.5.1",

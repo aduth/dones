@@ -64,7 +64,7 @@ if ( 'production' === process.env.NODE_ENV ) {
 	config.module.rules.push( {
 		test: /\.s?css$/,
 		loader: ExtractTextPlugin.extract( {
-			loader: [
+			use: [
 				{ loader: 'raw-loader' },
 				{ loader: 'postcss-loader' },
 				{
