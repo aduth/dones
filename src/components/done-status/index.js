@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { h, Component } from 'preact';
+import { createElement, Component } from 'preact';
 import classNames from 'classnames';
 
 /**

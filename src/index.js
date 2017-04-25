@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { h, render } from 'preact';
+import { createElement, render } from 'preact';
 
 /**
  * Internal dependencies

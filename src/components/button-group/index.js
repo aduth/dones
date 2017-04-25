@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { h } from 'preact';
+import { createElement } from 'preact';
 
 export default function ButtonGroup( { children } ) {
 	return (

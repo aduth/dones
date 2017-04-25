@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { h } from 'preact';
+import { createElement } from 'preact';
 import classNames from 'classnames';
 
 export default function Card( { className, title, subtitle, controls, children } ) {

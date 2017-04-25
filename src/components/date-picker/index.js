@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { h, Component } from 'preact';
+import { createElement, Component } from 'preact';
 import Flatpickr from 'flatpickr';
 import { omit } from 'lodash';
 

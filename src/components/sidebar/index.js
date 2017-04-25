@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { h } from 'preact';
+import { createElement } from 'preact';
 import { connect } from 'preact-redux';
 import { startsWith } from 'lodash';
 

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { h, Component } from 'preact';
+import { createElement, Component } from 'preact';
 import { connect } from 'preact-redux';
 import classNames from 'classnames';
 import { startsWith, omit, assign, uniq, compact } from 'lodash';

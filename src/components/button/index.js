@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { h } from 'preact';
+import { createElement } from 'preact';
 import classNames from 'classnames';
 import { reduce } from 'lodash';
 
@@ -13,7 +13,7 @@ import Link from 'components/link';
 export default function Button( props ) {
 	const { type, to, className, children } = props;
 
-	return h( to ? Link : 'button', {
+	return createElement( to ? Link : 'button', {
 		...props,
 		to,
 		type: to ? null : type,
