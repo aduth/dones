@@ -28,7 +28,6 @@ const config = module.exports = {
 		publicPath: '/'
 	},
 	resolve: {
-		extensions: [ '.js' ],
 		modules: [ 'src', 'node_modules' ]
 	},
 	module: {
