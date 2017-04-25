@@ -13,7 +13,8 @@ import {
 	DONE_DELETE,
 	DONE_TOGGLE,
 	DONE_UPDATE,
-	DONES_REQUEST
+	DONES_REQUEST,
+	REQUEST
 } from 'state/action-types';
 import { updateDone, receiveDones } from 'state/dones/actions';
 import { getDone } from 'state/selectors';
@@ -46,7 +47,7 @@ export default {
 		try {
 			const path = `${ API_ROOT }/dones/v1/dones?${ stringifyQuery( query ) }`;
 			store.dispatch( {
-				type: 'FETCH',
+				type: REQUEST,
 				url: path,
 				success: ( dones ) => receiveDones( dones, query )
 			} );
