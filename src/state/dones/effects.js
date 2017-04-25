@@ -7,17 +7,16 @@ import { stringify as stringifyQuery } from 'querystring';
  * Internal dependencies
  */
 import Request from 'lib/request';
+import { API_ROOT } from 'constant';
 import {
 	DONE_CREATE,
 	DONE_DELETE,
 	DONE_TOGGLE,
 	DONE_UPDATE,
-	DONES_REQUEST,
-	DONES_REQUEST_FAILURE,
-	DONES_REQUEST_SUCCESS
+	DONES_REQUEST
 } from 'state/action-types';
 import { updateDone, receiveDones } from 'state/dones/actions';
-import { getDone, isRequestingDones } from 'state/selectors';
+import { getDone } from 'state/selectors';
 
 export default {
 	[ DONE_CREATE ]: async ( store, action ) => {
@@ -44,18 +43,13 @@ export default {
 		} );
 	},
 	[ DONES_REQUEST ]: async ( store, { query } ) => {
-		const state = store.getState();
-		if ( isRequestingDones( state, query ) ) {
-			return;
-		}
-
 		try {
-			const path = `/dones/v1/dones?${ stringifyQuery( query ) }`;
-			const dones = await Request.get( path );
-			store.dispatch( receiveDones( dones, query ) );
-			store.dispatch( { type: DONES_REQUEST_SUCCESS, query } );
-		} catch ( error ) {
-			store.dispatch( { type: DONES_REQUEST_FAILURE, query, error } );
-		}
+			const path = `${ API_ROOT }/dones/v1/dones?${ stringifyQuery( query ) }`;
+			store.dispatch( {
+				type: 'FETCH',
+				url: path,
+				success: ( dones ) => receiveDones( dones, query )
+			} );
+		} catch ( error ) {}
 	}
 };

@@ -13,10 +13,7 @@ import {
 	DONE_CREATE,
 	DONE_UPDATE,
 	DONE_DELETE,
-	DONES_RECEIVE,
-	DONES_REQUEST,
-	DONES_REQUEST_FAILURE,
-	DONES_REQUEST_SUCCESS
+	DONES_RECEIVE
 } from 'state/action-types';
 
 function items( state = {}, action ) {
@@ -72,26 +69,6 @@ function items( state = {}, action ) {
 	return state;
 }
 
-function requesting( state = {}, action ) {
-	switch ( action.type ) {
-		case DONES_REQUEST:
-		case DONES_REQUEST_FAILURE:
-		case DONES_REQUEST_SUCCESS:
-			const isRequesting = DONES_REQUEST === action.type;
-			const key = stringify( action.query );
-			if ( state[ key ] === isRequesting ) {
-				return state;
-			}
-
-			return {
-				...state,
-				[ key ]: isRequesting
-			};
-	}
-
-	return state;
-}
-
 function received( state = {}, action ) {
 	switch ( action.type ) {
 		case DONES_RECEIVE:
@@ -111,6 +88,5 @@ function received( state = {}, action ) {
 
 export default combineReducers( {
 	items,
-	requesting,
 	received
 } );

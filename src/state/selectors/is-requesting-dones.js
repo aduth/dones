@@ -4,5 +4,5 @@
 import stringify from 'fast-stable-stringify';
 
 export default function isRequestingDones( state, query ) {
-	return !! state.dones.requesting[ stringify( query ) ];
+	return ! state.dones.received[ stringify( query ) ];
 }
