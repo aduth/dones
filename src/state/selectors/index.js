@@ -9,5 +9,4 @@ export { default as getTitle } from './get-title';
 export { default as getUser } from './get-user';
 export { default as getUsers } from './get-users';
 export { default as hasReceivedDones } from './has-received-dones';
-export { default as isRequestingDones } from './is-requesting-dones';
 export { default as isRequestingUsers } from './is-requesting-users';
