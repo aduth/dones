@@ -10,12 +10,12 @@ import { flowRight } from 'lodash';
 import reducer from './reducer';
 import middlewares from './middlewares';
 
-export default function configureReduxStore( initialState ) {
+export default function configureReduxStore() {
 	const enhancers = [ applyMiddleware( ...middlewares ) ];
 
 	if ( global.__REDUX_DEVTOOLS_EXTENSION__ ) {
 		enhancers.push( global.__REDUX_DEVTOOLS_EXTENSION__() );
 	}
 
-	return createStore( reducer, initialState, flowRight( enhancers ) );
+	return createStore( reducer, flowRight( enhancers ) );
 }

@@ -17,7 +17,7 @@ import 'assets/stylesheets/main.scss';
  *
  * @type {Redux.Store}
  */
-const store = createReduxStore( window.__BOOTSTRAP__ );
+const store = createReduxStore();
 
 /**
  * Initialize routing state
