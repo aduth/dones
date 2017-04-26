@@ -1,3 +1,3 @@
 export default function getTags( state ) {
-	return state.tags.items;
+	return state.tags;
 }

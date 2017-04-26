@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
 import { includes } from 'lodash';
 
 /**
@@ -9,25 +8,11 @@ import { includes } from 'lodash';
  */
 import {
 	TAGS_RECEIVE,
-	TAGS_REQUEST,
-	TAGS_REQUEST_FAILURE,
-	TAGS_REQUEST_SUCCESS,
 	DONE_CREATE,
 	DONE_UPDATE
 } from 'state/action-types';
 
-function requesting( state = false, action ) {
-	switch ( action.type ) {
-		case TAGS_REQUEST:
-		case TAGS_REQUEST_FAILURE:
-		case TAGS_REQUEST_SUCCESS:
-			return TAGS_REQUEST === action.type;
-	}
-
-	return state;
-}
-
-function items( state = null, action ) {
+export default function( state = null, action ) {
 	switch ( action.type ) {
 		case TAGS_RECEIVE:
 			return action.tags;
@@ -49,8 +34,3 @@ function items( state = null, action ) {
 
 	return state;
 }
-
-export default combineReducers( {
-	requesting,
-	items
-} );

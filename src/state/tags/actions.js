@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { TAGS_REQUEST, TAGS_RECEIVE } from 'state/action-types';
+import { REQUEST, TAGS_RECEIVE } from 'state/action-types';
 
 export function receiveTags( tags ) {
 	return {
@@ -12,6 +12,8 @@ export function receiveTags( tags ) {
 
 export function requestTags() {
 	return {
-		type: TAGS_REQUEST
+		type: REQUEST,
+		path: '/dones/v1/tags',
+		success: receiveTags
 	};
 }
