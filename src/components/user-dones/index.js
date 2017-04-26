@@ -32,7 +32,9 @@ function UserDones( { userId, date, avatar, name } ) {
 
 	return (
 		<Card title={ title }>
-			<DonesList query={ { userId, date } } />
+			<DonesList
+				userId={ userId }
+				query={ { date } } />
 			{ userId === USER_ID && [
 				<QueryTags
 					key="tags" />,
