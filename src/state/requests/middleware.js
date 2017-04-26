@@ -1,7 +1,8 @@
 /**
  * External dependencies
  */
-import { assign, isPlainObject, reduce, pick } from 'lodash';
+import { stringify } from 'querystringify';
+import { assign, isPlainObject, pick } from 'lodash';
 
 /**
  * Internal dependencies
@@ -11,12 +12,20 @@ import { getPreloadedResponse, getRequestNonce, isRequestingUrl } from 'state/se
 
 export default ( { dispatch, getState } ) => {
 	async function handleRequest( action ) {
-		const { url } = action;
+		let { url } = action;
 		const state = getState();
 		const params = assign( {
 			credentials: 'include',
 			headers: new Headers()
 		}, action.params );
+
+		// Append query string
+		if ( action.query ) {
+			const querystring = stringify( action.query );
+			if ( querystring ) {
+				url += '?' + querystring;
+			}
+		}
 
 		// Abort if GET request and already in progress
 		const { method = 'GET' } = params;
@@ -37,13 +46,7 @@ export default ( { dispatch, getState } ) => {
 				'application/x-www-form-urlencoded'
 			);
 
-			params.body = reduce( params.body, ( memo, value, key ) => {
-				return memo.concat(
-					encodeURIComponent( key ) +
-					'=' +
-					encodeURIComponent( value )
-				);
-			}, [] ).join( '&' );
+			params.body = stringify( params.body );
 		}
 
 		const { success, failure } = action;

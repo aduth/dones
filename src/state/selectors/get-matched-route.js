@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { parse as parseQuery } from 'querystring';
+import { parse } from 'querystringify';
 
 /**
  * Internal dependencies
@@ -28,7 +28,7 @@ export default function getMatchedRoute( state ) {
 		return {
 			params,
 			Route,
-			query: parseQuery( search )
+			query: parse( search )
 		};
 	}
 

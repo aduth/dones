@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { stringify as stringifyQuery } from 'querystring';
 import { uniqueId } from 'lodash';
 
 /**
@@ -26,11 +25,10 @@ export function receiveDones( dones, query ) {
 }
 
 export function requestDones( query ) {
-	const path = `${ API_ROOT }/dones/v1/dones?${ stringifyQuery( query ) }`;
-
 	return {
 		type: REQUEST,
-		url: path,
+		url: `${ API_ROOT }/dones/v1/dones`,
+		query,
 		success: ( dones ) => receiveDones( dones, query )
 	};
 }
