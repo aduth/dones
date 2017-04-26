@@ -47,9 +47,9 @@
   "dependencies": {
     "autosize": "^3.0.20",
     "classnames": "^2.2.5",
-    "date-fns": "^1.26.0",
-    "fast-stable-stringify": "^0.1.1",
-    "flatpickr": "^2.3.4",
+    "date-fns": "^1.28.4",
+    "fast-stable-stringify": "^0.2.0",
+    "flatpickr": "^2.6.0",
     "lodash": "^4.17.4",
     "path-to-regexp": "^1.7.0",
     "preact": "^8.1.0",
