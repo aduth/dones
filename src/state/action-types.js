@@ -3,7 +3,6 @@ export const DONE_DELETE = 'DONE_DELETE';
 export const DONE_TOGGLE = 'DONE_TOGGLE';
 export const DONE_UPDATE = 'DONE_UPDATE';
 export const DONES_RECEIVE = 'DONES_RECEIVE';
-export const DONES_REQUEST = 'DONES_REQUEST';
 export const DOCUMENT_HEAD_TITLE_SET = 'DOCUMENT_HEAD_TITLE_SET';
 export const REQUEST = 'REQUEST';
 export const REQUEST_COMPLETE = 'REQUEST_COMPLETE';
