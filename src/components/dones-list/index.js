@@ -146,8 +146,8 @@ class DonesList extends Component {
 }
 
 export default connect(
-	( state, { query } ) => ( {
-		dones: getDones( state, query ),
+	( state, { query, userId } ) => ( {
+		dones: getDones( state, { ...query, userId } ),
 		hasReceived: hasReceivedDones( state, query )
 	} ),
 	{ toggleDone, deleteDone }
