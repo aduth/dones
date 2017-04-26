@@ -1,18 +1,20 @@
 /**
  * External dependencies
  */
+import { stringify as stringifyQuery } from 'querystring';
 import { uniqueId } from 'lodash';
 
 /**
  * Internal dependencies
  */
+import { API_ROOT } from 'constant';
 import {
 	DONE_CREATE,
 	DONE_DELETE,
 	DONE_TOGGLE,
 	DONE_UPDATE,
 	DONES_RECEIVE,
-	DONES_REQUEST
+	REQUEST
 } from 'state/action-types';
 
 export function receiveDones( dones, query ) {
@@ -24,9 +26,12 @@ export function receiveDones( dones, query ) {
 }
 
 export function requestDones( query ) {
+	const path = `${ API_ROOT }/dones/v1/dones?${ stringifyQuery( query ) }`;
+
 	return {
-		type: DONES_REQUEST,
-		query
+		type: REQUEST,
+		url: path,
+		success: ( dones ) => receiveDones( dones, query )
 	};
 }
 
