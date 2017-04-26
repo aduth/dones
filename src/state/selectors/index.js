@@ -11,4 +11,4 @@ export { default as getTitle } from './get-title';
 export { default as getUser } from './get-user';
 export { default as getUsers } from './get-users';
 export { default as hasReceivedDones } from './has-received-dones';
-export { default as isRequestingUrl } from './is-requesting-url';
+export { default as isRequestingPath } from './is-requesting-path';

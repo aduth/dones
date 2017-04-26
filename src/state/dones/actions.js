@@ -6,7 +6,6 @@ import { uniqueId } from 'lodash';
 /**
  * Internal dependencies
  */
-import { API_ROOT } from 'constant';
 import {
 	DONE_CREATE,
 	DONE_DELETE,
@@ -27,7 +26,7 @@ export function receiveDones( dones, query ) {
 export function requestDones( query ) {
 	return {
 		type: REQUEST,
-		url: `${ API_ROOT }/dones/v1/dones`,
+		path: '/dones/v1/dones',
 		query,
 		success: ( dones ) => receiveDones( dones, query )
 	};

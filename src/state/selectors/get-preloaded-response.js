@@ -1,3 +1,3 @@
-export default function getPreloadedResponse( state, url ) {
-	return state.requests.preload[ url ] || null;
+export default function getPreloadedResponse( state, path ) {
+	return state.requests.preload[ path ] || null;
 }

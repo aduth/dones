@@ -6,13 +6,12 @@ import { map, last, values } from 'lodash';
 /**
  * Internal dependencies
  */
-import { API_ROOT } from 'constant';
 import { USERS_RECEIVE, REQUEST } from 'state/action-types';
 
 export function requestUsers() {
 	return {
 		type: REQUEST,
-		url: `${ API_ROOT }/wp/v2/users`,
+		path: '/wp/v2/users',
 		success: ( users ) => {
 			users = map( users, ( user ) => ( {
 				id: user.id,

@@ -14,15 +14,15 @@ export function items( state = {}, action ) {
 	switch ( action.type ) {
 		case REQUEST:
 		case REQUEST_COMPLETE:
-			const { type, url, params = {} } = action;
+			const { type, path, params = {} } = action;
 			const { method = 'GET' } = params;
 			if ( 'GET' !== method ) {
 				return state;
 			} else if ( REQUEST_COMPLETE === type ) {
-				return omit( state, url );
+				return omit( state, path );
 			}
 
-			return { ...state, [ url ]: true };
+			return { ...state, [ path ]: true };
 
 	}
 
@@ -32,7 +32,7 @@ export function items( state = {}, action ) {
 export function preload( state = PRELOADED_REQUESTS, action ) {
 	switch ( action.type ) {
 		case REQUEST_PRELOAD_UNSET:
-			return omit( state, action.url );
+			return omit( state, action.path );
 	}
 
 	return state;

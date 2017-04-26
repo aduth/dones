@@ -7,12 +7,13 @@ import { assign, isPlainObject, pick } from 'lodash';
 /**
  * Internal dependencies
  */
+import { API_ROOT } from 'constant';
 import { REQUEST, REQUEST_COMPLETE, REQUEST_PRELOAD_UNSET } from 'state/action-types';
-import { getPreloadedResponse, getRequestNonce, isRequestingUrl } from 'state/selectors';
+import { getPreloadedResponse, getRequestNonce, isRequestingPath } from 'state/selectors';
 
 export default ( { dispatch, getState } ) => {
 	async function handleRequest( action ) {
-		let { url } = action;
+		let { path } = action;
 		const state = getState();
 		const params = assign( {
 			credentials: 'include',
@@ -23,13 +24,13 @@ export default ( { dispatch, getState } ) => {
 		if ( action.query ) {
 			const querystring = stringify( action.query );
 			if ( querystring ) {
-				url += '?' + querystring;
+				path += '?' + querystring;
 			}
 		}
 
 		// Abort if GET request and already in progress
 		const { method = 'GET' } = params;
-		if ( 'GET' === method && isRequestingUrl( state, url ) ) {
+		if ( 'GET' === method && isRequestingPath( state, path ) ) {
 			return;
 		}
 
@@ -56,15 +57,15 @@ export default ( { dispatch, getState } ) => {
 			let data;
 
 			// Check if preload data already exists
-			if ( 'GET' === method && ( data = getPreloadedResponse( state, url ) ) ) {
+			if ( 'GET' === method && ( data = getPreloadedResponse( state, path ) ) ) {
 				// Use preload only once. Data is assigned in condition above.
 				dispatch( {
 					type: REQUEST_PRELOAD_UNSET,
-					url
+					path
 				} );
 			} else {
 				// Otherwise trigger network request.
-				response = await fetch( url, params );
+				response = await fetch( API_ROOT + path, params );
 				data = await response.json();
 			}
 
