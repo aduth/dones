@@ -3,10 +3,7 @@
 		[ "env", {
 			"modules": false,
 			"targets": {
-				"browsers": [
-					"last 2 versions",
-					"ie 11"
-				]
+				"browsers": "last 1 Chrome version"
 			}
 		} ],
 		"stage-2"
@@ -14,10 +11,28 @@
 	"plugins": [
 		"date-fns",
 		"lodash",
-		"transform-runtime",
 		"transform-react-display-name",
 		[ "transform-react-jsx", {
 			"pragma": "createElement"
 		} ]
-	]
+	],
+	"env": {
+		"production": {
+			"presets": [
+				[ "env", {
+					"modules": false,
+					"targets": {
+						"browsers": [
+							"last 2 versions",
+							"ie 11"
+						]
+					}
+				} ],
+				"stage-2"
+			],
+			"plugins": [
+				"transform-runtime"
+			]
+		}
+	}
 }
