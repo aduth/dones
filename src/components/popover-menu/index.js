@@ -3,7 +3,7 @@
  */
 import { createElement, Component } from 'preact';
 import classNames from 'classnames';
-import { size, map, partial } from 'lodash';
+import { size, map } from 'lodash';
 
 /**
  * Internal dependencies
@@ -100,7 +100,7 @@ export default class PopoverMenu extends Component {
 						return (
 							<li key={ i } className={ itemClasses }>
 								<button
-									onMouseDown={ partial( onSelect, child ) }
+									onMouseDown={ () => onSelect( child ) }
 									className="popover-menu__button">
 									{ child }
 								</button>

@@ -4,7 +4,7 @@
 import { createElement, Component } from 'preact';
 import { connect } from 'preact-redux';
 import classNames from 'classnames';
-import { map, sortBy, partial } from 'lodash';
+import { map, sortBy } from 'lodash';
 
 /**
  * Internal dependencies
@@ -123,13 +123,13 @@ class DonesList extends Component {
 											: null
 									} />,
 								<DonesListItemText
-									onMouseDown={ partial( this.startTrackingSelection, id ) }
+									onMouseDown={ () => this.startTrackingSelection( id ) }
 									onClick={ this.editDone }>
 									{ text }
 								</DonesListItemText>,
 								<button
 									type="button"
-									onClick={ partial( this.deleteDone, id ) }
+									onClick={ () => this.deleteDone( id ) }
 									className="dones-list__trash">
 									<Icon icon="trash" size={ 18 } />
 								</button>

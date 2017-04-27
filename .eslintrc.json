@@ -12,6 +12,7 @@
 		}
 	},
 	"rules": {
-		"no-cond-assign": 0
+		"no-cond-assign": 0,
+		"react/jsx-no-bind": 0
 	}
 }
