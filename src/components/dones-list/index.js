@@ -100,10 +100,8 @@ class DonesList extends Component {
 		return (
 			<ul className={ classes }>
 				<QueryDones query={ query } />
-				{ map( sortBy( dones, 'id' ), ( { id, text, done }, index ) => (
-					<li
-						key={ index }
-						className="dones-list__item">
+				{ map( sortBy( dones, 'id' ), ( { id, text, done } ) => (
+					<li key={ id } className="dones-list__item">
 						{ id === editing
 							? (
 								<DoneInput
