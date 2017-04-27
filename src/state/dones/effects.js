@@ -25,7 +25,9 @@ export default {
 			}
 		} );
 	},
-	[ DONE_DELETE ]: ( { dispatch }, { id } ) => {
+	[ DONE_DELETE ]: ( { dispatch }, action ) => {
+		const { id } = action;
+
 		dispatch( {
 			type: REQUEST,
 			path: `/dones/v1/dones/${ id }`,
