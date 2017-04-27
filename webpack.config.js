@@ -55,8 +55,7 @@ const config = module.exports = {
 				]
 			}
 		} )
-	],
-	devtool: 'cheap-module-source-map'
+	]
 };
 
 if ( 'production' === process.env.NODE_ENV ) {
@@ -85,6 +84,7 @@ if ( 'production' === process.env.NODE_ENV ) {
 		} )
 	);
 } else {
+	config.devtool = 'cheap-module-source-map';
 	config.entry.app.push( 'preact/devtools' );
 	config.module.rules.push( {
 		test: /\.s?css$/,
