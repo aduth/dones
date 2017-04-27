@@ -123,8 +123,7 @@ class DonesList extends Component {
 											: null
 									} />,
 								<DonesListItemText
-									onMouseDown={ () => this.startTrackingSelection( id ) }
-									onClick={ this.editDone }>
+									onMouseDown={ () => this.startTrackingSelection( id ) }>
 									{ text }
 								</DonesListItemText>,
 								<button
