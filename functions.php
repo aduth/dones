@@ -95,15 +95,23 @@ function dones_preload_request( $memo, $path ) {
  * @return array        Filtered API paths to preload
  */
 function dones_page_specific_preload( $paths ) {
+	global $wp_query;
+
+	// Dones
 	$date = get_query_var( 'dones_date' );
 	if ( ! empty( $date ) ) {
 		$paths[] = sprintf( '/dones/v1/dones?date=%s', $date );
-		$paths[] = '/dones/v1/tags';
 	}
 
+	// Single tag
 	$tag = get_query_var( 'dones_tag' );
 	if ( ! empty( $tag ) ) {
 		$paths[] = sprintf( '/dones/v1/dones?tag=%s', $tag );
+	}
+
+	// Tag root or dones
+	if ( isset( $wp_query->query_vars['dones_tag'] ) ) {
+		$paths[] = '/dones/v1/tags';
 	}
 
 	return $paths;
