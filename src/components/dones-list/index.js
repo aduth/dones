@@ -92,44 +92,59 @@ class DonesList extends Component {
 
 	render() {
 		const { query, dones, hasReceived } = this.props;
-		const { editing } = this.state;
+		const { editing, editOffset } = this.state;
 		const classes = classNames( 'dones-list', {
 			'is-editable': this.isEditable()
+		} );
+
+		const items = map( sortBy( dones, 'id' ), ( { id, text, done } ) => {
+			const isEditing = ( id === editing );
+
+			let children;
+			if ( isEditing ) {
+				children = (
+					<DoneInput
+						initialText={ text }
+						initialDone={ done }
+						selectionOffset={ editOffset }
+						id={ id }
+						onCancel={ this.stopEditing }
+						onSubmit={ this.stopEditing } />
+				);
+			} else {
+				children = [
+					<DoneStatus
+						done={ done }
+						disabled={ ! this.isEditable() }
+						onToggle={ () => this.props.updateDone( id, text, ! done ) } />,
+					<DonesListItemText
+						onMouseDown={ () => this.startTrackingSelection( id ) }>
+						{ text }
+					</DonesListItemText>,
+					<button
+						type="button"
+						onClick={ () => this.deleteDone( id ) }
+						className="dones-list__trash">
+						<Icon icon="trash" size={ 18 } />
+					</button>
+				];
+			}
+
+			// TODO: Resolve buggy lint behavior
+
+			/* eslint-disable wpcalypso/jsx-classname-namespace */
+			return (
+				<li key={ id } className="dones-list__item">
+					{ children }
+				</li>
+			);
+			/* eslint-enable wpcalypso/jsx-classname-namespace */
 		} );
 
 		return (
 			<ul className={ classes }>
 				<QueryDones query={ query } />
-				{ map( sortBy( dones, 'id' ), ( { id, text, done } ) => (
-					<li key={ id } className="dones-list__item">
-						{ id === editing
-							? (
-								<DoneInput
-									initialText={ text }
-									initialDone={ done }
-									selectionOffset={ this.state.editOffset }
-									id={ id }
-									onCancel={ this.stopEditing }
-									onSubmit={ this.stopEditing } />
-							)
-							: [
-								<DoneStatus
-									done={ done }
-									disabled={ ! this.isEditable() }
-									onToggle={ () => this.props.updateDone( id, text, ! done ) } />,
-								<DonesListItemText
-									onMouseDown={ () => this.startTrackingSelection( id ) }>
-									{ text }
-								</DonesListItemText>,
-								<button
-									type="button"
-									onClick={ () => this.deleteDone( id ) }
-									className="dones-list__trash">
-									<Icon icon="trash" size={ 18 } />
-								</button>
-							] }
-					</li>
-				) ) }
+				{ items }
 				{ ! hasReceived && <li className="dones-list__item is-placeholder" /> }
 				{ hasReceived && 0 === dones.length && (
 					<em>{ translate( 'Nothing reported yet!' ) }</em>
