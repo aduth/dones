@@ -1,0 +1,12 @@
+.word-cloud {
+	list-style-type: none;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	padding-left: 0;
+	text-align: center;
+}
+
+.word-cloud__item {
+	padding: 0.2rem;
+}

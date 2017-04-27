@@ -9,21 +9,20 @@ import { map } from 'lodash';
  * Internal dependencies
  */
 import QueryTags from 'components/query-tags';
-import Link from 'components/link';
+import Card from 'components/card';
+import WordCloud from 'components/word-cloud';
 import { getTagCounts } from 'state/selectors';
 
 function TagsList( { tags } ) {
 	return (
-		<ul>
+		<Card>
 			<QueryTags />
-			{ map( tags, ( count, name ) => (
-				<li key={ name }>
-					<Link to={ `/tags/${ name }` }>
-						{ name } ({ count })
-					</Link>
-				</li>
-			) ) }
-		</ul>
+			<WordCloud items={ map( tags, ( count, name ) => ( {
+				text: name,
+				url: `/tags/${ name }`,
+				count
+			} ) ) } />
+		</Card>
 	);
 }
 
