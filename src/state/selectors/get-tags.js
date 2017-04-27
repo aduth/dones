@@ -1,3 +1,4 @@
 export default function getTags( state ) {
-	return state.tags;
+	const { tags } = state;
+	return tags ? Object.keys( tags ) : [];
 }
