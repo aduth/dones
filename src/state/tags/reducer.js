@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { fromPairs, includes } from 'lodash';
+import { fromPairs } from 'lodash';
 
 /**
  * Internal dependencies

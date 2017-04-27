@@ -8,7 +8,7 @@ import { assign, isPlainObject, pick } from 'lodash';
  * Internal dependencies
  */
 import { API_ROOT } from 'constant';
-import { REQUEST, REQUEST_COMPLETE, REQUEST_PRELOAD_UNSET } from 'state/action-types';
+import { REQUEST, REQUEST_COMPLETE } from 'state/action-types';
 import { getPreloadedResponse, getRequestNonce, isRequestingPath } from 'state/selectors';
 
 export default ( { dispatch, getState } ) => {
