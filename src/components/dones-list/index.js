@@ -115,11 +115,8 @@ class DonesList extends Component {
 							: [
 								<DoneStatus
 									done={ done }
-									onToggle={
-										this.isEditable()
-											? () => this.props.updateDone( id, text, ! done )
-											: null
-									} />,
+									disabled={ ! this.isEditable() }
+									onToggle={ () => this.props.updateDone( id, text, ! done ) } />,
 								<DonesListItemText
 									onMouseDown={ () => this.startTrackingSelection( id ) }>
 									{ text }
