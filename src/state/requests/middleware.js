@@ -57,14 +57,12 @@ export default ( { dispatch, getState } ) => {
 			let data;
 
 			// Check if preload data already exists
-			if ( 'GET' === method && ( data = getPreloadedResponse( state, path ) ) ) {
-				// Use preload only once. Data is assigned in condition above.
-				dispatch( {
-					type: REQUEST_PRELOAD_UNSET,
-					path
-				} );
-			} else {
-				// Otherwise trigger network request.
+			if ( 'GET' === method ) {
+				data = getPreloadedResponse( state, path );
+			}
+
+			// Otherwise trigger network request.
+			if ( ! data ) {
 				response = await fetch( API_ROOT + path, params );
 				data = await response.json();
 			}

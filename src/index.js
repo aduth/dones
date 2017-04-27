@@ -8,6 +8,7 @@ import { createElement, render } from 'preact';
  */
 import Root from 'components/root';
 import createReduxStore from 'state';
+import { clearPreloadedResponses } from 'state/requests/actions';
 import { replaceRoute } from 'state/routing/actions';
 import 'assets/stylesheets/main.scss';
 
@@ -18,18 +19,13 @@ import 'assets/stylesheets/main.scss';
  */
 const store = createReduxStore();
 
-/**
- * Initialize routing state
- */
-
+// Initialize routing state
 const { pathname, search } = window.location;
 store.dispatch( replaceRoute( pathname + search ) );
 
-/**
- * Render
- */
+// Render
+const app = <Root store={ store } />;
+render( app, document.getElementById( 'app' ) );
 
-render(
-	<Root store={ store } />,
-	document.getElementById( 'app' )
-);
+// Preloaded responses are only valid for first render
+store.dispatch( clearPreloadedResponses() );

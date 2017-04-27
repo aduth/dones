@@ -8,7 +8,7 @@ import { omit } from 'lodash';
  * Internal dependencies
  */
 import { API_NONCE, PRELOADED_REQUESTS } from 'constant';
-import { REQUEST, REQUEST_COMPLETE, REQUEST_PRELOAD_UNSET } from 'state/action-types';
+import { REQUEST, REQUEST_COMPLETE, REQUEST_PRELOAD_CLEAR } from 'state/action-types';
 
 export function items( state = {}, action ) {
 	switch ( action.type ) {
@@ -31,8 +31,8 @@ export function items( state = {}, action ) {
 
 export function preload( state = PRELOADED_REQUESTS, action ) {
 	switch ( action.type ) {
-		case REQUEST_PRELOAD_UNSET:
-			return omit( state, action.path );
+		case REQUEST_PRELOAD_CLEAR:
+			return {};
 	}
 
 	return state;
