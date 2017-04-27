@@ -1,6 +1,5 @@
 export const DONE_CREATE = 'DONE_CREATE';
 export const DONE_DELETE = 'DONE_DELETE';
-export const DONE_TOGGLE = 'DONE_TOGGLE';
 export const DONE_UPDATE = 'DONE_UPDATE';
 export const DONES_RECEIVE = 'DONES_RECEIVE';
 export const DOCUMENT_HEAD_TITLE_SET = 'DOCUMENT_HEAD_TITLE_SET';

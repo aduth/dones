@@ -15,7 +15,7 @@ import QueryDones from 'components/query-dones';
 import DoneStatus from 'components/done-status';
 import DoneInput from 'components/done-input';
 import Icon from 'components/icon';
-import { toggleDone, deleteDone } from 'state/dones/actions';
+import { updateDone, deleteDone } from 'state/dones/actions';
 import { getDones, hasReceivedDones } from 'state/selectors';
 import DonesListItemText from './item-text';
 
@@ -100,36 +100,36 @@ class DonesList extends Component {
 		return (
 			<ul className={ classes }>
 				<QueryDones query={ query } />
-				{ map( sortBy( dones, 'id' ), ( done, index ) => (
+				{ map( sortBy( dones, 'id' ), ( { id, text, done }, index ) => (
 					<li
 						key={ index }
 						className="dones-list__item">
-						{ done.id === editing
+						{ id === editing
 							? (
 								<DoneInput
-									initialText={ done.text }
-									initialDone={ done.done }
+									initialText={ text }
+									initialDone={ done }
 									selectionOffset={ this.state.editOffset }
-									id={ done.id }
+									id={ id }
 									onCancel={ this.stopEditing }
 									onSubmit={ this.stopEditing } />
 							)
 							: [
 								<DoneStatus
-									done={ done.done }
+									done={ done }
 									onToggle={
 										this.isEditable()
-											? partial( this.props.toggleDone, done.id )
+											? () => this.props.updateDone( id, text, ! done )
 											: null
 									} />,
 								<DonesListItemText
-									onMouseDown={ partial( this.startTrackingSelection, done.id ) }
+									onMouseDown={ partial( this.startTrackingSelection, id ) }
 									onClick={ this.editDone }>
-									{ done.text }
+									{ text }
 								</DonesListItemText>,
 								<button
 									type="button"
-									onClick={ partial( this.deleteDone, done.id ) }
+									onClick={ partial( this.deleteDone, id ) }
 									className="dones-list__trash">
 									<Icon icon="trash" size={ 18 } />
 								</button>
@@ -150,5 +150,5 @@ export default connect(
 		dones: getDones( state, { ...query, userId } ),
 		hasReceived: hasReceivedDones( state, query )
 	} ),
-	{ toggleDone, deleteDone }
+	{ updateDone, deleteDone }
 )( DonesList );

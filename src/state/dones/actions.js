@@ -9,7 +9,6 @@ import { uniqueId } from 'lodash';
 import {
 	DONE_CREATE,
 	DONE_DELETE,
-	DONE_TOGGLE,
 	DONE_UPDATE,
 	DONES_RECEIVE,
 	REQUEST
@@ -39,13 +38,6 @@ export function createDone( date, text, done ) {
 		date,
 		text,
 		done
-	};
-}
-
-export function toggleDone( id ) {
-	return {
-		type: DONE_TOGGLE,
-		id
 	};
 }
 

@@ -4,12 +4,10 @@
 import {
 	DONE_CREATE,
 	DONE_DELETE,
-	DONE_TOGGLE,
 	DONE_UPDATE,
 	REQUEST
 } from 'state/action-types';
 import { updateDone } from 'state/dones/actions';
-import { getDone } from 'state/selectors';
 
 export default {
 	[ DONE_CREATE ]: ( { dispatch }, action ) => {
@@ -35,12 +33,6 @@ export default {
 				method: 'DELETE'
 			}
 		} );
-	},
-	[ DONE_TOGGLE ]: ( { getState, dispatch }, { id } ) => {
-		const done = getDone( getState(), id );
-		if ( done ) {
-			dispatch( updateDone( id, done.text, ! done.done ) );
-		}
 	},
 	[ DONE_UPDATE ]: ( { dispatch }, action ) => {
 		const { id, text, done } = action;
