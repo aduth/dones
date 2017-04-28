@@ -47,7 +47,7 @@ function dones_scripts() {
 		'loginUrl'   => wp_login_url( home_url() ),
 		'logoutUrl'  => wp_logout_url( home_url() ),
 		'preload'    => array_reduce( apply_filters( 'dones_preload', array(
-			'/wp/v2/users'
+			'/dones/v1/users'
 		) ), 'dones_preload_request', array() ),
 		'i18n'       => array(
 			'Done'           => __( 'Done', 'dones' ),
@@ -174,6 +174,11 @@ function dones_create_rest_routes() {
 	// Dones
 	require_once( dirname( __FILE__ ) . '/inc/endpoints/class-wp-rest-dones-dones-controller.php' );
 	$controller = new WP_REST_Dones_Dones_Controller;
+	$controller->register_routes();
+
+	// Users
+	require_once( dirname( __FILE__ ) . '/inc/endpoints/class-wp-rest-dones-users-controller.php' );
+	$controller = new WP_REST_Dones_Users_Controller;
 	$controller->register_routes();
 }
 add_action( 'rest_api_init', 'dones_create_rest_routes' );
