@@ -11,7 +11,7 @@ import {
 	DONE_DELETE,
 	DONE_UPDATE,
 	DONES_RECEIVE,
-	REQUEST
+	DONES_REQUEST
 } from 'state/action-types';
 
 export function receiveDones( dones, query ) {
@@ -24,10 +24,8 @@ export function receiveDones( dones, query ) {
 
 export function requestDones( query ) {
 	return {
-		type: REQUEST,
-		path: '/dones/v1/dones',
-		query,
-		success: ( dones ) => receiveDones( dones, query )
+		type: DONES_REQUEST,
+		query
 	};
 }
 

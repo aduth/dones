@@ -5,11 +5,22 @@ import {
 	DONE_CREATE,
 	DONE_DELETE,
 	DONE_UPDATE,
+	DONES_REQUEST,
 	REQUEST
 } from 'state/action-types';
-import { updateDone } from 'state/dones/actions';
+import { receiveDones, updateDone } from 'state/dones/actions';
 
 export default {
+	[ DONES_REQUEST ]( action ) {
+		const { query } = action;
+
+		return {
+			type: REQUEST,
+			path: '/dones/v1/dones',
+			query,
+			success: ( dones ) => receiveDones( dones, query )
+		};
+	},
 	[ DONE_CREATE ]( action ) {
 		const { date, text, done, transientId } = action;
 
