@@ -28,4 +28,4 @@ const app = <Root store={ store } />;
 render( app, document.getElementById( 'app' ) );
 
 // Preloaded responses are only valid for first render
-store.dispatch( clearPreloadedResponses() );
+setTimeout( () => store.dispatch( clearPreloadedResponses() ) );
