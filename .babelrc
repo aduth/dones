@@ -12,6 +12,7 @@
 		"date-fns",
 		"lodash",
 		"transform-react-display-name",
+		"transform-runtime",
 		[ "transform-react-jsx", {
 			"pragma": "createElement"
 		} ]
@@ -29,9 +30,6 @@
 					}
 				} ],
 				"stage-2"
-			],
-			"plugins": [
-				"transform-runtime"
 			]
 		}
 	}

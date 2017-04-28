@@ -12,31 +12,24 @@ import { REQUEST, REQUEST_COMPLETE } from 'state/action-types';
 import { getPreloadedResponse, getRequestNonce, isRequestingPath } from 'state/selectors';
 
 export default ( { dispatch, getState } ) => {
-	async function handleRequest( action ) {
-		let { path } = action;
-		const state = getState();
-		const params = assign( {
-			credentials: 'include',
-			headers: new Headers()
-		}, action.params );
-
-		// Append query string
-		if ( action.query ) {
-			const querystring = stringify( action.query );
-			if ( querystring ) {
-				path += '?' + querystring;
-			}
-		}
-
-		// Abort if GET request and already in progress
+	async function* getResult( path, params ) {
 		const { method = 'GET' } = params;
-		if ( 'GET' === method && isRequestingPath( state, path ) ) {
-			return;
+		const state = getState();
+
+		if ( 'GET' === method ) {
+			// First yield with potentially preloaded data
+			yield getPreloadedResponse( state, path );
+
+			// If network request in progress, abort iterating
+			if ( isRequestingPath( state, path ) ) {
+				return;
+			}
 		}
 
 		// Append current nonce if exists
 		const nonce = getRequestNonce( state );
 		if ( nonce ) {
+			params.credentials = 'include';
 			params.headers.append( 'X-WP-Nonce', nonce );
 		}
 
@@ -50,36 +43,50 @@ export default ( { dispatch, getState } ) => {
 			params.body = stringify( params.body );
 		}
 
-		const { success, failure } = action;
+		// Trigger and await network request
+		const response = await fetch( API_ROOT + path, params );
+		yield await response.json();
+	}
 
-		let response;
+	async function handleRequest( action ) {
+		const { query, success, failure } = action;
+		const params = assign( {
+			headers: new Headers()
+		}, action.params );
+
+		// Append query string
+		let { path } = action;
+		const querystring = stringify( query );
+		if ( querystring ) {
+			path += '?' + querystring;
+		}
+
 		try {
-			let data;
+			let result;
+			for await ( result of getResult( path, params ) ) {
+				// Continue generator if yield produced no result
+				if ( ! result ) {
+					continue;
+				}
 
-			// Check if preload data already exists
-			if ( 'GET' === method ) {
-				data = getPreloadedResponse( state, path );
-			}
+				// Otherwise, assume completion and dispatch success
+				if ( success ) {
+					dispatch( success( result ) );
+				}
 
-			// Otherwise trigger network request.
-			if ( ! data ) {
-				response = await fetch( API_ROOT + path, params );
-				data = await response.json();
-			}
+				dispatch( {
+					...action,
+					type: REQUEST_COMPLETE,
+					...pick( result, 'headers' )
+				} );
 
-			if ( success ) {
-				dispatch( success( data ) );
+				// Stop iteration once result yielded
+				return;
 			}
 		} catch ( error ) {
 			if ( failure ) {
 				dispatch( failure( error ) );
 			}
-		} finally {
-			dispatch( {
-				...action,
-				type: REQUEST_COMPLETE,
-				...pick( response, 'headers' )
-			} );
 		}
 	}
 
