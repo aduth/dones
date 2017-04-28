@@ -2,6 +2,7 @@
  * External dependencies
  */
 import { createElement, render } from 'preact';
+import { Provider } from 'preact-redux';
 
 /**
  * Internal dependencies
@@ -24,8 +25,12 @@ const { pathname, search } = window.location;
 store.dispatch( replaceRoute( pathname + search ) );
 
 // Render
-const app = <Root store={ store } />;
-render( app, document.getElementById( 'app' ) );
+render(
+	<Provider store={ store }>
+		<Root />
+	</Provider>,
+	document.getElementById( 'app' )
+);
 
 // Preloaded responses are only valid for first render
 setTimeout( () => store.dispatch( clearPreloadedResponses() ) );

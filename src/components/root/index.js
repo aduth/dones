@@ -2,19 +2,15 @@
  * External dependencies
  */
 import { createElement } from 'preact';
-import { Provider, connect } from 'preact-redux';
+import { connect } from 'preact-redux';
 
 /**
  * Internal dependencies
  */
 import { getMatchedRoute } from 'state/selectors';
 
-function Root( { store, Route } ) {
-	return (
-		<Provider store={ store }>
-			<Route />
-		</Provider>
-	);
+function Root( { Route } ) {
+	return <Route />;
 }
 
 export default connect( ( state ) => ( {
