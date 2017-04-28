@@ -11,7 +11,7 @@ import { requestTags } from 'state/tags/actions';
 
 class QueryTags extends Component {
 	componentDidMount() {
-		this.props.requestTags( this.props.date );
+		this.props.requestTags();
 	}
 
 	render() {
