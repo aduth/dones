@@ -8,10 +8,11 @@ import { createElement } from 'preact';
  */
 import Page from 'components/page';
 import TagsList from 'components/tags-list';
+import { translate } from 'lib/i18n';
 
 export default function TagsRoute() {
 	return (
-		<Page title="Tags">
+		<Page title={ translate( 'Tags' ) }>
 			<TagsList />
 		</Page>
 	);
