@@ -10,10 +10,10 @@ import {
 import { updateDone } from 'state/dones/actions';
 
 export default {
-	[ DONE_CREATE ]: ( { dispatch }, action ) => {
+	[ DONE_CREATE ]( action ) {
 		const { date, text, done, transientId } = action;
 
-		dispatch( {
+		return {
 			type: REQUEST,
 			path: '/dones/v1/dones',
 			params: {
@@ -23,29 +23,29 @@ export default {
 			success( { id } ) {
 				return updateDone( id, text, done, transientId );
 			}
-		} );
+		};
 	},
-	[ DONE_DELETE ]: ( { dispatch }, action ) => {
+	[ DONE_DELETE ]( action ) {
 		const { id } = action;
 
-		dispatch( {
+		return {
 			type: REQUEST,
 			path: `/dones/v1/dones/${ id }`,
 			params: {
 				method: 'DELETE'
 			}
-		} );
+		};
 	},
-	[ DONE_UPDATE ]: ( { dispatch }, action ) => {
+	[ DONE_UPDATE ]( action ) {
 		const { id, text, done } = action;
 
-		dispatch( {
+		return {
 			type: REQUEST,
 			path: `/dones/v1/dones/${ id }`,
 			params: {
 				method: 'PUT',
 				body: { text, done }
 			}
-		} );
+		};
 	}
 };
