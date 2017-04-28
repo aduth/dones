@@ -11,7 +11,6 @@ import { USER_ID } from 'constant';
 import Card from 'components/card';
 import DoneInput from 'components/done-input';
 import DonesList from 'components/dones-list';
-import QueryTags from 'components/query-tags';
 import { getUser } from 'state/selectors';
 
 function UserDones( { userId, date, avatar, name } ) {
