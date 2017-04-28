@@ -35,14 +35,12 @@ function UserDones( { userId, date, avatar, name } ) {
 			<DonesList
 				userId={ userId }
 				query={ { date } } />
-			{ userId === USER_ID && [
-				<QueryTags
-					key="tags" />,
+			{ userId === USER_ID && (
 				<DoneInput
 					key="input"
 					date={ date }
 					className="user-dones__input" />
-			] }
+			) }
 		</Card>
 	);
 }

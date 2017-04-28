@@ -11,6 +11,7 @@ import { sortBy, map } from 'lodash';
 import { USER_ID } from 'constant';
 import { formatSiteDate } from 'lib/i18n';
 import QueryUsers from 'components/query-users';
+import QueryTags from 'components/query-tags';
 import Page from 'components/page';
 import DateNavigation from 'components/date-navigation';
 import UserDones from 'components/user-dones';
@@ -26,6 +27,7 @@ function DateRoute( { date, users } ) {
 	return (
 		<Page title={ formatSiteDate( date ) }>
 			<QueryUsers />
+			{ USER_ID ? <QueryTags /> : null }
 			<DateNavigation date={ date } />
 			{ map( sortedUsers, ( user ) => (
 				<UserDones
