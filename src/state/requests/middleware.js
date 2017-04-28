@@ -54,14 +54,7 @@ export default ( { dispatch, getState } ) => {
 	}
 
 	async function handleRequest( action ) {
-		const { params, query, success, failure } = action;
-
-		// Append query string
-		let { path } = action;
-		const querystring = stringify( query );
-		if ( querystring ) {
-			path += '?' + querystring;
-		}
+		const { path, params, success, failure } = action;
 
 		try {
 			let result;
@@ -93,7 +86,14 @@ export default ( { dispatch, getState } ) => {
 	}
 
 	return ( next ) => ( action ) => {
-		if ( REQUEST === action.type ) {
+		const { type, query } = action;
+		if ( REQUEST === type ) {
+			// Append query string
+			const querystring = stringify( query );
+			if ( querystring ) {
+				action.path += '?' + querystring;
+			}
+
 			handleRequest( action );
 		}
 
