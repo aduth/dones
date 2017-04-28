@@ -13,10 +13,15 @@ import { getPreloadedResponse, getRequestNonce, isRequestingPath } from 'state/s
 
 export default ( { dispatch, getState } ) => {
 	async function* getResult( path, params ) {
-		const { method = 'GET' } = params;
 		const state = getState();
 
-		if ( 'GET' === method ) {
+		// Clone parameters with defaults
+		params = assign( {
+			method: 'GET',
+			headers: new Headers()
+		}, params );
+
+		if ( 'GET' === params.method ) {
 			// First yield with potentially preloaded data
 			yield getPreloadedResponse( state, path );
 
@@ -49,10 +54,7 @@ export default ( { dispatch, getState } ) => {
 	}
 
 	async function handleRequest( action ) {
-		const { query, success, failure } = action;
-		const params = assign( {
-			headers: new Headers()
-		}, action.params );
+		const { params, query, success, failure } = action;
 
 		// Append query string
 		let { path } = action;
