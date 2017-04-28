@@ -109,7 +109,7 @@ function dones_page_specific_preload( $paths ) {
 		$paths[] = sprintf( '/dones/v1/dones?tag=%s', $tag );
 	}
 
-	// Tag root or dones
+	// Tag root or single tag
 	if ( isset( $wp_query->query_vars['dones_tag'] ) ) {
 		$paths[] = '/dones/v1/tags';
 	}
