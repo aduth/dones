@@ -47,12 +47,13 @@
 	}
 }
 
-.card__content {
-	padding: 1rem;
-}
-
+.card__content,
 .card__header {
-	padding: 1rem;
+	padding: 0.8rem;
+
+	@include medium() {
+		padding: 1rem;
+	}
 }
 
 .card__header + .card__content {

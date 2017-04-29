@@ -22,7 +22,7 @@
 	right: 0;
 	top: 50%;
 	transform: translateY( -50% );
-	padding: 0.1rem 0.8rem;
+	padding: 0.1rem 0.6rem;
 	display: none;
 	cursor: pointer;
 
@@ -38,8 +38,8 @@
 
 .dones-list__item-text {
 	position: relative;
-	margin-left: 2.8rem;
-	margin-right: 2.8rem;
+	margin-left: 2.4rem;
+	margin-right: 2.4rem;
 
 	.dones-list.is-editable & {
 		cursor: text;
