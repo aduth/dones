@@ -76,7 +76,7 @@ class DonesList extends Component {
 
 		this.setState( {
 			editing,
-			editOffset: [ start, start + length ]
+			editOffset: [ start, start + ( length || 0 ) ]
 		} );
 	};
 
