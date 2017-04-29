@@ -77,7 +77,6 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	height: 100%;
 	border: 1px solid $border-color;
 	color: $font-color-body;
 	border-top-width: 0;
@@ -85,7 +84,6 @@
 
 	@include desktop() {
 		height: $sidebar-width-medium;
-		width: 100%;
 		border-top-width: 1px;
 		border-bottom-width: 1px;
 		border-left-width: 0;
