@@ -17,7 +17,7 @@ html {
 body {
 	@extend %sans;
 	margin: 0;
-	padding: 0;
+	padding: 0 0 3rem;
 	font-size: 100%;
 	line-height: 1.5;
 	color: $font-color-body;
