@@ -74,6 +74,8 @@
 
 .sidebar__action {
 	display: inline-flex;
+	margin-top: -1px;
+	padding-top: 1px;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
@@ -84,6 +86,10 @@
 
 	@include desktop() {
 		height: $sidebar-width-medium;
+		margin-top: 0;
+		padding-top: 0;
+		margin-left: -1px;
+		padding-left: 1px;
 		border-top-width: 1px;
 		border-bottom-width: 1px;
 		border-left-width: 0;
