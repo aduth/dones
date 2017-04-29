@@ -7,10 +7,6 @@
 html {
 	font-size: $font-size;
 	background-color: $background-color;
-
-	@include desktop() {
-		font-size: $font-size-desktop;
-	}
 }
 
 body {
