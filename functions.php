@@ -29,6 +29,14 @@ function dones_scripts() {
 	wp_enqueue_style( 'dones-style', get_theme_file_uri( '/dist/style.css' ), array(), DONES_VERSION );
 	wp_add_inline_style( 'dones-style', sprintf( 'a { color: %s; }', get_theme_mod( 'brand_color', '#986dda' ) ) );
 
+	// Custom logo with fallback.
+	$custom_logo_id = get_theme_mod( 'custom_logo' );
+	if ( $custom_logo_id ) {
+		$logo = wp_get_attachment_image_url( $custom_logo_id, 'full' );
+	} else {
+		$logo = get_theme_file_uri( '/img/logo.svg' );
+	}
+
 	// Application script.
 	wp_register_script( 'dones-polyfill', add_query_arg( array(
 		'features' => 'fetch'
@@ -40,7 +48,7 @@ function dones_scripts() {
 		'apiRoot'    => esc_url_raw( untrailingslashit( get_rest_url() ) ),
 		'apiNonce'   => wp_create_nonce( 'wp_rest' ),
 		'brandColor' => get_theme_mod( 'brand_color', '#986dda' ),
-		'logo'       => wp_get_attachment_image_url( get_theme_mod( 'custom_logo' ), 'full' ),
+		'logo'       => $logo,
 		'gmtOffset'  => get_option( 'gmt_offset' ),
 		'dateFormat' => get_option( 'date_format' ),
 		'userId'     => get_current_user_id(),
