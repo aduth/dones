@@ -15,12 +15,6 @@ export default class DatePicker extends Component {
 		options: {}
 	};
 
-	componentWillReceiveProps( nextProps ) {
-		if ( nextProps.value ) {
-			this.flatpickr.setDate( nextProps.value );
-		}
-	}
-
 	componentDidMount() {
 		const options = {
 			...this.props.options,
@@ -33,6 +27,16 @@ export default class DatePicker extends Component {
 		// the value and force a redraw (to reapply the "today" class)
 		this.flatpickr.now = toSiteTime( new Date() );
 		this.flatpickr.redraw();
+	}
+
+	componentWillReceiveProps( nextProps ) {
+		if ( nextProps.value ) {
+			this.flatpickr.setDate( nextProps.value );
+		}
+	}
+
+	componentWillUnmount() {
+		this.flatpickr.destroy();
 	}
 
 	setInputRef = ( input ) => {
