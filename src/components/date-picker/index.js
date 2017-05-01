@@ -39,18 +39,24 @@ export default class DatePicker extends Component {
 		this.flatpickr.destroy();
 	}
 
+	shouldComponentUpdate() {
+		return false;
+	}
+
 	setInputRef = ( input ) => {
 		this.input = input;
-	}
+	};
 
 	render() {
 		const { defaultValue, value, ...props } = this.props;
 
 		return (
-			<input
-				{ ...omit( props, 'onChange', 'options' ) }
-				defaultValue={ defaultValue || value }
-				ref={ this.setInputRef } />
+			<div>
+				<input
+					{ ...omit( props, 'onChange', 'options' ) }
+					defaultValue={ defaultValue || value }
+					ref={ this.setInputRef } />
+			</div>
 		);
 	}
 }
