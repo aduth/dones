@@ -51,7 +51,7 @@ export default class DatePicker extends Component {
 		const { defaultValue, value, ...props } = this.props;
 
 		return (
-			<div>
+			<div className="date-picker">
 				<input
 					{ ...omit( props, 'onChange', 'options' ) }
 					defaultValue={ defaultValue || value }
