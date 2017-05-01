@@ -12,7 +12,7 @@ import Button from 'components/button';
 import Card from 'components/card';
 import Icon from 'components/icon';
 import DatePicker from 'components/date-picker';
-import { formatSiteDate, translate } from 'lib/i18n';
+import { toSiteTime, formatSiteDate, translate } from 'lib/i18n';
 import { pushRoute } from 'state/routing/actions';
 import { addDays, format as formatDate } from 'date-fns';
 
@@ -31,6 +31,12 @@ class DateNavigation extends Component {
 	}
 
 	toDate = ( selected, date ) => {
+		// Some date inputs on mobile allow clearing the value. Assume an empty
+		// value should default to today's date.
+		if ( ! date ) {
+			date = formatDate( toSiteTime(), 'YYYY-MM-DD' );
+		}
+
 		this.props.pushRoute( `/date/${ date }/` );
 	};
 
