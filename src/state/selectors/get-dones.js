@@ -6,6 +6,10 @@ import { reduce, every, startsWith, includes, endsWith } from 'lodash';
 export default function getDones( state, query ) {
 	return reduce( state.dones.items, ( memo, item, id ) => {
 		const isMatch = every( query, ( value, key ) => {
+			if ( undefined === value ) {
+				return true;
+			}
+
 			switch ( key ) {
 				case 'userId':
 					return item.user === value;
