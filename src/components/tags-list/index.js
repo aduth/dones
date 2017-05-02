@@ -19,7 +19,7 @@ function TagsList( { tags } ) {
 			<QueryTags />
 			<WordCloud items={ map( tags, ( count, name ) => ( {
 				text: name,
-				url: `/tags/${ name }`,
+				url: `/tags/${ name }/`,
 				count
 			} ) ) } />
 		</Card>
