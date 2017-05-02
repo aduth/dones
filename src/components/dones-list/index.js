@@ -130,15 +130,13 @@ class DonesList extends Component {
 				];
 			}
 
-			// TODO: Resolve buggy lint behavior
-
-			/* eslint-disable wpcalypso/jsx-classname-namespace */
 			return (
+				// TODO: Resolve buggy lint behavior
+				// eslint-disable-next-line wpcalypso/jsx-classname-namespace
 				<li key={ id } className="dones-list__item">
 					{ children }
 				</li>
 			);
-			/* eslint-enable wpcalypso/jsx-classname-namespace */
 		} );
 
 		return (
