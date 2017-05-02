@@ -8,6 +8,7 @@ import { connect } from 'preact-redux';
  * Internal dependencies
  */
 import Page from 'components/page';
+import Card from 'components/card';
 import DonesList from 'components/dones-list';
 import { getRouteParam } from 'state/selectors';
 import { translate } from 'lib/i18n';
@@ -15,7 +16,9 @@ import { translate } from 'lib/i18n';
 function TagRoute( { tag } ) {
 	return (
 		<Page title={ translate( 'Tags' ) }>
-			<DonesList query={ { tag } } />
+			<Card>
+				<DonesList query={ { tag } } />
+			</Card>
 		</Page>
 	);
 }
