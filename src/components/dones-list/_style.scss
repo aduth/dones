@@ -6,7 +6,10 @@
 
 .dones-list__item {
 	position: relative;
-	margin-bottom: 0.6rem;
+
+	&:not( :last-child ) {
+		margin-bottom: 0.6rem;
+	}
 
 	&.is-placeholder {
 		@include loading-pulse-text;
