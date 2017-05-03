@@ -337,3 +337,18 @@ function dones_assign_done_tags( $post_id, $post ) {
 	wp_set_post_terms( $post_id, $tags, 'done-tag' );
 }
 add_action( 'save_post_done', 'dones_assign_done_tags', 10, 2 );
+
+/**
+ * Returns a default icon URL resource if a site icon isn't configured.
+ *
+ * @param  string $url Site icon URL
+ * @return string $url Site icon URL, or default value
+ */
+function dones_default_site_icon( $url ) {
+	if ( ! empty( $url ) ) {
+		return $url;
+	}
+
+	return get_theme_file_uri( '/img/favicon.ico' );
+}
+add_filter( 'get_site_icon_url', 'dones_default_site_icon' );
