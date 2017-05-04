@@ -58,14 +58,19 @@ function dones_scripts() {
 			'/dones/v1/users'
 		) ), 'dones_preload_request', array() ),
 		'i18n'       => array(
-			'Done'           => __( 'Done', 'dones' ),
-			'Goal'           => __( 'Goal', 'dones' ),
-			'Log In'         => __( 'Log In', 'dones' ),
-			'Log Out'        => __( 'Log Out', 'dones' ),
-			'Next'           => __( 'Next', 'dones' ),
-			'Page Not Found' => __( 'Page Not Found', 'dones' ),
-			'Previous'       => __( 'Previous', 'dones' ),
-			'Tags'           => __( 'Tags', 'dones' )
+			'Cancel'                    => __( 'Cancel', 'dones' ),
+			'Done'                      => __( 'Done', 'dones' ),
+			'Dones'                     => __( 'Dones', 'dones' ),
+			'Goal'                      => __( 'Goal', 'dones' ),
+			'Log In'                    => __( 'Log In', 'dones' ),
+			'Log Out'                   => __( 'Log Out', 'dones' ),
+			'Next'                      => __( 'Next', 'dones' ),
+			'Page Not Found'            => __( 'Page Not Found', 'dones' ),
+			'Pick Date'                 => __( 'Pick Date', 'dones' ),
+			'Previous'                  => __( 'Previous', 'dones' ),
+			'Submit'                    => __( 'Submit', 'dones' ),
+			'Tags'                      => __( 'Tags', 'dones' ),
+			'What have you been up to?' => __( 'What have you been up to?', 'dones' )
 		)
 	) );
 }
