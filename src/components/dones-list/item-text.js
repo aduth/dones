@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createElement } from 'preact';
-import { reduce } from 'lodash';
+import { reduce, truncate } from 'lodash';
 
 /**
  * Internal dependencies
@@ -30,9 +30,11 @@ export default function DonesListItemText( { onClick, onMouseDown, children } ) 
 		/(^|\s)(https?:\/\/\S+)/,
 		( [ , whitespace, url ] ) => [
 			whitespace,
-			<Link to={ url }>
-				{ url }
-			</Link>
+			<span data-raw-text={ url }>
+				<Link to={ url }>
+					{ truncate( url.replace( /^https?:\/\/(www\.)?/, '' ) ) }
+				</Link>
+			</span>
 		]
 	], [
 		/`([^`]+)`/,

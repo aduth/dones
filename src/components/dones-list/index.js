@@ -4,7 +4,7 @@
 import { createElement, Component } from 'preact';
 import { connect } from 'preact-redux';
 import classNames from 'classnames';
-import { map, sortBy } from 'lodash';
+import { map, sortBy, get } from 'lodash';
 
 /**
  * Internal dependencies
@@ -57,10 +57,15 @@ class DonesList extends Component {
 				length = 0;
 			}
 
+			// Text may be modified when displayed in list, with raw text
+			// defined as attribute for calculating offset in edit
+			const { attributes, textContent } = child;
+			const rawText = get( attributes, 'data-raw-text.value', textContent );
+
 			if ( child === extentNode ) {
 				length += extentOffset;
 			} else if ( undefined !== length ) {
-				length += child.textContent.length;
+				length += rawText.length;
 			}
 
 			if ( length && child === baseNode ) {
@@ -71,7 +76,7 @@ class DonesList extends Component {
 				break;
 			}
 
-			start += child.textContent.length;
+			start += rawText.length;
 		}
 
 		this.setState( {
