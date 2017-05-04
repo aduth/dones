@@ -8,7 +8,7 @@ import { omit } from 'lodash';
 /**
  * Internal dependencies
  */
-import { toSiteTime } from 'lib/i18n';
+import { toSiteTime, translate } from 'lib/i18n';
 
 export default class DatePicker extends Component {
 	static defaultProps = {
@@ -55,7 +55,8 @@ export default class DatePicker extends Component {
 				<input
 					{ ...omit( props, 'onChange', 'options' ) }
 					defaultValue={ defaultValue || value }
-					ref={ this.setInputRef } />
+					ref={ this.setInputRef }
+					aria-label={ translate( 'Date' ) } />
 			</div>
 		);
 	}

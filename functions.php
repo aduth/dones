@@ -59,7 +59,9 @@ function dones_scripts() {
 		) ), 'dones_preload_request', array() ),
 		'i18n'       => array(
 			'Cancel'                    => __( 'Cancel', 'dones' ),
+			'Date'                      => __( 'Date', 'dones' ),
 			'Done'                      => __( 'Done', 'dones' ),
+			'Done or goal'              => __( 'Done or goal', 'dones' ),
 			'Dones'                     => __( 'Dones', 'dones' ),
 			'Goal'                      => __( 'Goal', 'dones' ),
 			'Log In'                    => __( 'Log In', 'dones' ),

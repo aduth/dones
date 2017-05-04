@@ -8,6 +8,7 @@ import caret from 'textarea-caret';
 /**
  * Internal dependencies
  */
+import { translate } from 'lib/i18n';
 import PopoverMenu from 'components/popover-menu';
 
 export default class DoneInputTextarea extends Component {
@@ -88,7 +89,8 @@ export default class DoneInputTextarea extends Component {
 					ref={ this.setRef }
 					{ ...this.props }
 					onInput={ this.setCaretOffset }
-					className="done-input__textarea-input" />
+					className="done-input__textarea-input"
+					aria-label={ translate( 'Done or goal' ) } />
 				<PopoverMenu
 					position="bottom-left"
 					selectKeyCode={ 9 }
