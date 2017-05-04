@@ -35,7 +35,7 @@ function Sidebar( { path } ) {
 					) }
 				</h1>
 			</Link>
-			<div className="sidebar__actions">
+			<nav className="sidebar__actions">
 				<SidebarAction
 					icon="th-list"
 					to="/"
@@ -48,8 +48,8 @@ function Sidebar( { path } ) {
 					selected={ startsWith( path, '/tags/' ) }>
 					{ translate( 'Tags' ) }
 				</SidebarAction>
-			</div>
-			<div className="sidebar__actions is-end">
+			</nav>
+			<nav className="sidebar__actions is-end">
 				{ isLoggedIn && (
 					<SidebarAction icon="sign-out" to={ LOGOUT_URL }>
 						{ translate( 'Log Out' ) }
@@ -60,7 +60,7 @@ function Sidebar( { path } ) {
 						{ translate( 'Log In' ) }
 					</SidebarAction>
 				) }
-			</div>
+			</nav>
 		</header>
 	);
 }
