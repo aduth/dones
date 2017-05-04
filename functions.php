@@ -344,11 +344,12 @@ add_action( 'save_post_done', 'dones_assign_done_tags', 10, 2 );
  * @param  string $url Site icon URL
  * @return string $url Site icon URL, or default value
  */
-function dones_default_site_icon( $url ) {
-	if ( ! empty( $url ) ) {
-		return $url;
+function dones_default_site_icon( $url, $size ) {
+	$icon_sizes = array( '32', '180', '192', '270', '512' );
+	if ( empty( $url ) && in_array( $size, $icon_sizes ) ) {
+		return get_theme_file_uri( sprintf( '/img/icon-%d.png', $size ) );
 	}
 
-	return get_theme_file_uri( '/img/favicon.ico' );
+	return $url;
 }
-add_filter( 'get_site_icon_url', 'dones_default_site_icon' );
+add_filter( 'get_site_icon_url', 'dones_default_site_icon', 10, 2 );
