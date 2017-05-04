@@ -50,6 +50,10 @@
 	flex-shrink: 0;
 }
 
+.sidebar__site-name {
+	@extend %screen-reader-text;
+}
+
 .sidebar__logo {
 	margin: 0;
 	padding: 1rem;

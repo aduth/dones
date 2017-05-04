@@ -9,7 +9,7 @@ import { startsWith } from 'lodash';
  * Internal dependencies
  */
 import Link from 'components/link';
-import { USER_ID, BRAND_COLOR, LOGO, LOGIN_URL, LOGOUT_URL } from 'constant';
+import { USER_ID, BRAND_COLOR, LOGO, LOGIN_URL, LOGOUT_URL, SITE_NAME } from 'constant';
 import { translate } from 'lib/i18n';
 import { getRoutePath } from 'state/selectors';
 import SidebarAction from './action';
@@ -24,6 +24,9 @@ function Sidebar( { path } ) {
 				style={ { backgroundColor: BRAND_COLOR } }
 				className="sidebar__logo-link">
 				<h1 className="sidebar__logo">
+					<span className="sidebar__site-name">
+						{ SITE_NAME }
+					</span>
 					{ LOGO && (
 						<img
 							src={ LOGO }
