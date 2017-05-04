@@ -216,6 +216,18 @@ add_action( 'init', 'dones_add_rewrite_rules' );
 add_action( 'after_switch_theme', 'dones_add_rewrite_rules' );
 
 /**
+ * Redirect to current date for root path requests.
+ */
+function dones_home_redirect() {
+	global $wp;
+	if ( home_url() === home_url( $wp->request ) ) {
+		wp_safe_redirect( home_url( '/date/' . date_i18n( 'Y-m-d' ) ) );
+		exit;
+	}
+}
+add_action( 'template_redirect', 'dones_home_redirect' );
+
+/**
  * Allow user listing endpoint to include all users, regardless of role and
  * whether published posts exist for the user.
  *
