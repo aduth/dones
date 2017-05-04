@@ -145,7 +145,7 @@ class DonesList extends Component {
 				{ items }
 				{ ! hasReceived && <li className="dones-list__item is-placeholder" /> }
 				{ hasReceived && 0 === dones.length && (
-					<em>{ translate( 'Nothing reported yet!' ) }</em>
+					<li><em>{ translate( 'Nothing reported yet!' ) }</em></li>
 				) }
 			</ul>
 		);
