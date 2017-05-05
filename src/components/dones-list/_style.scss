@@ -43,6 +43,8 @@
 	position: relative;
 	margin-left: 2.4rem;
 	margin-right: 2.4rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
 
 	.dones-list.is-editable & {
 		cursor: text;
