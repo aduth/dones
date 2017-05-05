@@ -9,8 +9,8 @@ function dones_get_tags() {
 	$tags = wp_cache_get( 'dones_tags' );
 	if ( false === $tags ) {
 		global $wpdb;
-		$tags = $wpdb->get_results( "
-			SELECT name, COUNT( $wpdb->terms.term_id ) AS count
+		$tags = $wpdb->get_col( "
+			SELECT name
 				FROM $wpdb->terms
 			INNER JOIN $wpdb->term_taxonomy
 				ON $wpdb->terms.term_id = $wpdb->term_taxonomy.term_id
@@ -22,7 +22,7 @@ function dones_get_tags() {
 			GROUP BY $wpdb->terms.term_id
 			ORDER BY $wpdb->posts.post_modified DESC
 			LIMIT 250
-		", ARRAY_A );
+		" );
 
 		wp_cache_set( 'dones_tags', $tags );
 	}

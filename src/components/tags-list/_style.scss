@@ -1,0 +1,14 @@
+.tags-list__list {
+	list-style-type: none;
+	margin: 0;
+	padding-left: 0;
+}
+
+.tags-list__list-item {
+	display: inline-block;
+	padding: 0.2rem;
+
+	.button {
+		text-transform: none;
+	}
+}

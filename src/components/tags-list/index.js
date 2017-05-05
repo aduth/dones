@@ -10,18 +10,23 @@ import { map } from 'lodash';
  */
 import QueryTags from 'components/query-tags';
 import Card from 'components/card';
-import WordCloud from 'components/word-cloud';
+import Button from 'components/button';
+import { translate } from 'lib/i18n';
 import { getTagCounts } from 'state/selectors';
 
 function TagsList( { tags } ) {
 	return (
-		<Card>
+		<Card title={ translate( 'Recent Tags' ) }>
 			<QueryTags />
-			<WordCloud items={ map( tags, ( count, name ) => ( {
-				text: name,
-				url: `/tags/${ name }/`,
-				count
-			} ) ) } />
+			<ul className="tags-list__list">
+				{ map( tags, ( name ) => (
+					<li key={ name } className="tags-list__list-item">
+						<Button to={ `/tags/${ name }/` }>
+							{ name }
+						</Button>
+					</li>
+				) ) }
+			</ul>
 		</Card>
 	);
 }

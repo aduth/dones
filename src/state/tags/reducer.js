@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { fromPairs } from 'lodash';
+import { includes } from 'lodash';
 
 /**
  * Internal dependencies
@@ -15,25 +15,21 @@ import {
 export default function( state = null, action ) {
 	switch ( action.type ) {
 		case TAGS_RECEIVE:
-			return fromPairs( action.tags );
+			return action.tags;
 
 		case DONE_CREATE:
 		case DONE_UPDATE:
 			const pattern = /(^|\s)#(\S+)\b/g;
 
-			let nextState = state,
-				match;
-
+			let match;
 			while ( match = pattern.exec( action.text ) ) {
-				if ( nextState === state ) {
-					nextState = { ...state };
+				const [ , , tag ] = match;
+				if ( ! includes( state, tag ) ) {
+					state = state.concat( tag );
 				}
-
-				const tag = match[ 2 ];
-				nextState[ tag ] = ( nextState[ tag ] || 0 ) + 1;
 			}
 
-			return nextState;
+			return state;
 	}
 
 	return state;

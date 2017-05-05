@@ -29,20 +29,11 @@ class WP_REST_Dones_Tags_Controller extends WP_REST_Controller {
 	 * @return WP_REST_Response|WP_Error          Response or WP_Error
 	 */
 	public function get_items( $request ) {
-		$tags = array();
-
-		foreach ( dones_get_tags() as $tag ) {
-			$tags[] = array(
-				$tag['name'],
-				(int) $tag['count']
-			);
-		}
-
-		return rest_ensure_response( $tags );
+		return dones_get_tags();
 	}
 
 	/**
-	 * Retrieves the tags schema, conforming to JSON Schema.
+	 * Retrieves the done's schema, conforming to JSON Schema.
 	 *
 	 * @return array Item schema data.
 	 */
@@ -52,8 +43,7 @@ class WP_REST_Dones_Tags_Controller extends WP_REST_Controller {
 			'title'   => 'done',
 			'type'    => 'array',
 			'items'   => array(
-				array( 'type' => 'string' ),
-				array( 'type' => 'number' )
+				'type' => 'string'
 			)
 		);
 	}
