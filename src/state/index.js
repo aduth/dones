@@ -13,8 +13,8 @@ import middlewares from './middlewares';
 export default function configureReduxStore() {
 	const enhancers = [ applyMiddleware( ...middlewares ) ];
 
-	if ( global.__REDUX_DEVTOOLS_EXTENSION__ ) {
-		enhancers.push( global.__REDUX_DEVTOOLS_EXTENSION__() );
+	if ( window.__REDUX_DEVTOOLS_EXTENSION__ ) {
+		enhancers.push( window.__REDUX_DEVTOOLS_EXTENSION__() );
 	}
 
 	return createStore( reducer, flowRight( enhancers ) );
