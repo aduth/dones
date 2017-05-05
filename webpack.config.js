@@ -13,13 +13,13 @@ const config = module.exports = {
 		vendor: [
 			'autosize',
 			'classnames',
-			'date-fns',
+			'fast-stable-stringify',
 			'flatpickr',
 			'path-to-regexp',
 			'preact',
 			'preact-redux',
-			'redux',
-			'refx'
+			'refx',
+			'textarea-caret'
 		]
 	},
 	output: {
