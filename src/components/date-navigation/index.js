@@ -45,7 +45,7 @@ class DateNavigation extends Component {
 
 		return (
 			<Card
-				title="Dones"
+				title={ translate( 'Dones' ) }
 				subtitle={ formatSiteDate( date ) }
 				controls={
 					<ButtonGroup>
