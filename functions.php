@@ -1,10 +1,16 @@
 <?php
 
-if ( ! defined( 'DONES_VERSION' ) ) {
-	define( 'DONES_VERSION', '1.0.0' );
-}
-
 require( dirname( __FILE__ ) . '/inc/tags.php' );
+
+/**
+ * Returns the current version of the theme.
+ *
+ * @return string Theme version
+ */
+function dones_get_version() {
+	$theme = wp_get_theme();
+	return $theme->get( 'Version' );
+}
 
 /**
  * Sets up theme defaults and registers support for various WordPress features.
@@ -26,7 +32,7 @@ function dones_scripts() {
 	wp_enqueue_style( 'dones-fonts', 'https://fonts.googleapis.com/css?family=Roboto:400,400i,700,300', array(), null );
 
 	// Theme stylesheet.
-	wp_enqueue_style( 'dones-style', get_theme_file_uri( '/dist/style.css' ), array(), DONES_VERSION );
+	wp_enqueue_style( 'dones-style', get_theme_file_uri( '/dist/style.css' ), array(), dones_get_version() );
 	wp_add_inline_style( 'dones-style', sprintf( 'a { color: %s; }', get_theme_mod( 'brand_color', '#986dda' ) ) );
 
 	// Custom logo with fallback.
@@ -41,8 +47,8 @@ function dones_scripts() {
 	wp_register_script( 'dones-polyfill', add_query_arg( array(
 		'features' => 'fetch'
 	), 'https://cdn.polyfill.io/v2/polyfill.min.js' ) );
-	wp_register_script( 'dones-vendor', get_theme_file_uri( '/dist/vendor.js' ), array(), DONES_VERSION );
-	wp_enqueue_script( 'dones-app', get_theme_file_uri( '/dist/app.js' ), array( 'dones-polyfill', 'dones-vendor' ), DONES_VERSION, true );
+	wp_register_script( 'dones-vendor', get_theme_file_uri( '/dist/vendor.js' ), array(), dones_get_version() );
+	wp_enqueue_script( 'dones-app', get_theme_file_uri( '/dist/app.js' ), array( 'dones-polyfill', 'dones-vendor' ), dones_get_version(), true );
 	wp_localize_script( 'dones-app', 'dones', array(
 		'siteName'   => get_bloginfo( 'name' ),
 		'apiRoot'    => esc_url_raw( untrailingslashit( get_rest_url() ) ),
