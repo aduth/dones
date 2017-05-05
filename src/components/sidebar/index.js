@@ -35,32 +35,34 @@ function Sidebar( { path } ) {
 					) }
 				</h1>
 			</Link>
-			<nav className="sidebar__actions">
-				<SidebarAction
-					icon="th-list"
-					to="/"
-					selected={ startsWith( path, '/date/' ) }>
-					{ translate( 'Dones' ) }
-				</SidebarAction>
-				<SidebarAction
-					icon="hashtag"
-					to="/tags/"
-					selected={ startsWith( path, '/tags/' ) }>
-					{ translate( 'Tags' ) }
-				</SidebarAction>
-			</nav>
-			<nav className="sidebar__actions is-end">
-				{ isLoggedIn && (
-					<SidebarAction icon="sign-out" to={ LOGOUT_URL }>
-						{ translate( 'Log Out' ) }
+			<div className="sidebar__action-sets">
+				<nav className="sidebar__actions">
+					<SidebarAction
+						icon="th-list"
+						to="/"
+						selected={ startsWith( path, '/date/' ) }>
+						{ translate( 'Dones' ) }
 					</SidebarAction>
-				) }
-				{ ! isLoggedIn && (
-					<SidebarAction icon="sign-in" to={ LOGIN_URL }>
-						{ translate( 'Log In' ) }
+					<SidebarAction
+						icon="hashtag"
+						to="/tags/"
+						selected={ startsWith( path, '/tags/' ) }>
+						{ translate( 'Tags' ) }
 					</SidebarAction>
-				) }
-			</nav>
+				</nav>
+				<nav className="sidebar__actions is-end">
+					{ isLoggedIn && (
+						<SidebarAction icon="sign-out" to={ LOGOUT_URL }>
+							{ translate( 'Log Out' ) }
+						</SidebarAction>
+					) }
+					{ ! isLoggedIn && (
+						<SidebarAction icon="sign-in" to={ LOGIN_URL }>
+							{ translate( 'Log In' ) }
+						</SidebarAction>
+					) }
+				</nav>
+			</div>
 		</header>
 	);
 }

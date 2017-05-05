@@ -63,16 +63,21 @@
 	display: block;
 }
 
-.sidebar__actions {
-	flex: 0 1 100%;
+.sidebar__action-sets {
+	display: flex;
+	justify-content: space-between;
+	height: 100%;
+	width: 100%;
 
+	@include desktop() {
+		flex-direction: column;
+	}
+}
+
+.sidebar__actions {
 	&:not( .is-end ) .sidebar__action {
 		border-left-width: 0;
 		border-top-width: 0;
-	}
-
-	&.is-end {
-		flex-basis: 0;
 	}
 }
 
@@ -89,6 +94,7 @@
 	border-bottom-width: 0;
 
 	@include desktop() {
+		display: flex;
 		height: $sidebar-width-medium;
 		margin-top: 0;
 		padding-top: 0;

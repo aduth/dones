@@ -1,4 +1,6 @@
 .page {
+	display: block;
+
 	@include medium() {
 		padding-top: $sidebar-width-medium;
 	}

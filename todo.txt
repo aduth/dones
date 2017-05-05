@@ -1,0 +1,1 @@
+- click suggestion cancels edit
