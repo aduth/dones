@@ -16,13 +16,23 @@ function dones_get_version() {
  * Sets up theme defaults and registers support for various WordPress features.
  */
 function dones_setup() {
-	// Add theme support for Custom Logo.
+	add_theme_support( 'title-tag' );
 	add_theme_support( 'custom-logo', array(
 		'width'  => 120,
 		'height' => 120
 	) );
 }
 add_action( 'after_setup_theme', 'dones_setup' );
+
+/**
+ * Bypass default document title, deferred to be handled on client.
+ *
+ * @return string Title override (site name)
+ */
+function dones_custom_document_title() {
+	return get_bloginfo( 'name', 'display' );
+}
+add_filter( 'pre_get_document_title', 'dones_custom_document_title' );
 
 /**
  * Enqueue scripts and styles.
