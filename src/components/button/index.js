@@ -10,6 +10,12 @@ import { reduce } from 'lodash';
  */
 import Link from 'components/link';
 
+function toggleOutlineActive( active ) {
+	return ( { currentTarget } ) => {
+		currentTarget.style.outline = active ? '' : '0';
+	};
+}
+
 export default function Button( props ) {
 	const { type, to, className, children } = props;
 
@@ -17,6 +23,8 @@ export default function Button( props ) {
 		...props,
 		to,
 		type: to ? null : type,
+		onMouseDown: toggleOutlineActive( false ),
+		onBlur: toggleOutlineActive( true ),
 		className: classNames( 'button', className, reduce( [
 			'primary'
 		], ( memo, modifier ) => {
