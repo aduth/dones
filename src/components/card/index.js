@@ -12,9 +12,9 @@ export default function Card( { className, title, subtitle, controls, children }
 			{ title && (
 				<header className="card__header">
 					<div className="card__title-subtitle">
-						<h4 className="card__title">
+						<h2 className="card__title">
 							{ title }
-						</h4>
+						</h2>
 						{ subtitle && (
 							<p className="card__subtitle">
 								{ subtitle }

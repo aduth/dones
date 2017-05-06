@@ -66,6 +66,10 @@
 	margin: 0;
 }
 
+.card__title {
+	font-size: 1.4rem;
+}
+
 .card__subtitle {
 	@extend %subtitle;
 }
