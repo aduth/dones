@@ -11,3 +11,4 @@ export const ROUTE_PUSH = 'ROUTE_PUSH';
 export const ROUTE_REPLACE = 'ROUTE_REPLACE';
 export const USERS_RECEIVE = 'USERS_RECEIVE';
 export const TAGS_RECEIVE = 'TAGS_RECEIVE';
+export const TAGS_REQUEST = 'TAGS_REQUEST';
