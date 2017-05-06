@@ -2,6 +2,16 @@
 	list-style-type: none;
 	margin: 0.2rem 0;
 	padding-left: 0;
+
+	.done-text {
+		position: relative;
+		margin-left: 2.4rem;
+		margin-right: 2.4rem;
+	}
+
+	&.is-editable .done-text {
+		cursor: text;
+	}
 }
 
 .dones-list__item {
@@ -13,6 +23,15 @@
 
 	&.is-placeholder {
 		@include loading-pulse-text;
+	}
+
+	&:hover .done-text::after {
+		content: '';
+		position: absolute;
+		top: 100%;
+		left: 0;
+		right: 0;
+		border-bottom: 1px dashed $border-hover-color;
 	}
 
 	.done-status {
@@ -36,26 +55,5 @@
 	.icon {
 		display: block;
 		fill: $color-red;
-	}
-}
-
-.dones-list__item-text {
-	position: relative;
-	margin-left: 2.4rem;
-	margin-right: 2.4rem;
-	overflow: hidden;
-	text-overflow: ellipsis;
-
-	.dones-list.is-editable & {
-		cursor: text;
-	}
-
-	.dones-list.is-editable .dones-list__item:hover &::after {
-		content: '';
-		position: absolute;
-		top: 100%;
-		left: 0;
-		right: 0;
-		border-bottom: 1px dashed $border-hover-color;
 	}
 }

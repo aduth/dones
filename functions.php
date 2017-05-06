@@ -87,6 +87,7 @@ function dones_scripts() {
 			'Pick Date'                 => __( 'Pick Date', 'dones' ),
 			'Previous'                  => __( 'Previous', 'dones' ),
 			'Submit'                    => __( 'Submit', 'dones' ),
+			'Tag: %s'                   => __( 'Tag: %s', 'dones' ),
 			'Tags'                      => __( 'Tags', 'dones' ),
 			'User avatar'               => __( 'User avatar', 'dones' ),
 			'What have you been up to?' => __( 'What have you been up to?', 'dones' )

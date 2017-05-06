@@ -17,7 +17,7 @@ import Link from 'components/link';
  */
 const NULL_CHARACTER = String.fromCharCode( 0 );
 
-export default function DonesListItemText( { onClick, onMouseDown, children } ) {
+export default function DoneText( { onClick, onMouseDown, children } ) {
 	const transforms = [ [
 		/(^|\s)#(\S+)\b/,
 		( [ , whitespace, tag ] ) => [
@@ -66,7 +66,7 @@ export default function DonesListItemText( { onClick, onMouseDown, children } ) 
 		<div
 			onClick={ onClick }
 			onMouseDown={ onMouseDown }
-			className="dones-list__item-text">
+			className="done-text">
 			{ parts }
 		</div>
 	);

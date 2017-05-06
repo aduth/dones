@@ -14,10 +14,10 @@ import { translate } from 'lib/i18n';
 import QueryDones from 'components/query-dones';
 import DoneStatus from 'components/done-status';
 import DoneInput from 'components/done-input';
+import DoneText from 'components/done-text';
 import Icon from 'components/icon';
 import { updateDone, deleteDone } from 'state/dones/actions';
 import { getDones, hasReceivedDones } from 'state/selectors';
-import DonesListItemText from './item-text';
 
 class DonesList extends Component {
 	state = {
@@ -122,10 +122,10 @@ class DonesList extends Component {
 						done={ done }
 						disabled={ ! this.isEditable() }
 						onToggle={ () => this.props.updateDone( id, text, ! done ) } />,
-					<DonesListItemText
+					<DoneText
 						onMouseDown={ () => this.startTrackingSelection( id ) }>
 						{ text }
-					</DonesListItemText>,
+					</DoneText>,
 					<button
 						type="button"
 						onClick={ () => this.deleteDone( id ) }

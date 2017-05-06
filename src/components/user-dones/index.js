@@ -2,36 +2,19 @@
  * External dependencies
  */
 import { createElement } from 'preact';
-import { connect } from 'preact-redux';
 
 /**
  * Internal dependencies
  */
 import { USER_ID } from 'constant';
-import { translate } from 'lib/i18n';
 import Card from 'components/card';
 import DoneInput from 'components/done-input';
 import DonesList from 'components/dones-list';
-import { getUser } from 'state/selectors';
+import User from 'components/user';
 
-function UserDones( { userId, date, avatar, name } ) {
-	let title = name;
-	if ( avatar ) {
-		title = (
-			<span>
-				<img
-					src={ avatar }
-					alt={ translate( 'User avatar' ) }
-					height="30"
-					width="30"
-					className="user-dones__avatar-image" />
-				{ title }
-			</span>
-		);
-	}
-
+export default function UserDones( { userId, date } ) {
 	return (
-		<Card title={ title }>
+		<Card title={ <User userId={ userId } /> }>
 			<DonesList
 				userId={ userId }
 				query={ { date } } />
@@ -44,5 +27,3 @@ function UserDones( { userId, date, avatar, name } ) {
 		</Card>
 	);
 }
-
-export default connect( ( state, { userId } ) => getUser( state, userId ) )( UserDones );

@@ -218,7 +218,7 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 			'id'   => $post->ID,
 			'user' => (int) $post->post_author,
 			'text' => $post->post_title,
-			'date' => $post->post_date,
+			'date' => mysql2date( 'Y-m-d', $post->post_date ),
 			'done' => ( 'publish' === $post->post_status )
 		);
 	}
