@@ -1,13 +1,11 @@
 /**
  * Internal dependencies
  */
-import { USERS_RECEIVE, REQUEST } from 'state/action-types';
+import { USERS_REQUEST, USERS_RECEIVE } from 'state/action-types';
 
 export function requestUsers() {
 	return {
-		type: REQUEST,
-		path: '/dones/v1/users',
-		success: ( users ) => receiveUsers( users )
+		type: USERS_REQUEST
 	};
 }
 
