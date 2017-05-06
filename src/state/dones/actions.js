@@ -14,11 +14,12 @@ import {
 	DONES_REQUEST
 } from 'state/action-types';
 
-export function receiveDones( dones, query ) {
+export function receiveDones( dones, query, totalPages ) {
 	return {
 		type: DONES_RECEIVE,
 		dones,
-		query
+		query,
+		totalPages
 	};
 }
 

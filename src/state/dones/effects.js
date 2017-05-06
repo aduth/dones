@@ -18,7 +18,11 @@ export default {
 			type: REQUEST,
 			path: '/dones/v1/dones',
 			query,
-			success: ( dones ) => receiveDones( dones, query )
+			success: ( { body, headers } ) => receiveDones(
+				body,
+				query,
+				headers[ 'x-wp-totalpages' ]
+			)
 		};
 	},
 	[ DONE_CREATE ]( action ) {
@@ -31,8 +35,8 @@ export default {
 				method: 'POST',
 				body: { date, text, done }
 			},
-			success( { id } ) {
-				return updateDone( id, text, done, transientId );
+			success( { body } ) {
+				return updateDone( body.id, text, done, transientId );
 			}
 		};
 	},

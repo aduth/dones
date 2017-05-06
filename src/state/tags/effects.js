@@ -9,7 +9,7 @@ export default {
 		return {
 			type: REQUEST,
 			path: '/dones/v1/tags',
-			success: receiveTags
+			success: ( { body } ) => receiveTags( body )
 		};
 	}
 };

@@ -69,7 +69,7 @@ function items( state = {}, action ) {
 	return state;
 }
 
-function received( state = {}, action ) {
+function totalPages( state = {}, action ) {
 	switch ( action.type ) {
 		case DONES_RECEIVE:
 			const { query } = action;
@@ -79,7 +79,7 @@ function received( state = {}, action ) {
 
 			return {
 				...state,
-				[ stringify( query ) ]: true
+				[ stringify( query ) ]: action.totalPages
 			};
 	}
 
@@ -88,5 +88,5 @@ function received( state = {}, action ) {
 
 export default combineReducers( {
 	items,
-	received
+	totalPages
 } );

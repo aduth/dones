@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { combineReducers } from 'redux';
-import { omit } from 'lodash';
+import { omit, get } from 'lodash';
 
 /**
  * Internal dependencies
@@ -41,12 +41,8 @@ export function preload( state = PRELOADED_REQUESTS, action ) {
 export function nonce( state = API_NONCE, action ) {
 	switch ( action.type ) {
 		case REQUEST_COMPLETE:
-			const { headers } = action;
-			if ( ! headers || ! headers.has( 'X-WP-Nonce' ) ) {
-				return state;
-			}
-
-			return headers.get( 'X-WP-Nonce' );
+			const { result } = action;
+			return get( result, [ 'headers', 'x-wp-Nonce' ], state );
 	}
 
 	return state;

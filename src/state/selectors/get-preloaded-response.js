@@ -1,3 +1,5 @@
 export default function getPreloadedResponse( state, path ) {
-	return state.requests.preload[ path ] || null;
+	const response = state.requests.preload[ path ];
+
+	return response ? response.body : null;
 }

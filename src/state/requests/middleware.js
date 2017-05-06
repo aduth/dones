@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { stringify } from 'querystringify';
-import { assign, isPlainObject, pick } from 'lodash';
+import { assign, isPlainObject, fromPairs } from 'lodash';
 
 /**
  * Internal dependencies
@@ -50,7 +50,10 @@ export default ( { dispatch, getState } ) => {
 
 		// Trigger and await network request
 		const response = await fetch( API_ROOT + path, params );
-		yield await response.json();
+		const headers = fromPairs( [ ...response.headers.entries() ] );
+		const result = { headers };
+		result.body = await response.json();
+		yield result;
 	}
 
 	async function handleRequest( action ) {
