@@ -88,6 +88,7 @@ function dones_scripts() {
 			'Previous'                  => __( 'Previous', 'dones' ),
 			'Submit'                    => __( 'Submit', 'dones' ),
 			'Tags'                      => __( 'Tags', 'dones' ),
+			'User avatar'               => __( 'User avatar', 'dones' ),
 			'What have you been up to?' => __( 'What have you been up to?', 'dones' )
 		)
 	) );

@@ -8,6 +8,7 @@ import { connect } from 'preact-redux';
  * Internal dependencies
  */
 import { USER_ID } from 'constant';
+import { translate } from 'lib/i18n';
 import Card from 'components/card';
 import DoneInput from 'components/done-input';
 import DonesList from 'components/dones-list';
@@ -20,7 +21,7 @@ function UserDones( { userId, date, avatar, name } ) {
 			<span>
 				<img
 					src={ avatar }
-					alt={ name }
+					alt={ translate( 'User avatar' ) }
 					height="30"
 					width="30"
 					className="user-dones__avatar-image" />
