@@ -233,8 +233,8 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 		$args = array(
 			'post_type'   => 'done',
 			'post_status' => array( 'publish', 'draft' ),
-			'orderby'     => empty( $request['date'] ) ? 'date' : 'ID',
-			'order'       => empty( $request['date'] ) ? 'desc' : 'asc',
+			'orderby'     => 'date',
+			'order'       => 'desc',
 			'paged'       => (int) $request['page']
 		);
 
