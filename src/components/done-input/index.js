@@ -4,7 +4,7 @@
 import { createElement, Component } from 'preact';
 import { connect } from 'preact-redux';
 import classNames from 'classnames';
-import { last, map, filter, includes } from 'lodash';
+import { last, map, transform, includes } from 'lodash';
 
 /**
  * Internal dependencies
@@ -204,8 +204,14 @@ class DoneInput extends Component {
 
 		let suggestions;
 		if ( tagFragment ) {
-			// Find by fragment included in tag
-			suggestions = filter( tags, ( tag ) => includes( tag, tagFragment ) );
+			// Find by fragment included in tag (maximum 5)
+			suggestions = transform( tags, ( memo, tag ) => {
+				if ( includes( tag, tagFragment ) ) {
+					memo.push( tag );
+				}
+
+				return memo.length < 5;
+			}, [] );
 
 			// Sort by index of fragment in tag
 			suggestions.sort( ( a, b ) => a.indexOf( tagFragment ) - b.indexOf( tagFragment ) );
