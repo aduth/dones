@@ -7,6 +7,7 @@ import classNames from 'classnames';
 /**
  * Internal dependencies
  */
+import Button from 'components/button';
 import Tooltip from 'components/tooltip';
 import Icon from 'components/icon';
 import { translate } from 'lib/i18n';
@@ -32,18 +33,18 @@ export default function DoneStatus() {
 	}
 
 	return (
-		<button
-			type="button"
+		<Button
 			onClick={ onClick }
 			aria-disabled={ ! isToggleable }
 			aria-pressed={ isToggleable ? done : null }
-			className={ classes }>
+			className={ classes }
+			unstyled>
 			<Icon
 				icon="check"
 				size={ 14 }>
 				{ text }
 			</Icon>
 			<Tooltip>{ text }</Tooltip>
-		</button>
+		</Button>
 	);
 }

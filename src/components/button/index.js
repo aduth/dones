@@ -26,7 +26,8 @@ export default function Button( props ) {
 		onMouseDown: toggleOutlineActive( false ),
 		onBlur: toggleOutlineActive( true ),
 		className: classNames( 'button', className, reduce( [
-			'primary'
+			'primary',
+			'unstyled'
 		], ( memo, modifier ) => {
 			memo[ `is-${ modifier }` ] = props[ modifier ];
 			return memo;
