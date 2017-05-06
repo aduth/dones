@@ -80,14 +80,14 @@ export default class DoneInputTextarea extends Component {
 	};
 
 	render() {
-		const { suggestions } = this.props;
+		const { suggestions, ...props } = this.props;
 		const { style } = this.state;
 
 		return (
 			<div className="done-input__textarea">
 				<textarea
 					ref={ this.setRef }
-					{ ...this.props }
+					{ ...props }
 					onInput={ this.setCaretOffset }
 					className="done-input__textarea-input"
 					aria-label={ translate( 'Done or goal' ) } />
