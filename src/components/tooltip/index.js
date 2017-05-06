@@ -30,7 +30,7 @@ export default class Tooltip extends Component {
 		const { isVisible } = this.state;
 
 		return (
-			<span ref={ this.setRef }>
+			<span ref={ this.setRef } className="tooltip">
 				{ isVisible && (
 					<Popover position={ position }>
 						{ children }
