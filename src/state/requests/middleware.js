@@ -56,8 +56,8 @@ export default ( { dispatch, getState } ) => {
 	async function handleRequest( action ) {
 		const { path, params, success, failure } = action;
 
+		let result;
 		try {
-			let result;
 			for await ( result of getResult( path, params ) ) {
 				// Continue generator if yield produced no result
 				if ( ! result ) {
@@ -69,19 +69,19 @@ export default ( { dispatch, getState } ) => {
 					dispatch( success( result ) );
 				}
 
-				dispatch( {
-					...action,
-					type: REQUEST_COMPLETE,
-					...pick( result, 'headers' )
-				} );
-
 				// Stop iteration once result yielded
-				return;
+				break;
 			}
 		} catch ( error ) {
 			if ( failure ) {
 				dispatch( failure( error ) );
 			}
+		} finally {
+			dispatch( {
+				...action,
+				type: REQUEST_COMPLETE,
+				result
+			} );
 		}
 	}
 
