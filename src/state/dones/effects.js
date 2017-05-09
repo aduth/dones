@@ -21,7 +21,7 @@ export default {
 			success: ( { body, headers } ) => receiveDones(
 				body,
 				query,
-				headers[ 'x-wp-totalpages' ]
+				Number( headers[ 'x-wp-totalpages' ] ) || null
 			)
 		};
 	},

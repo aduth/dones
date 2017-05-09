@@ -109,14 +109,14 @@ function pages( state = {}, action ) {
 function totalPages( state = {}, action ) {
 	switch ( action.type ) {
 		case DONES_RECEIVE:
-			const { query } = action;
-			if ( ! query ) {
+			const { query, totalPages: total } = action;
+			if ( ! query || ! Number.isInteger( total ) ) {
 				break;
 			}
 
 			return {
 				...state,
-				[ stringify( omit( query, 'page' ) ) ]: action.totalPages
+				[ stringify( omit( query, 'page' ) ) ]: total
 			};
 	}
 
