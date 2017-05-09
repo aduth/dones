@@ -26,6 +26,6 @@ function User( { name, avatar } ) {
 	);
 }
 
-export default connect( ( state, { userId } ) => (
-	getUser( state, userId )
-) )( User );
+export default connect( ( state, { userId } ) => ( {
+	...getUser( state, userId )
+} ) )( User );
