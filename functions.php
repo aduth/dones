@@ -367,6 +367,25 @@ function dones_filter_supported_rewrites( $rules ) {
 add_filter( 'rewrite_rules_array', 'dones_filter_supported_rewrites' );
 
 /**
+ * Bypass default 404 handling since we know posts data isn't available until
+ * preload logic.
+ *
+ * @return bool Whether to short-circuit default header status handling
+ */
+function dones_avoid_paged_tags_404( $preempt ) {
+	foreach ( array( 'dones_date', 'dones_tag' ) as $var ) {
+		$query_var = get_query_var( $var );
+		if ( ! empty( $query_var ) ) {
+			status_header( 200 );
+			return true;
+		}
+	}
+
+	return $preempt;
+}
+add_filter( 'pre_handle_404', 'dones_avoid_paged_tags_404' );
+
+/**
  * Reassigns tags for done post upon save, generated from title.
  *
  * @param int     $post_id Post ID
