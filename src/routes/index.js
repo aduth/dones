@@ -16,7 +16,8 @@ import NotFoundRoute from './not-found';
 export default map( [
 	[ '/', HomeRoute ],
 	[ '/date/:date/', DateRoute ],
-	[ '/tags/:tag/', TagRoute ],
+	[ '/tags/:tag/page/:page', TagRoute ],
+	[ '/tags/:tag', TagRoute ],
 	[ '/tags/', TagsRoute ],
 	[ '*', NotFoundRoute ]
 ], ( [ path, Route ] ) => {

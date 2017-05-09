@@ -144,7 +144,12 @@ function dones_page_specific_preload( $paths ) {
 	// Single tag
 	$tag = get_query_var( 'dones_tag' );
 	if ( ! empty( $tag ) ) {
-		$paths[] = sprintf( '/dones/v1/dones?tag=%s', $tag );
+		$page = get_query_var( 'paged' );
+		if ( empty( $page ) ){
+			$page = 1;
+		}
+
+		$paths[] = sprintf( '/dones/v1/dones?tag=%s&page=%d', $tag, $page );
 	}
 
 	// Tag root or single tag
@@ -225,9 +230,7 @@ add_action( 'rest_api_init', 'dones_create_rest_routes' );
  */
 function dones_add_rewrite_rules() {
 	add_rewrite_rule( '^date(/(\d{4}-\d{2}-\d{2}))?/?$', 'index.php?dones_date=$matches[2]', 'top' );
-	add_rewrite_tag( '%dones_date%', '\d{4}-\d{2}-\d{2}' );
-	add_rewrite_rule( '^tags(/(\S+))?/?$', 'index.php?dones_tag=$matches[2]', 'top' );
-	add_rewrite_tag( '%dones_tag%', '\w+' );
+	add_rewrite_rule( '^tags(/(\w+)(/page/(\d+))?)?/?$', 'index.php?dones_tag=$matches[2]&paged=$matches[4]', 'top' );
 
 	if ( 'after_switch_theme' === current_filter() ) {
 		global $wp_rewrite;
@@ -236,6 +239,19 @@ function dones_add_rewrite_rules() {
 }
 add_action( 'init', 'dones_add_rewrite_rules' );
 add_action( 'after_switch_theme', 'dones_add_rewrite_rules' );
+
+/**
+ * Add query variables from custom route patterns.
+ *
+ * @param  array $query_vars Original query variables
+ * @return array             Modified query variables
+ */
+function dones_add_custom_query_vars( $query_vars ) {
+    $query_vars[] = 'dones_date';
+    $query_vars[] = 'dones_tag';
+    return $query_vars;
+}
+add_filter( 'query_vars', 'dones_add_custom_query_vars' );
 
 /**
  * Redirect to current date for root path requests.
@@ -354,7 +370,7 @@ function dones_filter_supported_rewrites( $rules ) {
 
 		// Dones rules
 		'^date(/(\d{4}-\d{2}-\d{2}))?/?$',
-		'^tags(/(\S+))?/?$'
+		'^tags(/(\w+)(/page/(\d+))?)?/?$'
 	);
 
 	$filtered_rules = array();

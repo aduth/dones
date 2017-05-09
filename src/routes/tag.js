@@ -3,6 +3,7 @@
  */
 import { createElement } from 'preact';
 import { connect } from 'preact-redux';
+import { defaultTo, toNumber } from 'lodash';
 
 /**
  * Internal dependencies
@@ -10,21 +11,24 @@ import { connect } from 'preact-redux';
 import Card from 'components/card';
 import Page from 'components/page';
 import TagDones from 'components/tag-dones';
+import TagPagination from 'components/tag-pagination';
 import { getRouteParam } from 'state/selectors';
 import { translate } from 'lib/i18n';
 
-function TagRoute( { tag } ) {
+function TagRoute( { tag, page = 1 } ) {
 	return (
 		<Page title={ translate( 'Tags' ) }>
 			<Card title={
 				translate( 'Tag: %s' )
 					.replace( '%s', '#' + tag )
 			} />
-			<TagDones tag={ tag } />
+			<TagDones query={ { tag, page } } />
+			<TagPagination page={ page } tag={ tag } />
 		</Page>
 	);
 }
 
 export default connect( ( state ) => ( {
-	tag: getRouteParam( state, 'tag' )
+	tag: getRouteParam( state, 'tag' ),
+	page: toNumber( defaultTo( getRouteParam( state, 'page' ), 1 ) )
 } ) )( TagRoute );

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { combineReducers } from 'redux';
-import { reduce, defaults, isEqual, omit } from 'lodash';
+import { reduce, defaults, isEqual, omit, map } from 'lodash';
 import stringify from 'fast-stable-stringify';
 
 /**
@@ -69,6 +69,43 @@ function items( state = {}, action ) {
 	return state;
 }
 
+function pages( state = {}, action ) {
+	switch ( action.type ) {
+		case DONES_RECEIVE:
+			const { query } = action;
+			if ( ! query ) {
+				break;
+			}
+
+			// To group by page, first extract page property from query
+			const { page = 1, ...querySansPage } = query;
+
+			// Then serialize remainder of query to generate key
+			const stringifiedQuery = stringify( querySansPage );
+			const currentPages = state[ stringifiedQuery ];
+
+			// Page will be one-based. Decrement to track at zero-based index.
+			const index = page - 1;
+
+			// Preserve state reference if page matches current value
+			const ids = map( action.dones, 'id' );
+			if ( currentPages && isEqual( ids, currentPages[ index ] ) ) {
+				return state;
+			}
+
+			// Clone current state or initialize new array
+			const nextPages = currentPages ? [ ...currentPages ] : [];
+			nextPages[ page - 1 ] = ids;
+
+			return {
+				...state,
+				[ stringifiedQuery ]: nextPages
+			};
+	}
+
+	return state;
+}
+
 function totalPages( state = {}, action ) {
 	switch ( action.type ) {
 		case DONES_RECEIVE:
@@ -79,7 +116,7 @@ function totalPages( state = {}, action ) {
 
 			return {
 				...state,
-				[ stringify( query ) ]: action.totalPages
+				[ stringify( omit( query, 'page' ) ) ]: action.totalPages
 			};
 	}
 
@@ -88,5 +125,6 @@ function totalPages( state = {}, action ) {
 
 export default combineReducers( {
 	items,
+	pages,
 	totalPages
 } );

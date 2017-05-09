@@ -1,5 +1,7 @@
 export { default as getDone } from './get-done';
 export { default as getDones } from './get-dones';
+export { default as getDonesPage } from './get-dones-page';
+export { default as getDonesTotalPages } from './get-dones-total-pages';
 export { default as getFormattedTitle } from './get-formatted-title';
 export { default as getMatchedRoute } from './get-matched-route';
 export { default as getPreloadedResponse } from './get-preloaded-response';
