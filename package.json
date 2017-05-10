@@ -35,6 +35,7 @@
     "chai": "^3.5.0",
     "cross-env": "^4.0.0",
     "css-loader": "^0.28.0",
+    "deep-freeze": "0.0.1",
     "eslint": "^3.19.0",
     "eslint-config-wpcalypso": "^0.7.1",
     "eslint-plugin-react": "^6.10.3",

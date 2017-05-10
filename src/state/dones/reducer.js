@@ -16,7 +16,7 @@ import {
 	DONES_RECEIVE
 } from 'state/action-types';
 
-function items( state = {}, action ) {
+export function items( state = {}, action ) {
 	switch ( action.type ) {
 		case DONES_RECEIVE:
 			return reduce( action.dones, ( memo, done ) => {
@@ -71,7 +71,7 @@ function items( state = {}, action ) {
 	return state;
 }
 
-function pages( state = {}, action ) {
+export function pages( state = {}, action ) {
 	switch ( action.type ) {
 		case DONES_RECEIVE:
 			const { query } = action;
@@ -108,7 +108,7 @@ function pages( state = {}, action ) {
 	return state;
 }
 
-function totalPages( state = {}, action ) {
+export function totalPages( state = {}, action ) {
 	switch ( action.type ) {
 		case DONES_RECEIVE:
 			const { query, totalPages: total } = action;
