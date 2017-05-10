@@ -118,7 +118,7 @@ function dones_preload_request( $memo, $path ) {
 	$response = rest_do_request( $request );
 	if ( 200 === $response->status ) {
 		$memo[ $path ] = array(
-			'data'    => $response->data,
+			'body'    => $response->data,
 			'headers' => $response->headers
 		);
 	}
