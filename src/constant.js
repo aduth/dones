@@ -1,4 +1,4 @@
-const config = window.dones || {};
+const config = global.dones || {};
 
 export const SITE_NAME = config.siteName;
 export const API_ROOT = config.apiRoot;

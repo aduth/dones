@@ -18,6 +18,15 @@
 		} ]
 	],
 	"env": {
+		"test": {
+			"presets": [
+				[ "env", {
+					"targets": {
+						"node": "current"
+					}
+				} ]
+			]
+		},
 		"production": {
 			"presets": [
 				[ "env", {
