@@ -3,17 +3,20 @@
  */
 import { createElement } from 'preact';
 import { connect } from 'preact-redux';
-import { map, groupBy } from 'lodash';
+import { isEmpty, map, groupBy } from 'lodash';
 
 /**
  * Internal dependencies
  */
+import { translate } from 'lib/i18n';
 import QueryUsers from 'components/query-users';
 import QueryDones from 'components/query-dones';
-import { getSortedDones } from 'state/selectors';
+import Card from 'components/card';
+import Placeholder from 'components/placeholder';
+import { getSortedDones, hasReceivedDones } from 'state/selectors';
 import TagDonesDate from './date';
 
-function TagDones( { query, dones } ) {
+function TagDones( { query, hasReceived, dones } ) {
 	// We need to preserve time accuracy within date to enable sorting, but for
 	// purposes of displaying grouped by date, we split between date and time
 	// parts, pulling date (e.g. "2017-01-01 00:00:00" => "2017-01-01")
@@ -25,6 +28,20 @@ function TagDones( { query, dones } ) {
 		<ul className="tag-dones">
 			<QueryUsers />
 			<QueryDones query={ query } />
+			{ ! hasReceived && (
+				<li>
+					<Card title={ <Placeholder /> }>
+						<Placeholder />
+					</Card>
+				</li>
+			) }
+			{ hasReceived && isEmpty( dones ) && (
+				<li>
+					<Card>
+						<em>{ translate( 'No dones found for this tag' ) }</em>
+					</Card>
+				</li>
+			) }
 			{ map( groupBy( dones, byDate ), ( dateDones, date ) => (
 				<li key={ date }>
 					<TagDonesDate
@@ -37,5 +54,6 @@ function TagDones( { query, dones } ) {
 }
 
 export default connect( ( state, { query } ) => ( {
-	dones: getSortedDones( state, query )
+	dones: getSortedDones( state, query ),
+	hasReceived: hasReceivedDones( state, query )
 } ) )( TagDones );
