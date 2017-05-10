@@ -34,25 +34,9 @@ class DoneInput extends Component {
 		};
 	}
 
-	componentDidMount() {
-		this.attachEventHandler();
-	}
-
 	componentDidUpdate() {
-		this.attachEventHandler();
-
 		// Clear temporary suggestion offset after assigned
 		delete this._suggestionOffset;
-	}
-
-	componentWillUnmount() {
-		document.removeEventListener( 'click', this.checkClickOutside );
-	}
-
-	attachEventHandler() {
-		if ( this.isEditing() ) {
-			document.addEventListener( 'click', this.checkClickOutside, true );
-		}
 	}
 
 	isEditing() {
@@ -78,8 +62,10 @@ class DoneInput extends Component {
 		return word.substr( 1 );
 	}
 
-	checkClickOutside = ( event ) => {
-		if ( this.isEditing() && this.form && ! this.form.contains( event.target ) ) {
+	cancelOnFocusOut = ( event ) => {
+		// The `focusout` event will fire when tabbing between elements within
+		// the rendered form. Ensure that we only cancel when truly leaving.
+		if ( ! this.form.contains( event.relatedTarget ) ) {
 			this.props.onCancel();
 		}
 	};
@@ -215,6 +201,7 @@ class DoneInput extends Component {
 			<form
 				ref={ this.setFormRef }
 				className={ classes }
+				onFocusOut={ this.cancelOnFocusOut }
 				onSubmit={ this.submit }>
 				<DoneStatus
 					onToggle={ this.toggleStatus }
