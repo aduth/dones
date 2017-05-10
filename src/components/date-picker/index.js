@@ -9,6 +9,8 @@ import { omit } from 'lodash';
  * Internal dependencies
  */
 import { toSiteTime, translate } from 'lib/i18n';
+import Icon from 'components/icon';
+import Button from 'components/button';
 
 export default class DatePicker extends Component {
 	static defaultProps = {
@@ -51,13 +53,17 @@ export default class DatePicker extends Component {
 		const { defaultValue, value, ...props } = this.props;
 
 		return (
-			<div className="date-picker">
+			<Button
+				aria-label={ translate( 'Pick Date' ) }
+				className="date-picker">
+				<Icon icon="calendar" size={ 12 } />
 				<input
 					{ ...omit( props, 'onChange', 'options' ) }
 					defaultValue={ defaultValue || value }
 					ref={ this.setInputRef }
-					aria-label={ translate( 'Date' ) } />
-			</div>
+					aria-label={ translate( 'Date' ) }
+					className="date-picker__input" />
+			</Button>
 		);
 	}
 }

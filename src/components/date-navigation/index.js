@@ -59,15 +59,9 @@ class DateNavigation extends Component {
 							onClick={ this.toNextDate }>
 							<Icon icon="chevron-right" size={ 12 } />
 						</Button>
-						<Button
-							aria-label={ translate( 'Pick Date' ) }
-							className="date-navigation__picker">
-							<Icon icon="calendar" size={ 12 } />
-							<DatePicker
-								className="date-navigation__picker-input"
-								value={ date }
-								onChange={ this.toDate } />
-						</Button>
+						<DatePicker
+							value={ date }
+							onChange={ this.toDate } />
 					</ButtonGroup>
 				}
 				className="date-navigation" />
