@@ -108,6 +108,30 @@ export function pages( state = {}, action ) {
 	return state;
 }
 
+/**
+ * Returns next state, tracking received dones by query.
+ *
+ * @param  {Object} state  Current state
+ * @param  {Object} action Action object
+ * @return {Object}        Next state
+ */
+export function received( state = {}, action ) {
+	switch ( action.type ) {
+		case DONES_RECEIVE:
+			const { query } = action;
+			if ( ! query ) {
+				break;
+			}
+
+			return {
+				...state,
+				[ stringify( query ) ]: true
+			};
+	}
+
+	return state;
+}
+
 export function totalPages( state = {}, action ) {
 	switch ( action.type ) {
 		case DONES_RECEIVE:
@@ -128,5 +152,6 @@ export function totalPages( state = {}, action ) {
 export default combineReducers( {
 	items,
 	pages,
+	received,
 	totalPages
 } );

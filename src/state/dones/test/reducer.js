@@ -13,13 +13,14 @@ import {
 	DONE_UPDATE,
 	DONE_DELETE
 } from 'state/action-types';
-import reducer, { items, pages, totalPages } from '../reducer';
+import reducer, { items, pages, received, totalPages } from '../reducer';
 
 describe( 'reducer', () => {
 	it( 'exports expected keys', () => {
 		expect( reducer( undefined, {} ) ).to.have.keys( [
 			'items',
 			'pages',
+			'received',
 			'totalPages'
 		] );
 	} );
@@ -379,6 +380,45 @@ describe( 'reducer', () => {
 			} );
 
 			expect( state ).to.equal( original );
+		} );
+	} );
+
+	describe( 'received()', () => {
+		it( 'defaults to an empty object', () => {
+			const state = received( undefined, {} );
+
+			expect( state ).to.eql( {} );
+		} );
+
+		it( 'returns same state when lacking query', () => {
+			const original = deepFreeze( {} );
+			const state = received( original, {
+				type: DONES_RECEIVE
+			} );
+
+			expect( state ).to.equal( original );
+		} );
+
+		it( 'should key any received query as value true', () => {
+			const original = deepFreeze( {} );
+			const state = received( original, {
+				type: 'DONES_RECEIVE',
+				dones: [ {
+					id: 320,
+					user: 1,
+					text: 'done',
+					date: '2017-05-10 00:00:00',
+					done: true
+				} ],
+				query: {
+					date: '2017-05-10',
+					page: 1
+				}
+			} );
+
+			expect( state ).to.eql( {
+				'{"date":"2017-05-10","page":1}': true
+			} );
 		} );
 	} );
 
