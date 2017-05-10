@@ -3,7 +3,7 @@
  */
 import { createElement } from 'preact';
 import classNames from 'classnames';
-import { reduce } from 'lodash';
+import { omit, reduce } from 'lodash';
 
 /**
  * Internal dependencies
@@ -21,7 +21,7 @@ export default function Button( props ) {
 	const isLink = to && ! disabled;
 
 	return createElement( isLink ? Link : 'button', {
-		...props,
+		...omit( props, 'primary', 'unstyled' ),
 		to: isLink ? to : null,
 		type: isLink ? null : type,
 		onMouseDown: toggleOutlineActive( false ),
