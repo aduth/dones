@@ -76,7 +76,9 @@ if ( 'production' === process.env.NODE_ENV ) {
 	} );
 
 	config.plugins.push(
-		new webpack.optimize.UglifyJsPlugin(),
+		new webpack.optimize.UglifyJsPlugin( {
+			comments: false
+		} ),
 		new ExtractTextPlugin( {
 			filename: './style.css',
 			disable: false,
