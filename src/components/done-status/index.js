@@ -37,13 +37,10 @@ export default function DoneStatus() {
 			onClick={ onClick }
 			aria-disabled={ ! isToggleable }
 			aria-pressed={ isToggleable ? done : null }
+			aria-label={ text }
 			className={ classes }
 			unstyled>
-			<Icon
-				icon="check"
-				size={ 14 }>
-				{ text }
-			</Icon>
+			<Icon icon="check" size={ 14 } />
 			<Tooltip>{ text }</Tooltip>
 		</Button>
 	);

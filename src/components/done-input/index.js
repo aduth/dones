@@ -173,12 +173,9 @@ class DoneInput extends Component {
 		const actions = [ {
 			type: 'submit',
 			primary: true,
+			'aria-label': translate( 'Submit' ),
 			children: [
-				<Icon
-					icon="paper-plane"
-					size={ 12 }>
-					{ translate( 'Submit' ) }
-				</Icon>,
+				<Icon icon="paper-plane" size={ 12 } />,
 				<span className="done-input__action-text">
 					{ translate( 'Submit' ) }
 				</span>
@@ -189,12 +186,9 @@ class DoneInput extends Component {
 		if ( this.isEditing() ) {
 			actions.push( {
 				onClick: onCancel,
+				'aria-label': translate( 'Cancel' ),
 				children: [
-					<Icon
-						icon="times"
-						size={ 12 }>
-						{ translate( 'Cancel' ) }
-					</Icon>,
+					<Icon icon="times" size={ 12 } />,
 					<span className="done-input__action-text">
 						{ translate( 'Cancel' ) }
 					</span>

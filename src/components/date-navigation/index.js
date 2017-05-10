@@ -49,31 +49,24 @@ class DateNavigation extends Component {
 				subtitle={ formatSiteDate( date ) }
 				controls={
 					<ButtonGroup>
-						<Button onClick={ this.toPreviousDate }>
-							<Icon
-								icon="chevron-left"
-								size={ 12 }>
-								{ translate( 'Previous' ) }
-							</Icon>
-						</Button>
-						<Button onClick={ this.toNextDate }>
-							<Icon
-								icon="chevron-right"
-								size={ 12 }>
-								{ translate( 'Next' ) }
-							</Icon>
+						<Button
+							aria-label={ translate( 'Previous' ) }
+							onClick={ this.toPreviousDate }>
+							<Icon icon="chevron-left" size={ 12 } />
 						</Button>
 						<Button
+							aria-label={ translate( 'Next' ) }
+							onClick={ this.toNextDate }>
+							<Icon icon="chevron-right" size={ 12 } />
+						</Button>
+						<Button
+							aria-label={ translate( 'Pick Date' ) }
 							className="date-navigation__picker">
+							<Icon icon="calendar" size={ 12 } />
 							<DatePicker
 								className="date-navigation__picker-input"
 								value={ date }
 								onChange={ this.toDate } />
-							<Icon
-								icon="calendar"
-								size={ 12 }>
-								{ translate( 'Pick Date' ) }
-							</Icon>
 						</Button>
 					</ButtonGroup>
 				}

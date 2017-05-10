@@ -6,7 +6,7 @@
 import { createElement } from 'preact';
 import classNames from 'classnames';
 
-export default function Icon( { icon, size, children } ) {
+export default function Icon( { icon, size } ) {
 	let IconVariant;
 	switch ( icon ) {
 		case 'calendar':
@@ -67,11 +67,6 @@ export default function Icon( { icon, size, children } ) {
 			xmlns="http://www.w3.org/2000/svg"
 			className={ classes }>
 			{ IconVariant }
-			{ children.length > 0 && (
-				<span className="icon__screen-reader-text">
-					{ children }
-				</span>
-			) }
 		</svg>
 	);
 }
