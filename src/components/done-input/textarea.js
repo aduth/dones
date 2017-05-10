@@ -80,17 +80,20 @@ export default class DoneInputTextarea extends Component {
 	};
 
 	render() {
-		const { suggestions, ...props } = this.props;
+		const { suggestions, value, onKeyDown } = this.props;
 		const { style } = this.state;
 
 		return (
 			<div className="done-input__textarea">
 				<textarea
 					ref={ this.setRef }
-					{ ...props }
+					value={ value }
+					onKeyDown={ onKeyDown }
+					rows="1"
 					onInput={ this.setCaretOffset }
 					className="done-input__textarea-input"
-					aria-label={ translate( 'Done or goal' ) } />
+					aria-label={ translate( 'Done or goal' ) }
+					placeholder={ translate( 'What have you been up to?' ) } />
 				<PopoverMenu
 					position="bottom-left"
 					selectKeyCode={ 9 }
