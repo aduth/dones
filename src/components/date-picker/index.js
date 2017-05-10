@@ -3,7 +3,6 @@
  */
 import { createElement, Component } from 'preact';
 import Flatpickr from 'flatpickr';
-import { omit } from 'lodash';
 
 /**
  * Internal dependencies
@@ -17,12 +16,9 @@ export default class DatePicker extends Component {
 	};
 
 	componentDidMount() {
-		const options = {
-			...this.props.options,
+		this.flatpickr = new Flatpickr( this.input, {
 			onChange: this.props.onChange
-		};
-
-		this.flatpickr = new Flatpickr( this.input, options );
+		} );
 
 		// By default, Flatpickr intializes to the browser-offset date. Update
 		// the value and force a redraw (to reapply the "today" class)
@@ -49,14 +45,13 @@ export default class DatePicker extends Component {
 	};
 
 	render() {
-		const { defaultValue, value, ...props } = this.props;
+		const { value } = this.props;
 
 		return (
 			<span className="date-picker button">
 				<Icon icon="calendar" size={ 12 } />
 				<input
-					{ ...omit( props, 'onChange', 'options' ) }
-					defaultValue={ defaultValue || value }
+					defaultValue={ value }
 					ref={ this.setInputRef }
 					aria-label={ translate( 'Pick Date' ) }
 					className="date-picker__input" />
