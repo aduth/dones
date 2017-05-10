@@ -37,6 +37,7 @@ function items( state = {}, action ) {
 			return {
 				...state,
 				[ transientId ]: {
+					id: transientId,
 					user: USER_ID,
 					date,
 					text,
@@ -48,6 +49,7 @@ function items( state = {}, action ) {
 		case DONE_UPDATE: {
 			const { id, date, text, done, replaceId } = action;
 			const item = defaults( {
+				id,
 				date,
 				text,
 				done
