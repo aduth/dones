@@ -32,15 +32,15 @@ class DonesList extends Component {
 		}
 
 		this.pendingEdit = id;
-		document.addEventListener( 'mouseup', this.editDone, true );
+		document.addEventListener( 'mouseup', this.stopTrackingSelection, true );
 	};
 
-	editDone = ( event ) => {
+	stopTrackingSelection = ( event ) => {
 		if ( ! this.isEditable() ) {
 			return;
 		}
 
-		document.removeEventListener( 'mouseup', this.editDone, true );
+		document.removeEventListener( 'mouseup', this.stopTrackingSelection, true );
 		const editing = this.pendingEdit;
 		delete this.pendingEdit;
 
@@ -79,9 +79,24 @@ class DonesList extends Component {
 			start += rawText.length;
 		}
 
+		this.editDone( editing, [
+			start,
+			start + ( length || 0 )
+		] );
+	};
+
+	editIfNonePending = ( id ) => {
+		// Don't start edit if a selection is in progress. Otherwise it will
+		// clobber the selection offset calculation.
+		if ( ! this.pendingEdit ) {
+			this.editDone( id );
+		}
+	};
+
+	editDone = ( id, offset = 0 ) => {
 		this.setState( {
-			editing,
-			editOffset: [ start, start + ( length || 0 ) ]
+			editing: id,
+			editOffset: offset
 		} );
 	};
 
@@ -123,6 +138,7 @@ class DonesList extends Component {
 						disabled={ ! this.isEditable() }
 						onToggle={ () => this.props.updateDone( id, text, ! done ) } />,
 					<DoneText
+						onFocus={ () => this.editIfNonePending( id ) }
 						onMouseDown={ () => this.startTrackingSelection( id ) }>
 						{ text }
 					</DoneText>,

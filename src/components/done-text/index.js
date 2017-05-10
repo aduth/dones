@@ -17,7 +17,7 @@ import Link from 'components/link';
  */
 const NULL_CHARACTER = String.fromCharCode( 0 );
 
-export default function DoneText( { onClick, onMouseDown, children } ) {
+export default function DoneText( { onClick, onFocus, onMouseDown, children } ) {
 	const transforms = [ [
 		/(^|\s)#(\S+)\b/,
 		( [ , whitespace, tag ] ) => [
@@ -62,8 +62,20 @@ export default function DoneText( { onClick, onMouseDown, children } ) {
 		}, [] );
 	}
 
+	// Infer focus handlers as intent to edit. Ensure element can receive focus
+	// and apply ARIA role to indicate editability.
+	let focusProps;
+	if ( onFocus ) {
+		focusProps = {
+			tabIndex: 0,
+			role: 'textbox',
+			onFocus
+		};
+	}
+
 	return (
 		<div
+			{ ...focusProps }
 			onClick={ onClick }
 			onMouseDown={ onMouseDown }
 			className="done-text">
