@@ -9,8 +9,12 @@ import { Provider } from 'preact-redux';
  */
 import Root from 'components/root';
 import createReduxStore from 'state';
-import { clearPreloadedResponses } from 'state/requests/actions';
+import {
+	setPreloadedResponses,
+	clearPreloadedResponses
+} from 'state/requests/actions';
 import { replaceRoute } from 'state/routing/actions';
+import { PRELOADED_REQUESTS } from 'constant';
 import 'assets/stylesheets/main.scss';
 
 /**
@@ -19,6 +23,9 @@ import 'assets/stylesheets/main.scss';
  * @type {Redux.Store}
  */
 const store = createReduxStore();
+
+// Initialize preload state
+store.dispatch( setPreloadedResponses( PRELOADED_REQUESTS ) );
 
 // Initialize routing state
 const { pathname, search } = window.location;

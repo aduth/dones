@@ -2,13 +2,18 @@
  * External dependencies
  */
 import { combineReducers } from 'redux';
-import { omit, get } from 'lodash';
+import { omit, mapValues, mapKeys, get } from 'lodash';
 
 /**
  * Internal dependencies
  */
-import { API_NONCE, PRELOADED_REQUESTS } from 'constant';
-import { REQUEST, REQUEST_COMPLETE, REQUEST_PRELOAD_CLEAR } from 'state/action-types';
+import { API_NONCE } from 'constant';
+import {
+	REQUEST,
+	REQUEST_COMPLETE,
+	REQUEST_PRELOAD_SET,
+	REQUEST_PRELOAD_CLEAR
+} from 'state/action-types';
 
 export function items( state = {}, action ) {
 	switch ( action.type ) {
@@ -29,8 +34,28 @@ export function items( state = {}, action ) {
 	return state;
 }
 
-export function preload( state = PRELOADED_REQUESTS, action ) {
+/**
+ * Returns next preloaded response data state (body, headers) keyed by path.
+ *
+ * @param  {Object} state  Current state
+ * @param  {Object} action Action object
+ * @return {Object}        Next state
+ */
+export function preload( state = {}, action ) {
 	switch ( action.type ) {
+		case REQUEST_PRELOAD_SET:
+			// Response header keys are normalized to lowercase because of
+			// inconsistent casing between Fetch's `entries` iterator and
+			// WordPress REST API response headers keys
+			const { responses } = action;
+			return mapValues( responses, ( response ) => ( {
+				...response,
+				headers: mapKeys(
+					response.headers,
+					( value, key ) => key.toLowerCase()
+				)
+			} ) );
+
 		case REQUEST_PRELOAD_CLEAR:
 			return {};
 	}
@@ -42,7 +67,7 @@ export function nonce( state = API_NONCE, action ) {
 	switch ( action.type ) {
 		case REQUEST_COMPLETE:
 			const { result } = action;
-			return get( result, [ 'headers', 'x-wp-Nonce' ], state );
+			return get( result, [ 'headers', 'x-wp-nonce' ], null );
 	}
 
 	return state;
