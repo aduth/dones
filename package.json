@@ -16,7 +16,7 @@
     "lint": "eslint src",
     "predev": "npm run clean",
     "dev": "webpack --watch",
-    "unit-test": "cross-env NODE_PATH=src NODE_ENV=test mocha src/**/test/*.js --require babel-register",
+    "unit-test": "cross-env NODE_PATH=src NODE_ENV=test mocha src/**/test/*.js -r mocha.config.js -r babel-register",
     "test": "npm run unit-test && npm run lint"
   },
   "devDependencies": {
@@ -32,6 +32,7 @@
     "babel-preset-env": "^1.4.0",
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.24.1",
+    "browser-env": "^2.0.31",
     "chai": "^3.5.0",
     "cross-env": "^4.0.0",
     "css-loader": "^0.28.0",
