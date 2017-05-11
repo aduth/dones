@@ -1,38 +1,29 @@
 /**
  * External dependencies
  */
-import { filter, every, startsWith, includes, endsWith } from 'lodash';
+import stringify from 'fast-stable-stringify';
+import { get, map } from 'lodash';
 
 /**
  * Internal dependencies
  */
-import { getDonesPage } from './';
+import { getDone } from './';
 
-export default function getDones( state, query ) {
-	return filter( state.dones.items, ( item ) => {
-		return every( query, ( value, key ) => {
-			if ( undefined === value ) {
-				return true;
-			}
+/**
+ * Returns an array of dones for a given query, or null if dones have not been
+ * received.
+ *
+ * @param  {Object}    state         Global state object
+ * @param  {Number}    options.page  Query page
+ * @param  {...Object} options.query Query object
+ * @return {?Object}                 Dones, or null if not known
+ */
+export default function getDones( state, { page = 1, ...query } ) {
+	const { pages } = state.dones;
+	const ids = get( pages, [ stringify( query ), page - 1 ] );
+	if ( ! ids ) {
+		return null;
+	}
 
-			switch ( key ) {
-				case 'userId':
-					return item.user === value;
-
-				case 'date':
-					return startsWith( item.date, value );
-
-				case 'page':
-					const page = getDonesPage( state, query, value );
-					return includes( page, item.id );
-
-				case 'tag':
-					const tag = '#' + value;
-					return includes( item.text, tag + ' ' ) || endsWith( item.text, tag );
-
-				default:
-					return true;
-			}
-		} );
-	} );
+	return map( ids, ( id ) => getDone( state, id ) );
 }

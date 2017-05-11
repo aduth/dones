@@ -17,7 +17,7 @@ import DoneInput from 'components/done-input';
 import DoneText from 'components/done-text';
 import Icon from 'components/icon';
 import { updateDone, deleteDone } from 'state/dones/actions';
-import { getDones, hasReceivedDones } from 'state/selectors';
+import { getDonesForUser, hasReceivedDones } from 'state/selectors';
 
 class DonesList extends Component {
 	state = {
@@ -175,7 +175,7 @@ class DonesList extends Component {
 
 export default connect(
 	( state, { query, userId } ) => ( {
-		dones: getDones( state, { ...query, userId } ),
+		dones: getDonesForUser( state, query, userId ),
 		hasReceived: hasReceivedDones( state, query )
 	} ),
 	{ updateDone, deleteDone }
