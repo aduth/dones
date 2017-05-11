@@ -10,6 +10,7 @@ import { assign, isPlainObject, fromPairs } from 'lodash';
 import { API_ROOT } from 'constant';
 import { REQUEST, REQUEST_COMPLETE } from 'state/action-types';
 import { getPreloadedResponse, getRequestNonce, isRequestingPath } from 'state/selectors';
+import { setRequestNonce } from './actions';
 
 export default ( { dispatch, getState } ) => {
 	async function* getResult( path, params ) {
@@ -70,6 +71,12 @@ export default ( { dispatch, getState } ) => {
 				// Otherwise, assume completion and dispatch success
 				if ( success ) {
 					dispatch( success( result ) );
+				}
+
+				// Set next request nonce from response headers
+				const { 'x-wp-nonce': nonce } = result.headers;
+				if ( nonce ) {
+					dispatch( setRequestNonce( nonce ) );
 				}
 
 				// Stop iteration once result yielded

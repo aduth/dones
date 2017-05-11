@@ -2,15 +2,15 @@
  * External dependencies
  */
 import { combineReducers } from 'redux';
-import { omit, mapValues, mapKeys, get } from 'lodash';
+import { omit, mapValues, mapKeys } from 'lodash';
 
 /**
  * Internal dependencies
  */
-import { API_NONCE } from 'constant';
 import {
 	REQUEST,
 	REQUEST_COMPLETE,
+	REQUEST_NONCE_SET,
 	REQUEST_PRELOAD_SET,
 	REQUEST_PRELOAD_CLEAR
 } from 'state/action-types';
@@ -63,11 +63,17 @@ export function preload( state = {}, action ) {
 	return state;
 }
 
-export function nonce( state = API_NONCE, action ) {
+/**
+ * Returns next request nonce state.
+ *
+ * @param  {Object} state  Current state
+ * @param  {Object} action Action object
+ * @return {Object}        Next state
+ */
+export function nonce( state = null, action ) {
 	switch ( action.type ) {
-		case REQUEST_COMPLETE:
-			const { result } = action;
-			return get( result, [ 'headers', 'x-wp-nonce' ], null );
+		case REQUEST_NONCE_SET:
+			return action.nonce || null;
 	}
 
 	return state;

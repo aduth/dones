@@ -8,12 +8,23 @@ import deepFreeze from 'deep-freeze';
  * Internal dependencies
  */
 import {
+	REQUEST_NONCE_SET,
 	REQUEST_PRELOAD_CLEAR,
 	REQUEST_PRELOAD_SET
 } from 'state/action-types';
-import { preload } from '../reducer';
+import reducer, { preload, nonce } from '../reducer';
 
 describe( 'reducer', () => {
+	it( 'returns with expected keys', () => {
+		const state = reducer( undefined, {} );
+
+		expect( state ).to.have.keys( [
+			'items',
+			'preload',
+			'nonce'
+		] );
+	} );
+
 	describe( 'preload()', () => {
 		it( 'returns an empty object by default', () => {
 			const state = preload( undefined, {} );
@@ -71,6 +82,32 @@ describe( 'reducer', () => {
 			} );
 
 			expect( state ).to.eql( {} );
+		} );
+	} );
+
+	describe( 'nonce', () => {
+		it( 'returns null by default', () => {
+			const state = nonce( undefined, {} );
+
+			expect( state ).to.be.null;
+		} );
+
+		it( 'returns with the action nonce', () => {
+			const state = nonce( undefined, {
+				type: REQUEST_NONCE_SET,
+				nonce: '1ab98c39ab'
+			} );
+
+			expect( state ).to.equal( '1ab98c39ab' );
+		} );
+
+		it( 'guards against an undefined action nonce', () => {
+			const state = nonce( undefined, {
+				type: REQUEST_NONCE_SET,
+				nonce: undefined
+			} );
+
+			expect( state ).to.be.null;
 		} );
 	} );
 } );

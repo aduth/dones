@@ -10,11 +10,12 @@ import { Provider } from 'preact-redux';
 import Root from 'components/root';
 import createReduxStore from 'state';
 import {
+	setRequestNonce,
 	setPreloadedResponses,
 	clearPreloadedResponses
 } from 'state/requests/actions';
 import { replaceRoute } from 'state/routing/actions';
-import { PRELOADED_REQUESTS } from 'constant';
+import { API_NONCE, PRELOADED_REQUESTS } from 'constant';
 import 'assets/stylesheets/main.scss';
 
 /**
@@ -24,7 +25,8 @@ import 'assets/stylesheets/main.scss';
  */
 const store = createReduxStore();
 
-// Initialize preload state
+// Initialize requests state
+store.dispatch( setRequestNonce( API_NONCE ) );
 store.dispatch( setPreloadedResponses( PRELOADED_REQUESTS ) );
 
 // Initialize routing state
