@@ -9,20 +9,7 @@ import { expect } from 'chai';
 import getDones from '../get-dones';
 
 describe( 'getDones()', () => {
-	it( 'should return null if query has not been received', () => {
-		const dones = getDones( {
-			dones: {
-				items: {},
-				pages: {},
-				received: {},
-				totalPages: {}
-			}
-		}, { tag: 'fill', page: 2 } );
-
-		expect( dones ).to.be.null;
-	} );
-
-	it( 'should return array of dones for query by page', () => {
+	it( 'should return array of dones for query', () => {
 		const dones = getDones( {
 			dones: {
 				items: {
@@ -35,7 +22,7 @@ describe( 'getDones()', () => {
 					}
 				},
 				pages: {
-					'{"tag":"fill"}': [
+					'{"date":"2017-04-27","tag":"fill"}': [
 						null,
 						[
 							290
@@ -43,13 +30,13 @@ describe( 'getDones()', () => {
 					]
 				},
 				received: {
-					'{"page":2,"tag":"fill"}': true
+					'{"page":2,"date":"2017-04-27","tag":"fill"}': true
 				},
 				totalPages: {
-					'{"tag":"fill"}': 2
+					'{"date":"2017-04-27","tag":"fill"}': 2
 				}
 			}
-		}, { tag: 'fill', page: 2 } );
+		}, { tag: 'fill', date: '2017-04-27', page: 2 } );
 
 		expect( dones ).to.eql( [ {
 			id: 290,

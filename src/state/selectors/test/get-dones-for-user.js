@@ -9,19 +9,6 @@ import { expect } from 'chai';
 import getDonesForUser from '../get-dones-for-user';
 
 describe( 'getDonesForUser()', () => {
-	it( 'should return null if query has not been received', () => {
-		const dones = getDonesForUser( {
-			dones: {
-				items: {},
-				pages: {},
-				received: {},
-				totalPages: {}
-			}
-		}, { date: '2017-05-11' }, 1 );
-
-		expect( dones ).to.be.null;
-	} );
-
 	it( 'should return array of dones for query by page, user ID', () => {
 		const dones = getDonesForUser( {
 			dones: {

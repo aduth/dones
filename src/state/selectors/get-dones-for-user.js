@@ -17,10 +17,5 @@ import { getDones } from './';
  * @return {?Object}        Dones, or null if not known
  */
 export default function getDonesForUser( state, query, userId ) {
-	const dones = getDones( state, query );
-	if ( ! dones ) {
-		return null;
-	}
-
-	return filter( dones, { user: userId } );
+	return filter( getDones( state, query ), { user: userId } );
 }
