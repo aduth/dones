@@ -15,6 +15,7 @@ import QueryDones from 'components/query-dones';
 import DoneStatus from 'components/done-status';
 import DoneInput from 'components/done-input';
 import DoneText from 'components/done-text';
+import Button from 'components/button';
 import Icon from 'components/icon';
 import { updateDone, deleteDone } from 'state/dones/actions';
 import { getDonesForUser, hasReceivedDones } from 'state/selectors';
@@ -142,12 +143,12 @@ class DonesList extends Component {
 						onMouseDown={ () => this.startTrackingSelection( id ) }>
 						{ text }
 					</DoneText>,
-					<button
-						type="button"
+					<Button
+						unstyled
 						onClick={ () => this.deleteDone( id ) }
 						className="dones-list__trash">
 						<Icon icon="trash" size={ 18 } />
-					</button>
+					</Button>
 				];
 			}
 
