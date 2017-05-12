@@ -27,15 +27,18 @@ export default class Popover extends Component {
 		const { forcedPositions } = this.state;
 
 		const nextForcedPositions = [];
+
+		// Check exceeding top or bottom of viewport
 		if ( rect.top < 0 ) {
 			nextForcedPositions[ 0 ] = 'bottom';
-		} else if ( rect.bottom > document.body.clientHeight ) {
+		} else if ( rect.bottom > window.innerHeight ) {
 			nextForcedPositions[ 0 ] = 'top';
 		}
 
+		// Check exceeding left or right of viewport
 		if ( rect.left < 0 ) {
 			nextForcedPositions[ 1 ] = 'right';
-		} else if ( rect.right > document.body.clientWidth ) {
+		} else if ( rect.right > window.innerWidth ) {
 			nextForcedPositions[ 1 ] = 'left';
 		}
 
