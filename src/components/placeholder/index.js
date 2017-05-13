@@ -3,6 +3,10 @@
  */
 import { createElement } from 'preact';
 
-export default function Placeholder() {
-	return <div className="placeholder" />;
+export default function Placeholder( { height } ) {
+	return (
+		<div
+			style={ height ? { height } : null }
+			className="placeholder" />
+	);
 }
