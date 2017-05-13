@@ -15,7 +15,7 @@ import {
 	clearPreloadedResponses
 } from 'state/requests/actions';
 import { replaceRoute } from 'state/routing/actions';
-import { API_NONCE, PRELOADED_REQUESTS } from 'constant';
+import { SITE_URL, API_NONCE, PRELOADED_REQUESTS } from 'constant';
 import 'assets/stylesheets/main.scss';
 
 /**
@@ -30,8 +30,8 @@ store.dispatch( setRequestNonce( API_NONCE ) );
 store.dispatch( setPreloadedResponses( PRELOADED_REQUESTS ) );
 
 // Initialize routing state
-const { pathname, search } = window.location;
-store.dispatch( replaceRoute( pathname + search ) );
+const path = window.location.href.substr( SITE_URL.length );
+store.dispatch( replaceRoute( path ) );
 
 // Render
 render(

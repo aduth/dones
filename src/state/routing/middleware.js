@@ -6,6 +6,7 @@ import { includes, get } from 'lodash';
 /**
  * Internal dependencies
  */
+import { SITE_URL } from 'constant';
 import { ROUTE_PUSH, ROUTE_REPLACE } from 'state/action-types';
 import { replaceRoute } from './actions';
 
@@ -35,7 +36,7 @@ export default ( { dispatch } ) => {
 		if ( includes( ROUTE_CHANGE_TYPES, type ) ) {
 			const historyFn = ROUTE_PUSH === type ? 'pushState' : 'replaceState';
 			if ( ROUTE_PUSH !== type || path !== get( history.state, 'path' ) ) {
-				history[ historyFn ]( { path }, null, path );
+				history[ historyFn ]( { path }, null, SITE_URL + path );
 			}
 
 			window.scrollTo( 0, 0 );

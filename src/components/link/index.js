@@ -9,6 +9,7 @@ import { startsWith, omit, assign, uniq, compact } from 'lodash';
 /**
  * Internal dependencies
  */
+import { SITE_URL } from 'constant';
 import { pushRoute } from 'state/routing/actions';
 
 class Link extends Component {
@@ -56,7 +57,7 @@ class Link extends Component {
 			<a
 				{ ...props }
 				className={ classes }
-				href={ to }
+				href={ SITE_URL + to }
 				onClick={ this.onClick } />
 		);
 	}

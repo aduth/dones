@@ -61,6 +61,7 @@ function dones_scripts() {
 	wp_enqueue_script( 'dones-app', get_theme_file_uri( '/dist/app.js' ), array( 'dones-polyfill', 'dones-vendor' ), dones_get_version(), true );
 	wp_localize_script( 'dones-app', 'dones', array(
 		'siteName'   => get_bloginfo( 'name' ),
+		'siteUrl'    => site_url(),
 		'apiRoot'    => esc_url_raw( untrailingslashit( get_rest_url() ) ),
 		'apiNonce'   => wp_create_nonce( 'wp_rest' ),
 		'brandColor' => get_theme_mod( 'brand_color', '#986dda' ),
