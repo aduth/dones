@@ -9,7 +9,6 @@ export { default as getRequestNonce } from './get-request-nonce';
 export { default as getRouteParam } from './get-route-param';
 export { default as getRoutePath } from './get-route-path';
 export { default as getSortedDones } from './get-sorted-dones';
-export { default as getTagCounts } from './get-tag-counts';
 export { default as getTags } from './get-tags';
 export { default as getTitle } from './get-title';
 export { default as getUser } from './get-user';

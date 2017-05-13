@@ -12,7 +12,7 @@ import QueryTags from 'components/query-tags';
 import Card from 'components/card';
 import Button from 'components/button';
 import { translate } from 'lib/i18n';
-import { getTagCounts } from 'state/selectors';
+import { getTags } from 'state/selectors';
 
 function TagsList( { tags } ) {
 	return (
@@ -32,5 +32,5 @@ function TagsList( { tags } ) {
 }
 
 export default connect( ( state ) => ( {
-	tags: getTagCounts( state )
+	tags: getTags( state )
 } ) )( TagsList );
