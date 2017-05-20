@@ -3,6 +3,7 @@ node_modules
 
 # Generated
 /dist
+dones.zip
 
 # Logs
 *.log
