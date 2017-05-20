@@ -25,6 +25,16 @@ function dones_setup() {
 add_action( 'after_setup_theme', 'dones_setup' );
 
 /**
+ * Removes unsupported post types from admin menu.
+ */
+function dones_remove_unsupported_types_menu_items() {
+	remove_menu_page( 'edit.php' );
+	remove_menu_page( 'edit.php?post_type=page' );
+	remove_menu_page( 'edit-comments.php' );
+}
+add_action( 'admin_menu', 'dones_remove_unsupported_types_menu_items' );
+
+/**
  * Bypass default document title, deferred to be handled on client.
  *
  * @return string Title override (site name)
@@ -310,6 +320,7 @@ function dones_register_custom_types() {
 		'has_archive'            => false,
 		'show_in_menu'           => true,
 		'menu_icon'              => 'dashicons-list-view',
+		'menu_position'          => 5,
 		'exclude_from_search'    => true,
 		'capability_type'        => 'post',
 		'map_meta_cap'           => true,
