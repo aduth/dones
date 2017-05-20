@@ -53,11 +53,17 @@ class Link extends Component {
 			} );
 		}
 
+		// Prefix with site URL if root-relative path
+		let href = to;
+		if ( this.isManagedPath() ) {
+			href = SITE_URL + href;
+		}
+
 		return (
 			<a
 				{ ...props }
 				className={ classes }
-				href={ SITE_URL + to }
+				href={ href }
 				onClick={ this.onClick } />
 		);
 	}
