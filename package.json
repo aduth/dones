@@ -20,8 +20,12 @@
     "unit-test": "cross-env NODE_PATH=src NODE_ENV=test mocha src/**/test/*.js -r mocha.config.js -r babel-register",
     "test": "npm run unit-test && npm run lint"
   },
+  "browserslist": [
+    "last 2 versions",
+    "ie 11"
+  ],
   "devDependencies": {
-    "autoprefixer": "^6.7.7",
+    "autoprefixer": "^7.1.1",
     "babel-core": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.0.0",
@@ -44,12 +48,11 @@
     "eslint-plugin-wpcalypso": "^3.2.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "mocha": "^3.3.0",
-    "node-sass": "^4.5.2",
-    "postcss-loader": "^1.3.3",
-    "raw-loader": "^0.5.1",
+    "node-sass": "^4.5.3",
+    "postcss-loader": "^2.0.5",
     "rimraf": "^2.6.1",
-    "sass-loader": "^6.0.3",
-    "style-loader": "^0.16.1",
+    "sass-loader": "^6.0.5",
+    "style-loader": "^0.17.0",
     "webpack": "^2.4.1"
   },
   "dependencies": {

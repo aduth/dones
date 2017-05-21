@@ -48,12 +48,7 @@ const config = module.exports = {
 		} ),
 		new webpack.LoaderOptionsPlugin( {
 			minimize: process.env.NODE_ENV === 'production',
-			debug: process.env.NODE_ENV !== 'production',
-			options: {
-				postcss: [
-					require( 'autoprefixer' )
-				]
-			}
+			debug: process.env.NODE_ENV !== 'production'
 		} )
 	]
 };
@@ -63,8 +58,14 @@ if ( 'production' === process.env.NODE_ENV ) {
 		test: /\.s?css$/,
 		loader: ExtractTextPlugin.extract( {
 			use: [
-				{ loader: 'raw-loader' },
-				{ loader: 'postcss-loader' },
+				{
+					loader: 'postcss-loader',
+					options: {
+						plugins: [
+							require( 'autoprefixer' )
+						]
+					}
+				},
 				{
 					loader: 'sass-loader',
 					query: {
@@ -93,7 +94,6 @@ if ( 'production' === process.env.NODE_ENV ) {
 		use: [
 			{ loader: 'style-loader' },
 			{ loader: 'css-loader' },
-			{ loader: 'postcss-loader' },
 			{ loader: 'sass-loader' }
 		]
 	} );
