@@ -37,9 +37,9 @@ export default function getDones( state, query = {} ) {
 					return includes( pageIds, item.id );
 
 				case 'tag':
-					const tag = '#' + value.toLowerCase();
-					const text = item.text.toLowerCase();
-					return includes( text.split( ' ' ), tag );
+					const tag = value.replace( /\W/g, '' );
+					const pattern = new RegExp( `(^|\\s)#${ tag }(\\W|$)`, 'i' );
+					return pattern.test( item.text );
 
 				default:
 					return true;

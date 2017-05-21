@@ -16,7 +16,7 @@ describe( 'getDones()', () => {
 					290: {
 						id: 290,
 						user: 1,
-						text: '#fill #the #tag #cloud',
+						text: '#fill, #the #tag #cloud',
 						date: '2017-04-27 00:00:00',
 						done: true
 					}
@@ -41,7 +41,7 @@ describe( 'getDones()', () => {
 		expect( dones ).to.eql( [ {
 			id: 290,
 			user: 1,
-			text: '#fill #the #tag #cloud',
+			text: '#fill, #the #tag #cloud',
 			date: '2017-04-27 00:00:00',
 			done: true
 		} ] );
