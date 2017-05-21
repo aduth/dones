@@ -1,6 +1,7 @@
 <?php
 
 require( dirname( __FILE__ ) . '/inc/tags.php' );
+require( dirname( __FILE__ ) . '/inc/updater.php' );
 
 /**
  * Returns the current version of the theme.
