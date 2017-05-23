@@ -65,7 +65,7 @@ class DoneInput extends Component {
 	cancelOnFocusOut = ( event ) => {
 		// The `focusout` event will fire when tabbing between elements within
 		// the rendered form. Ensure that we only cancel when truly leaving.
-		if ( ! this.form.contains( event.relatedTarget ) ) {
+		if ( this.form && ! this.form.contains( event.relatedTarget ) ) {
 			this.props.onCancel();
 		}
 	};
