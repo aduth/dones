@@ -89,7 +89,7 @@ class DonesList extends Component {
 	editIfNonePending = ( id ) => {
 		// Don't start edit if a selection is in progress. Otherwise it will
 		// clobber the selection offset calculation.
-		if ( ! this.pendingEdit ) {
+		if ( ! this.pendingEdit && this.isEditable() ) {
 			this.editDone( id );
 		}
 	};
