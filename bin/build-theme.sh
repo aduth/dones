@@ -10,6 +10,7 @@ zip -r dones.zip \
 	dist \
 	img \
 	inc \
+	CHANGELOG.md \
 	CREDITS.md \
 	functions.php \
 	index.php \
