@@ -23,6 +23,16 @@ export default class DatePicker extends Component {
 		// By default, Flatpickr intializes to the browser-offset date. Update
 		// the value and force a redraw (to reapply the "today" class)
 		this.flatpickr.now = toSiteTime( new Date() );
+
+		// Override Flatpickr's mobile accessibility attributes to inherit more
+		// from the base input element
+		const { input, mobileInput } = this.flatpickr;
+		if ( mobileInput ) {
+			mobileInput.removeAttribute( 'tabindex' );
+			mobileInput.setAttribute( 'aria-label', input.getAttribute( 'aria-label' ) );
+			input.setAttribute( 'aria-hidden', 'true' );
+		}
+
 		this.flatpickr.redraw();
 	}
 
