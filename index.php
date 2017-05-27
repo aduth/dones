@@ -3,10 +3,16 @@
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta charset="<?php bloginfo( 'charset' ); ?>">
+		<style><?php @include( dirname( __FILE__ ) . '/dist/critical.css.php' ); ?></style>
 		<?php wp_head() ?>
 	</head>
 	<body <?php body_class(); ?>>
-		<div id="app"></div>
+		<div id="app">
+			<!-- App Shell -->
+			<main class="page">
+				<header class="sidebar"></header>
+			</main>
+		</div>
 		<?php wp_footer(); ?>
 	</body>
 </html>

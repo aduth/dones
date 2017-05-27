@@ -58,14 +58,7 @@ if ( 'production' === process.env.NODE_ENV ) {
 		test: /\.s?css$/,
 		loader: ExtractTextPlugin.extract( {
 			use: [
-				{
-					loader: 'postcss-loader',
-					options: {
-						plugins: [
-							require( 'autoprefixer' )
-						]
-					}
-				},
+				'postcss-loader',
 				{
 					loader: 'sass-loader',
 					query: {
@@ -92,9 +85,10 @@ if ( 'production' === process.env.NODE_ENV ) {
 	config.module.rules.push( {
 		test: /\.s?css$/,
 		use: [
-			{ loader: 'style-loader' },
-			{ loader: 'css-loader' },
-			{ loader: 'sass-loader' }
+			'style-loader',
+			'css-loader',
+			'postcss-loader',
+			'sass-loader'
 		]
 	} );
 }

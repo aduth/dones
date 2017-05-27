@@ -1,23 +1,25 @@
-*,
-*:before,
-*:after {
-	box-sizing: border-box;
-}
+@critical {
+	*,
+	*:before,
+	*:after {
+		box-sizing: border-box;
+	}
 
-html {
-	font-size: $font-size;
-	background-color: $background-color;
-}
+	html {
+		font-size: $font-size;
+		background-color: $background-color;
+	}
 
-body {
-	@extend %sans;
-	margin: 0;
-	padding: 0 0 3rem;
-	font-size: 100%;
-	line-height: 1.5;
-	color: $font-color-body;
-	-webkit-font-smoothing: antialiased;
-	touch-action: manipulation;
+	body {
+		@extend %sans;
+		margin: 0;
+		padding: 0 0 3rem;
+		font-size: 100%;
+		line-height: 1.5;
+		color: $font-color-body;
+		-webkit-font-smoothing: antialiased;
+		touch-action: manipulation;
+	}
 }
 
 h1,

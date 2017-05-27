@@ -34,11 +34,13 @@ const path = window.location.href.substr( SITE_URL.length );
 store.dispatch( replaceRoute( path ) );
 
 // Render
+const target = document.getElementById( 'app' );
 render(
 	<Provider store={ store }>
 		<Root />
 	</Provider>,
-	document.getElementById( 'app' )
+	target,
+	target.children[ 0 ]
 );
 
 // Preloaded responses are only valid for first render
