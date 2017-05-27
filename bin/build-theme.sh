@@ -15,6 +15,7 @@ zip -r dones.zip \
 	functions.php \
 	index.php \
 	LICENSE.md \
+	manifest.json \
 	README.md \
 	screenshot.png \
 	style.css \
