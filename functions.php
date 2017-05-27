@@ -67,8 +67,8 @@ function dones_scripts() {
 	// Application script.
 	wp_register_script( 'dones-polyfill', add_query_arg( array(
 		'features' => 'fetch'
-	), 'https://cdn.polyfill.io/v2/polyfill.min.js' ) );
-	wp_register_script( 'dones-vendor', get_theme_file_uri( '/dist/vendor.js' ), array(), dones_get_version() );
+	), 'https://cdn.polyfill.io/v2/polyfill.min.js' ), array(), false, true );
+	wp_register_script( 'dones-vendor', get_theme_file_uri( '/dist/vendor.js' ), array(), dones_get_version(), true );
 	wp_enqueue_script( 'dones-app', get_theme_file_uri( '/dist/app.js' ), array( 'dones-polyfill', 'dones-vendor' ), dones_get_version(), true );
 	wp_localize_script( 'dones-app', 'dones', array(
 		'siteName'   => get_bloginfo( 'name' ),
