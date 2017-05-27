@@ -16,6 +16,34 @@ export default class DatePicker extends Component {
 	};
 
 	componentDidMount() {
+		// Profiling shows that Flatpickr takes a non-trivial amount of time to
+		// initialize, so let's defer it to the next available frame.
+		if ( window.requestAnimationFrame ) {
+			this.scheduledInitialize = window.requestAnimationFrame( this.initialize );
+		} else {
+			this.initialize();
+		}
+	}
+
+	componentWillReceiveProps( nextProps ) {
+		if ( this.flatpickr && nextProps.value ) {
+			this.flatpickr.setDate( nextProps.value );
+		}
+	}
+
+	componentWillUnmount() {
+		if ( this.flatpickr ) {
+			this.flatpickr.destroy();
+		} else {
+			window.cancelAnimationFrame( this.initialize );
+		}
+	}
+
+	shouldComponentUpdate() {
+		return false;
+	}
+
+	initialize = () => {
 		this.flatpickr = new Flatpickr( this.input, {
 			onChange: this.props.onChange
 		} );
@@ -34,21 +62,7 @@ export default class DatePicker extends Component {
 		}
 
 		this.flatpickr.redraw();
-	}
-
-	componentWillReceiveProps( nextProps ) {
-		if ( nextProps.value ) {
-			this.flatpickr.setDate( nextProps.value );
-		}
-	}
-
-	componentWillUnmount() {
-		this.flatpickr.destroy();
-	}
-
-	shouldComponentUpdate() {
-		return false;
-	}
+	};
 
 	setInputRef = ( input ) => {
 		this.input = input;
