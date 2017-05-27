@@ -19,3 +19,4 @@ zip -r dones.zip \
 	README.md \
 	screenshot.png \
 	style.css \
+	-x "*.DS_Store"
