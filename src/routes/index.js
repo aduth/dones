@@ -27,6 +27,6 @@ export default map( [
 		path,
 		keys,
 		Route,
-		regexp: pathToRegexp( path, keys ),
+		regexp: pathToRegexp( path, keys )
 	};
 } );

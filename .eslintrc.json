@@ -13,7 +13,9 @@
 		}
 	},
 	"rules": {
-		"no-cond-assign": 0,
-		"react/jsx-no-bind": 0
+		"no-cond-assign": "off",
+		"react/jsx-no-bind": "off",
+		"comma-dangle": "error",
+		"arrow-parens": "error"
 	}
 }
