@@ -10,9 +10,9 @@
 }
 
 .tag-dones__user-label {
+	@extend %bold;
 	margin-top: 0;
 	font-size: 1rem;
-	font-weight: bold;
 }
 
 .tag-dones__user-list-item {
