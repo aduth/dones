@@ -52,7 +52,8 @@ class WP_REST_Dones_Users_Controller extends WP_REST_Users_Controller {
 		$roles = wp_roles()->roles;
 		$editable_roles = array();
 		foreach ( $roles as $role ) {
-			if ( $role['capabilities']['edit_posts'] ) {
+			if ( isset( $role['capabilities']['edit_posts'] ) &&
+					$role['capabilities']['edit_posts'] ) {
 				$editable_roles[] = $role['name'];
 			}
 		}
