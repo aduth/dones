@@ -443,3 +443,12 @@ function dones_default_site_icon( $url, $size ) {
 	return $url;
 }
 add_filter( 'get_site_icon_url', 'dones_default_site_icon', 10, 2 );
+
+/**
+ * Unenqueues the default `wp-embed` script, since we're not expecting embeds
+ * to be shown (a small page load optimization).
+ */
+function dones_unenqueue_embeds() {
+	wp_deregister_script( 'wp-embed' );
+}
+add_action( 'wp_footer', 'dones_unenqueue_embeds' );
