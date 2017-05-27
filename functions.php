@@ -356,6 +356,22 @@ function dones_register_custom_types() {
 add_action( 'init', 'dones_register_custom_types' );
 
 /**
+ * Suppresses main query, since we don't use it.
+ *
+ * @param  string      $request The complete SQL query
+ * @param  WP_Query    &$this   The WP_Query instance (passed by reference)
+ * @return string|bool $request The complete SQL query, or false if main query
+ */
+function dones_disable_main_query( $request, $query ) {
+	if ( $query->is_main_query() ) {
+		return false;
+	}
+
+	return $request;
+}
+add_action( 'posts_request', 'dones_disable_main_query', 10, 2 );
+
+/**
  * Removes the Done Tags column from the manage (admin) list view
  */
 function dones_remove_tags_manage_column( $columns ) {
