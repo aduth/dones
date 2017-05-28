@@ -1,3 +1,7 @@
+#### 1.0.3 (2017-05-27)
+
+- Fix: Correct positioning of desktop dones input autocomplete
+
 #### 1.0.2 (2017-05-27)
 
 - New: Add web app manifest

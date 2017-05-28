@@ -8,7 +8,7 @@ Dones is a free team task management and tracking application to help your organ
 
 Dones is distributed as a WordPress theme, meaning you can easily host it yourself on a number of [hosting providers](https://wordpress.org/hosting/) or VPS services ([AWS](https://aws.amazon.com/getting-started/tutorials/launch-a-wordpress-website/) and [Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-use-the-wordpress-one-click-install-on-digitalocean), for example).
 
-1. [Download a pre-built zip archive of the latest release](https://github.com/aduth/dones/releases/download/1.0.2/dones.zip).
+1. [Download a pre-built zip archive of the latest release](https://github.com/aduth/dones/releases/download/1.0.3/dones.zip).
    - Do not download from the "Clone or download" GitHub button, as this includes the source material only. Read the [Development](#development) instructions below if you're interested in building your own copy of the theme.
 2. Navigate to the __Appearance > Themes__ screen in your WordPress administrative dashboard.
 3. Click __Add New__ at the top of the page.
