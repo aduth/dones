@@ -95,7 +95,7 @@ export default class DoneInputTextarea extends Component {
 					aria-label={ translate( 'Done or goal' ) }
 					placeholder={ translate( 'What have you been up to?' ) } />
 				<PopoverMenu
-					position="bottom-left"
+					position="bottom-right"
 					selectKeyCode={ 9 }
 					onSelect={ this.onSelectSuggestion }
 					items={ suggestions }
