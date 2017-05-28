@@ -363,7 +363,7 @@ add_action( 'init', 'dones_register_custom_types' );
  * @return string|bool $request The complete SQL query, or false if main query
  */
 function dones_disable_main_query( $request, $query ) {
-	if ( $query->is_main_query() ) {
+	if ( $query->is_main_query() && ! is_admin() ) {
 		return false;
 	}
 
