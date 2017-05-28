@@ -219,7 +219,7 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 			'user' => (int) $post->post_author,
 			'text' => $post->post_title,
 			'date' => $post->post_date,
-			'done' => ( 'publish' === $post->post_status )
+			'done' => ( 'draft' !== $post->post_status )
 		);
 	}
 
@@ -232,7 +232,7 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 	public function get_done_base_args( $request ) {
 		$args = array(
 			'post_type'   => 'done',
-			'post_status' => array( 'publish', 'draft' ),
+			'post_status' => array( 'publish', 'draft', 'future' ),
 			'orderby'     => 'date',
 			'order'       => 'desc',
 			'paged'       => (int) $request['page']
