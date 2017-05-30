@@ -1,3 +1,8 @@
+#### 1.0.4 (2017-05-29)
+
+- Fix: Future dones or goals are displayed correctly
+- Fix: Main query suppression should apply only to front-end, not admin
+
 #### 1.0.3 (2017-05-27)
 
 - Fix: Correct positioning of desktop dones input autocomplete
