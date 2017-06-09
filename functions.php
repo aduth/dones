@@ -65,11 +65,8 @@ function dones_scripts() {
 	}
 
 	// Application script.
-	wp_register_script( 'dones-polyfill', add_query_arg( array(
-		'features' => 'fetch'
-	), 'https://cdn.polyfill.io/v2/polyfill.min.js' ), array(), false, true );
 	wp_register_script( 'dones-vendor', get_theme_file_uri( '/dist/vendor.js' ), array(), dones_get_version(), true );
-	wp_enqueue_script( 'dones-app', get_theme_file_uri( '/dist/app.js' ), array( 'dones-polyfill', 'dones-vendor' ), dones_get_version(), true );
+	wp_enqueue_script( 'dones-app', get_theme_file_uri( '/dist/app.js' ), array( 'dones-vendor' ), dones_get_version(), true );
 	wp_localize_script( 'dones-app', 'dones', array(
 		'siteName'   => get_bloginfo( 'name' ),
 		'siteUrl'    => site_url(),
@@ -106,8 +103,38 @@ function dones_scripts() {
 			'No dones found for this tag' => __( 'No dones found for this tag', 'dones' )
 		)
 	) );
+
+	// Add conditional feature polyfill for older browsers
+	wp_add_inline_script( 'dones-app', dones_get_script_polyfill( array(
+		'promise' => '\'Promise\' in window',
+		'fetch'   => '\'fetch\' in window'
+	) ), 'before' );
 }
 add_action( 'wp_enqueue_scripts', 'dones_scripts' );
+
+/**
+ * Returns contents of an inline script used in appending a polyfill script for
+ * browsers which fail one or more of the provided tests. The provided array is
+ * a mapping from features to a JavaScript condition to verify feature support.
+ *
+ * @param  array  $tests Features to detect
+ * @return string        Conditional polyfill inline script
+ */
+function dones_get_script_polyfill( $tests ) {
+	// Each key in tests is a feature to join in creating the polyfill URL
+	$polyfill_url = add_query_arg( array(
+		'features' => implode( ',', array_keys( $tests ) )
+	), 'https://cdn.polyfill.io/v2/polyfill.min.js' );
+
+	return (
+		// Test presence of features...
+		'( ' . implode( ' && ', array_values( $tests ) ) . ' ) || ' .
+		// ...appending polyfill on any failures. Cautious onlookers may balk
+		// at the `document.write`. Its typical caveat of mid-stream blocking
+		// synchronous write is exactly the behavior we need though.
+		'document.write( \'<script src="' . esc_url( $polyfill_url ) . '"></scr\' + \'ipt>\' );'
+	);
+}
 
 /**
  * Append result of internal request to REST API for purpose of preloading
