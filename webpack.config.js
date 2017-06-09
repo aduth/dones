@@ -28,7 +28,10 @@ const config = module.exports = {
 		publicPath: '/'
 	},
 	resolve: {
-		modules: [ 'src', 'node_modules' ]
+		modules: [ 'src', 'node_modules' ],
+		alias: {
+			'lodash-es': 'lodash'
+		}
 	},
 	module: {
 		rules: [
