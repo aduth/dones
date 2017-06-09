@@ -10,31 +10,39 @@ import { parse } from 'querystringify';
 import routes from 'routes';
 import { getRoutePath } from './';
 
-export default createSelector(
-	( state ) => {
-		const path = getRoutePath( state );
-		const [ pathname, search = '' ] = path.split( '?' );
+/**
+ * Returns the route configuration for the current path.
+ *
+ * @param  {Object} state Global state object
+ * @return {Object}       Route configuration
+ */
+function getMatchedRoute( state ) {
+	const path = getRoutePath( state );
+	const [ pathname, search = '' ] = path.split( '?' );
 
-		for ( let r = 0, rl = routes.length; r < rl; r++ ) {
-			const { regexp, keys, Route } = routes[ r ];
-			const match = pathname.match( regexp );
-			if ( ! match ) {
-				continue;
-			}
-
-			const params = {};
-			for ( let m = 1, ml = match.length; m < ml; m++ ) {
-				params[ keys[ m - 1 ].name ] = decodeURIComponent( match[ m ] );
-			}
-
-			return {
-				params,
-				Route,
-				query: parse( search )
-			};
+	for ( let r = 0, rl = routes.length; r < rl; r++ ) {
+		const { regexp, keys, Route } = routes[ r ];
+		const match = pathname.match( regexp );
+		if ( ! match ) {
+			continue;
 		}
 
-		return {};
-	},
+		const params = {};
+		for ( let m = 1, ml = match.length; m < ml; m++ ) {
+			params[ keys[ m - 1 ].name ] = decodeURIComponent( match[ m ] );
+		}
+
+		return {
+			params,
+			Route,
+			query: parse( search )
+		};
+	}
+
+	return {};
+}
+
+export default createSelector(
+	getMatchedRoute,
 	( state ) => getRoutePath( state )
 );

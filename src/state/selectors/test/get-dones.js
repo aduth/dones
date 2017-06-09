@@ -6,7 +6,7 @@ import { expect } from 'chai';
 /**
  * Internal dependencies
  */
-import getDones from '../get-dones';
+import { getDones } from '../get-dones';
 
 describe( 'getDones()', () => {
 	it( 'should return array of dones for query', () => {

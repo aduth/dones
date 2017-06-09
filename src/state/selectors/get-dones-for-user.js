@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+import createSelector from 'rememo';
 import { filter } from 'lodash';
 
 /**
@@ -16,6 +17,11 @@ import { getDones } from './';
  * @param  {Number}  userId User ID to filter
  * @return {?Object}        Dones, or null if not known
  */
-export default function getDonesForUser( state, query, userId ) {
+export function getDonesForUser( state, query, userId ) {
 	return filter( getDones( state, query ), { user: userId } );
 }
+
+export default createSelector(
+	getDonesForUser,
+	( state ) => state.dones
+);

@@ -6,7 +6,7 @@ import { expect } from 'chai';
 /**
  * Internal dependencies
  */
-import getDonesForUser from '../get-dones-for-user';
+import { getDonesForUser } from '../get-dones-for-user';
 
 describe( 'getDonesForUser()', () => {
 	it( 'should return array of dones for query by page, user ID', () => {

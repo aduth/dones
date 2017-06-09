@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+import createSelector from 'rememo';
 import stringify from 'fast-stable-stringify';
 import { get, omit, filter, every, includes } from 'lodash';
 
@@ -12,7 +13,7 @@ import { get, omit, filter, every, includes } from 'lodash';
  * @param  {Object} query Query object
  * @return {?Array}       Dones, or null if not known
  */
-export default function getDones( state, query = {} ) {
+export function getDones( state, query = {} ) {
 	const { items, pages } = state.dones;
 
 	let pageIds;
@@ -47,3 +48,11 @@ export default function getDones( state, query = {} ) {
 		} );
 	} );
 }
+
+export default createSelector(
+	getDones,
+	( state ) => [
+		state.dones.items,
+		state.dones.pages
+	]
+);

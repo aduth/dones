@@ -6,7 +6,7 @@ import { expect } from 'chai';
 /**
  * Internal dependencies
  */
-import hasReceivedDones from '../has-received-dones';
+import { hasReceivedDones } from '../has-received-dones';
 
 describe( 'hasReceivedDones()', () => {
 	it( 'returns false if query not tracked', () => {
