@@ -8,6 +8,7 @@ import { createElement } from 'preact';
  */
 import Page from 'components/page';
 import TagsList from 'components/tags-list';
+import { requestTags } from 'state/tags/actions';
 import { translate } from 'lib/i18n';
 
 export default function TagsRoute() {
@@ -17,3 +18,7 @@ export default function TagsRoute() {
 		</Page>
 	);
 }
+
+TagsRoute.prepareRoute = () => [
+	requestTags()
+];

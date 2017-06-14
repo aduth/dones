@@ -9,14 +9,12 @@ import { isEmpty, map, groupBy } from 'lodash';
  * Internal dependencies
  */
 import { translate } from 'lib/i18n';
-import QueryUsers from 'components/query-users';
-import QueryDones from 'components/query-dones';
 import Card from 'components/card';
 import Placeholder from 'components/placeholder';
 import { getSortedDones, hasReceivedDones } from 'state/selectors';
 import TagDonesDate from './date';
 
-function TagDones( { query, hasReceived, dones } ) {
+function TagDones( { hasReceived, dones } ) {
 	// We need to preserve time accuracy within date to enable sorting, but for
 	// purposes of displaying grouped by date, we split between date and time
 	// parts, pulling date (e.g. "2017-01-01 00:00:00" => "2017-01-01")
@@ -26,8 +24,6 @@ function TagDones( { query, hasReceived, dones } ) {
 
 	return (
 		<ul className="tag-dones">
-			<QueryUsers />
-			<QueryDones query={ query } />
 			{ ! hasReceived && (
 				<li>
 					<Card title={ <Placeholder /> }>

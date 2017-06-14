@@ -11,7 +11,6 @@ import { map, sortBy, get } from 'lodash';
  */
 import { USER_ID } from 'constant';
 import { translate } from 'lib/i18n';
-import QueryDones from 'components/query-dones';
 import DoneStatus from 'components/done-status';
 import DoneInput from 'components/done-input';
 import DoneText from 'components/done-text';
@@ -112,7 +111,7 @@ class DonesList extends Component {
 	}
 
 	render() {
-		const { query, dones, hasReceived } = this.props;
+		const { dones, hasReceived } = this.props;
 		const { editing, editOffset } = this.state;
 		const classes = classNames( 'dones-list', {
 			'is-editable': this.isEditable()
@@ -163,7 +162,6 @@ class DonesList extends Component {
 
 		return (
 			<ul className={ classes }>
-				<QueryDones query={ query } />
 				{ items }
 				{ ! hasReceived && <li className="dones-list__item is-placeholder" /> }
 				{ hasReceived && 0 === dones.length && (

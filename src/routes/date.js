@@ -3,15 +3,16 @@
  */
 import { createElement } from 'preact';
 import { connect } from 'preact-redux';
-import { sortBy, map } from 'lodash';
+import { sortBy, map, compact } from 'lodash';
 
 /**
  * Internal dependencies
  */
 import { USER_ID } from 'constant';
 import { formatSiteDate } from 'lib/i18n';
-import QueryUsers from 'components/query-users';
-import QueryTags from 'components/query-tags';
+import { requestUsers } from 'state/users/actions';
+import { requestDones } from 'state/dones/actions';
+import { requestTags } from 'state/tags/actions';
 import Page from 'components/page';
 import DateNavigation from 'components/date-navigation';
 import UserDones from 'components/user-dones';
@@ -26,8 +27,6 @@ function DateRoute( { date, users } ) {
 
 	return (
 		<Page title={ formatSiteDate( date ) }>
-			<QueryUsers />
-			{ USER_ID ? <QueryTags /> : null }
 			<DateNavigation date={ date } />
 			{ map( sortedUsers, ( user ) => (
 				<UserDones
@@ -38,6 +37,12 @@ function DateRoute( { date, users } ) {
 		</Page>
 	);
 }
+
+DateRoute.prepareRoute = ( { params } ) => compact( [
+	requestUsers(),
+	requestDones( { date: params.date } ),
+	USER_ID && requestTags()
+] );
 
 export default connect( ( state ) => ( {
 	users: getUsers( state ),

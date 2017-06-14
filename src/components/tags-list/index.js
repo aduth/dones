@@ -8,7 +8,6 @@ import { map } from 'lodash';
 /**
  * Internal dependencies
  */
-import QueryTags from 'components/query-tags';
 import Card from 'components/card';
 import Button from 'components/button';
 import Placeholder from 'components/placeholder';
@@ -18,7 +17,6 @@ import { hasReceivedTags, getTags } from 'state/selectors';
 function TagsList( { hasReceived, tags } ) {
 	return (
 		<Card title={ translate( 'Recent Tags' ) }>
-			<QueryTags />
 			{ ! hasReceived && <Placeholder height={ 100 } /> }
 			<ul className="tags-list__list">
 				{ hasReceived && ! tags.length && (

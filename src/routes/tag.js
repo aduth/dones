@@ -10,6 +10,8 @@ import { defaultTo, toNumber } from 'lodash';
  */
 import Card from 'components/card';
 import Page from 'components/page';
+import { requestUsers } from 'state/users/actions';
+import { requestDones } from 'state/dones/actions';
 import TagDones from 'components/tag-dones';
 import TagPagination from 'components/tag-pagination';
 import { getRouteParam } from 'state/selectors';
@@ -27,6 +29,14 @@ function TagRoute( { tag, page = 1 } ) {
 		</Page>
 	);
 }
+
+TagRoute.prepareRoute = ( { params } ) => [
+	requestUsers(),
+	requestDones( {
+		tag: params.tag,
+		page: params.page || 1
+	} )
+];
 
 export default connect( ( state ) => ( {
 	tag: getRouteParam( state, 'tag' ),

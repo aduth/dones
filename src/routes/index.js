@@ -2,7 +2,9 @@
  * External dependencies
  */
 import pathToRegexp from 'path-to-regexp';
+import memoize from 'moize';
 import { map } from 'lodash';
+import { parse } from 'querystringify';
 
 /**
  * Internal dependencies
@@ -13,7 +15,7 @@ import TagsRoute from './tags';
 import TagRoute from './tag';
 import NotFoundRoute from './not-found';
 
-export default map( [
+export const routes = map( [
 	[ '/', HomeRoute ],
 	[ '/date/:date/', DateRoute ],
 	[ '/tags/:tag/page/:page', TagRoute ],
@@ -29,4 +31,29 @@ export default map( [
 		Route,
 		regexp: pathToRegexp( path, keys )
 	};
+} );
+
+export const getRouteByPath = memoize( ( path ) => {
+	const [ pathname, search = '' ] = path.split( '?' );
+
+	for ( let r = 0, rl = routes.length; r < rl; r++ ) {
+		const { regexp, keys, Route } = routes[ r ];
+		const match = pathname.match( regexp );
+		if ( ! match ) {
+			continue;
+		}
+
+		const params = {};
+		for ( let m = 1, ml = match.length; m < ml; m++ ) {
+			params[ keys[ m - 1 ].name ] = decodeURIComponent( match[ m ] );
+		}
+
+		return {
+			params,
+			Route,
+			query: parse( search )
+		};
+	}
+
+	return {};
 } );
