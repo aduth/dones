@@ -17,18 +17,10 @@ import { pushRoute } from 'state/routing/actions';
 import { addDays, format as formatDate } from 'date-fns';
 
 class DateNavigation extends Component {
-	constructor() {
-		super( ...arguments );
-
-		this.toPreviousDate = this.incrementDate.bind( this, -1 );
-		this.toNextDate = this.incrementDate.bind( this, 1 );
-	}
-
-	incrementDate( multiplier ) {
+	getDateLink = ( increment ) => {
 		const { date } = this.props;
-		const nextDate = formatDate( addDays( date, 1 * multiplier ), 'YYYY-MM-DD' );
-		this.props.pushRoute( `/date/${ nextDate }/` );
-	}
+		return `/date/${ formatDate( addDays( date, increment ), 'YYYY-MM-DD' ) }/`;
+	};
 
 	toDate = ( selected, date ) => {
 		// Some date inputs on mobile allow clearing the value. Assume an empty
@@ -50,13 +42,13 @@ class DateNavigation extends Component {
 				controls={
 					<ButtonGroup>
 						<Button
-							aria-label={ translate( 'Previous' ) }
-							onClick={ this.toPreviousDate }>
+							to={ this.getDateLink( -1 ) }
+							aria-label={ translate( 'Previous' ) }>
 							<Icon icon="chevron-left" size={ 12 } />
 						</Button>
 						<Button
-							aria-label={ translate( 'Next' ) }
-							onClick={ this.toNextDate }>
+							to={ this.getDateLink( 1 ) }
+							aria-label={ translate( 'Next' ) }>
 							<Icon icon="chevron-right" size={ 12 } />
 						</Button>
 						<DatePicker
