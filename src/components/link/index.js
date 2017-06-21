@@ -15,7 +15,7 @@ import { preloadRoute, pushRoute } from 'state/routing/actions';
 class Link extends Component {
 	static defaultProps = {
 		onClick: () => {},
-		onMouseOver: () => {},
+		onMouseEnter: () => {},
 		to: ''
 	};
 
@@ -39,11 +39,11 @@ class Link extends Component {
 		onClick();
 	};
 
-	onMouseOver = ( event ) => {
-		const { onMouseOver, preload, onPreload, to } = this.props;
+	onMouseEnter = ( event ) => {
+		const { onMouseEnter, preload, onPreload, to } = this.props;
 
-		// Preserve original handler by rendering parent
-		onMouseOver( event );
+		// Preserve original handler of rendering parent
+		onMouseEnter( event );
 
 		// If preload intent, trigger on mouse over
 		if ( preload ) {
@@ -79,7 +79,7 @@ class Link extends Component {
 				className={ classes }
 				href={ href }
 				onClick={ this.onClick }
-				onMouseOver={ this.onMouseOver } />
+				onMouseEnter={ this.onMouseEnter } />
 		);
 	}
 }
