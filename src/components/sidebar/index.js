@@ -4,23 +4,25 @@
 import { createElement } from 'preact';
 import { connect } from 'preact-redux';
 import { startsWith } from 'lodash';
+import { format as formatDate } from 'date-fns';
 
 /**
  * Internal dependencies
  */
 import Link from 'components/link';
 import { USER_ID, BRAND_COLOR, LOGO, LOGIN_URL, LOGOUT_URL, SITE_NAME } from 'constant';
-import { translate } from 'lib/i18n';
+import { translate, toSiteTime } from 'lib/i18n';
 import { getRoutePath } from 'state/selectors';
 import SidebarAction from './action';
 
 function Sidebar( { path } ) {
 	const isLoggedIn = USER_ID > 0;
+	const date = formatDate( toSiteTime( new Date() ), 'YYYY-MM-DD' );
 
 	return (
 		<header className="sidebar">
 			<Link
-				to="/"
+				to={ `/date/${ date }/` }
 				style={ { backgroundColor: BRAND_COLOR } }
 				className="sidebar__logo-link">
 				<h1 className="sidebar__logo">
@@ -39,7 +41,7 @@ function Sidebar( { path } ) {
 				<nav className="sidebar__actions">
 					<SidebarAction
 						icon="th-list"
-						to="/"
+						to={ `/date/${ date }/` }
 						selected={ startsWith( path, '/date/' ) }>
 						{ translate( 'Dones' ) }
 					</SidebarAction>
