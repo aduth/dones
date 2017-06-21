@@ -49,6 +49,7 @@ const config = module.exports = {
 		new webpack.optimize.CommonsChunkPlugin( {
 			name: 'vendor'
 		} ),
+		new webpack.optimize.ModuleConcatenationPlugin(),
 		new webpack.LoaderOptionsPlugin( {
 			minimize: process.env.NODE_ENV === 'production',
 			debug: process.env.NODE_ENV !== 'production'
