@@ -53,7 +53,7 @@ class Link extends Component {
 
 	render() {
 		const { to, className } = this.props;
-		const props = omit( this.props, 'to', 'pushRoute' );
+		const props = omit( this.props, 'to', 'pushRoute', 'preload' );
 		const classes = classNames( 'link', className );
 
 		if ( ! this.isLocalPath() ) {
