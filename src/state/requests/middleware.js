@@ -9,8 +9,16 @@ import { assign, isPlainObject, fromPairs } from 'lodash';
  */
 import { API_ROOT } from 'constant';
 import { REQUEST, REQUEST_COMPLETE } from 'state/action-types';
-import { getPreloadedResponse, getRequestNonce, isRequestingPath } from 'state/selectors';
-import { setRequestNonce } from './actions';
+import {
+	getPreloadedResponse,
+	getRequestNonce,
+	isCapturingRequestPreload,
+	isRequestingPath
+} from 'state/selectors';
+import {
+	addPreloadedResponse,
+	setRequestNonce
+} from './actions';
 
 export default ( { dispatch, getState } ) => {
 	async function* getResult( path, params ) {
@@ -68,8 +76,11 @@ export default ( { dispatch, getState } ) => {
 					continue;
 				}
 
-				// Otherwise, assume completion and dispatch success
-				if ( success ) {
+				if ( action.isPreload ) {
+					// If request is for preload purpose only, queue as such
+					dispatch( addPreloadedResponse( path, result ) );
+				} else if ( success ) {
+					// Otherwise dispatch as success immediately
 					dispatch( success( result ) );
 				}
 
@@ -102,6 +113,12 @@ export default ( { dispatch, getState } ) => {
 			const querystring = stringify( query );
 			if ( querystring ) {
 				action.path += '?' + querystring;
+			}
+
+			// Include flag for considering request completion as intended for
+			// preload if capturing requests for preload
+			if ( isCapturingRequestPreload( getState() ) ) {
+				action.isPreload = true;
 			}
 
 			handleRequest( action );

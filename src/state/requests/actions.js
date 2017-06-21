@@ -1,10 +1,18 @@
 /**
+ * External dependencies
+ */
+import { uniqueId } from 'lodash';
+
+/**
  * Internal dependencies
  */
 import {
 	REQUEST_NONCE_SET,
+	REQUEST_PRELOAD_ADD,
 	REQUEST_PRELOAD_SET,
-	REQUEST_PRELOAD_CLEAR
+	REQUEST_PRELOAD_CLEAR,
+	REQUEST_PRELOAD_CAPTURE_START,
+	REQUEST_PRELOAD_CAPTURE_STOP
 } from 'state/action-types';
 
 /**
@@ -32,12 +40,79 @@ export function setRequestNonce( nonce ) {
 export function setPreloadedResponses( responses ) {
 	return {
 		type: REQUEST_PRELOAD_SET,
+		id: uniqueId(),
 		responses
 	};
 }
 
-export function clearPreloadedResponses() {
+/**
+ * Returns an action object used in signalling that a preloaded response has
+ * been made available for the specified path.
+ *
+ * @param  {String} path     Path for which preloaded data is received
+ * @param  {Object} response Response payload with data and headers
+ * @return {Object}          Action object
+ */
+export function addPreloadedResponse( path, response ) {
 	return {
-		type: REQUEST_PRELOAD_CLEAR
+		type: REQUEST_PRELOAD_ADD,
+		id: uniqueId(),
+		path,
+		response
+	};
+}
+
+/**
+ * Returns an action object used in signalling that the preloaded responses
+ * received with the given preload transaction ID should be removed.
+ *
+ * @param  {String} id Assigned preload transaction ID
+ * @return {Object}    Action object
+ */
+export function clearPreloadedResponses( id ) {
+	return {
+		type: REQUEST_PRELOAD_CLEAR,
+		id
+	};
+}
+
+/**
+ * Returns an action object used in signalling that the preloaded response
+ * received with the given preload transaction ID and path should be removed.
+ *
+ * @param  {String} path Path for which preloaded response was received
+ * @param  {String} id   Assigned preload transaction ID
+ * @return {Object}      Action object
+ */
+export function clearPreloadedResponse( path, id ) {
+	return {
+		type: REQUEST_PRELOAD_CLEAR,
+		path,
+		id
+	};
+}
+
+/**
+ * Returns an action object used in signalling that all dispatched request
+ * actions until the capture is subsequently stopped are to be considered as
+ * as intended for preload only.
+ *
+ * @return {Object} Action object
+ */
+export function startPreloadCapture() {
+	return {
+		type: REQUEST_PRELOAD_CAPTURE_START
+	};
+}
+
+/**
+ * Returns an action object used in signalling that capturing dispatched
+ * request actions as preload is to be stopped.
+ *
+ * @return {Object} Action object
+ */
+export function stopPreloadCapture() {
+	return {
+		type: REQUEST_PRELOAD_CAPTURE_STOP
 	};
 }

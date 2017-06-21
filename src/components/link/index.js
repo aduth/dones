@@ -10,11 +10,12 @@ import { startsWith, omit, assign, uniq, compact } from 'lodash';
  * Internal dependencies
  */
 import { SITE_URL } from 'constant';
-import { pushRoute } from 'state/routing/actions';
+import { preloadRoute, pushRoute } from 'state/routing/actions';
 
 class Link extends Component {
 	static defaultProps = {
 		onClick: () => {},
+		onMouseOver: () => {},
 		to: ''
 	};
 
@@ -28,13 +29,26 @@ class Link extends Component {
 	}
 
 	onClick = ( event ) => {
+		const { onNavigate, to, onClick } = this.props;
 		if ( ! this.isManagedPath() ) {
 			return;
 		}
 
 		event.preventDefault();
-		this.props.pushRoute( this.props.to );
-		this.props.onClick();
+		onNavigate( to );
+		onClick();
+	};
+
+	onMouseOver = ( event ) => {
+		const { onMouseOver, preload, onPreload, to } = this.props;
+
+		// Preserve original handler by rendering parent
+		onMouseOver( event );
+
+		// If preload intent, trigger on mouse over
+		if ( preload ) {
+			onPreload( to );
+		}
 	};
 
 	render() {
@@ -64,9 +78,16 @@ class Link extends Component {
 				{ ...props }
 				className={ classes }
 				href={ href }
-				onClick={ this.onClick } />
+				onClick={ this.onClick }
+				onMouseOver={ this.onMouseOver } />
 		);
 	}
 }
 
-export default connect( null, { pushRoute } )( Link );
+export default connect(
+	null,
+	{
+		onNavigate: pushRoute,
+		onPreload: preloadRoute
+	}
+)( Link );

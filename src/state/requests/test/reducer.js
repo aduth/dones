@@ -21,7 +21,8 @@ describe( 'reducer', () => {
 		expect( state ).to.have.keys( [
 			'items',
 			'preload',
-			'nonce'
+			'nonce',
+			'isCapturingPreload'
 		] );
 	} );
 
@@ -36,6 +37,7 @@ describe( 'reducer', () => {
 			const original = deepFreeze( {} );
 			const state = preload( original, {
 				type: REQUEST_PRELOAD_SET,
+				id: '1',
 				responses: {
 					'/dones/v1/users': {
 						body: {
@@ -51,7 +53,7 @@ describe( 'reducer', () => {
 			} );
 
 			expect( state ).to.eql( {
-				'/dones/v1/users': {
+				'/dones/v1/users': [ {
 					body: {
 						avatar: 'https://example.com/avatar.png',
 						id: 1,
@@ -60,13 +62,13 @@ describe( 'reducer', () => {
 					headers: {
 						'x-wp-nonce': '1ab98c39ab'
 					}
-				}
+				}, '1' ]
 			} );
 		} );
 
-		it( 'returns an empty object when preload cleared', () => {
+		it( 'returns same state if preload cleared with mismatched id', () => {
 			const original = deepFreeze( {
-				'/dones/v1/users': {
+				'/dones/v1/users': [ {
 					body: {
 						avatar: 'https://example.com/avatar.png',
 						id: 1,
@@ -75,10 +77,76 @@ describe( 'reducer', () => {
 					headers: {
 						'x-wp-nonce': '1ab98c39ab'
 					}
-				}
+				}, '1' ]
 			} );
 			const state = preload( original, {
-				type: REQUEST_PRELOAD_CLEAR
+				type: REQUEST_PRELOAD_CLEAR,
+				id: '2'
+			} );
+
+			expect( state ).to.equal( original );
+		} );
+
+		it( 'returns an object with responses of matching id removed', () => {
+			const original = deepFreeze( {
+				'/dones/v1/users': [ {
+					body: {
+						avatar: 'https://example.com/avatar.png',
+						id: 1,
+						name: 'Andrew Duthie'
+					},
+					headers: {
+						'x-wp-nonce': '1ab98c39ab'
+					}
+				}, '1' ]
+			} );
+			const state = preload( original, {
+				type: REQUEST_PRELOAD_CLEAR,
+				id: '1'
+			} );
+
+			expect( state ).to.eql( {} );
+		} );
+
+		it( 'returns same state if preload single path cleared with mismatched id', () => {
+			const original = deepFreeze( {
+				'/dones/v1/users': [ {
+					body: {
+						avatar: 'https://example.com/avatar.png',
+						id: 1,
+						name: 'Andrew Duthie'
+					},
+					headers: {
+						'x-wp-nonce': '1ab98c39ab'
+					}
+				}, '3' ]
+			} );
+			const state = preload( original, {
+				type: REQUEST_PRELOAD_CLEAR,
+				path: '/dones/v1/users',
+				id: '4'
+			} );
+
+			expect( state ).to.equal( original );
+		} );
+
+		it( 'returns an object without matched id for single path cleared', () => {
+			const original = deepFreeze( {
+				'/dones/v1/users': [ {
+					body: {
+						avatar: 'https://example.com/avatar.png',
+						id: 1,
+						name: 'Andrew Duthie'
+					},
+					headers: {
+						'x-wp-nonce': '1ab98c39ab'
+					}
+				}, '3' ]
+			} );
+			const state = preload( original, {
+				type: REQUEST_PRELOAD_CLEAR,
+				path: '/dones/v1/users',
+				id: '3'
 			} );
 
 			expect( state ).to.eql( {} );

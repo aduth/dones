@@ -11,8 +11,7 @@ import Root from 'components/root';
 import createReduxStore from 'state';
 import {
 	setRequestNonce,
-	setPreloadedResponses,
-	clearPreloadedResponses
+	setPreloadedResponses
 } from 'state/requests/actions';
 import { replaceRoute } from 'state/routing/actions';
 import { SITE_URL, API_NONCE, PRELOADED_REQUESTS } from 'constant';
@@ -42,6 +41,3 @@ render(
 	target,
 	target.children[ 0 ]
 );
-
-// Preloaded responses are only valid for first render
-setTimeout( () => store.dispatch( clearPreloadedResponses() ) );

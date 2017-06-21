@@ -34,7 +34,7 @@ describe( 'getPreloadedResponse()', () => {
 		const response = getPreloadedResponse( {
 			requests: {
 				preload: {
-					'/dones/v1/users': payload
+					'/dones/v1/users': [ payload, '1' ]
 				}
 			}
 		}, '/dones/v1/users' );

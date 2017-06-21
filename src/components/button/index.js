@@ -17,13 +17,14 @@ function toggleOutlineActive( active ) {
 }
 
 export default function Button( props ) {
-	const { type, to, disabled, className, children } = props;
+	const { type, to, preload, disabled, className, children } = props;
 	const isLink = to && ! disabled;
 
 	return createElement( isLink ? Link : 'button', {
 		...omit( props, 'primary', 'unstyled' ),
 		to: isLink ? to : null,
 		type: isLink ? null : type,
+		preload: isLink ? preload : null,
 		onMouseDown: toggleOutlineActive( false ),
 		onBlur: toggleOutlineActive( true ),
 		className: classNames( 'button', className, reduce( [

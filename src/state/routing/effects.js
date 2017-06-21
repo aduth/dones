@@ -1,7 +1,15 @@
 /**
  * Internal dependencies
  */
-import { ROUTE_PUSH, ROUTE_REPLACE } from 'state/action-types';
+import {
+	ROUTE_PRELOAD,
+	ROUTE_PUSH,
+	ROUTE_REPLACE
+} from 'state/action-types';
+import {
+	startPreloadCapture,
+	stopPreloadCapture
+} from 'state/requests/actions';
 import { getRouteByPath } from 'routes';
 
 function prepareRoute( action ) {
@@ -20,6 +28,19 @@ function prepareRoute( action ) {
 }
 
 export default {
+	[ ROUTE_PRELOAD ]( action ) {
+		// Routes can optionally provide an array of actions to be invoked when
+		// visited to prepare data needs. If preparations exist, dispatch while
+		// flagging as captured for preload.
+		const preparations = prepareRoute( action );
+		if ( preparations ) {
+			return [
+				startPreloadCapture(),
+				...preparations,
+				stopPreloadCapture()
+			];
+		}
+	},
 	[ ROUTE_PUSH ]: prepareRoute,
 	[ ROUTE_REPLACE ]: prepareRoute
 };

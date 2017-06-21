@@ -16,7 +16,7 @@ export default function SidebarAction( { icon, to, selected, children } ) {
 	} );
 
 	return (
-		<Link to={ to } className={ classes }>
+		<Link to={ to } className={ classes } preload>
 			<Icon icon={ icon } size={ 26 } />
 			<div className="sidebar__action-text">
 				{ children }

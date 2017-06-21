@@ -7,5 +7,11 @@
  * @return {?Object}       Preloaded result
  */
 export default function getPreloadedResponse( state, path ) {
-	return state.requests.preload[ path ] || null;
+	const preloaded = state.requests.preload[ path ];
+	if ( ! preloaded ) {
+		return null;
+	}
+
+	const [ response ] = preloaded;
+	return response;
 }

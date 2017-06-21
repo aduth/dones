@@ -15,4 +15,5 @@ export { default as getUser } from './get-user';
 export { default as getUsers } from './get-users';
 export { default as hasReceivedDones } from './has-received-dones';
 export { default as hasReceivedTags } from './has-received-tags';
+export { default as isCapturingRequestPreload } from './is-capturing-request-preload';
 export { default as isRequestingPath } from './is-requesting-path';

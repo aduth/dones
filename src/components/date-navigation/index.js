@@ -43,12 +43,14 @@ class DateNavigation extends Component {
 					<ButtonGroup>
 						<Button
 							to={ this.getDateLink( -1 ) }
-							aria-label={ translate( 'Previous' ) }>
+							aria-label={ translate( 'Previous' ) }
+							preload>
 							<Icon icon="chevron-left" size={ 12 } />
 						</Button>
 						<Button
 							to={ this.getDateLink( 1 ) }
-							aria-label={ translate( 'Next' ) }>
+							aria-label={ translate( 'Next' ) }
+							preload>
 							<Icon icon="chevron-right" size={ 12 } />
 						</Button>
 						<DatePicker
