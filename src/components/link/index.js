@@ -16,8 +16,26 @@ class Link extends Component {
 	static defaultProps = {
 		onClick: () => {},
 		onMouseEnter: () => {},
+		onMouseLeave: () => {},
 		to: ''
 	};
+
+	constructor() {
+		super( ...arguments );
+
+		this.state = {
+			isMouseOver: false
+		};
+	}
+
+	componentWillReceiveProps( nextProps ) {
+		const { to, preload, onPreload } = nextProps;
+		const { isMouseOver } = this.state;
+
+		if ( this.props.to !== to && preload && onPreload && isMouseOver ) {
+			onPreload( to );
+		}
+	}
 
 	isManagedPath() {
 		return '/' === this.props.to[ 0 ];
@@ -49,6 +67,22 @@ class Link extends Component {
 		if ( preload ) {
 			onPreload( to );
 		}
+
+		// Set mouseover as state so we can track prop changes and re-trigger
+		// preload if the link changes while mouse within
+		this.setState( { isMouseOver: true } );
+	};
+
+	onMouseLeave = ( event ) => {
+		const { onMouseLeave } = this.props;
+		const { isMouseOver } = this.state;
+
+		// Preserve original handler of rendering parent
+		onMouseLeave( event );
+
+		if ( isMouseOver ) {
+			this.setState( { isMouseOver: false } );
+		}
 	};
 
 	render() {
@@ -79,7 +113,8 @@ class Link extends Component {
 				className={ classes }
 				href={ href }
 				onClick={ this.onClick }
-				onMouseEnter={ this.onMouseEnter } />
+				onMouseEnter={ this.onMouseEnter }
+				onMouseLeave={ this.onMouseLeave } />
 		);
 	}
 }
