@@ -11,6 +11,7 @@ import stringify from 'fast-stable-stringify';
 import { USER_ID } from 'constant';
 import {
 	DONE_CREATE,
+	DONE_CREATE_FAILURE,
 	DONE_UPDATE,
 	DONE_DELETE,
 	DONES_RECEIVE
@@ -64,8 +65,9 @@ export function items( state = {}, action ) {
 			return nextState;
 		}
 
+		case DONE_CREATE_FAILURE:
 		case DONE_DELETE:
-			return omit( state, action.id );
+			return omit( state, action.transientId || action.id );
 	}
 
 	return state;

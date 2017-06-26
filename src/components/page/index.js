@@ -10,6 +10,7 @@ import { connect } from 'preact-redux';
 import { setDocumentHeadTitle } from 'state/document-head/actions';
 import DocumentHead from 'components/document-head';
 import Sidebar from 'components/sidebar';
+import Notices from 'components/notices';
 
 class Page extends Component {
 	componentWillMount() {
@@ -28,6 +29,7 @@ class Page extends Component {
 		return (
 			<main className="page">
 				<DocumentHead />
+				<Notices />
 				<Sidebar />
 				<div className="page__content">
 					{ children }

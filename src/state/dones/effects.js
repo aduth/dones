@@ -3,11 +3,14 @@
  */
 import {
 	DONE_CREATE,
+	DONE_CREATE_FAILURE,
 	DONE_DELETE,
 	DONE_UPDATE,
 	DONES_REQUEST,
 	REQUEST
 } from 'state/action-types';
+import { translate } from 'lib/i18n';
+import { displayErrorNotice } from 'state/notices/actions';
 import { receiveDones, updateDone } from 'state/dones/actions';
 
 export default {
@@ -37,8 +40,17 @@ export default {
 			},
 			success( { body } ) {
 				return updateDone( body.id, text, done, transientId );
+			},
+			failure() {
+				return {
+					type: DONE_CREATE_FAILURE,
+					transientId
+				};
 			}
 		};
+	},
+	[ DONE_CREATE_FAILURE ]() {
+		return displayErrorNotice( translate( 'An error occurred while saving' ) );
 	},
 	[ DONE_DELETE ]( action ) {
 		const { id } = action;

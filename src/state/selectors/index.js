@@ -4,6 +4,7 @@ export { default as getDonesForUser } from './get-dones-for-user';
 export { default as getDonesTotalPages } from './get-dones-total-pages';
 export { default as getFormattedTitle } from './get-formatted-title';
 export { default as getMatchedRoute } from './get-matched-route';
+export { default as getNotices } from './get-notices';
 export { default as getPreloadedResponse } from './get-preloaded-response';
 export { default as getRequestNonce } from './get-request-nonce';
 export { default as getRouteParam } from './get-route-param';

@@ -1,0 +1,44 @@
+.notices {
+	position: fixed;
+	top: 0.8rem;
+	left: 0.8rem;
+	right: 0.8rem;
+	margin: 0;
+	padding-left: 0;
+	list-style-type: none;
+	z-index: 10000;
+
+	body.admin-bar & {
+		margin-top: $admin-bar-height;
+
+		@include desktop() {
+			margin-top: $admin-bar-height-medium;
+		}
+	}
+
+	@include medium() {
+		left: auto;
+		max-width: 280px;
+	}
+}
+
+.notices__notice {
+	position: relative;
+	width: 100%;
+	padding: 0.8rem;
+	background-color: #fff;
+	border-radius: $border-radius;
+	border: 1px solid $border-color;
+
+	&.is-error:after {
+		content: '';
+		position: absolute;
+		bottom: -1px;
+		left: -1px;
+		right: -1px;
+		height: 3px;
+		background-color: $color-red;
+		border-bottom-left-radius: $border-radius;
+		border-bottom-right-radius: $border-radius;
+	}
+}
