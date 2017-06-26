@@ -26,10 +26,10 @@
 		}
 
 		body.admin-bar & {
-			top: 46px;
+			top: $admin-bar-height;
 
 			@include desktop() {
-				top: 32px;
+				top: $admin-bar-height-medium;
 			}
 		}
 	}
