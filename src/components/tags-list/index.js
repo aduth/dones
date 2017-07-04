@@ -24,7 +24,7 @@ function TagsList( { hasReceived, tags } ) {
 				) }
 				{ map( tags, ( name ) => (
 					<li key={ name } className="tags-list__list-item">
-						<Button to={ `/tags/${ name }/` }>
+						<Button to={ `/tags/${ name }/` } preload>
 							{ name }
 						</Button>
 					</li>
