@@ -49,7 +49,6 @@ const config = module.exports = {
 		new webpack.optimize.CommonsChunkPlugin( {
 			name: 'vendor'
 		} ),
-		new webpack.optimize.ModuleConcatenationPlugin(),
 		new webpack.LoaderOptionsPlugin( {
 			minimize: process.env.NODE_ENV === 'production',
 			debug: process.env.NODE_ENV !== 'production'
@@ -77,6 +76,7 @@ if ( 'production' === process.env.NODE_ENV ) {
 		new webpack.optimize.UglifyJsPlugin( {
 			comments: false
 		} ),
+		new webpack.optimize.ModuleConcatenationPlugin(),
 		new ExtractTextPlugin( {
 			filename: './style.css',
 			disable: false,
