@@ -13,14 +13,42 @@ import {
 	getPreloadedResponse,
 	getRequestNonce,
 	isCapturingRequestPreload,
-	isRequestingPath
+	isPreloadingPath,
+	getPathRequest
 } from 'state/selectors';
 import {
 	addPreloadedResponse,
-	setRequestNonce
+	setRequestNonce,
+	setPathRequest,
+	setPathIsPreloading
 } from './actions';
 
 export default ( { dispatch, getState } ) => {
+	/**
+	 * Given a Fetch promise, returns the formatted response result.
+	 *
+	 * @param  {Promise} request Fetch request
+	 * @return {Object}          Response result
+	 */
+	async function getFormattedResponse( request ) {
+		const response = await request;
+		const headers = fromPairs( [ ...response.headers.entries() ] );
+		const result = { headers };
+		result.body = await response.json();
+		return result;
+	}
+
+	/**
+	 * Given request path and parameters, attempts to attain the result of the
+	 * request, yielding possible entries from preload, a deferred in-flight
+	 * request, or finally from the result of a new Fetch request.
+	 *
+	 * @see getFormattedResponse
+	 *
+	 * @param {String} path   Request path
+	 * @param {Object} params Request fetch parameters
+	 * @yield {Object}        Response result
+	 */
 	async function* getResult( path, params ) {
 		const state = getState();
 
@@ -34,9 +62,15 @@ export default ( { dispatch, getState } ) => {
 			// First yield with potentially preloaded data
 			yield getPreloadedResponse( state, path );
 
-			// If network request in progress, abort iterating
-			if ( isRequestingPath( state, path ) ) {
-				return;
+			const inFlightRequest = getPathRequest( state, path );
+			if ( inFlightRequest ) {
+				// If an in-flight request exists, reset preloading flag to
+				// ensure success handlers invoked immediately. This can occur
+				// if a non-preload request is invoked while preload request is
+				// already in-flight.
+				dispatch( setPathIsPreloading( path, false ) );
+
+				yield await getFormattedResponse( inFlightRequest );
 			}
 		}
 
@@ -58,13 +92,20 @@ export default ( { dispatch, getState } ) => {
 		}
 
 		// Trigger and await network request
-		const response = await fetch( API_ROOT + path, params );
-		const headers = fromPairs( [ ...response.headers.entries() ] );
-		const result = { headers };
-		result.body = await response.json();
-		yield result;
+		const request = fetch( API_ROOT + path, params );
+		dispatch( setPathRequest( path, params, request ) );
+		yield await getFormattedResponse( request );
 	}
 
+	/**
+	 * Given an action object of type REQUEST, iterates through possible
+	 * response results until one is found, at which point either a success
+	 * handler is dispatched or the response is stored in preload data.
+	 *
+	 * @see getResult
+	 *
+	 * @param {Object} action Request action object
+	 */
 	async function handleRequest( action ) {
 		const { path, params, success, failure } = action;
 
@@ -76,7 +117,7 @@ export default ( { dispatch, getState } ) => {
 					continue;
 				}
 
-				if ( action.isPreload ) {
+				if ( isPreloadingPath( getState(), path ) ) {
 					// If request is for preload purpose only, queue as such
 					dispatch( addPreloadedResponse( path, result ) );
 				} else if ( success ) {
@@ -115,10 +156,10 @@ export default ( { dispatch, getState } ) => {
 				action.path += '?' + querystring;
 			}
 
-			// Include flag for considering request completion as intended for
+			// Assign flag for considering request completion as intended for
 			// preload if capturing requests for preload
 			if ( isCapturingRequestPreload( getState() ) ) {
-				action.isPreload = true;
+				dispatch( setPathIsPreloading( action.path, true ) );
 			}
 
 			handleRequest( action );

@@ -51,8 +51,11 @@
     "node-sass": "4.5.3",
     "postcss-critical-css": "3.0.0",
     "postcss-loader": "2.0.6",
+    "proxyquire": "1.8.0",
     "rimraf": "2.6.1",
     "sass-loader": "6.0.6",
+    "sinon": "2.3.6",
+    "sinon-chai": "2.11.0",
     "style-loader": "0.18.2",
     "webpack": "3.0.0"
   },

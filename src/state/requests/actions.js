@@ -8,11 +8,13 @@ import { uniqueId } from 'lodash';
  */
 import {
 	REQUEST_NONCE_SET,
+	REQUEST_PATH_REQUEST_SET,
 	REQUEST_PRELOAD_ADD,
 	REQUEST_PRELOAD_SET,
 	REQUEST_PRELOAD_CLEAR,
 	REQUEST_PRELOAD_CAPTURE_START,
-	REQUEST_PRELOAD_CAPTURE_STOP
+	REQUEST_PRELOAD_CAPTURE_STOP,
+	REQUEST_PATH_IS_PRELOADING_SET
 } from 'state/action-types';
 
 /**
@@ -114,5 +116,39 @@ export function startPreloadCapture() {
 export function stopPreloadCapture() {
 	return {
 		type: REQUEST_PRELOAD_CAPTURE_STOP
+	};
+}
+
+/**
+ * Returns an action object used in signalling that the request object for the
+ * specified path and parameters should be assigned.
+ *
+ * @param  {String}  path    Request path
+ * @param  {Object}  params  Request parameters
+ * @param  {Promise} request Request
+ * @return {Object}          Action object
+ */
+export function setPathRequest( path, params, request ) {
+	return {
+		type: REQUEST_PATH_REQUEST_SET,
+		path,
+		params,
+		request
+	};
+}
+
+/**
+ * Returns an action object used in signalling whether a request is in progress
+ * to preload the specified path
+ *
+ * @param  {String}  path         Request path
+ * @param  {Boolean} isPreloading Whether preloading
+ * @return {Object}               Action object
+ */
+export function setPathIsPreloading( path, isPreloading ) {
+	return {
+		type: REQUEST_PATH_IS_PRELOADING_SET,
+		path,
+		isPreloading
 	};
 }

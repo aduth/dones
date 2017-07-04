@@ -20,6 +20,7 @@ describe( 'reducer', () => {
 
 		expect( state ).to.have.keys( [
 			'items',
+			'preloading',
 			'preload',
 			'nonce',
 			'isCapturingPreload'

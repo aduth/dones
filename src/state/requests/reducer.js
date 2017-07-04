@@ -8,30 +8,80 @@ import { omit, reduce, mapValues, mapKeys } from 'lodash';
  * Internal dependencies
  */
 import {
-	REQUEST,
+	REQUEST_PATH_REQUEST_SET,
 	REQUEST_COMPLETE,
 	REQUEST_NONCE_SET,
 	REQUEST_PRELOAD_ADD,
 	REQUEST_PRELOAD_SET,
 	REQUEST_PRELOAD_CLEAR,
 	REQUEST_PRELOAD_CAPTURE_START,
-	REQUEST_PRELOAD_CAPTURE_STOP
+	REQUEST_PRELOAD_CAPTURE_STOP,
+	REQUEST_PATH_IS_PRELOADING_SET
 } from 'state/action-types';
 
+/**
+ * Returns next requests state, keyed by path, where each value is the request
+ * object for an in-flight request.
+ *
+ * @param  {Object} state  Current state
+ * @param  {Object} action Action object
+ * @return {Object}        Next state
+ */
 export function items( state = {}, action ) {
 	switch ( action.type ) {
-		case REQUEST:
-		case REQUEST_COMPLETE:
-			const { type, path, params = {} } = action;
+		case REQUEST_PATH_REQUEST_SET: {
+			const { path, request, params = {} } = action;
 			const { method = 'GET' } = params;
 			if ( 'GET' !== method ) {
 				return state;
-			} else if ( REQUEST_COMPLETE === type ) {
-				return omit( state, path );
 			}
 
-			return { ...state, [ path ]: true };
+			return { ...state, [ path ]: request };
+		}
 
+		case REQUEST_COMPLETE: {
+			const { path, params = {} } = action;
+			const { method = 'GET' } = params;
+			if ( 'GET' !== method ) {
+				return state;
+			}
+
+			return omit( state, path );
+		}
+	}
+
+	return state;
+}
+
+/**
+ * Returns next request preloading state, keyed by path, reflecting whether a
+ * request is in progress to preload data for path.
+ *
+ * @param  {Object} state  Current state
+ * @param  {Object} action Action object
+ * @return {Object}        Next state
+ */
+export function preloading( state = {}, action ) {
+	switch ( action.type ) {
+		case REQUEST_PATH_IS_PRELOADING_SET:
+			// Bail if assigned value matches coerced state value (coerced
+			// because false values are omitted)
+			if ( action.isPreloading === !! state[ action.path ] ) {
+				return state;
+			}
+
+			if ( action.isPreloading ) {
+				return { ...state, [ action.path ]: true };
+			}
+
+			return omit( state, action.path );
+
+		case REQUEST_PRELOAD_ADD:
+			if ( state[ action.path ] ) {
+				return omit( state, action.path );
+			}
+
+			return state;
 	}
 
 	return state;
@@ -149,6 +199,7 @@ export function isCapturingPreload( state = false, action ) {
 
 export default combineReducers( {
 	items,
+	preloading,
 	preload,
 	nonce,
 	isCapturingPreload
