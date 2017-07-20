@@ -60,7 +60,7 @@
     "webpack": "3.0.0"
   },
   "dependencies": {
-    "autosize": "3.0.21",
+    "autosize": "4.0.0",
     "classnames": "2.2.5",
     "date-fns": "1.28.5",
     "fast-stable-stringify": "0.2.0",
