@@ -16,12 +16,14 @@ function TagPagination( { tag, page, totalPages } ) {
 		<nav className="tag-pagination">
 			<Button
 				disabled={ page <= 1 }
-				to={ `/tags/${ tag }/page/${ page - 1 }/` }>
+				to={ `/tags/${ tag }/page/${ page - 1 }/` }
+				preload>
 				{ translate( 'Previous' ) }
 			</Button>
 			<Button
 				disabled={ page >= totalPages }
-				to={ `/tags/${ tag }/page/${ page + 1 }/` }>
+				to={ `/tags/${ tag }/page/${ page + 1 }/` }
+				preload>
 				{ translate( 'Next' ) }
 			</Button>
 		</nav>

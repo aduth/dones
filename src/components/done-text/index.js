@@ -22,7 +22,7 @@ export default function DoneText( { onClick, onFocus, onMouseDown, children } ) 
 		/(^|\s)#(\S+)\b/,
 		( [ , whitespace, tag ] ) => [
 			whitespace,
-			<Link to={ `/tags/${ tag }/` }>
+			<Link preload to={ `/tags/${ tag }/` }>
 				#{ tag }
 			</Link>
 		]

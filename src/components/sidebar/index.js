@@ -23,6 +23,7 @@ function Sidebar( { path } ) {
 		<header className="sidebar">
 			<Link
 				to={ `/date/${ date }/` }
+				preload
 				style={ { backgroundColor: BRAND_COLOR } }
 				className="sidebar__logo-link">
 				<h1 className="sidebar__logo">
