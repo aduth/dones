@@ -9,6 +9,7 @@ import { assign, isPlainObject, fromPairs } from 'lodash';
  */
 import { API_ROOT } from 'constant';
 import { REQUEST, REQUEST_COMPLETE } from 'state/action-types';
+import callbackify from 'lib/callbackify';
 import {
 	getPreloadedResponse,
 	getRequestNonce,
@@ -45,11 +46,11 @@ export default ( { dispatch, getState } ) => {
 	 *
 	 * @see getFormattedResponse
 	 *
-	 * @param {String} path   Request path
-	 * @param {Object} params Request fetch parameters
-	 * @yield {Object}        Response result
+	 * @param {String}   path     Request path
+	 * @param {Object}   params   Request fetch parameters
+	 * @param {Function} callback Node-style callback to trigger with result
 	 */
-	async function* getResult( path, params ) {
+	function getResult( path, params, callback ) {
 		const state = getState();
 
 		// Clone parameters with defaults
@@ -60,7 +61,11 @@ export default ( { dispatch, getState } ) => {
 
 		if ( 'GET' === params.method ) {
 			// First yield with potentially preloaded data
-			yield getPreloadedResponse( state, path );
+			const preloaded = getPreloadedResponse( state, path );
+			if ( preloaded ) {
+				callback( null, preloaded );
+				return;
+			}
 
 			const inFlightRequest = getPathRequest( state, path );
 			if ( inFlightRequest ) {
@@ -69,8 +74,8 @@ export default ( { dispatch, getState } ) => {
 				// if a non-preload request is invoked while preload request is
 				// already in-flight.
 				dispatch( setPathIsPreloading( path, false ) );
-
-				yield await getFormattedResponse( inFlightRequest );
+				callbackify( getFormattedResponse( inFlightRequest ), callback );
+				return;
 			}
 		}
 
@@ -94,7 +99,7 @@ export default ( { dispatch, getState } ) => {
 		// Trigger and await network request
 		const request = fetch( API_ROOT + path, params );
 		dispatch( setPathRequest( path, params, request ) );
-		yield await getFormattedResponse( request );
+		callbackify( getFormattedResponse( request ), callback );
 	}
 
 	/**
@@ -106,17 +111,15 @@ export default ( { dispatch, getState } ) => {
 	 *
 	 * @param {Object} action Request action object
 	 */
-	async function handleRequest( action ) {
+	function handleRequest( action ) {
 		const { path, params, success, failure } = action;
 
-		let result;
-		try {
-			for await ( result of getResult( path, params ) ) {
-				// Continue generator if yield produced no result
-				if ( ! result ) {
-					continue;
+		getResult( path, params, ( error, result ) => {
+			if ( error ) {
+				if ( failure ) {
+					dispatch( failure( error ) );
 				}
-
+			} else {
 				if ( isPreloadingPath( getState(), path ) ) {
 					// If request is for preload purpose only, queue as such
 					dispatch( addPreloadedResponse( path, result ) );
@@ -130,21 +133,14 @@ export default ( { dispatch, getState } ) => {
 				if ( nonce ) {
 					dispatch( setRequestNonce( nonce ) );
 				}
+			}
 
-				// Stop iteration once result yielded
-				break;
-			}
-		} catch ( error ) {
-			if ( failure ) {
-				dispatch( failure( error ) );
-			}
-		} finally {
 			dispatch( {
 				...action,
 				type: REQUEST_COMPLETE,
 				result
 			} );
-		}
+		} );
 	}
 
 	return ( next ) => ( action ) => {
