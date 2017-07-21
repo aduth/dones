@@ -1,9 +1,11 @@
 .user {
 	line-height: 30px;
+	vertical-align: top;
 }
 
 .user__avatar-image {
-	display: block;
-	float: left;
+	display: inline-block;
 	margin-right: 0.8rem;
+	width: 30px;
+	height: 30px;
 }
