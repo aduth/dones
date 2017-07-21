@@ -12,8 +12,8 @@ import requests from './requests/middleware';
 import effects from './effects';
 
 export default [
-	refx( effects ),
 	multi,
+	refx( effects ),
 	routing,
 	requests
 ];
