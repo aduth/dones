@@ -3,7 +3,6 @@
  */
 import { createElement, Component } from 'preact';
 import classNames from 'classnames';
-import { isEqual, map } from 'lodash';
 
 export default class Popover extends Component {
 	static defaultProps = {
@@ -14,7 +13,8 @@ export default class Popover extends Component {
 		super( ...arguments );
 
 		this.state = {
-			forcedPositions: []
+			forcedYAxis: null,
+			forcedXAxis: null
 		};
 	}
 
@@ -24,28 +24,19 @@ export default class Popover extends Component {
 
 	setForcedPositions() {
 		const rect = this.node.getBoundingClientRect();
-		const { forcedPositions } = this.state;
-
-		const nextForcedPositions = [];
 
 		// Check exceeding top or bottom of viewport
 		if ( rect.top < 0 ) {
-			nextForcedPositions[ 0 ] = 'bottom';
+			this.setState( { forcedYAxis: 'bottom' } );
 		} else if ( rect.bottom > window.innerHeight ) {
-			nextForcedPositions[ 0 ] = 'top';
+			this.setState( { forcedYAxis: 'top' } );
 		}
 
 		// Check exceeding left or right of viewport
 		if ( rect.left < 0 ) {
-			nextForcedPositions[ 1 ] = 'right';
+			this.setState( { forcedXAxis: 'right' } );
 		} else if ( rect.right > window.innerWidth ) {
-			nextForcedPositions[ 1 ] = 'left';
-		}
-
-		if ( ! isEqual( nextForcedPositions, forcedPositions ) ) {
-			this.setState( {
-				forcedPositions: nextForcedPositions
-			} );
+			this.setState( { forcedXAxis: 'left' } );
 		}
 	}
 
@@ -55,23 +46,17 @@ export default class Popover extends Component {
 
 	render() {
 		const { position, style, children } = this.props;
-		const { forcedPositions } = this.state;
+		const { forcedYAxis, forcedXAxis } = this.state;
 
 		// Normalize position to include both y and x offsets
-		const [ y, x = 'center' ] = position.split( '-' );
-		const subPositions = [ y, x ];
-
-		// Apply forced positions in the case that the originally rendered
-		// popover exceeds page bounds
-		if ( forcedPositions.length ) {
-			// Here we use Object.assign instead of Lodash's assign because
-			// forcedPosition is a sparse array and we need spec compliancy
-			Object.assign( subPositions, forcedPositions );
-		}
+		const [ yAxis = 'top', xAxis = 'center' ] = position.split( ' ' );
 
 		// Generate className
-		const positionClasses = map( subPositions, ( subPosition ) => `is-${ subPosition }` );
-		const classes = classNames( 'popover', positionClasses );
+		const classes = classNames(
+			'popover',
+			`is-${ forcedYAxis || yAxis }`,
+			`is-${ forcedXAxis || xAxis }`
+		);
 
 		return (
 			<div
