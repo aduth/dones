@@ -83,6 +83,7 @@ function dones_scripts() {
 			'/dones/v1/users'
 		) ), 'dones_preload_request', array() ),
 		'i18n'       => array(
+			'An error occurred while saving'             => __( 'An error occurred while saving', 'dones' ),
 			'Are you sure you want to delete this done?' => __( 'Are you sure you want to delete this done?', 'dones' ),
 			'Cancel'                                     => __( 'Cancel', 'dones' ),
 			'Date'                                       => __( 'Date', 'dones' ),
