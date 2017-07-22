@@ -35,6 +35,26 @@
 					"modules": false,
 					"targets": {
 						"browsers": [
+							"last 2 Chrome versions",
+							"last 2 Firefox versions",
+							"last 2 Edge versions"
+						]
+					}
+				} ],
+				"stage-2"
+			]
+		},
+		"legacy": {
+			"plugins": [
+				[ "transform-runtime", {
+					"polyfill": true
+				} ]
+			],
+			"presets": [
+				[ "env", {
+					"modules": false,
+					"targets": {
+						"browsers": [
 							"last 2 versions",
 							"ie 11"
 						]

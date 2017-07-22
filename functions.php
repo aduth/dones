@@ -65,8 +65,8 @@ function dones_scripts() {
 	}
 
 	// Application script.
-	wp_register_script( 'dones-vendor', get_theme_file_uri( '/dist/vendor.js' ), array(), dones_get_version(), true );
-	wp_enqueue_script( 'dones-app', get_theme_file_uri( '/dist/app.js' ), array( 'dones-vendor' ), dones_get_version(), true );
+	wp_register_script( 'dones-vendor', dones_get_script_url( 'vendor' ), array(), dones_get_version(), true );
+	wp_enqueue_script( 'dones-app', dones_get_script_url( 'app' ), array( 'dones-vendor' ), dones_get_version(), true );
 	wp_localize_script( 'dones-app', 'dones', array(
 		'siteName'   => get_bloginfo( 'name' ),
 		'siteUrl'    => site_url(),
@@ -140,6 +140,20 @@ function dones_get_script_polyfill( $tests ) {
 		// synchronous write is exactly the behavior we need though.
 		'document.write( \'<script src="' . esc_url( $polyfill_url ) . '"></scr\' + \'ipt>\' );'
 	);
+}
+
+/**
+ * Returns the appropriate script distributable for the requesting browser.
+ *
+ * @param  string $basename Base name of script
+ * @return string           URL of script variant
+ */
+function dones_get_script_url( $basename ) {
+	$user_agent = $_SERVER['HTTP_USER_AGENT'];
+	$is_legacy = ! preg_match( '!(Firefox|Chrome|Chromium|Edge)/!', $user_agent );
+	$suffix = $is_legacy ? '-legacy' : '';
+
+	return get_theme_file_uri( sprintf( '/dist/%s%s.js', $basename, $suffix ) );
 }
 
 /**

@@ -6,6 +6,8 @@ const webpack = require( 'webpack' );
 const ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
 const UglifyJsPlugin = require( 'uglifyjs-webpack-plugin' );
 
+const { BUILD_TARGET, NODE_ENV } = process.env;
+
 const config = module.exports = {
 	entry: {
 		app: [
@@ -25,7 +27,7 @@ const config = module.exports = {
 	},
 	output: {
 		path: __dirname + '/dist',
-		filename: '[name].js',
+		filename: '[name]' + ( BUILD_TARGET ? '-' + BUILD_TARGET : '' ) + '.js',
 		publicPath: '/'
 	},
 	resolve: {
@@ -45,19 +47,19 @@ const config = module.exports = {
 	},
 	plugins: [
 		new webpack.DefinePlugin( {
-			'process.env.NODE_ENV': JSON.stringify( process.env.NODE_ENV )
+			'process.env.NODE_ENV': JSON.stringify( NODE_ENV )
 		} ),
 		new webpack.optimize.CommonsChunkPlugin( {
 			name: 'vendor'
 		} ),
 		new webpack.LoaderOptionsPlugin( {
-			minimize: process.env.NODE_ENV === 'production',
-			debug: process.env.NODE_ENV !== 'production'
+			minimize: NODE_ENV === 'production',
+			debug: NODE_ENV !== 'production'
 		} )
 	]
 };
 
-if ( 'production' === process.env.NODE_ENV ) {
+if ( 'production' === NODE_ENV ) {
 	config.module.rules.push( {
 		test: /\.s?css$/,
 		loader: ExtractTextPlugin.extract( {
