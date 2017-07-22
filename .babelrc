@@ -12,7 +12,9 @@
 		"date-fns",
 		"lodash",
 		"transform-react-display-name",
-		"transform-runtime",
+		[ "transform-runtime", {
+			"polyfill": false
+		} ],
 		[ "transform-react-jsx", {
 			"pragma": "createElement"
 		} ]
