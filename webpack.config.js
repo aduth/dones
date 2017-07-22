@@ -4,6 +4,7 @@
 
 const webpack = require( 'webpack' );
 const ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
+const UglifyJsPlugin = require( 'uglifyjs-webpack-plugin' );
 
 const config = module.exports = {
 	entry: {
@@ -73,8 +74,16 @@ if ( 'production' === process.env.NODE_ENV ) {
 	} );
 
 	config.plugins.push(
-		new webpack.optimize.UglifyJsPlugin( {
-			comments: false
+		new UglifyJsPlugin( {
+			uglifyOptions: {
+				output: {
+					comments: false
+				}
+			},
+			parallel: {
+				cache: true,
+				workers: 4
+			}
 		} ),
 		new webpack.optimize.ModuleConcatenationPlugin(),
 		new ExtractTextPlugin( {
