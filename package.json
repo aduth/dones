@@ -75,7 +75,6 @@
     "redux-multi": "0.1.12",
     "refx": "2.0.0",
     "rememo": "1.1.1",
-    "shallow-equal": "1.0.0",
     "textarea-caret": "3.0.2"
   }
 }
