@@ -2,8 +2,7 @@
  * External dependencies
  */
 import pathToRegexp from 'path-to-regexp';
-import memoize from 'moize';
-import { map } from 'lodash';
+import { map, memoize } from 'lodash';
 import { parse } from 'querystringify';
 
 /**

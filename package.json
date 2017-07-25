@@ -70,7 +70,6 @@
     "fast-stable-stringify": "0.2.0",
     "flatpickr": "3.0.6",
     "lodash": "4.17.4",
-    "moize": "2.4.1",
     "path-to-regexp": "1.7.0",
     "preact": "8.1.0",
     "preact-redux": "2.0.2",
