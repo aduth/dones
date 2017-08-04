@@ -290,7 +290,7 @@ add_action( 'rest_api_init', 'dones_create_rest_routes' );
  */
 function dones_add_rewrite_rules() {
 	add_rewrite_rule( '^date(/(\d{4}-\d{2}-\d{2}))?/?$', 'index.php?dones_date=$matches[2]', 'top' );
-	add_rewrite_rule( '^tags(/(\w+)(/page/(\d+))?)?/?$', 'index.php?dones_tag=$matches[2]&paged=$matches[4]', 'top' );
+	add_rewrite_rule( '^tags(/([\w-]+)(/page/(\d+))?)?/?$', 'index.php?dones_tag=$matches[2]&paged=$matches[4]', 'top' );
 
 	if ( 'after_switch_theme' === current_filter() ) {
 		global $wp_rewrite;
@@ -447,7 +447,7 @@ function dones_filter_supported_rewrites( $rules ) {
 
 		// Dones rules
 		'^date(/(\d{4}-\d{2}-\d{2}))?/?$',
-		'^tags(/(\w+)(/page/(\d+))?)?/?$'
+		'^tags(/([\w-]+)(/page/(\d+))?)?/?$'
 	);
 
 	$filtered_rules = array();

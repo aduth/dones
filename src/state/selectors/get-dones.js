@@ -38,8 +38,8 @@ export function getDones( state, query = {} ) {
 					return includes( pageIds, item.id );
 
 				case 'tag':
-					const tag = value.replace( /\W/g, '' );
-					const pattern = new RegExp( `(^|\\s)#${ tag }(\\W|$)`, 'i' );
+					const tag = value.replace( /[^\w-]/g, '' );
+					const pattern = new RegExp( `(^|\\s)#${ tag }([^\\w-]|$)`, 'i' );
 					return pattern.test( item.text );
 
 				default:
