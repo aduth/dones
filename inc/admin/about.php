@@ -1,3 +1,5 @@
+<?php defined( 'ABSPATH' ) || die(); ?>
+
 <section class="about-dones wrap">
 	<header class="about-dones__header">
 		<div class="about-dones__brand">
