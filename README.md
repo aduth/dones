@@ -2,7 +2,7 @@
 
 Dones is a free team task management and tracking application to help your organization stay in-sync and on-target.
 
-<p align="center"><img src="https://cldup.com/LWQlR01JLu.png" width="580" alt="Screenshot"></p>
+<p align="center"><img src="https://cldup.com/bLkLOS6mGf.png" width="580" alt="Screenshot"></p>
 
 ## Installation
 
