@@ -1,0 +1,42 @@
+.about-dones,
+.about-dones * {
+	box-sizing: border-box;
+}
+
+.about-dones {
+	max-width: 680px;
+	margin: 20px 0;
+	padding-right: 10px;
+}
+
+.about-dones__brand {
+	padding: 20px;
+	margin-bottom: 20px;
+	background-color: #986dda;
+	text-align: center;
+}
+
+.about-dones__screenshot {
+	display: block;
+	margin: 0 auto;
+}
+
+@media ( min-width: 480px ) {
+	.about-dones__screenshot {
+		float: left;
+		margin-right: 10px;
+	}
+}
+
+.about-dones__faq dt {
+	display: block;
+	font-weight: bold;
+}
+
+.about-dones__faq dd {
+	margin: 10px 0;
+}
+
+.about-dones__faq dd + dt {
+	margin-top: 20px;
+}

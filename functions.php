@@ -535,3 +535,42 @@ function dones_login_css() {
 	);
 }
 add_action( 'login_head', 'dones_login_css' );
+
+/**
+ * Displays the "About Dones" admin screen.
+ */
+function dones_render_about() {
+	wp_enqueue_style(
+		'dones-about',
+		get_theme_file_uri( '/inc/admin/about.css' ),
+		array(),
+		dones_get_version()
+	);
+
+	include dirname( __FILE__ ) . '/inc/admin/about.php';
+}
+
+/**
+ * Registers the "About Dones" admin screen.
+ */
+function dones_add_about_page() {
+	add_theme_page(
+		__( 'About Dones', 'dones' ),
+		__( 'About Dones', 'dones' ),
+		'read',
+		'about-dones',
+		'dones_render_about'
+	);
+}
+add_action( 'admin_menu', 'dones_add_about_page' );
+
+/**
+ * Redirects to the "About Dones" admin screen when theme is activated.
+ */
+function dones_redirect_theme_activation() {
+	if ( is_admin() && isset( $_GET['activated'] ) && 'themes.php' == $GLOBALS['pagenow'] ) {
+		wp_redirect( admin_url( 'themes.php?page=about-dones' ) );
+		exit();
+	}
+}
+add_action( 'init', 'dones_redirect_theme_activation' );
