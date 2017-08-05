@@ -71,7 +71,7 @@
     "flatpickr": "3.0.6",
     "lodash": "4.17.4",
     "path-to-regexp": "1.7.0",
-    "preact": "8.1.0",
+    "preact": "8.2.1",
     "preact-redux": "2.0.2",
     "querystringify": "1.0.0",
     "redux": "3.7.1",
