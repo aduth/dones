@@ -70,7 +70,7 @@ function dones_scripts() {
 	if ( $custom_logo_id ) {
 		$logo = wp_get_attachment_image_url( $custom_logo_id, 'full' );
 	} else {
-		$logo = get_theme_file_uri( '/img/logo.svg' );
+		$logo = get_theme_file_uri( '/img/logo-white.svg' );
 	}
 
 	// Application script.
@@ -524,3 +524,14 @@ function dones_unenqueue_embeds() {
 	wp_deregister_script( 'wp-embed' );
 }
 add_action( 'wp_footer', 'dones_unenqueue_embeds' );
+
+/**
+ * Adds inline style to customize the login form logo.
+ */
+function dones_login_css() {
+	echo sprintf(
+		'<style>.login h1 a { background-image: url( %s ); }</style>',
+		get_theme_file_uri( '/img/logo.svg' )
+	);
+}
+add_action( 'login_head', 'dones_login_css' );
