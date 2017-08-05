@@ -46,6 +46,15 @@ function dones_custom_document_title() {
 add_filter( 'pre_get_document_title', 'dones_custom_document_title' );
 
 /**
+ * Returns the configured brand color.
+ *
+ * @return string Brand color.
+ */
+function dones_get_brand_color() {
+	return get_theme_mod( 'brand_color', '#986dda' );
+}
+
+/**
  * Enqueue scripts and styles.
  */
 function dones_scripts() {
@@ -54,7 +63,7 @@ function dones_scripts() {
 
 	// Theme stylesheet.
 	wp_enqueue_style( 'dones-style', get_theme_file_uri( '/dist/style.css' ), array(), dones_get_version() );
-	wp_add_inline_style( 'dones-style', sprintf( 'a { color: %s; }', get_theme_mod( 'brand_color', '#986dda' ) ) );
+	wp_add_inline_style( 'dones-style', sprintf( 'a { color: %s; }', dones_get_brand_color() ) );
 
 	// Custom logo with fallback.
 	$custom_logo_id = get_theme_mod( 'custom_logo' );
@@ -72,7 +81,7 @@ function dones_scripts() {
 		'siteUrl'    => site_url(),
 		'apiRoot'    => esc_url_raw( untrailingslashit( get_rest_url() ) ),
 		'apiNonce'   => wp_create_nonce( 'wp_rest' ),
-		'brandColor' => get_theme_mod( 'brand_color', '#986dda' ),
+		'brandColor' => dones_get_brand_color(),
 		'logo'       => $logo,
 		'gmtOffset'  => get_option( 'gmt_offset' ),
 		'dateFormat' => get_option( 'date_format' ),
