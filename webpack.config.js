@@ -18,6 +18,7 @@ const config = module.exports = {
 			'classnames',
 			'fast-stable-stringify',
 			'flatpickr',
+			'memize',
 			'path-to-regexp',
 			'preact',
 			'preact-redux',
