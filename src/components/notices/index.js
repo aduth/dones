@@ -30,5 +30,5 @@ function Notices( { notices } ) {
 }
 
 export default connect( ( state ) => ( {
-	notices: getNotices( state )
+	notices: getNotices( state ),
 } ) )( Notices );

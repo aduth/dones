@@ -16,7 +16,7 @@ import {
 	REQUEST_PRELOAD_CLEAR,
 	REQUEST_PRELOAD_CAPTURE_START,
 	REQUEST_PRELOAD_CAPTURE_STOP,
-	REQUEST_PATH_IS_PRELOADING_SET
+	REQUEST_PATH_IS_PRELOADING_SET,
 } from 'state/action-types';
 
 /**
@@ -115,11 +115,11 @@ export function preload( state = {}, action ) {
 					headers: mapKeys(
 						response.headers,
 						( value, key ) => key.toLowerCase()
-					)
+					),
 				},
 
 				// Transaction ID:
-				action.id
+				action.id,
 			] );
 
 			if ( REQUEST_PRELOAD_ADD === action.type ) {
@@ -202,5 +202,5 @@ export default combineReducers( {
 	preloading,
 	preload,
 	nonce,
-	isCapturingPreload
+	isCapturingPreload,
 } );

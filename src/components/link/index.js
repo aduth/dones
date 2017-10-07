@@ -17,14 +17,14 @@ class Link extends Component {
 		onClick: () => {},
 		onMouseEnter: () => {},
 		onMouseLeave: () => {},
-		to: ''
+		to: '',
 	};
 
 	constructor() {
 		super( ...arguments );
 
 		this.state = {
-			isMouseOver: false
+			isMouseOver: false,
 		};
 	}
 
@@ -96,8 +96,8 @@ class Link extends Component {
 				rel: uniq( compact( [
 					props.rel,
 					'noopener',
-					'noreferrer'
-				] ) ).join( ' ' )
+					'noreferrer',
+				] ) ).join( ' ' ),
 			} );
 		}
 
@@ -123,6 +123,6 @@ export default connect(
 	null,
 	{
 		onNavigate: pushRoute,
-		onPreload: preloadRoute
+		onPreload: preloadRoute,
 	}
 )( Link );

@@ -4,20 +4,20 @@
 import {
 	ROUTE_PRELOAD,
 	ROUTE_PUSH,
-	ROUTE_REPLACE
+	ROUTE_REPLACE,
 } from 'state/action-types';
 
 export function pushRoute( path ) {
 	return {
 		type: ROUTE_PUSH,
-		path
+		path,
 	};
 }
 
 export function replaceRoute( path ) {
 	return {
 		type: ROUTE_REPLACE,
-		path
+		path,
 	};
 }
 
@@ -31,6 +31,6 @@ export function replaceRoute( path ) {
 export function preloadRoute( path ) {
 	return {
 		type: ROUTE_PRELOAD,
-		path
+		path,
 	};
 }

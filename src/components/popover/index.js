@@ -6,7 +6,7 @@ import classNames from 'classnames';
 
 export default class Popover extends Component {
 	static defaultProps = {
-		position: 'top'
+		position: 'top',
 	};
 
 	constructor() {
@@ -14,7 +14,7 @@ export default class Popover extends Component {
 
 		this.state = {
 			forcedYAxis: null,
-			forcedXAxis: null
+			forcedXAxis: null,
 		};
 	}
 

@@ -26,5 +26,5 @@ export function path( state = null, action ) {
 }
 
 export default combineReducers( {
-	path
+	path,
 } );

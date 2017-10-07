@@ -19,7 +19,7 @@ import { getDonesForUser, hasReceivedDones } from 'state/selectors';
 
 class DonesList extends Component {
 	state = {
-		editing: null
+		editing: null,
 	};
 
 	stopEditing = () => this.setState( { editing: null } );
@@ -79,7 +79,7 @@ class DonesList extends Component {
 
 		this.editDone( editing, [
 			start,
-			start + ( length || 0 )
+			start + ( length || 0 ),
 		] );
 	};
 
@@ -94,7 +94,7 @@ class DonesList extends Component {
 	editDone = ( id, offset = 0 ) => {
 		this.setState( {
 			editing: id,
-			editOffset: offset
+			editOffset: offset,
 		} );
 	};
 
@@ -106,7 +106,7 @@ class DonesList extends Component {
 		const { dones, hasReceived } = this.props;
 		const { editing, editOffset } = this.state;
 		const classes = classNames( 'dones-list', {
-			'is-editable': this.isEditable()
+			'is-editable': this.isEditable(),
 		} );
 
 		const items = map( sortBy( dones, 'id' ), ( { id, text, done } ) => {
@@ -133,7 +133,7 @@ class DonesList extends Component {
 						onFocus={ () => this.editIfNonePending( id ) }
 						onMouseDown={ () => this.startTrackingSelection( id ) }>
 						{ text }
-					</DoneText>
+					</DoneText>,
 				];
 			}
 
@@ -161,7 +161,7 @@ class DonesList extends Component {
 export default connect(
 	( state, { query, userId } ) => ( {
 		dones: getDonesForUser( state, query, userId ),
-		hasReceived: hasReceivedDones( state, query )
+		hasReceived: hasReceivedDones( state, query ),
 	} ),
 	{ updateDone }
 )( DonesList );

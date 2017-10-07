@@ -10,7 +10,7 @@ import deepFreeze from 'deep-freeze';
 import {
 	REQUEST_NONCE_SET,
 	REQUEST_PRELOAD_CLEAR,
-	REQUEST_PRELOAD_SET
+	REQUEST_PRELOAD_SET,
 } from 'state/action-types';
 import reducer, { preload, nonce } from '../reducer';
 
@@ -23,7 +23,7 @@ describe( 'reducer', () => {
 			'preloading',
 			'preload',
 			'nonce',
-			'isCapturingPreload'
+			'isCapturingPreload',
 		] );
 	} );
 
@@ -44,13 +44,13 @@ describe( 'reducer', () => {
 						body: {
 							avatar: 'https://example.com/avatar.png',
 							id: 1,
-							name: 'Andrew Duthie'
+							name: 'Andrew Duthie',
 						},
 						headers: {
-							'X-Wp-NoNCe': '1ab98c39ab'
-						}
-					}
-				}
+							'X-Wp-NoNCe': '1ab98c39ab',
+						},
+					},
+				},
 			} );
 
 			expect( state ).to.eql( {
@@ -58,12 +58,12 @@ describe( 'reducer', () => {
 					body: {
 						avatar: 'https://example.com/avatar.png',
 						id: 1,
-						name: 'Andrew Duthie'
+						name: 'Andrew Duthie',
 					},
 					headers: {
-						'x-wp-nonce': '1ab98c39ab'
-					}
-				}, '1' ]
+						'x-wp-nonce': '1ab98c39ab',
+					},
+				}, '1' ],
 			} );
 		} );
 
@@ -73,16 +73,16 @@ describe( 'reducer', () => {
 					body: {
 						avatar: 'https://example.com/avatar.png',
 						id: 1,
-						name: 'Andrew Duthie'
+						name: 'Andrew Duthie',
 					},
 					headers: {
-						'x-wp-nonce': '1ab98c39ab'
-					}
-				}, '1' ]
+						'x-wp-nonce': '1ab98c39ab',
+					},
+				}, '1' ],
 			} );
 			const state = preload( original, {
 				type: REQUEST_PRELOAD_CLEAR,
-				id: '2'
+				id: '2',
 			} );
 
 			expect( state ).to.equal( original );
@@ -94,16 +94,16 @@ describe( 'reducer', () => {
 					body: {
 						avatar: 'https://example.com/avatar.png',
 						id: 1,
-						name: 'Andrew Duthie'
+						name: 'Andrew Duthie',
 					},
 					headers: {
-						'x-wp-nonce': '1ab98c39ab'
-					}
-				}, '1' ]
+						'x-wp-nonce': '1ab98c39ab',
+					},
+				}, '1' ],
 			} );
 			const state = preload( original, {
 				type: REQUEST_PRELOAD_CLEAR,
-				id: '1'
+				id: '1',
 			} );
 
 			expect( state ).to.eql( {} );
@@ -115,17 +115,17 @@ describe( 'reducer', () => {
 					body: {
 						avatar: 'https://example.com/avatar.png',
 						id: 1,
-						name: 'Andrew Duthie'
+						name: 'Andrew Duthie',
 					},
 					headers: {
-						'x-wp-nonce': '1ab98c39ab'
-					}
-				}, '3' ]
+						'x-wp-nonce': '1ab98c39ab',
+					},
+				}, '3' ],
 			} );
 			const state = preload( original, {
 				type: REQUEST_PRELOAD_CLEAR,
 				path: '/dones/v1/users',
-				id: '4'
+				id: '4',
 			} );
 
 			expect( state ).to.equal( original );
@@ -137,17 +137,17 @@ describe( 'reducer', () => {
 					body: {
 						avatar: 'https://example.com/avatar.png',
 						id: 1,
-						name: 'Andrew Duthie'
+						name: 'Andrew Duthie',
 					},
 					headers: {
-						'x-wp-nonce': '1ab98c39ab'
-					}
-				}, '3' ]
+						'x-wp-nonce': '1ab98c39ab',
+					},
+				}, '3' ],
 			} );
 			const state = preload( original, {
 				type: REQUEST_PRELOAD_CLEAR,
 				path: '/dones/v1/users',
-				id: '3'
+				id: '3',
 			} );
 
 			expect( state ).to.eql( {} );
@@ -164,7 +164,7 @@ describe( 'reducer', () => {
 		it( 'returns with the action nonce', () => {
 			const state = nonce( undefined, {
 				type: REQUEST_NONCE_SET,
-				nonce: '1ab98c39ab'
+				nonce: '1ab98c39ab',
 			} );
 
 			expect( state ).to.equal( '1ab98c39ab' );
@@ -173,7 +173,7 @@ describe( 'reducer', () => {
 		it( 'guards against an undefined action nonce', () => {
 			const state = nonce( undefined, {
 				type: REQUEST_NONCE_SET,
-				nonce: undefined
+				nonce: undefined,
 			} );
 
 			expect( state ).to.be.null;

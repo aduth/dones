@@ -11,7 +11,7 @@ import {
 	DONES_RECEIVE,
 	DONE_CREATE,
 	DONE_UPDATE,
-	DONE_DELETE
+	DONE_DELETE,
 } from 'state/action-types';
 import reducer, { items, pages, received, totalPages } from '../reducer';
 
@@ -21,7 +21,7 @@ describe( 'reducer', () => {
 			'items',
 			'pages',
 			'received',
-			'totalPages'
+			'totalPages',
 		] );
 	} );
 
@@ -41,9 +41,9 @@ describe( 'reducer', () => {
 						text: 'done',
 						date: '2017-01-01 00:00:00',
 						done: true,
-						user: 1
-					}
-				]
+						user: 1,
+					},
+				],
 			} );
 
 			expect( state ).to.eql( {
@@ -52,8 +52,8 @@ describe( 'reducer', () => {
 					text: 'done',
 					date: '2017-01-01 00:00:00',
 					done: true,
-					user: 1
-				}
+					user: 1,
+				},
 			} );
 		} );
 
@@ -64,8 +64,8 @@ describe( 'reducer', () => {
 					text: 'done',
 					date: '2017-01-01 00:00:00',
 					done: true,
-					user: 1
-				}
+					user: 1,
+				},
 			} );
 			const state = items( original, {
 				type: DONES_RECEIVE,
@@ -75,9 +75,9 @@ describe( 'reducer', () => {
 						text: 'done',
 						date: '2017-01-01 00:00:00',
 						done: true,
-						user: 1
-					}
-				]
+						user: 1,
+					},
+				],
 			} );
 
 			expect( state ).to.equal( state );
@@ -90,15 +90,15 @@ describe( 'reducer', () => {
 					text: 'done',
 					date: '2017-01-01 00:00:00',
 					done: true,
-					user: 1
-				}
+					user: 1,
+				},
 			} );
 			const state = items( original, {
 				type: DONE_CREATE,
 				transientId: 'done1',
 				text: 'next',
 				date: '2017-01-01 00:00:00',
-				done: true
+				done: true,
 			} );
 
 			expect( state ).to.eql( {
@@ -107,15 +107,15 @@ describe( 'reducer', () => {
 					text: 'done',
 					date: '2017-01-01 00:00:00',
 					done: true,
-					user: 1
+					user: 1,
 				},
 				done1: {
 					id: 'done1',
 					text: 'next',
 					date: '2017-01-01 00:00:00',
 					done: true,
-					user: NaN /* USER_ID */
-				}
+					user: NaN, /* USER_ID */
+				},
 			} );
 		} );
 
@@ -126,15 +126,15 @@ describe( 'reducer', () => {
 					text: 'done',
 					date: '2017-01-01 00:00:00',
 					done: true,
-					user: 1
+					user: 1,
 				},
 				done1: {
 					id: 'done1',
 					text: 'next',
 					date: '2017-01-01 00:00:00',
 					done: true,
-					user: 1
-				}
+					user: 1,
+				},
 			} );
 			const state = items( original, {
 				type: DONE_UPDATE,
@@ -142,7 +142,7 @@ describe( 'reducer', () => {
 				text: 'done updated',
 				date: '2017-01-01 00:00:00',
 				done: true,
-				user: 1
+				user: 1,
 			} );
 
 			expect( state ).to.eql( {
@@ -151,15 +151,15 @@ describe( 'reducer', () => {
 					text: 'done updated',
 					date: '2017-01-01 00:00:00',
 					done: true,
-					user: 1
+					user: 1,
 				},
 				done1: {
 					id: 'done1',
 					text: 'next',
 					date: '2017-01-01 00:00:00',
 					done: true,
-					user: 1
-				}
+					user: 1,
+				},
 			} );
 		} );
 
@@ -170,15 +170,15 @@ describe( 'reducer', () => {
 					text: 'done updated',
 					date: '2017-01-01 00:00:00',
 					done: true,
-					user: 1
+					user: 1,
 				},
 				done1: {
 					id: 'done1',
 					text: 'next',
 					date: '2017-01-01 00:00:00',
 					done: true,
-					user: 1
-				}
+					user: 1,
+				},
 			} );
 			const state = items( original, {
 				type: DONE_UPDATE,
@@ -186,7 +186,7 @@ describe( 'reducer', () => {
 				text: 'done updated',
 				date: '2017-01-01 00:00:00',
 				done: true,
-				user: 1
+				user: 1,
 			} );
 
 			expect( state ).to.equal( original );
@@ -199,15 +199,15 @@ describe( 'reducer', () => {
 					text: 'done updated',
 					date: '2017-01-01 00:00:00',
 					done: true,
-					user: 1
+					user: 1,
 				},
 				done1: {
 					id: 'done1',
 					text: 'next',
 					date: '2017-01-01 00:00:00',
 					done: true,
-					user: 1
-				}
+					user: 1,
+				},
 			} );
 			const state = items( original, {
 				type: DONE_UPDATE,
@@ -215,7 +215,7 @@ describe( 'reducer', () => {
 				replaceId: 'done1',
 				date: '2017-01-01 00:00:00',
 				done: true,
-				user: 1
+				user: 1,
 			} );
 
 			expect( state ).to.eql( {
@@ -224,15 +224,15 @@ describe( 'reducer', () => {
 					text: 'done updated',
 					date: '2017-01-01 00:00:00',
 					done: true,
-					user: 1
+					user: 1,
 				},
 				2: {
 					id: 2,
 					text: 'next',
 					date: '2017-01-01 00:00:00',
 					done: true,
-					user: 1
-				}
+					user: 1,
+				},
 			} );
 		} );
 
@@ -243,19 +243,19 @@ describe( 'reducer', () => {
 					text: 'done updated',
 					date: '2017-01-01 00:00:00',
 					done: true,
-					user: 1
+					user: 1,
 				},
 				2: {
 					id: 2,
 					text: 'next',
 					date: '2017-01-01 00:00:00',
 					done: true,
-					user: 1
-				}
+					user: 1,
+				},
 			} );
 			const state = items( original, {
 				type: DONE_DELETE,
-				id: 1
+				id: 1,
 			} );
 
 			expect( state ).to.eql( {
@@ -264,8 +264,8 @@ describe( 'reducer', () => {
 					text: 'next',
 					date: '2017-01-01 00:00:00',
 					done: true,
-					user: 1
-				}
+					user: 1,
+				},
 			} );
 		} );
 	} );
@@ -286,8 +286,8 @@ describe( 'reducer', () => {
 					user: 1,
 					text: 'done',
 					date: '2017-05-10 00:00:00',
-					done: true
-				} ]
+					done: true,
+				} ],
 			} );
 
 			expect( state ).to.equal( original );
@@ -302,15 +302,15 @@ describe( 'reducer', () => {
 					user: 1,
 					text: 'done',
 					date: '2017-05-10 00:00:00',
-					done: true
+					done: true,
 				} ],
 				query: {
-					date: '2017-05-10'
-				}
+					date: '2017-05-10',
+				},
 			} );
 
 			expect( state ).to.eql( {
-				'{"date":"2017-05-10"}': [ [ 320 ] ]
+				'{"date":"2017-05-10"}': [ [ 320 ] ],
 			} );
 		} );
 
@@ -323,22 +323,22 @@ describe( 'reducer', () => {
 					user: 1,
 					text: 'done',
 					date: '2017-05-10 00:00:00',
-					done: true
+					done: true,
 				} ],
 				query: {
 					date: '2017-05-10',
-					page: 2
-				}
+					page: 2,
+				},
 			} );
 
 			expect( state ).to.eql( {
-				'{"date":"2017-05-10"}': [ , [ 321 ] ]
+				'{"date":"2017-05-10"}': [ , [ 321 ] ],
 			} );
 		} );
 
 		it( 'should receive pages for known query', () => {
 			const original = deepFreeze( {
-				'{"date":"2017-05-10"}': [ [ 320 ] ]
+				'{"date":"2017-05-10"}': [ [ 320 ] ],
 			} );
 			const state = pages( original, {
 				type: 'DONES_RECEIVE',
@@ -347,22 +347,22 @@ describe( 'reducer', () => {
 					user: 1,
 					text: 'done',
 					date: '2017-05-10 00:00:00',
-					done: true
+					done: true,
 				} ],
 				query: {
 					date: '2017-05-10',
-					page: 2
-				}
+					page: 2,
+				},
 			} );
 
 			expect( state ).to.eql( {
-				'{"date":"2017-05-10"}': [ [ 320 ], [ 321 ] ]
+				'{"date":"2017-05-10"}': [ [ 320 ], [ 321 ] ],
 			} );
 		} );
 
 		it( 'sholud return same reference when pages same', () => {
 			const original = deepFreeze( {
-				'{"date":"2017-05-10"}': [ [ 320 ], [ 321 ] ]
+				'{"date":"2017-05-10"}': [ [ 320 ], [ 321 ] ],
 			} );
 			const state = pages( original, {
 				type: 'DONES_RECEIVE',
@@ -371,12 +371,12 @@ describe( 'reducer', () => {
 					user: 1,
 					text: 'done',
 					date: '2017-05-10 00:00:00',
-					done: true
+					done: true,
 				} ],
 				query: {
 					date: '2017-05-10',
-					page: 2
-				}
+					page: 2,
+				},
 			} );
 
 			expect( state ).to.equal( original );
@@ -393,7 +393,7 @@ describe( 'reducer', () => {
 		it( 'returns same state when lacking query', () => {
 			const original = deepFreeze( {} );
 			const state = received( original, {
-				type: DONES_RECEIVE
+				type: DONES_RECEIVE,
 			} );
 
 			expect( state ).to.equal( original );
@@ -408,16 +408,16 @@ describe( 'reducer', () => {
 					user: 1,
 					text: 'done',
 					date: '2017-05-10 00:00:00',
-					done: true
+					done: true,
 				} ],
 				query: {
 					date: '2017-05-10',
-					page: 1
-				}
+					page: 1,
+				},
 			} );
 
 			expect( state ).to.eql( {
-				'{"date":"2017-05-10","page":1}': true
+				'{"date":"2017-05-10","page":1}': true,
 			} );
 		} );
 	} );
@@ -432,7 +432,7 @@ describe( 'reducer', () => {
 		it( 'returns same state when lacking query', () => {
 			const original = deepFreeze( {} );
 			const state = totalPages( original, {
-				type: DONES_RECEIVE
+				type: DONES_RECEIVE,
 			} );
 
 			expect( state ).to.equal( original );
@@ -442,7 +442,7 @@ describe( 'reducer', () => {
 			const original = deepFreeze( {} );
 			const state = totalPages( original, {
 				type: DONES_RECEIVE,
-				query: {}
+				query: {},
 			} );
 
 			expect( state ).to.equal( original );
@@ -457,17 +457,17 @@ describe( 'reducer', () => {
 					user: 1,
 					text: 'done',
 					date: '2017-05-10 00:00:00',
-					done: true
+					done: true,
 				} ],
 				query: {
 					date: '2017-05-10',
-					page: 1
+					page: 1,
 				},
-				totalPages: 1
+				totalPages: 1,
 			} );
 
 			expect( state ).to.eql( {
-				'{"date":"2017-05-10"}': 1
+				'{"date":"2017-05-10"}': 1,
 			} );
 		} );
 	} );

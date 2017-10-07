@@ -11,7 +11,7 @@ import {
 	DONE_DELETE,
 	DONE_UPDATE,
 	DONES_RECEIVE,
-	DONES_REQUEST
+	DONES_REQUEST,
 } from 'state/action-types';
 
 export function receiveDones( dones, query, totalPages ) {
@@ -19,14 +19,14 @@ export function receiveDones( dones, query, totalPages ) {
 		type: DONES_RECEIVE,
 		dones,
 		query,
-		totalPages
+		totalPages,
 	};
 }
 
 export function requestDones( query ) {
 	return {
 		type: DONES_REQUEST,
-		query
+		query,
 	};
 }
 
@@ -36,7 +36,7 @@ export function createDone( date, text, done ) {
 		transientId: uniqueId( 'done' ),
 		date,
 		text,
-		done
+		done,
 	};
 }
 
@@ -46,13 +46,13 @@ export function updateDone( id, text, done, replaceId ) {
 		id,
 		text,
 		done,
-		replaceId
+		replaceId,
 	};
 }
 
 export function deleteDone( id ) {
 	return {
 		type: DONE_DELETE,
-		id
+		id,
 	};
 }

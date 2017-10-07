@@ -8,7 +8,7 @@ import { omit } from 'lodash';
  */
 import {
 	NOTICE_DISPLAY,
-	NOTICE_HIDE
+	NOTICE_HIDE,
 } from 'state/action-types';
 
 /**
@@ -27,8 +27,8 @@ export default function( state = {}, action ) {
 				...state,
 				[ action.id ]: {
 					status: action.status,
-					text: action.text
-				}
+					text: action.text,
+				},
 			};
 
 		case NOTICE_HIDE:

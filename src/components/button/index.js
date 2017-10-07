@@ -30,14 +30,14 @@ export default function Button( props ) {
 		className: classNames( 'button', className, reduce( [
 			'primary',
 			'unstyled',
-			'dangerous'
+			'dangerous',
 		], ( memo, modifier ) => {
 			memo[ `is-${ modifier }` ] = props[ modifier ];
 			return memo;
-		}, {} ) )
+		}, {} ) ),
 	}, children );
 }
 
 Button.defaultProps = {
-	type: 'button'
+	type: 'button',
 };

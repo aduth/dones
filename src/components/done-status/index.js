@@ -17,7 +17,7 @@ export default function DoneStatus() {
 	const isToggleable = onToggle && ! disabled;
 	const classes = classNames( 'done-status', {
 		'is-done': done,
-		'is-toggleable': isToggleable
+		'is-toggleable': isToggleable,
 	} );
 
 	const text = done

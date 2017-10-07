@@ -36,5 +36,5 @@ function TagsList( { hasReceived, tags } ) {
 
 export default connect( ( state ) => ( {
 	hasReceived: hasReceivedTags( state ),
-	tags: getTags( state )
+	tags: getTags( state ),
 } ) )( TagsList );

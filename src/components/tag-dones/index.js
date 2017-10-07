@@ -51,5 +51,5 @@ function TagDones( { hasReceived, dones } ) {
 
 export default connect( ( state, { query } ) => ( {
 	dones: getSortedDones( state, query ),
-	hasReceived: hasReceivedDones( state, query )
+	hasReceived: hasReceivedDones( state, query ),
 } ) )( TagDones );

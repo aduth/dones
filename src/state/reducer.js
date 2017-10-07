@@ -21,5 +21,5 @@ export default combineReducers( {
 	requests,
 	routing,
 	tags,
-	users
+	users,
 } );

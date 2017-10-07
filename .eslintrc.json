@@ -15,7 +15,6 @@
 	"rules": {
 		"no-cond-assign": "off",
 		"react/jsx-no-bind": "off",
-		"comma-dangle": [ "error", "never" ],
 		"arrow-parens": "error",
 		"react/jsx-space-before-closing": "off",
 		"react/jsx-tag-spacing": "error"

@@ -24,8 +24,8 @@ export default function DoneText( { onClick, onFocus, onMouseDown, children } ) 
 			whitespace,
 			<Link preload to={ `/tags/${ tag }/` }>
 				#{ tag }
-			</Link>
-		]
+			</Link>,
+		],
 	], [
 		/(^|\s)(https?:\/\/\S+)/,
 		( [ , whitespace, url ] ) => [
@@ -34,11 +34,11 @@ export default function DoneText( { onClick, onFocus, onMouseDown, children } ) 
 				<Link to={ url }>
 					{ truncate( url.replace( /^https?:\/\/(www\.)?/, '' ) ) }
 				</Link>
-			</span>
-		]
+			</span>,
+		],
 	], [
 		/`([^`]+)`/,
-		( [ , code ] ) => <code>{ NULL_CHARACTER }{ code }{ NULL_CHARACTER }</code>
+		( [ , code ] ) => <code>{ NULL_CHARACTER }{ code }{ NULL_CHARACTER }</code>,
 	] ];
 
 	let parts = [ ...children ];
@@ -69,7 +69,7 @@ export default function DoneText( { onClick, onFocus, onMouseDown, children } ) 
 		focusProps = {
 			tabIndex: 0,
 			role: 'textbox',
-			onFocus
+			onFocus,
 		};
 	}
 

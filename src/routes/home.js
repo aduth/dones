@@ -23,5 +23,5 @@ class HomeRoute extends Component {
 }
 
 export default connect( null, {
-	replaceRoute
+	replaceRoute,
 } )( HomeRoute );

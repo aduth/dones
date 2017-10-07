@@ -5,7 +5,7 @@ import { once } from 'lodash';
 import {
 	addHours,
 	parse as parseDate,
-	format as formatDate
+	format as formatDate,
 } from 'date-fns';
 
 /**
@@ -40,7 +40,7 @@ const getSiteFormat = once( () => {
 		i: 'mm',
 		s: 'ss',
 		u: 'SSS',
-		U: 'X'
+		U: 'X',
 	};
 
 	return DATE_FORMAT.replace( /\\?[a-zA-Z]/g, ( format ) => {

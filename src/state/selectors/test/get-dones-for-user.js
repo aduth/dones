@@ -18,26 +18,26 @@ describe( 'getDonesForUser()', () => {
 						user: 1,
 						text: '#in_valid',
 						date: '2017-05-11 00:00:00',
-						done: true
+						done: true,
 					},
 					326: {
 						id: 326,
 						user: 2,
 						text: '#in_valid',
 						date: '2017-05-11 00:00:00',
-						done: true
-					}
+						done: true,
+					},
 				},
 				pages: {
-					'{"date":"2017-05-11"}': [ [ 325, 326 ] ]
+					'{"date":"2017-05-11"}': [ [ 325, 326 ] ],
 				},
 				received: {
-					'{"date":"2017-05-11"}': true
+					'{"date":"2017-05-11"}': true,
 				},
 				totalPages: {
-					'{"date":"2017-05-11"}': 1
-				}
-			}
+					'{"date":"2017-05-11"}': 1,
+				},
+			},
 		}, { date: '2017-05-11' }, 1 );
 
 		expect( dones ).to.eql( [ {
@@ -45,7 +45,7 @@ describe( 'getDonesForUser()', () => {
 			user: 1,
 			text: '#in_valid',
 			date: '2017-05-11 00:00:00',
-			done: true
+			done: true,
 		} ] );
 	} );
 } );

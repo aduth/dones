@@ -14,13 +14,13 @@ describe( 'getNotices()', () => {
 			notices: {
 				1: {
 					status: 'error',
-					text: 'foo'
-				}
-			}
+					text: 'foo',
+				},
+			},
 		} );
 
 		expect( notices ).to.eql( [
-			{ id: '1', status: 'error', text: 'foo' }
+			{ id: '1', status: 'error', text: 'foo' },
 		] );
 	} );
 } );

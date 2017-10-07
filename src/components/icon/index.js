@@ -72,5 +72,5 @@ export default function Icon( { icon, size } ) {
 }
 
 Icon.defaultProps = {
-	size: 15
+	size: 15,
 };

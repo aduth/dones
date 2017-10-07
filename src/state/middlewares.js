@@ -15,5 +15,5 @@ export default [
 	multi,
 	refx( effects ),
 	routing,
-	requests
+	requests,
 ];

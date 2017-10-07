@@ -22,14 +22,14 @@ describe( 'reducer', () => {
 			type: NOTICE_DISPLAY,
 			id: '1',
 			status: 'error',
-			text: 'foo'
+			text: 'foo',
 		} );
 
 		expect( state ).to.eql( {
 			1: {
 				status: 'error',
-				text: 'foo'
-			}
+				text: 'foo',
+			},
 		} );
 	} );
 
@@ -37,12 +37,12 @@ describe( 'reducer', () => {
 		const original = deepFreeze( {
 			1: {
 				status: 'error',
-				text: 'foo'
-			}
+				text: 'foo',
+			},
 		} );
 		const state = reducer( original, {
 			type: NOTICE_HIDE,
-			id: '2'
+			id: '2',
 		} );
 
 		expect( state ).to.equal( original );
@@ -52,12 +52,12 @@ describe( 'reducer', () => {
 		const original = deepFreeze( {
 			1: {
 				status: 'error',
-				text: 'foo'
-			}
+				text: 'foo',
+			},
 		} );
 		const state = reducer( original, {
 			type: NOTICE_HIDE,
-			id: '1'
+			id: '1',
 		} );
 
 		expect( state ).to.eql( {} );

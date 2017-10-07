@@ -7,7 +7,7 @@ import {
 	DONE_DELETE,
 	DONE_UPDATE,
 	DONES_REQUEST,
-	REQUEST
+	REQUEST,
 } from 'state/action-types';
 import { translate } from 'lib/i18n';
 import { displayErrorNotice } from 'state/notices/actions';
@@ -25,7 +25,7 @@ export default {
 				body,
 				query,
 				Number( headers[ 'x-wp-totalpages' ] ) || null
-			)
+			),
 		};
 	},
 	[ DONE_CREATE ]( action ) {
@@ -36,7 +36,7 @@ export default {
 			path: '/dones/v1/dones',
 			params: {
 				method: 'POST',
-				body: { date, text, done }
+				body: { date, text, done },
 			},
 			success( { body } ) {
 				return updateDone( body.id, text, done, transientId );
@@ -44,9 +44,9 @@ export default {
 			failure() {
 				return {
 					type: DONE_CREATE_FAILURE,
-					transientId
+					transientId,
 				};
-			}
+			},
 		};
 	},
 	[ DONE_CREATE_FAILURE ]() {
@@ -59,8 +59,8 @@ export default {
 			type: REQUEST,
 			path: `/dones/v1/dones/${ id }`,
 			params: {
-				method: 'DELETE'
-			}
+				method: 'DELETE',
+			},
 		};
 	},
 	[ DONE_UPDATE ]( action ) {
@@ -71,8 +71,8 @@ export default {
 			path: `/dones/v1/dones/${ id }`,
 			params: {
 				method: 'PUT',
-				body: { text, done }
-			}
+				body: { text, done },
+			},
 		};
-	}
+	},
 };

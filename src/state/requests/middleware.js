@@ -15,13 +15,13 @@ import {
 	getRequestNonce,
 	isCapturingRequestPreload,
 	isPreloadingPath,
-	getPathRequest
+	getPathRequest,
 } from 'state/selectors';
 import {
 	addPreloadedResponse,
 	setRequestNonce,
 	setPathRequest,
-	setPathIsPreloading
+	setPathIsPreloading,
 } from './actions';
 
 export default ( { dispatch, getState } ) => {
@@ -56,7 +56,7 @@ export default ( { dispatch, getState } ) => {
 		// Clone parameters with defaults
 		params = assign( {
 			method: 'GET',
-			headers: new Headers()
+			headers: new Headers(),
 		}, params );
 
 		if ( 'GET' === params.method ) {
@@ -138,7 +138,7 @@ export default ( { dispatch, getState } ) => {
 			dispatch( {
 				...action,
 				type: REQUEST_COMPLETE,
-				result
+				result,
 			} );
 		} );
 	}

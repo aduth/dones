@@ -22,7 +22,7 @@ function DateRoute( { date, users } ) {
 	// Sort users by current user first, then alphabetically by name
 	const sortedUsers = sortBy( users, [
 		( { id } ) => id === USER_ID ? 0 : 1,
-		'name'
+		'name',
 	] );
 
 	return (
@@ -41,10 +41,10 @@ function DateRoute( { date, users } ) {
 DateRoute.prepareRoute = ( { params } ) => compact( [
 	requestUsers(),
 	requestDones( { date: params.date } ),
-	USER_ID && requestTags()
+	USER_ID && requestTags(),
 ] );
 
 export default connect( ( state ) => ( {
 	users: getUsers( state ),
-	date: getRouteParam( state, 'date' )
+	date: getRouteParam( state, 'date' ),
 } ) )( DateRoute );

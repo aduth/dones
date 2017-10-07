@@ -18,5 +18,5 @@ export function title( state = null, action ) {
 }
 
 export default combineReducers( {
-	title
+	title,
 } );

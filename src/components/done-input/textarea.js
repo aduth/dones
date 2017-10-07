@@ -14,7 +14,7 @@ import PopoverMenu from 'components/popover-menu';
 export default class DoneInputTextarea extends Component {
 	static defaultProps = {
 		onSuggestionSelected: () => {},
-		onInput: () => {}
+		onInput: () => {},
 	}
 
 	componentDidMount() {
@@ -64,8 +64,8 @@ export default class DoneInputTextarea extends Component {
 		top += parseInt( lineHeight, 10 ) - target.clientHeight;
 		this.setState( {
 			style: {
-				transform: `translate( ${ left }px, ${ top }px )`
-			}
+				transform: `translate( ${ left }px, ${ top }px )`,
+			},
 		} );
 
 		this.props.onInput( event );

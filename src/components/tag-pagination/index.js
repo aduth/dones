@@ -31,5 +31,5 @@ function TagPagination( { tag, page, totalPages } ) {
 }
 
 export default connect( ( state, { tag } ) => ( {
-	totalPages: getDonesTotalPages( state, { tag } )
+	totalPages: getDonesTotalPages( state, { tag } ),
 } ) )( TagPagination );

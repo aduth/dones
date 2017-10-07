@@ -20,7 +20,7 @@ export function getDones( state, query = {} ) {
 	if ( query.page ) {
 		pageIds = get( pages, [
 			stringify( omit( query, 'page' ) ),
-			query.page - 1
+			query.page - 1,
 		] );
 	}
 
@@ -53,6 +53,6 @@ export default createSelector(
 	getDones,
 	( state ) => [
 		state.dones.items,
-		state.dones.pages
+		state.dones.pages,
 	]
 );

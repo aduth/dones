@@ -12,8 +12,8 @@ describe( 'getPreloadedResponse()', () => {
 	it( 'should return null if path is not preloaded', () => {
 		const response = getPreloadedResponse( {
 			requests: {
-				preload: {}
-			}
+				preload: {},
+			},
 		}, '/dones/v1/users' );
 
 		expect( response ).to.be.null;
@@ -25,18 +25,18 @@ describe( 'getPreloadedResponse()', () => {
 				{
 					id: 1,
 					name: 'Andrew Duthie',
-					avatar: 'https://example.com/avatar.png'
-				}
+					avatar: 'https://example.com/avatar.png',
+				},
 			],
-			headers: []
+			headers: [],
 		};
 
 		const response = getPreloadedResponse( {
 			requests: {
 				preload: {
-					'/dones/v1/users': [ payload, '1' ]
-				}
-			}
+					'/dones/v1/users': [ payload, '1' ],
+				},
+			},
 		}, '/dones/v1/users' );
 
 		expect( response ).to.equal( payload );

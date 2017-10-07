@@ -4,11 +4,11 @@
 import {
 	ROUTE_PRELOAD,
 	ROUTE_PUSH,
-	ROUTE_REPLACE
+	ROUTE_REPLACE,
 } from 'state/action-types';
 import {
 	startPreloadCapture,
-	stopPreloadCapture
+	stopPreloadCapture,
 } from 'state/requests/actions';
 import { getRouteByPath } from 'routes';
 
@@ -37,10 +37,10 @@ export default {
 			return [
 				startPreloadCapture(),
 				...preparations,
-				stopPreloadCapture()
+				stopPreloadCapture(),
 			];
 		}
 	},
 	[ ROUTE_PUSH ]: prepareRoute,
-	[ ROUTE_REPLACE ]: prepareRoute
+	[ ROUTE_REPLACE ]: prepareRoute,
 };

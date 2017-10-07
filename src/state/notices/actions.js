@@ -8,7 +8,7 @@ import { uniqueId } from 'lodash';
  */
 import {
 	NOTICE_DISPLAY,
-	NOTICE_HIDE
+	NOTICE_HIDE,
 } from 'state/action-types';
 
 /**
@@ -24,7 +24,7 @@ export function displayNotice( status, text ) {
 		type: NOTICE_DISPLAY,
 		id: uniqueId(),
 		status,
-		text
+		text,
 	};
 }
 
@@ -49,6 +49,6 @@ export function displayErrorNotice( text ) {
 export function hideNotice( id ) {
 	return {
 		type: NOTICE_HIDE,
-		id
+		id,
 	};
 }

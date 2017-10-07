@@ -71,5 +71,5 @@ function Sidebar( { path } ) {
 }
 
 export default connect( ( state ) => ( {
-	path: getRoutePath( state )
+	path: getRoutePath( state ),
 } ) )( Sidebar );

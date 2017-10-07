@@ -11,7 +11,7 @@ import hasReceivedTags from '../has-received-tags';
 describe( 'hasReceivedTags()', () => {
 	it( 'returns false if tags have not been received', () => {
 		const hasReceived = hasReceivedTags( {
-			tags: null
+			tags: null,
 		} );
 
 		expect( hasReceived ).to.be.false;
@@ -19,7 +19,7 @@ describe( 'hasReceivedTags()', () => {
 
 	it( 'returns true if tags have been received', () => {
 		const hasReceived = hasReceivedTags( {
-			tags: []
+			tags: [],
 		} );
 
 		expect( hasReceived ).to.be.true;

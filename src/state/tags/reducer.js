@@ -9,7 +9,7 @@ import { includes } from 'lodash';
 import {
 	TAGS_RECEIVE,
 	DONE_CREATE,
-	DONE_UPDATE
+	DONE_UPDATE,
 } from 'state/action-types';
 
 export default function( state = null, action ) {

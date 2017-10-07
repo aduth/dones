@@ -12,7 +12,7 @@ import Icon from 'components/icon';
 
 export default class DatePicker extends Component {
 	static defaultProps = {
-		options: {}
+		options: {},
 	};
 
 	componentDidMount() {
@@ -45,7 +45,7 @@ export default class DatePicker extends Component {
 
 	initialize = () => {
 		this.flatpickr = new Flatpickr( this.input, {
-			onChange: this.props.onChange
+			onChange: this.props.onChange,
 		} );
 
 		// By default, Flatpickr intializes to the browser-offset date. Update

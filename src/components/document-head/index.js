@@ -32,5 +32,5 @@ class DocumentHead extends Component {
 }
 
 export default connect( ( state ) => ( {
-	title: getFormattedTitle( state )
+	title: getFormattedTitle( state ),
 } ) )( DocumentHead );

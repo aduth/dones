@@ -14,5 +14,5 @@ function Root( { Route } ) {
 }
 
 export default connect( ( state ) => ( {
-	Route: getMatchedRoute( state ).Route
+	Route: getMatchedRoute( state ).Route,
 } ) )( Root );

@@ -21,7 +21,7 @@ class DoneInput extends Component {
 		initialDone: true,
 		initialText: '',
 		onCancel: () => {},
-		onSubmit: () => {}
+		onSubmit: () => {},
 	};
 
 	constructor( props ) {
@@ -29,7 +29,7 @@ class DoneInput extends Component {
 
 		this.state = {
 			done: props.initialDone,
-			text: props.initialText
+			text: props.initialText,
 		};
 	}
 
@@ -82,7 +82,7 @@ class DoneInput extends Component {
 
 		this.setState( {
 			text,
-			tagFragment: this.getTagFragment( event.target )
+			tagFragment: this.getTagFragment( event.target ),
 		} );
 	};
 
@@ -102,9 +102,9 @@ class DoneInput extends Component {
 				// Append suggestion to text up to and including hash character
 				text.substr( 0, index - tagFragment.length ) + suggestion,
 				// Concatenate with remainder of original text
-				text.substr( index ).replace( /^ /, '' )
+				text.substr( index ).replace( /^ /, '' ),
 			].join( ' ' ),
-			tagFragment: null
+			tagFragment: null,
 		} );
 	};
 
@@ -150,7 +150,7 @@ class DoneInput extends Component {
 
 		this.setState( {
 			text: this.constructor.defaultProps.initialText,
-			tagFragment: null
+			tagFragment: null,
 		} );
 	};
 
@@ -164,7 +164,7 @@ class DoneInput extends Component {
 		const isEditing = this.isEditing();
 
 		const classes = classNames( 'done-input', className, {
-			'is-editing': isEditing
+			'is-editing': isEditing,
 		} );
 
 		const actions = [ {
@@ -172,7 +172,7 @@ class DoneInput extends Component {
 			primary: true,
 			'aria-label': translate( 'Submit' ),
 			children: translate( 'Submit' ),
-			disabled: text.length === 0
+			disabled: text.length === 0,
 		} ];
 
 		if ( isEditing ) {
@@ -180,13 +180,13 @@ class DoneInput extends Component {
 				onClick: this.delete,
 				'aria-label': translate( 'Delete' ),
 				children: translate( 'Delete' ),
-				dangerous: true
+				dangerous: true,
 			} );
 
 			actions.push( {
 				onClick: onCancel,
 				'aria-label': translate( 'Cancel' ),
-				children: translate( 'Cancel' )
+				children: translate( 'Cancel' ),
 			} );
 		}
 
@@ -237,11 +237,11 @@ class DoneInput extends Component {
 
 export default connect(
 	( state ) => ( {
-		tags: getTags( state )
+		tags: getTags( state ),
 	} ),
 	{
 		createDone,
 		updateDone,
-		onDelete: deleteDone
+		onDelete: deleteDone,
 	}
 )( DoneInput );

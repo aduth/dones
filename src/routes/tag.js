@@ -34,11 +34,11 @@ TagRoute.prepareRoute = ( { params } ) => [
 	requestUsers(),
 	requestDones( {
 		tag: params.tag,
-		page: params.page || 1
-	} )
+		page: params.page || 1,
+	} ),
 ];
 
 export default connect( ( state ) => ( {
 	tag: getRouteParam( state, 'tag' ),
-	page: toNumber( defaultTo( getRouteParam( state, 'page' ), 1 ) )
+	page: toNumber( defaultTo( getRouteParam( state, 'page' ), 1 ) ),
 } ) )( TagRoute );

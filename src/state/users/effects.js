@@ -9,7 +9,7 @@ export default {
 		return {
 			type: REQUEST,
 			path: '/dones/v1/users',
-			success: ( { body } ) => receiveUsers( body )
+			success: ( { body } ) => receiveUsers( body ),
 		};
-	}
+	},
 };

@@ -14,7 +14,7 @@ import {
 	DONE_CREATE_FAILURE,
 	DONE_UPDATE,
 	DONE_DELETE,
-	DONES_RECEIVE
+	DONES_RECEIVE,
 } from 'state/action-types';
 
 export function items( state = {}, action ) {
@@ -42,8 +42,8 @@ export function items( state = {}, action ) {
 					user: USER_ID,
 					date,
 					text,
-					done
-				}
+					done,
+				},
 			};
 		}
 
@@ -53,7 +53,7 @@ export function items( state = {}, action ) {
 				id,
 				date,
 				text,
-				done
+				done,
 			}, state[ id ], state[ replaceId ] );
 
 			if ( isEqual( state[ id ], item ) ) {
@@ -103,7 +103,7 @@ export function pages( state = {}, action ) {
 
 			return {
 				...state,
-				[ stringifiedQuery ]: nextPages
+				[ stringifiedQuery ]: nextPages,
 			};
 	}
 
@@ -127,7 +127,7 @@ export function received( state = {}, action ) {
 
 			return {
 				...state,
-				[ stringify( query ) ]: true
+				[ stringify( query ) ]: true,
 			};
 	}
 
@@ -144,7 +144,7 @@ export function totalPages( state = {}, action ) {
 
 			return {
 				...state,
-				[ stringify( omit( query, 'page' ) ) ]: total
+				[ stringify( omit( query, 'page' ) ) ]: total,
 			};
 	}
 
@@ -155,5 +155,5 @@ export default combineReducers( {
 	items,
 	pages,
 	received,
-	totalPages
+	totalPages,
 } );

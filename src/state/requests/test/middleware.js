@@ -11,12 +11,12 @@ import { assign, noop, over } from 'lodash';
  */
 import {
 	REQUEST,
-	REQUEST_COMPLETE
+	REQUEST_COMPLETE,
 } from 'state/action-types';
 import {
 	addPreloadedResponse,
 	setPathIsPreloading,
-	setPathRequest
+	setPathRequest,
 } from 'state/requests/actions';
 
 describe( 'middleware', () => {
@@ -28,17 +28,17 @@ describe( 'middleware', () => {
 			'getRequestNonce',
 			'isCapturingRequestPreload',
 			'isPreloadingPath',
-			'getPathRequest'
+			'getPathRequest',
 		].reduce( ( memo, name ) => assign( memo, {
-			[ name ]: ( ...args ) => ( mockedHandlers[ name ] || noop )( ...args )
-		} ), {} )
+			[ name ]: ( ...args ) => ( mockedHandlers[ name ] || noop )( ...args ),
+		} ), {} ),
 	} ).default;
 
 	const headers = [ [ 'x-ok', 1 ] ];
 	const body = { ok: true };
 	const response = {
 		headers: { entries: () => headers },
-		json: () => Promise.resolve( body )
+		json: () => Promise.resolve( body ),
 	};
 	const result = { headers: { 'x-ok': 1 }, body };
 	before( () => {
@@ -55,7 +55,7 @@ describe( 'middleware', () => {
 
 		handler = middleware( {
 			getState: noop,
-			dispatch
+			dispatch,
 		} )( next );
 	} );
 
@@ -77,7 +77,7 @@ describe( 'middleware', () => {
 		const action = {
 			type: REQUEST,
 			path: '/foo',
-			query: { bar: 'baz' }
+			query: { bar: 'baz' },
 		};
 
 		handler( action );
@@ -90,7 +90,7 @@ describe( 'middleware', () => {
 
 		handler( {
 			type: REQUEST,
-			path: '/foo'
+			path: '/foo',
 		} );
 
 		expect( dispatch ).to.have.been.calledWith(
@@ -108,7 +108,7 @@ describe( 'middleware', () => {
 				expect( actualResult ).to.eql( result );
 
 				done();
-			}
+			},
 		} );
 	} );
 
@@ -126,7 +126,7 @@ describe( 'middleware', () => {
 				expect( actualResult ).to.eql( result );
 
 				done();
-			}
+			},
 		} );
 	} );
 
@@ -138,14 +138,14 @@ describe( 'middleware', () => {
 				expect( dispatch ).to.have.been.calledWithMatch( {
 					...setPathRequest( '/foo', {
 						method: 'GET',
-						headers: {}
+						headers: {},
 					} ),
-					request: match.object
+					request: match.object,
 				} );
 				expect( actualResult ).to.eql( result );
 
 				done();
-			}
+			},
 		} );
 	} );
 
@@ -158,12 +158,12 @@ describe( 'middleware', () => {
 				if ( REQUEST_COMPLETE === action.type ) {
 					expect( dispatch ).to.have.been.calledWithMatch( {
 						...addPreloadedResponse( '/foo', result ),
-						id: match.truthy
+						id: match.truthy,
 					} );
 
 					done();
 				}
-			} )
+			} ),
 		} )( next );
 
 		handler( {
@@ -171,7 +171,7 @@ describe( 'middleware', () => {
 			path: '/foo',
 			success: () => {
 				done( new Error( 'Unexpected success call' ) );
-			}
+			},
 		} );
 	} );
 } );

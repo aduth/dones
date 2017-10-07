@@ -20,5 +20,5 @@ export default function TagsRoute() {
 }
 
 TagsRoute.prepareRoute = () => [
-	requestTags()
+	requestTags(),
 ];

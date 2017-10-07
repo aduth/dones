@@ -40,5 +40,5 @@ class Page extends Component {
 }
 
 export default connect( null, {
-	setTitle: setDocumentHeadTitle
+	setTitle: setDocumentHeadTitle,
 } )( Page );

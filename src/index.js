@@ -11,7 +11,7 @@ import Root from 'components/root';
 import createReduxStore from 'state';
 import {
 	setRequestNonce,
-	setPreloadedResponses
+	setPreloadedResponses,
 } from 'state/requests/actions';
 import { replaceRoute } from 'state/routing/actions';
 import { SITE_URL, API_NONCE, PRELOADED_REQUESTS } from 'constant';

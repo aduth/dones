@@ -21,7 +21,7 @@ export const routes = map( [
 	[ '/tags/:tag/page/:page', TagRoute ],
 	[ '/tags/:tag', TagRoute ],
 	[ '/tags/', TagsRoute ],
-	[ '*', NotFoundRoute ]
+	[ '*', NotFoundRoute ],
 ], ( [ path, Route ] ) => {
 	const keys = [];
 
@@ -29,7 +29,7 @@ export const routes = map( [
 		path,
 		keys,
 		Route,
-		regexp: pathToRegexp( path, keys )
+		regexp: pathToRegexp( path, keys ),
 	};
 } );
 
@@ -51,7 +51,7 @@ export const getRouteByPath = memoize( ( path ) => {
 		return {
 			params,
 			Route,
-			query: parse( search )
+			query: parse( search ),
 		};
 	}
 

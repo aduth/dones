@@ -11,5 +11,5 @@ export default {
 
 		// Automatically hide notice after timeout
 		setTimeout( () => dispatch( hideNotice( id ) ), 5000 );
-	}
+	},
 };

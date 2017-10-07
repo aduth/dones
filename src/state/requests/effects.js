@@ -3,11 +3,11 @@
  */
 import {
 	clearPreloadedResponse,
-	clearPreloadedResponses
+	clearPreloadedResponses,
 } from './actions';
 import {
 	REQUEST_PRELOAD_ADD,
-	REQUEST_PRELOAD_SET
+	REQUEST_PRELOAD_SET,
 } from 'state/action-types';
 
 /**
@@ -35,5 +35,5 @@ export default {
 			() => dispatch( clearPreloadedResponses( id ) ),
 			PRELOAD_RESET_TIMEOUT
 		);
-	}
+	},
 };

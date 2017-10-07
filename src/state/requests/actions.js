@@ -14,7 +14,7 @@ import {
 	REQUEST_PRELOAD_CLEAR,
 	REQUEST_PRELOAD_CAPTURE_START,
 	REQUEST_PRELOAD_CAPTURE_STOP,
-	REQUEST_PATH_IS_PRELOADING_SET
+	REQUEST_PATH_IS_PRELOADING_SET,
 } from 'state/action-types';
 
 /**
@@ -27,7 +27,7 @@ import {
 export function setRequestNonce( nonce ) {
 	return {
 		type: REQUEST_NONCE_SET,
-		nonce
+		nonce,
 	};
 }
 
@@ -43,7 +43,7 @@ export function setPreloadedResponses( responses ) {
 	return {
 		type: REQUEST_PRELOAD_SET,
 		id: uniqueId(),
-		responses
+		responses,
 	};
 }
 
@@ -60,7 +60,7 @@ export function addPreloadedResponse( path, response ) {
 		type: REQUEST_PRELOAD_ADD,
 		id: uniqueId(),
 		path,
-		response
+		response,
 	};
 }
 
@@ -74,7 +74,7 @@ export function addPreloadedResponse( path, response ) {
 export function clearPreloadedResponses( id ) {
 	return {
 		type: REQUEST_PRELOAD_CLEAR,
-		id
+		id,
 	};
 }
 
@@ -90,7 +90,7 @@ export function clearPreloadedResponse( path, id ) {
 	return {
 		type: REQUEST_PRELOAD_CLEAR,
 		path,
-		id
+		id,
 	};
 }
 
@@ -103,7 +103,7 @@ export function clearPreloadedResponse( path, id ) {
  */
 export function startPreloadCapture() {
 	return {
-		type: REQUEST_PRELOAD_CAPTURE_START
+		type: REQUEST_PRELOAD_CAPTURE_START,
 	};
 }
 
@@ -115,7 +115,7 @@ export function startPreloadCapture() {
  */
 export function stopPreloadCapture() {
 	return {
-		type: REQUEST_PRELOAD_CAPTURE_STOP
+		type: REQUEST_PRELOAD_CAPTURE_STOP,
 	};
 }
 
@@ -133,7 +133,7 @@ export function setPathRequest( path, params, request ) {
 		type: REQUEST_PATH_REQUEST_SET,
 		path,
 		params,
-		request
+		request,
 	};
 }
 
@@ -149,6 +149,6 @@ export function setPathIsPreloading( path, isPreloading ) {
 	return {
 		type: REQUEST_PATH_IS_PRELOADING_SET,
 		path,
-		isPreloading
+		isPreloading,
 	};
 }

@@ -14,5 +14,5 @@ export default [
 	requests,
 	routing,
 	tags,
-	users
+	users,
 ];

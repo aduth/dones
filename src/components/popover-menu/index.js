@@ -14,11 +14,11 @@ export default class PopoverMenu extends Component {
 	static defaultProps = {
 		onSelect: () => {},
 		items: [],
-		selectKeyCode: 13
+		selectKeyCode: 13,
 	};
 
 	state = {
-		selectedIndex: 0
+		selectedIndex: 0,
 	};
 
 	componentDidMount() {
@@ -94,7 +94,7 @@ export default class PopoverMenu extends Component {
 					{ map( items, ( child, i ) => {
 						const isSelected = ( selectedIndex === i );
 						const itemClasses = classNames( 'popover-menu__list-item', {
-							'is-selected': isSelected
+							'is-selected': isSelected,
 						} );
 
 						return (

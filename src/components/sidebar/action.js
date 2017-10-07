@@ -12,7 +12,7 @@ import Icon from 'components/icon';
 
 export default function SidebarAction( { icon, to, selected, children } ) {
 	const classes = classNames( 'sidebar__action', {
-		'is-selected': selected
+		'is-selected': selected,
 	} );
 
 	return (
