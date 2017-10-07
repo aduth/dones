@@ -79,7 +79,9 @@ export default function DoneText( { onClick, onFocus, onMouseDown, children } ) 
 			onClick={ onClick }
 			onMouseDown={ onMouseDown }
 			className="done-text">
-			{ parts }
+			<div className="done-text__overflow">
+				{ parts }
+			</div>
 		</div>
 	);
 }
