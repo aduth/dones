@@ -14,9 +14,7 @@ import { translate } from 'lib/i18n';
 import DoneStatus from 'components/done-status';
 import DoneInput from 'components/done-input';
 import DoneText from 'components/done-text';
-import Button from 'components/button';
-import Icon from 'components/icon';
-import { updateDone, deleteDone } from 'state/dones/actions';
+import { updateDone } from 'state/dones/actions';
 import { getDonesForUser, hasReceivedDones } from 'state/selectors';
 
 class DonesList extends Component {
@@ -100,12 +98,6 @@ class DonesList extends Component {
 		} );
 	};
 
-	deleteDone = ( id ) => {
-		if ( confirm( translate( 'Are you sure you want to delete this done?' ) ) ) {
-			this.props.deleteDone( id );
-		}
-	};
-
 	isEditable() {
 		return this.props.userId === USER_ID;
 	}
@@ -141,13 +133,7 @@ class DonesList extends Component {
 						onFocus={ () => this.editIfNonePending( id ) }
 						onMouseDown={ () => this.startTrackingSelection( id ) }>
 						{ text }
-					</DoneText>,
-					<Button
-						unstyled
-						onClick={ () => this.deleteDone( id ) }
-						className="dones-list__trash">
-						<Icon icon="trash" size={ 18 } />
-					</Button>
+					</DoneText>
 				];
 			}
 
@@ -177,5 +163,5 @@ export default connect(
 		dones: getDonesForUser( state, query, userId ),
 		hasReceived: hasReceivedDones( state, query )
 	} ),
-	{ updateDone, deleteDone }
+	{ updateDone }
 )( DonesList );

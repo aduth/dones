@@ -1,10 +1,26 @@
-.done-input {
+.done-input,
+.done-input__text-actions {
 	display: flex;
 	align-items: center;
+	flex-basis: 100%;
+}
+
+.done-input {
 	position: relative;
 	border: 1px solid $border-color;
 	border-radius: $border-radius;
 	margin: 0 -1px;
+
+	&.is-editing {
+		margin-bottom: 2.8rem;
+	}
+}
+
+.done-input.is-editing .done-input__actions {
+	position: absolute;
+	top: 100%;
+	margin-top: 0.3rem;
+	right: 0;
 }
 
 .done-input .done-status,
@@ -14,21 +30,9 @@
 
 .done-input__action {
 	margin-right: 0.2rem;
-}
 
-.done-input__action .icon {
-	display: block;
-
-	@include desktop() {
-		display: none;
-	}
-}
-
-.done-input__action-text {
-	display: none;
-
-	@include desktop() {
-		display: inline;
+	.done-input.is-editing &:last-child {
+		margin-right: 0;
 	}
 }
 

@@ -29,7 +29,8 @@ export default function Button( props ) {
 		onBlur: toggleOutlineActive( true ),
 		className: classNames( 'button', className, reduce( [
 			'primary',
-			'unstyled'
+			'unstyled',
+			'dangerous'
 		], ( memo, modifier ) => {
 			memo[ `is-${ modifier }` ] = props[ modifier ];
 			return memo;

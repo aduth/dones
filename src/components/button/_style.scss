@@ -1,7 +1,7 @@
 .button:not( .is-unstyled ) {
 	@extend %bold;
 	display: inline-block;
-	padding: 0.6rem 1.2rem;
+	padding: 0.7rem 1.2rem;
 	background-color: #fff;
 	border: 1px solid $border-color;
 	border-radius: $border-radius;
@@ -9,6 +9,7 @@
     text-transform: uppercase;
 	cursor: pointer;
 	color: $font-color-body;
+	line-height: 1;
 
 	&[disabled] {
 		cursor: default;
@@ -36,6 +37,21 @@
 
 		&:active {
 			box-shadow: inset 1px 1px 2px darken( $color-blue, 5% );
+		}
+	}
+
+	&.is-dangerous {
+		background-color: $color-red;
+		border-color: $color-red;
+		color: #fff;
+
+		&:not( [disabled] ):hover {
+			background-color: lighten( $color-red, 5% );
+			border-color: lighten( $color-red, 5% );
+		}
+
+		&:active {
+			box-shadow: inset 1px 1px 2px darken( $color-red, 5% );
 		}
 	}
 }

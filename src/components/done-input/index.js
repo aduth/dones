@@ -10,7 +10,6 @@ import { last, map, transform, includes } from 'lodash';
  * Internal dependencies
  */
 import Button from 'components/button';
-import Icon from 'components/icon';
 import DoneStatus from 'components/done-status';
 import DoneInputTextarea from './textarea';
 import { createDone, updateDone, deleteDone } from 'state/dones/actions';
@@ -121,6 +120,13 @@ class DoneInput extends Component {
 		}
 	};
 
+	delete = () => {
+		const { id } = this.props;
+		if ( confirm( translate( 'Are you sure you want to delete this done?' ) ) ) {
+			this.props.onDelete( id );
+		}
+	};
+
 	submit = ( event ) => {
 		const { id, date, initialText, initialDone } = this.props;
 		const { done } = this.state;
@@ -155,30 +161,32 @@ class DoneInput extends Component {
 	render() {
 		const { className, onCancel, selectionOffset, tags } = this.props;
 		const { text, tagFragment } = this.state;
-		const classes = classNames( 'done-input', className );
+		const isEditing = this.isEditing();
+
+		const classes = classNames( 'done-input', className, {
+			'is-editing': isEditing
+		} );
+
 		const actions = [ {
 			type: 'submit',
 			primary: true,
 			'aria-label': translate( 'Submit' ),
-			children: [
-				<Icon icon="paper-plane" size={ 12 } />,
-				<span className="done-input__action-text">
-					{ translate( 'Submit' ) }
-				</span>
-			],
+			children: translate( 'Submit' ),
 			disabled: text.length === 0
 		} ];
 
-		if ( this.isEditing() ) {
+		if ( isEditing ) {
+			actions.push( {
+				onClick: this.delete,
+				'aria-label': translate( 'Delete' ),
+				children: translate( 'Delete' ),
+				dangerous: true
+			} );
+
 			actions.push( {
 				onClick: onCancel,
 				'aria-label': translate( 'Cancel' ),
-				children: [
-					<Icon icon="times" size={ 12 } />,
-					<span className="done-input__action-text">
-						{ translate( 'Cancel' ) }
-					</span>
-				]
+				children: translate( 'Cancel' )
 			} );
 		}
 
@@ -234,6 +242,6 @@ export default connect(
 	{
 		createDone,
 		updateDone,
-		deleteDone
+		onDelete: deleteDone
 	}
 )( DoneInput );
