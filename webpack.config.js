@@ -11,7 +11,7 @@ const { BUILD_TARGET, NODE_ENV } = process.env;
 const config = module.exports = {
 	entry: {
 		app: [
-			'./src/index.js'
+			'./src/index.js',
 		],
 		vendor: [
 			'autosize',
@@ -23,41 +23,41 @@ const config = module.exports = {
 			'preact',
 			'preact-redux',
 			'refx',
-			'textarea-caret'
-		]
+			'textarea-caret',
+		],
 	},
 	output: {
 		path: __dirname + '/dist',
 		filename: '[name]' + ( BUILD_TARGET ? '-' + BUILD_TARGET : '' ) + '.js',
-		publicPath: '/'
+		publicPath: '/',
 	},
 	resolve: {
 		modules: [ 'src', 'node_modules' ],
 		alias: {
-			'lodash-es': 'lodash'
-		}
+			'lodash-es': 'lodash',
+		},
 	},
 	module: {
 		rules: [
 			{
 				test: /\.js$/,
 				use: [ 'babel-loader' ],
-				exclude: /node_modules/
-			}
-		]
+				exclude: /node_modules/,
+			},
+		],
 	},
 	plugins: [
 		new webpack.DefinePlugin( {
-			'process.env.NODE_ENV': JSON.stringify( NODE_ENV )
+			'process.env.NODE_ENV': JSON.stringify( NODE_ENV ),
 		} ),
 		new webpack.optimize.CommonsChunkPlugin( {
-			name: 'vendor'
+			name: 'vendor',
 		} ),
 		new webpack.LoaderOptionsPlugin( {
 			minimize: NODE_ENV === 'production',
-			debug: NODE_ENV !== 'production'
-		} )
-	]
+			debug: NODE_ENV !== 'production',
+		} ),
+	],
 };
 
 if ( 'production' === NODE_ENV ) {
@@ -69,30 +69,30 @@ if ( 'production' === NODE_ENV ) {
 				{
 					loader: 'sass-loader',
 					query: {
-						outputStyle: 'compressed'
-					}
-				}
-			]
-		} )
+						outputStyle: 'compressed',
+					},
+				},
+			],
+		} ),
 	} );
 
 	config.plugins.push(
 		new UglifyJsPlugin( {
 			uglifyOptions: {
 				output: {
-					comments: false
-				}
+					comments: false,
+				},
 			},
 			parallel: {
 				cache: true,
-				workers: 4
-			}
+				workers: 4,
+			},
 		} ),
 		new webpack.optimize.ModuleConcatenationPlugin(),
 		new ExtractTextPlugin( {
 			filename: './style.css',
 			disable: false,
-			allChunks: true
+			allChunks: true,
 		} )
 	);
 } else {
@@ -104,7 +104,7 @@ if ( 'production' === NODE_ENV ) {
 			'style-loader',
 			'css-loader',
 			'postcss-loader',
-			'sass-loader'
-		]
+			'sass-loader',
+		],
 	} );
 }

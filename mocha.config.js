@@ -7,5 +7,5 @@ require( 'chai' )
 
 // Constant initialization
 global.dones = {
-	siteUrl: 'http://example.com'
+	siteUrl: 'http://example.com',
 };

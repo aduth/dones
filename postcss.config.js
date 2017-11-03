@@ -3,7 +3,7 @@ module.exports = {
 		require( 'autoprefixer' ),
 		require( 'postcss-critical-css' )( {
 			outputPath: 'dist',
-			outputDest: 'critical.css.php'
-		} )
-	]
+			outputDest: 'critical.css.php',
+		} ),
+	],
 };
