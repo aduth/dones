@@ -63,7 +63,7 @@ const config = module.exports = {
 if ( 'production' === NODE_ENV ) {
 	config.module.rules.push( {
 		test: /\.s?css$/,
-		loader: ExtractTextPlugin.extract( {
+		use: ExtractTextPlugin.extract( {
 			use: [
 				'postcss-loader',
 				{
@@ -83,10 +83,8 @@ if ( 'production' === NODE_ENV ) {
 					comments: false,
 				},
 			},
-			parallel: {
-				cache: true,
-				workers: 4,
-			},
+			cache: true,
+			parallel: true,
 		} ),
 		new webpack.optimize.ModuleConcatenationPlugin(),
 		new ExtractTextPlugin( {

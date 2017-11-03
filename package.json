@@ -27,6 +27,7 @@
     "ie 11"
   ],
   "devDependencies": {
+    "ajv": "5.3.0",
     "autoprefixer": "7.1.5",
     "babel-core": "6.26.0",
     "babel-eslint": "8.0.1",
@@ -48,20 +49,20 @@
     "eslint-config-wpcalypso": "1.1.0",
     "eslint-plugin-react": "7.4.0",
     "eslint-plugin-wpcalypso": "4.0.0",
-    "extract-text-webpack-plugin": "3.0.1",
+    "extract-text-webpack-plugin": "3.0.2",
     "mocha": "4.0.1",
     "node-sass": "4.5.3",
     "npm-run-all": "4.1.1",
     "postcss-critical-css": "3.0.0",
-    "postcss-loader": "2.0.6",
+    "postcss-loader": "2.0.8",
     "proxyquire": "1.8.0",
     "rimraf": "2.6.2",
     "sass-loader": "6.0.6",
     "sinon": "4.0.1",
     "sinon-chai": "2.14.0",
     "style-loader": "0.19.0",
-    "uglifyjs-webpack-plugin": "1.0.0-beta.2",
-    "webpack": "3.6.0"
+    "uglifyjs-webpack-plugin": "1.0.1",
+    "webpack": "3.8.1"
   },
   "dependencies": {
     "autosize": "4.0.0",
