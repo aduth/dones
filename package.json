@@ -16,7 +16,7 @@
     "build:legacy": "cross-env BUILD_TARGET=legacy BABEL_ENV=legacy NODE_ENV=production webpack",
     "build": "npm-run-all --parallel build:*",
     "build-theme": "./bin/build-theme.sh",
-    "lint": "eslint src",
+    "lint": "eslint .",
     "predev": "npm run clean",
     "dev": "webpack --watch",
     "unit-test": "cross-env NODE_PATH=src NODE_ENV=test mocha 'src/**/test/*.js' -r mocha.config.js -r babel-register",
