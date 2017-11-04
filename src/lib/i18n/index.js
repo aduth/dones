@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { once } from 'lodash';
+import memoize from 'memize';
 import {
 	addHours,
 	parse as parseDate,
@@ -13,7 +13,7 @@ import {
  */
 import { I18N, GMT_OFFSET, DATE_FORMAT } from 'constant';
 
-const getSiteFormat = once( () => {
+const getSiteFormat = memoize( () => {
 	const PHP_DATE_FORMAT_TO_JS = {
 		d: 'DD',
 		D: 'ddd',
