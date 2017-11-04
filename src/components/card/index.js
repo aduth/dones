@@ -2,10 +2,10 @@
  * External dependencies
  */
 import { createElement } from 'preact';
-import classNames from 'classnames';
+import classNames from 'classcat';
 
 export default function Card( { className, title, subtitle, controls, children } ) {
-	const classes = classNames( 'card', className );
+	const classes = classNames( [ 'card', className ] );
 
 	return (
 		<section className={ classes }>

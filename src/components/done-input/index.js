@@ -3,7 +3,7 @@
  */
 import { createElement, Component } from 'preact';
 import { connect } from 'preact-redux';
-import classNames from 'classnames';
+import classNames from 'classcat';
 import { last, map, transform, includes } from 'lodash';
 
 /**
@@ -163,9 +163,9 @@ class DoneInput extends Component {
 		const { text, tagFragment } = this.state;
 		const isEditing = this.isEditing();
 
-		const classes = classNames( 'done-input', className, {
+		const classes = classNames( [ 'done-input', className, {
 			'is-editing': isEditing,
-		} );
+		} ] );
 
 		const actions = [ {
 			type: 'submit',

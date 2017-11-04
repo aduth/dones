@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createElement, Component } from 'preact';
-import classNames from 'classnames';
+import classNames from 'classcat';
 
 export default class Popover extends Component {
 	static defaultProps = {
@@ -52,11 +52,11 @@ export default class Popover extends Component {
 		const [ yAxis = 'top', xAxis = 'center' ] = position.split( ' ' );
 
 		// Generate className
-		const classes = classNames(
+		const classes = classNames( [
 			'popover',
 			`is-${ forcedYAxis || yAxis }`,
-			`is-${ forcedXAxis || xAxis }`
-		);
+			`is-${ forcedXAxis || xAxis }`,
+		] );
 
 		return (
 			<div

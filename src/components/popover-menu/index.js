@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createElement, Component } from 'preact';
-import classNames from 'classnames';
+import classNames from 'classcat';
 import { size, map } from 'lodash';
 
 /**
@@ -93,9 +93,9 @@ export default class PopoverMenu extends Component {
 				<ul className="popover-menu__list">
 					{ map( items, ( child, i ) => {
 						const isSelected = ( selectedIndex === i );
-						const itemClasses = classNames( 'popover-menu__list-item', {
+						const itemClasses = classNames( [ 'popover-menu__list-item', {
 							'is-selected': isSelected,
-						} );
+						} ] );
 
 						return (
 							<li key={ i } className={ itemClasses }>

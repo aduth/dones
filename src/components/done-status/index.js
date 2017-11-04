@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createElement } from 'preact';
-import classNames from 'classnames';
+import classNames from 'classcat';
 
 /**
  * Internal dependencies
@@ -15,10 +15,10 @@ import { translate } from 'lib/i18n';
 export default function DoneStatus() {
 	const { done, onToggle, disabled } = this.props;
 	const isToggleable = onToggle && ! disabled;
-	const classes = classNames( 'done-status', {
+	const classes = classNames( [ 'done-status', {
 		'is-done': done,
 		'is-toggleable': isToggleable,
-	} );
+	} ] );
 
 	const text = done
 		? translate( 'Done' )

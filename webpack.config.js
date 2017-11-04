@@ -15,7 +15,7 @@ const config = module.exports = {
 		],
 		vendor: [
 			'autosize',
-			'classnames',
+			'classcat',
 			'fast-stable-stringify',
 			'flatpickr',
 			'memize',

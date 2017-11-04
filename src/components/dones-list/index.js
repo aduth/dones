@@ -3,7 +3,7 @@
  */
 import { createElement, Component } from 'preact';
 import { connect } from 'preact-redux';
-import classNames from 'classnames';
+import classNames from 'classcat';
 import { map, sortBy, get } from 'lodash';
 
 /**
@@ -105,9 +105,9 @@ class DonesList extends Component {
 	render() {
 		const { dones, hasReceived } = this.props;
 		const { editing, editOffset } = this.state;
-		const classes = classNames( 'dones-list', {
+		const classes = classNames( [ 'dones-list', {
 			'is-editable': this.isEditable(),
-		} );
+		} ] );
 
 		const items = map( sortBy( dones, 'id' ), ( { id, text, done } ) => {
 			const isEditing = ( id === editing );

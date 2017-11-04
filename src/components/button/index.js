@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createElement } from 'preact';
-import classNames from 'classnames';
+import classNames from 'classcat';
 import { omit, reduce } from 'lodash';
 
 /**
@@ -27,14 +27,18 @@ export default function Button( props ) {
 		preload: isLink ? preload : null,
 		onMouseDown: toggleOutlineActive( false ),
 		onBlur: toggleOutlineActive( true ),
-		className: classNames( 'button', className, reduce( [
-			'primary',
-			'unstyled',
-			'dangerous',
-		], ( memo, modifier ) => {
-			memo[ `is-${ modifier }` ] = props[ modifier ];
-			return memo;
-		}, {} ) ),
+		className: classNames( [
+			'button',
+			className,
+			reduce( [
+				'primary',
+				'unstyled',
+				'dangerous',
+			], ( memo, modifier ) => {
+				memo[ `is-${ modifier }` ] = props[ modifier ];
+				return memo;
+			}, {} ),
+		] ),
 	}, children );
 }
 

@@ -67,7 +67,7 @@
   },
   "dependencies": {
     "autosize": "4.0.0",
-    "classnames": "2.2.5",
+    "classcat": "1.0.1",
     "date-fns": "1.28.5",
     "fast-stable-stringify": "1.0.0",
     "flatpickr": "3.0.7",

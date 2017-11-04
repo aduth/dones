@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createElement } from 'preact';
-import classNames from 'classnames';
+import classNames from 'classcat';
 
 /**
  * Internal dependencies
@@ -11,9 +11,9 @@ import Link from 'components/link';
 import Icon from 'components/icon';
 
 export default function SidebarAction( { icon, to, selected, children } ) {
-	const classes = classNames( 'sidebar__action', {
+	const classes = classNames( [ 'sidebar__action', {
 		'is-selected': selected,
-	} );
+	} ] );
 
 	return (
 		<Link to={ to } className={ classes } preload>
