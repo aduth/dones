@@ -3,7 +3,6 @@
  */
 import { createElement } from 'preact';
 import { connect } from 'preact-redux';
-import classnames from 'classnames';
 import { isEmpty, map } from 'lodash';
 
 /**
@@ -21,7 +20,7 @@ function Notices( { notices } ) {
 			{ map( notices, ( { id, status, text } ) => (
 				<li
 					key={ id }
-					className={ classnames( 'notices__notice', 'is-' + status ) }>
+					className={ 'notices__notice is-' + status }>
 					{ text }
 				</li>
 			) ) }

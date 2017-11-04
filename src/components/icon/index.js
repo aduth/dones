@@ -4,7 +4,6 @@
  * External dependencies
  */
 import { createElement } from 'preact';
-import classNames from 'classnames';
 
 export default function Icon( { icon, size } ) {
 	let IconVariant;
@@ -57,15 +56,13 @@ export default function Icon( { icon, size } ) {
 			return null;
 	}
 
-	const classes = classNames( 'icon', `is-icon-${ icon }` );
-
 	return (
 		<svg
 			width={ size }
 			height={ size }
 			viewBox="0 0 1792 1792"
 			xmlns="http://www.w3.org/2000/svg"
-			className={ classes }>
+			className={ 'icon is-icon-' + icon }>
 			{ IconVariant }
 		</svg>
 	);
