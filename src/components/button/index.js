@@ -17,6 +17,10 @@ const STYLE_MODIFIERS = [
 ];
 
 export default class Button extends Component {
+	static defaultProps = {
+		type: 'button',
+	};
+
 	toggleOutlineActive( isActive ) {
 		return ( { currentTarget } ) => {
 			currentTarget.style.outline = isActive ? '' : '0';
