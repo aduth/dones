@@ -61,6 +61,17 @@ const config = module.exports = {
 };
 
 if ( 'production' === NODE_ENV ) {
+	config.module.rules.unshift( {
+		test: /\/action-types\.js$/,
+		use: {
+			loader: 'babel-loader',
+			options: {
+				plugins: [ 'minify-export-mirror' ],
+			},
+		},
+		include: __dirname + '/src/state',
+	} );
+
 	config.module.rules.push( {
 		test: /\.s?css$/,
 		use: ExtractTextPlugin.extract( {
