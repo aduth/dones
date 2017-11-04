@@ -3,7 +3,7 @@
  */
 import { createElement } from 'preact';
 import { connect } from 'preact-redux';
-import { defaultTo, toNumber } from 'lodash';
+import { defaultTo } from 'lodash';
 
 /**
  * Internal dependencies
@@ -34,11 +34,11 @@ TagRoute.prepareRoute = ( { params } ) => [
 	requestUsers(),
 	requestDones( {
 		tag: params.tag,
-		page: params.page || 1,
+		page: Number( params.page ) || 1,
 	} ),
 ];
 
 export default connect( ( state ) => ( {
 	tag: getRouteParam( state, 'tag' ),
-	page: toNumber( defaultTo( getRouteParam( state, 'page' ), 1 ) ),
+	page: Number( defaultTo( getRouteParam( state, 'page' ), 1 ) ),
 } ) )( TagRoute );
