@@ -38,6 +38,7 @@
     "babel-plugin-transform-react-display-name": "6.25.0",
     "babel-plugin-transform-react-jsx": "6.24.1",
     "babel-plugin-transform-runtime": "6.23.0",
+    "babel-plugin-unassert": "2.1.2",
     "babel-preset-env": "1.6.0",
     "babel-preset-stage-2": "6.24.1",
     "babel-register": "6.26.0",
@@ -73,7 +74,6 @@
     "flatpickr": "3.0.7",
     "lodash": "4.17.4",
     "memize": "1.0.4",
-    "path-to-regexp": "2.0.0",
     "preact": "8.2.5",
     "preact-redux": "2.0.3",
     "querystringify": "1.0.0",
@@ -81,6 +81,7 @@
     "redux-multi": "0.1.12",
     "refx": "2.1.0",
     "rememo": "2.3.3",
-    "textarea-caret": "3.0.2"
+    "textarea-caret": "3.0.2",
+    "wayfarer": "6.6.2"
   }
 }

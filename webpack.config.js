@@ -19,11 +19,11 @@ const config = module.exports = {
 			'fast-stable-stringify',
 			'flatpickr',
 			'memize',
-			'path-to-regexp',
 			'preact',
 			'preact-redux',
 			'refx',
 			'textarea-caret',
+			'wayfarer',
 		],
 	},
 	output: {
@@ -70,6 +70,19 @@ if ( 'production' === NODE_ENV ) {
 			},
 		},
 		include: __dirname + '/src/state',
+	} );
+
+	// The Wayfarer module uses `assert` to validate incoming arguments. This
+	// is a non-trivial dependency, and not desirable for production.
+	config.module.rules.unshift( {
+		test: /\.js$/,
+		use: {
+			loader: 'babel-loader',
+			options: {
+				plugins: [ 'unassert' ],
+			},
+		},
+		include: __dirname + '/node_modules/wayfarer',
 	} );
 
 	config.module.rules.push( {

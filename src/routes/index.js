@@ -1,8 +1,7 @@
 /**
  * External dependencies
  */
-import pathToRegexp from 'path-to-regexp';
-import { map } from 'lodash';
+import wayfarer from 'wayfarer';
 import { parse } from 'querystringify';
 import memoize from 'memize';
 
@@ -15,45 +14,23 @@ import TagsRoute from './tags';
 import TagRoute from './tag';
 import NotFoundRoute from './not-found';
 
-export const routes = map( [
-	[ '/', HomeRoute ],
-	[ '/date/:date/', DateRoute ],
-	[ '/tags/:tag/page/:page', TagRoute ],
-	[ '/tags/:tag', TagRoute ],
-	[ '/tags/', TagsRoute ],
-	[ '*', NotFoundRoute ],
-], ( [ path, Route ] ) => {
-	const keys = [];
+const withParams = ( Route ) => ( params ) => [ params, Route ];
 
-	return {
-		path,
-		keys,
-		Route,
-		regexp: pathToRegexp( path, keys ),
-	};
-} );
+const router = wayfarer();
+router.on( '/', withParams( HomeRoute ) );
+router.on( '/date/:date', withParams( DateRoute ) );
+router.on( '/tags/:tag/page/:page', withParams( TagRoute ) );
+router.on( '/tags/:tag', withParams( TagRoute ) );
+router.on( '/tags', withParams( TagsRoute ) );
+router.on( '*', withParams( NotFoundRoute ) );
 
 export const getRouteByPath = memoize( ( path ) => {
 	const [ pathname, search = '' ] = path.split( '?' );
+	const [ params, Route ] = router( pathname.replace( /\/$/, '' ) );
 
-	for ( let r = 0, rl = routes.length; r < rl; r++ ) {
-		const { regexp, keys, Route } = routes[ r ];
-		const match = pathname.match( regexp );
-		if ( ! match ) {
-			continue;
-		}
-
-		const params = {};
-		for ( let m = 1, ml = match.length; m < ml; m++ ) {
-			params[ keys[ m - 1 ].name ] = decodeURIComponent( match[ m ] );
-		}
-
-		return {
-			params,
-			Route,
-			query: parse( search ),
-		};
-	}
-
-	return {};
+	return {
+		params,
+		Route,
+		query: parse( search ),
+	};
 } );
