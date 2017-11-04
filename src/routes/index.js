@@ -2,7 +2,6 @@
  * External dependencies
  */
 import wayfarer from 'wayfarer';
-import { parse } from 'querystringify';
 import memoize from 'memize';
 
 /**
@@ -14,7 +13,7 @@ import TagsRoute from './tags';
 import TagRoute from './tag';
 import NotFoundRoute from './not-found';
 
-const withParams = ( Route ) => ( params ) => [ params, Route ];
+const withParams = ( Route ) => ( params ) => ( { params, Route } );
 
 const router = wayfarer();
 router.on( '/', withParams( HomeRoute ) );
@@ -25,12 +24,8 @@ router.on( '/tags', withParams( TagsRoute ) );
 router.on( '*', withParams( NotFoundRoute ) );
 
 export const getRouteByPath = memoize( ( path ) => {
-	const [ pathname, search = '' ] = path.split( '?' );
-	const [ params, Route ] = router( pathname.replace( /\/$/, '' ) );
+	// Strip query parameters, hash, trailing slash
+	path = path.replace( /\/?[\?|#].*$/g, '' );
 
-	return {
-		params,
-		Route,
-		query: parse( search ),
-	};
+	return router( path.replace( /\/$/, '' ) );
 } );
