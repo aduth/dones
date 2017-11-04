@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { createElement } from 'preact';
+import { Component, createElement } from 'preact';
 import classNames from 'classcat';
 import { omit, reduce } from 'lodash';
 
@@ -10,38 +10,42 @@ import { omit, reduce } from 'lodash';
  */
 import Link from 'components/link';
 
-function toggleOutlineActive( active ) {
-	return ( { currentTarget } ) => {
-		currentTarget.style.outline = active ? '' : '0';
-	};
+const STYLE_MODIFIERS = [
+	'primary',
+	'unstyled',
+	'dangerous',
+];
+
+export default class Button extends Component {
+	toggleOutlineActive( isActive ) {
+		return ( { currentTarget } ) => {
+			currentTarget.style.outline = isActive ? '' : '0';
+		};
+	}
+
+	onMouseDown = this.toggleOutlineActive( false )
+
+	onBlur = this.toggleOutlineActive( true )
+
+	render() {
+		const { type, to, preload, disabled, className, children } = this.props;
+		const isLink = to && ! disabled;
+
+		return createElement( isLink ? Link : 'button', {
+			...omit( this.props, STYLE_MODIFIERS ),
+			to: isLink ? to : null,
+			type: isLink ? null : type,
+			preload: isLink ? preload : null,
+			onMouseDown: this.onMouseDown,
+			onBlur: this.onBlur,
+			className: classNames( [
+				'button',
+				className,
+				reduce( STYLE_MODIFIERS, ( memo, modifier ) => {
+					memo[ `is-${ modifier }` ] = this.props[ modifier ];
+					return memo;
+				}, {} ),
+			] ),
+		}, children );
+	}
 }
-
-export default function Button( props ) {
-	const { type, to, preload, disabled, className, children } = props;
-	const isLink = to && ! disabled;
-
-	return createElement( isLink ? Link : 'button', {
-		...omit( props, 'primary', 'unstyled' ),
-		to: isLink ? to : null,
-		type: isLink ? null : type,
-		preload: isLink ? preload : null,
-		onMouseDown: toggleOutlineActive( false ),
-		onBlur: toggleOutlineActive( true ),
-		className: classNames( [
-			'button',
-			className,
-			reduce( [
-				'primary',
-				'unstyled',
-				'dangerous',
-			], ( memo, modifier ) => {
-				memo[ `is-${ modifier }` ] = props[ modifier ];
-				return memo;
-			}, {} ),
-		] ),
-	}, children );
-}
-
-Button.defaultProps = {
-	type: 'button',
-};
