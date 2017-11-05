@@ -1,3 +1,9 @@
+#### 1.1.1 (2017-11-04)
+
+- Improved: Deleting dones is now more accessible for keyboard users
+- Improved: More performance enhancements (smaller bundle size)
+- Fix: Tag pages no longer erroneously show placeholder
+
 #### 1.1.0 (2017-08-04)
 
 - New: An "About Dones" information screen is shown after activating the theme
