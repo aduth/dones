@@ -24,7 +24,7 @@
 		@include loading-pulse-text;
 	}
 
-	&:hover .done-text::after {
+	.dones-list.is-editable &:hover .done-text::after {
 		content: '';
 		position: absolute;
 		top: 100%;
