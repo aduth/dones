@@ -43,6 +43,6 @@ export default connect( ( state ) => {
 
 	return {
 		date,
-		users: getSortedUsersByDate( state ),
+		users: getSortedUsersByDate( state, date ),
 	};
 } )( DateRoute );
