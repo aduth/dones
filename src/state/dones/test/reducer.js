@@ -114,7 +114,7 @@ describe( 'reducer', () => {
 					text: 'next',
 					date: '2017-01-01 00:00:00',
 					done: true,
-					user: NaN, /* USER_ID */
+					user: 1,
 				},
 			} );
 		} );

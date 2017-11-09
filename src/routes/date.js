@@ -3,7 +3,7 @@
  */
 import { createElement } from 'preact';
 import { connect } from 'preact-redux';
-import { sortBy, map, compact } from 'lodash';
+import { map, compact } from 'lodash';
 
 /**
  * Internal dependencies
@@ -16,19 +16,13 @@ import { requestTags } from 'state/tags/actions';
 import Page from 'components/page';
 import DateNavigation from 'components/date-navigation';
 import UserDones from 'components/user-dones';
-import { getUsers, getRouteParam } from 'state/selectors';
+import { getSortedUsersByDate, getRouteParam } from 'state/selectors';
 
 function DateRoute( { date, users } ) {
-	// Sort users by current user first, then alphabetically by name
-	const sortedUsers = sortBy( users, [
-		( { id } ) => id === USER_ID ? 0 : 1,
-		'name',
-	] );
-
 	return (
 		<Page title={ formatSiteDate( date ) }>
 			<DateNavigation date={ date } />
-			{ map( sortedUsers, ( user ) => (
+			{ map( users, ( user ) => (
 				<UserDones
 					key={ user.id }
 					date={ date }
@@ -44,7 +38,11 @@ DateRoute.prepareRoute = ( { params } ) => compact( [
 	USER_ID && requestTags(),
 ] );
 
-export default connect( ( state ) => ( {
-	users: getUsers( state ),
-	date: getRouteParam( state, 'date' ),
-} ) )( DateRoute );
+export default connect( ( state ) => {
+	const date = getRouteParam( state, 'date' );
+
+	return {
+		date,
+		users: getSortedUsersByDate( state ),
+	};
+} )( DateRoute );
