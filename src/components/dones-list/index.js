@@ -105,8 +105,9 @@ class DonesList extends Component {
 	render() {
 		const { dones, hasReceived } = this.props;
 		const { editing, editOffset } = this.state;
+		const isEditable = this.isEditable();
 		const classes = classNames( [ 'dones-list', {
-			'is-editable': this.isEditable(),
+			'is-editable': isEditable,
 		} ] );
 
 		const items = map( sortBy( dones, 'id' ), ( { id, text, done } ) => {
@@ -124,13 +125,18 @@ class DonesList extends Component {
 						onSubmit={ this.stopEditing } />
 				);
 			} else {
+				let onFocus;
+				if ( isEditable ) {
+					onFocus = () => this.editIfNonePending( id );
+				}
+
 				children = [
 					<DoneStatus
 						done={ done }
 						disabled={ ! this.isEditable() }
 						onToggle={ () => this.props.updateDone( id, text, ! done ) } />,
 					<DoneText
-						onFocus={ () => this.editIfNonePending( id ) }
+						onFocus={ onFocus }
 						onMouseDown={ () => this.startTrackingSelection( id ) }>
 						{ text }
 					</DoneText>,
