@@ -4,7 +4,7 @@
 import { createElement, Component } from 'preact';
 import { connect } from 'preact-redux';
 import classNames from 'classcat';
-import { map, sortBy, get } from 'lodash';
+import { map, sortBy } from 'lodash';
 
 /**
  * Internal dependencies
