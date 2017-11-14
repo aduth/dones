@@ -24,21 +24,24 @@ class DonesList extends Component {
 
 	stopEditing = () => this.setState( { editing: null } );
 
-	startTrackingSelection = ( id ) => {
+	startTrackingSelection = ( event, id ) => {
 		if ( ! this.isEditable() ) {
 			return;
 		}
 
 		this.pendingEdit = id;
-		document.addEventListener( 'mouseup', this.stopTrackingSelection, true );
+
+		// Continue traking selection on DoneText until mouse released
+		event.currentTarget.addEventListener( 'mouseup', this.stopTrackingSelection, true );
 	};
 
 	stopTrackingSelection = ( event ) => {
+		event.currentTarget.removeEventListener( 'mouseup', this.stopTrackingSelection, true );
+
 		if ( ! this.isEditable() ) {
 			return;
 		}
 
-		document.removeEventListener( 'mouseup', this.stopTrackingSelection, true );
 		const editing = this.pendingEdit;
 		delete this.pendingEdit;
 
@@ -46,41 +49,22 @@ class DonesList extends Component {
 			return;
 		}
 
-		const { baseNode, baseOffset, extentNode, extentOffset } = document.getSelection();
-
-		let start = 0, length;
-		for ( const child of event.target.childNodes ) {
-			if ( child === baseNode ) {
-				start += baseOffset;
-				length = 0;
-			}
-
-			// Text may be modified when displayed in list, with raw text
-			// defined as attribute for calculating offset in edit
-			const { attributes, textContent } = child;
-			const rawText = get( attributes, 'data-raw-text.value', textContent );
-
-			if ( child === extentNode ) {
-				length += extentOffset;
-			} else if ( undefined !== length ) {
-				length += rawText.length;
-			}
-
-			if ( length && child === baseNode ) {
-				length -= baseOffset;
-			}
-
-			if ( undefined !== length ) {
-				break;
-			}
-
-			start += rawText.length;
+		const selection = window.getSelection();
+		if ( selection.rangeCount === 0 ) {
+			return;
 		}
 
-		this.editDone( editing, [
-			start,
-			start + ( length || 0 ),
-		] );
+		// Find selection offset within DoneText
+		// See: https://stackoverflow.com/a/4812022/995445
+		const range = window.getSelection().getRangeAt( 0 );
+		const rangeBeforeCaret = range.cloneRange();
+		rangeBeforeCaret.selectNodeContents( event.currentTarget );
+		rangeBeforeCaret.setEnd( range.startContainer, range.startOffset );
+		const start = rangeBeforeCaret.toString().length;
+		rangeBeforeCaret.setEnd( range.endContainer, range.endOffset );
+		const end = rangeBeforeCaret.toString().length;
+
+		this.editDone( editing, [ start, end ] );
 	};
 
 	editIfNonePending = ( id ) => {
@@ -137,7 +121,7 @@ class DonesList extends Component {
 						onToggle={ () => this.props.updateDone( id, text, ! done ) } />,
 					<DoneText
 						onFocus={ onFocus }
-						onMouseDown={ () => this.startTrackingSelection( id ) }>
+						onMouseDown={ () => this.startTrackingSelection( event, id ) }>
 						{ text }
 					</DoneText>,
 				];
