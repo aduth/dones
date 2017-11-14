@@ -30,12 +30,8 @@ class DoneInput extends Component {
 		this.state = {
 			done: props.initialDone,
 			text: props.initialText,
+			selectionOffset: props.initialSelectionOffset,
 		};
-	}
-
-	componentDidUpdate() {
-		// Clear temporary suggestion offset after assigned
-		delete this._suggestionOffset;
 	}
 
 	isEditing() {
@@ -95,7 +91,6 @@ class DoneInput extends Component {
 		// Changing text state will move cursor to end of input, so assign
 		// temporary instance variable to force offset to be preserved
 		const offsetIndex = index - tagFragment.length + suggestion.length + 1;
-		this._suggestionOffset = [ offsetIndex, offsetIndex ];
 
 		this.setState( {
 			text: [
@@ -105,6 +100,7 @@ class DoneInput extends Component {
 				text.substr( index ).replace( /^ /, '' ),
 			].join( ' ' ),
 			tagFragment: null,
+			selectionOffset: [ offsetIndex, offsetIndex ],
 		} );
 	};
 
@@ -159,8 +155,8 @@ class DoneInput extends Component {
 	}
 
 	render() {
-		const { className, onCancel, selectionOffset, tags } = this.props;
-		const { text, tagFragment } = this.state;
+		const { className, onCancel, tags } = this.props;
+		const { text, tagFragment, selectionOffset } = this.state;
 		const isEditing = this.isEditing();
 
 		const classes = classNames( [ 'done-input', className, {
@@ -219,7 +215,7 @@ class DoneInput extends Component {
 					onInput={ this.setText }
 					onKeyDown={ this.maybeSubmit }
 					onSuggestionSelected={ this.insertSuggestion }
-					selectionOffset={ this._suggestionOffset || selectionOffset }
+					selectionOffset={ selectionOffset }
 					suggestions={ suggestions }
 					autoFocus />
 				<div className="done-input__actions">

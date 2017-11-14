@@ -119,7 +119,7 @@ class DonesList extends Component {
 					<DoneInput
 						initialText={ text }
 						initialDone={ done }
-						selectionOffset={ editOffset }
+						initialSelectionOffset={ editOffset }
 						id={ id }
 						onCancel={ this.stopEditing }
 						onSubmit={ this.stopEditing } />
