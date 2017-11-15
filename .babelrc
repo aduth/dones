@@ -35,9 +35,10 @@
 					"modules": false,
 					"targets": {
 						"browsers": [
-							"last 2 Chrome versions",
-							"last 2 Firefox versions",
-							"last 2 Edge versions"
+							"Chrome >= 61",
+							"Safari >= 11",
+							"iOS >= 11",
+							"Edge >= 16"
 						]
 					}
 				} ],

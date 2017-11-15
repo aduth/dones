@@ -74,8 +74,10 @@ function dones_scripts() {
 	}
 
 	// Application script.
-	wp_register_script( 'dones-vendor', dones_get_script_url( 'vendor' ), array(), dones_get_version(), true );
-	wp_enqueue_script( 'dones-app', dones_get_script_url( 'app' ), array( 'dones-vendor' ), dones_get_version(), true );
+	wp_register_script( 'dones-vendor', get_theme_file_uri( '/dist/vendor.js' ), array(), dones_get_version(), true );
+	wp_enqueue_script( 'dones-app', get_theme_file_uri( '/dist/app.js' ), array( 'dones-vendor' ), dones_get_version(), true );
+	wp_register_script( 'dones-legacy-vendor', get_theme_file_uri( '/dist/vendor-legacy.js' ), array(), dones_get_version(), true );
+	wp_enqueue_script( 'dones-legacy-app', get_theme_file_uri( '/dist/app-legacy.js' ), array( 'dones-legacy-vendor' ), dones_get_version(), true );
 	wp_localize_script( 'dones-app', 'dones', array(
 		'siteName'   => get_bloginfo( 'name' ),
 		'siteUrl'    => site_url(),
@@ -152,18 +154,32 @@ function dones_get_script_polyfill( $tests ) {
 }
 
 /**
- * Returns the appropriate script distributable for the requesting browser.
+ * Overrides the script loader tag to set "type='module'" or add a "nomodule"
+ * attribute to serve scripts by browser support of ES modules.
+ *
+ * @see WP_Scripts::do_item
+ * @see https://philipwalton.com/articles/deploying-es2015-code-in-production-today/
+ * @see https://caniuse.com/#feat=es6-module
  *
  * @param  string $basename Base name of script
  * @return string           URL of script variant
  */
-function dones_get_script_url( $basename ) {
-	$user_agent = $_SERVER['HTTP_USER_AGENT'];
-	$is_legacy = ! preg_match( '!(Firefox|Chrome|Chromium|Edge)/!', $user_agent );
-	$suffix = $is_legacy ? '-legacy' : '';
+function dones_set_script_module_attribute( $tag, $handle, $src ) {
+	// Override only Dones script handles
+	if ( 0 !== strpos( $handle, 'dones-' ) ) {
+		return $tag;
+	}
 
-	return get_theme_file_uri( sprintf( '/dist/%s%s.js', $basename, $suffix ) );
+	// Add "nomodule" attribute for legacy scripts
+	$is_legacy = 0 === strpos( $handle, 'dones-legacy-' );
+	if ( $is_legacy ) {
+		return str_replace( ' src', ' nomodule src', $tag );
+	}
+
+	// Set type to "module" for non-legacy scripts
+	return str_replace( 'type=\'text/javascript\' src', 'type=\'module\' src', $tag );
 }
+add_filter( 'script_loader_tag', 'dones_set_script_module_attribute', 10, 3 );
 
 /**
  * Append result of internal request to REST API for purpose of preloading
