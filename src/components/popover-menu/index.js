@@ -25,6 +25,17 @@ export default class PopoverMenu extends Component {
 		this.toggleEventListeners( this.isVisible() );
 	}
 
+	componentWillReceiveProps( nextProps ) {
+		const nextItemsSize = size( nextProps.items );
+		const { selectedIndex } = this.state;
+
+		// Set selected index to last item when items set shrinks within
+		if ( selectedIndex >= nextItemsSize ) {
+			const nextSelectedIndex = Math.max( nextItemsSize - 1, 0 );
+			this.setState( { selectedIndex: nextSelectedIndex } );
+		}
+	}
+
 	componentDidUpdate() {
 		this.toggleEventListeners( this.isVisible() );
 	}
