@@ -335,8 +335,7 @@ function dones_add_rewrite_rules() {
 	add_rewrite_rule( '^tags(/([\w-]+)(/page/(\d+))?)?/?$', 'index.php?dones_tag=$matches[2]&paged=$matches[4]', 'top' );
 
 	if ( 'after_switch_theme' === current_filter() ) {
-		global $wp_rewrite;
-		$wp_rewrite->flush_rules();
+		flush_rewrite_rules();
 	}
 }
 add_action( 'init', 'dones_add_rewrite_rules' );
