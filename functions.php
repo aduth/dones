@@ -161,10 +161,12 @@ function dones_get_script_polyfill( $tests ) {
  * @see https://philipwalton.com/articles/deploying-es2015-code-in-production-today/
  * @see https://caniuse.com/#feat=es6-module
  *
- * @param  string $basename Base name of script
- * @return string           URL of script variant
+ * @param  string $tag    The `<script>` tag for the enqueued script
+ * @param  string $handle The script's registered handle
+ * @param  string $src    The script's source URL
+ * @return string         Filtered HTML script tag for the enqueued script
  */
-function dones_set_script_module_attribute( $tag, $handle, $src ) {
+function dones_set_script_module_attribute( $tag, $handle ) {
 	// Override only Dones script handles
 	if ( 0 !== strpos( $handle, 'dones-' ) ) {
 		return $tag;
