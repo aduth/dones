@@ -48,7 +48,7 @@ function dones_flush_tags_cache_on_set_object_terms( $object_id, $terms, $tt_ids
 		delete_transient( 'dones_tags' );
 	}
 }
-add_action( 'set_object_terms', 'dones_flush_tags_cache', 10, 4 );
+add_action( 'set_object_terms', 'dones_flush_tags_cache_on_set_object_terms', 10, 4 );
 
 /**
  * Clears cache for dones tags when deactivating the theme.
