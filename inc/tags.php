@@ -11,7 +11,7 @@
  * @return string[] 250 most recently used tag names.
  */
 function dones_get_tags() {
-	$tags = wp_cache_get( 'dones_tags' );
+	$tags = get_transient( 'dones_tags' );
 	if ( false === $tags ) {
 		global $wpdb;
 		$tags = $wpdb->get_col( "
@@ -29,7 +29,7 @@ function dones_get_tags() {
 			LIMIT 250
 		" );
 
-		wp_cache_set( 'dones_tags', $tags );
+		set_transient( 'dones_tags', $tags );
 	}
 
 	return $tags;
@@ -45,7 +45,7 @@ function dones_get_tags() {
  */
 function dones_flush_tags_cache( $object_id, $terms, $tt_ids, $taxonomy ) {
 	if ( 'done-tag' === $taxonomy ) {
-		wp_cache_delete( 'dones_tags' );
+		delete_transient( 'dones_tags' );
 	}
 }
 add_action( 'set_object_terms', 'dones_flush_tags_cache', 10, 4 );
