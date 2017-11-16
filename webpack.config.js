@@ -6,7 +6,7 @@ const webpack = require( 'webpack' );
 const ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
 const UglifyJsPlugin = require( 'uglifyjs-webpack-plugin' );
 
-const { BUILD_TARGET, NODE_ENV } = process.env;
+const { BUILD_TARGET, NODE_ENV, DISABLE_NETWORK } = process.env;
 
 const config = module.exports = {
 	entry: {
@@ -49,6 +49,7 @@ const config = module.exports = {
 	plugins: [
 		new webpack.DefinePlugin( {
 			'process.env.NODE_ENV': JSON.stringify( NODE_ENV ),
+			'process.env.DISABLE_NETWORK': JSON.stringify( DISABLE_NETWORK ),
 		} ),
 		new webpack.optimize.CommonsChunkPlugin( {
 			name: 'vendor',
