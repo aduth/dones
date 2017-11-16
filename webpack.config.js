@@ -79,6 +79,7 @@ if ( 'production' === NODE_ENV ) {
 		use: {
 			loader: 'babel-loader',
 			options: {
+				babelrc: false,
 				plugins: [ 'unassert' ],
 			},
 		},
