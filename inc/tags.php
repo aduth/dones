@@ -43,9 +43,17 @@ function dones_get_tags() {
  * @param array  $tt_ids     An array of term taxonomy IDs.
  * @param string $taxonomy   Taxonomy slug.
  */
-function dones_flush_tags_cache( $object_id, $terms, $tt_ids, $taxonomy ) {
+function dones_flush_tags_cache_on_set_object_terms( $object_id, $terms, $tt_ids, $taxonomy ) {
 	if ( 'done-tag' === $taxonomy ) {
 		delete_transient( 'dones_tags' );
 	}
 }
 add_action( 'set_object_terms', 'dones_flush_tags_cache', 10, 4 );
+
+/**
+ * Clears cache for dones tags when deactivating the theme.
+ */
+function dones_flush_tags_cache_on_switch_theme() {
+	delete_transient( 'dones_tags' );
+}
+add_action( 'switch_theme', 'dones_flush_tags_cache_on_switch_theme' );
