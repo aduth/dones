@@ -1,6 +1,8 @@
 <?php
 /**
  * REST API: WP_REST_Dones_Tags_Controller class
+ *
+ * @package dones
  */
 
 /**
@@ -15,18 +17,18 @@ class WP_REST_Dones_Tags_Controller extends WP_REST_Controller {
 	public function register_routes() {
 		register_rest_route( 'dones/v1', '/tags', array(
 			array(
-				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => array( $this, 'get_items' )
+				'methods'  => WP_REST_Server::READABLE,
+				'callback' => array( $this, 'get_items' ),
 			),
-			'schema' => array( $this, 'get_public_item_schema' )
+			'schema' => array( $this, 'get_public_item_schema' ),
 		) );
 	}
 
 	/**
 	 * Retrieves a collection of done tags.
 	 *
-	 * @param  WP_REST_Request           $request Request details
-	 * @return WP_REST_Response|WP_Error          Response or WP_Error
+	 * @param WP_REST_Request $request   Request details.
+	 * @return WP_REST_Response|WP_Error Response or WP_Error.
 	 */
 	public function get_items( $request ) {
 		return dones_get_tags();
@@ -43,8 +45,8 @@ class WP_REST_Dones_Tags_Controller extends WP_REST_Controller {
 			'title'   => 'done',
 			'type'    => 'array',
 			'items'   => array(
-				'type' => 'string'
-			)
+				'type' => 'string',
+			),
 		);
 	}
 }

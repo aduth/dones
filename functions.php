@@ -1,4 +1,13 @@
 <?php
+/**
+ * Dones functions and definitions.
+ *
+ * @package dones
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'Silence is golden.' );
+}
 
 require( dirname( __FILE__ ) . '/inc/tags.php' );
 require( dirname( __FILE__ ) . '/inc/updater.php' );
@@ -20,7 +29,7 @@ function dones_setup() {
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'custom-logo', array(
 		'width'  => 120,
-		'height' => 120
+		'height' => 120,
 	) );
 }
 add_action( 'after_setup_theme', 'dones_setup' );
@@ -38,7 +47,7 @@ add_action( 'admin_menu', 'dones_remove_unsupported_types_menu_items' );
 /**
  * Bypass default document title, deferred to be handled on client.
  *
- * @return string Title override (site name)
+ * @return string Title override (site name).
  */
 function dones_custom_document_title() {
 	return get_bloginfo( 'name', 'display' );
@@ -91,7 +100,7 @@ function dones_scripts() {
 		'loginUrl'   => wp_login_url( home_url() ),
 		'logoutUrl'  => wp_logout_url( home_url() ),
 		'preload'    => array_reduce( apply_filters( 'dones_preload', array(
-			'/dones/v1/users'
+			'/dones/v1/users',
 		) ), 'dones_preload_request', array() ),
 		'i18n'       => array(
 			'An error occurred while saving'             => __( 'An error occurred while saving', 'dones' ),
@@ -113,18 +122,19 @@ function dones_scripts() {
 			'Previous'                                   => __( 'Previous', 'dones' ),
 			'Recent Tags'                                => __( 'Recent Tags', 'dones' ),
 			'Submit'                                     => __( 'Submit', 'dones' ),
+			/* translators: Heading for tag detail page */
 			'Tag: %s'                                    => __( 'Tag: %s', 'dones' ),
 			'Tags'                                       => __( 'Tags', 'dones' ),
 			'User avatar'                                => __( 'User avatar', 'dones' ),
 			'What have you been up to?'                  => __( 'What have you been up to?', 'dones' ),
-			'No dones found for this tag'                => __( 'No dones found for this tag', 'dones' )
-		)
+			'No dones found for this tag'                => __( 'No dones found for this tag', 'dones' ),
+		),
 	) );
 
-	// Add conditional feature polyfill for older browsers
+	// Add conditional feature polyfill for older browsers.
 	wp_add_inline_script( 'dones-app', dones_get_script_polyfill( array(
 		'promise' => '\'Promise\' in window',
-		'fetch'   => '\'fetch\' in window'
+		'fetch'   => '\'fetch\' in window',
 	) ), 'before' );
 }
 add_action( 'wp_enqueue_scripts', 'dones_scripts' );
@@ -134,13 +144,13 @@ add_action( 'wp_enqueue_scripts', 'dones_scripts' );
  * browsers which fail one or more of the provided tests. The provided array is
  * a mapping from features to a JavaScript condition to verify feature support.
  *
- * @param  array  $tests Features to detect
- * @return string        Conditional polyfill inline script
+ * @param array $tests Features to detect.
+ * @return string      Conditional polyfill inline script.
  */
 function dones_get_script_polyfill( $tests ) {
-	// Each key in tests is a feature to join in creating the polyfill URL
+	// Each key in tests is a feature to join in creating the polyfill URL.
 	$polyfill_url = add_query_arg( array(
-		'features' => implode( ',', array_keys( $tests ) )
+		'features' => implode( ',', array_keys( $tests ) ),
 	), 'https://cdn.polyfill.io/v2/polyfill.min.js' );
 
 	return (
@@ -161,24 +171,23 @@ function dones_get_script_polyfill( $tests ) {
  * @see https://philipwalton.com/articles/deploying-es2015-code-in-production-today/
  * @see https://caniuse.com/#feat=es6-module
  *
- * @param  string $tag    The `<script>` tag for the enqueued script
- * @param  string $handle The script's registered handle
- * @param  string $src    The script's source URL
- * @return string         Filtered HTML script tag for the enqueued script
+ * @param  string $tag    The `<script>` tag for the enqueued script.
+ * @param  string $handle The script's registered handle.
+ * @return string         Filtered HTML script tag for the enqueued script.
  */
 function dones_set_script_module_attribute( $tag, $handle ) {
-	// Override only Dones script handles
+	// Override only Dones script handles.
 	if ( 0 !== strpos( $handle, 'dones-' ) ) {
 		return $tag;
 	}
 
-	// Add "nomodule" attribute for legacy scripts
+	// Add "nomodule" attribute for legacy scripts.
 	$is_legacy = 0 === strpos( $handle, 'dones-legacy-' );
 	if ( $is_legacy ) {
 		return str_replace( ' src', ' nomodule src', $tag );
 	}
 
-	// Set type to "module" for non-legacy scripts
+	// Set type to "module" for non-legacy scripts.
 	return str_replace( 'type=\'text/javascript\' src', 'type=\'module\' src', $tag );
 }
 add_filter( 'script_loader_tag', 'dones_set_script_module_attribute', 10, 3 );
@@ -188,9 +197,9 @@ add_filter( 'script_loader_tag', 'dones_set_script_module_attribute', 10, 3 );
  * data to be attached to the page. Expected to be called in the context of
  * `array_reduce`.
  *
- * @param  array  $memo Reduce accumulator
- * @param  string $path REST API path to preload
- * @return array        Modified reduce accumulator
+ * @param  array  $memo Reduce accumulator.
+ * @param  string $path REST API path to preload.
+ * @return array        Modified reduce accumulator.
  */
 function dones_preload_request( $memo, $path ) {
 	$path_parts = parse_url( $path );
@@ -205,7 +214,7 @@ function dones_preload_request( $memo, $path ) {
 	if ( 200 === $response->status ) {
 		$memo[ $path ] = array(
 			'body'    => $response->data,
-			'headers' => $response->headers
+			'headers' => $response->headers,
 		);
 	}
 
@@ -216,30 +225,30 @@ function dones_preload_request( $memo, $path ) {
  * Overrides default preload behavior to include additional data on specific
  * page or in the presence of rewrite query arguments.
  *
- * @param  array $paths REST API paths to preload
- * @return array        Filtered API paths to preload
+ * @param  array $paths REST API paths to preload.
+ * @return array        Filtered API paths to preload.
  */
 function dones_page_specific_preload( $paths ) {
 	global $wp_query;
 
-	// Dones
+	// Dones.
 	$date = get_query_var( 'dones_date' );
 	if ( ! empty( $date ) ) {
 		$paths[] = sprintf( '/dones/v1/dones?date=%s', $date );
 	}
 
-	// Single tag
+	// Single tag.
 	$tag = get_query_var( 'dones_tag' );
 	if ( ! empty( $tag ) ) {
 		$page = get_query_var( 'paged' );
-		if ( empty( $page ) ){
+		if ( empty( $page ) ) {
 			$page = 1;
 		}
 
 		$paths[] = sprintf( '/dones/v1/dones?tag=%s&page=%d', $tag, $page );
 	}
 
-	// Tag root or single tag
+	// Tag root or single tag.
 	if ( isset( $wp_query->query_vars['dones_tag'] ) ) {
 		$paths[] = '/dones/v1/tags';
 	}
@@ -250,17 +259,22 @@ add_filter( 'dones_preload', 'dones_page_specific_preload' );
 
 /**
  * Add preconnect for external resources.
+ *
+ * @param array  $urls          URLs to print for resource hints.
+ * @param string $relation_type The relation type the URLs are printed for,
+ *                              e.g. 'preconnect' or 'prerender'.
+ * @return array                URLs to print for resource hints.
  */
 function dones_resource_hints( $urls, $relation_type ) {
 	if ( 'preconnect' === $relation_type ) {
 		$urls[] = array(
 			'href' => 'https://fonts.gstatic.com',
-			'crossorigin'
+			'crossorigin',
 		);
 
 		$urls[] = array(
 			'href' => 'https://cdn.polyfill.io',
-			'crossorigin'
+			'crossorigin',
 		);
 	}
 
@@ -270,13 +284,14 @@ add_filter( 'wp_resource_hints', 'dones_resource_hints', 10, 2 );
 
 /**
  * Add custom fields to the Theme Customizer.
+ *
+ * @param WP_Customize_Manager $wp_customize WP_Customize_Manager instance.
  */
 function dones_customize_register( $wp_customize ) {
-	// Brand color
-
+	// Brand color.
 	$wp_customize->add_setting( 'brand_color', array(
 		'default'           => '#986dda',
-		'sanitize_callback' => 'sanitize_hex_color'
+		'sanitize_callback' => 'sanitize_hex_color',
 	) );
 
 	$wp_customize->add_control( new WP_Customize_Color_Control(
@@ -295,17 +310,17 @@ add_action( 'customize_register', 'dones_customize_register' );
  * Initialize Dones REST API controllers.
  */
 function dones_create_rest_routes() {
-	// Tags
+	// Tags.
 	require_once( dirname( __FILE__ ) . '/inc/endpoints/class-wp-rest-dones-tags-controller.php' );
 	$controller = new WP_REST_Dones_Tags_Controller;
 	$controller->register_routes();
 
-	// Dones
+	// Dones.
 	require_once( dirname( __FILE__ ) . '/inc/endpoints/class-wp-rest-dones-dones-controller.php' );
 	$controller = new WP_REST_Dones_Dones_Controller;
 	$controller->register_routes();
 
-	// Users
+	// Users.
 	require_once( dirname( __FILE__ ) . '/inc/endpoints/class-wp-rest-dones-users-controller.php' );
 	$controller = new WP_REST_Dones_Users_Controller;
 	$controller->register_routes();
@@ -330,13 +345,13 @@ add_action( 'after_switch_theme', 'dones_add_rewrite_rules' );
 /**
  * Add query variables from custom route patterns.
  *
- * @param  array $query_vars Original query variables
- * @return array             Modified query variables
+ * @param  array $query_vars Original query variables.
+ * @return array             Modified query variables.
  */
 function dones_add_custom_query_vars( $query_vars ) {
-    $query_vars[] = 'dones_date';
-    $query_vars[] = 'dones_tag';
-    return $query_vars;
+	$query_vars[] = 'dones_date';
+	$query_vars[] = 'dones_tag';
+	return $query_vars;
 }
 add_filter( 'query_vars', 'dones_add_custom_query_vars' );
 
@@ -358,8 +373,8 @@ add_action( 'template_redirect', 'dones_home_redirect' );
  *
  * @see WP_REST_Users_Controller::get_items
  *
- * @param  array $args Array of arguments for WP_User_Query
- * @return array       Filtered array of arguments for WP_User_Query
+ * @param  array $args Array of arguments for WP_User_Query.
+ * @return array       Filtered array of arguments for WP_User_Query.
  */
 function dones_allow_list_user( $args ) {
 	unset( $args['has_published_posts'] );
@@ -371,9 +386,9 @@ add_filter( 'rest_user_query', 'dones_allow_list_user' );
  * Register custom post types and taxonomies.
  */
 function dones_register_custom_types() {
-	// Done custom post type
+	// Done custom post type.
 	register_post_type( 'done', array(
-		'labels'                 => array(
+		'labels'              => array(
 			'name'               => _x( 'Dones', 'post type general name', 'dones' ),
 			'singular_name'      => _x( 'Done', 'post type singular name', 'dones' ),
 			'menu_name'          => _x( 'Dones', 'admin menu', 'dones' ),
@@ -389,22 +404,22 @@ function dones_register_custom_types() {
 			'not_found'          => __( 'No dones found.', 'dones' ),
 			'not_found_in_trash' => __( 'No dones found in Trash.', 'dones' ),
 		),
-		'description'            => __( 'Tasks completed or to be completed.', 'dones' ),
-		'public'                 => true,
-		'show_ui'                => true,
-		'has_archive'            => false,
-		'show_in_menu'           => true,
-		'menu_icon'              => 'dashicons-list-view',
-		'menu_position'          => 5,
-		'exclude_from_search'    => true,
-		'capability_type'        => 'post',
-		'map_meta_cap'           => true,
-		'rewrite'                => false,
-		'query_var'              => false,
-		'supports'               => array( 'title', 'author' ),
+		'description'         => __( 'Tasks completed or to be completed.', 'dones' ),
+		'public'              => true,
+		'show_ui'             => true,
+		'has_archive'         => false,
+		'show_in_menu'        => true,
+		'menu_icon'           => 'dashicons-list-view',
+		'menu_position'       => 5,
+		'exclude_from_search' => true,
+		'capability_type'     => 'post',
+		'map_meta_cap'        => true,
+		'rewrite'             => false,
+		'query_var'           => false,
+		'supports'            => array( 'title', 'author' ),
 	) );
 
-	// Done tag custom taxonomy
+	// Done tag custom taxonomy.
 	register_taxonomy( 'done-tag', 'done', array(
 		'labels'                => array(
 			'name'              => _x( 'Done Tags', 'taxonomy general name', 'dones' ),
@@ -432,9 +447,9 @@ add_action( 'init', 'dones_register_custom_types' );
 /**
  * Suppresses main query, since we don't use it.
  *
- * @param  string      $request The complete SQL query
- * @param  WP_Query    &$this   The WP_Query instance (passed by reference)
- * @return string|bool $request The complete SQL query, or false if main query
+ * @param  string   $request The complete SQL query.
+ * @param  WP_Query $query   The WP_Query instance (passed by reference).
+ * @return string|bool       The complete SQL query, or false if main query.
  */
 function dones_disable_main_query( $request, $query ) {
 	if ( $query->is_main_query() && ! is_admin() ) {
@@ -446,7 +461,10 @@ function dones_disable_main_query( $request, $query ) {
 add_action( 'posts_request', 'dones_disable_main_query', 10, 2 );
 
 /**
- * Removes the Done Tags column from the manage (admin) list view
+ * Removes the Done Tags column from the manage (admin) list view.
+ *
+ * @param array $columns An array of column names.
+ * @return array         Filtered array of column names.
  */
 function dones_remove_tags_manage_column( $columns ) {
 	unset( $columns['taxonomy-done-tag'] );
@@ -459,12 +477,12 @@ add_filter( 'manage_done_posts_columns', 'dones_remove_tags_manage_column' );
  * Filters the default rewrite rules array, returning only those explicitly
  * supported by the theme.
  *
- * @param  array $rules Original rewrite rules
- * @return array        Revised rewrite rules
+ * @param  array $rules Original rewrite rules.
+ * @return array        Revised rewrite rules.
  */
 function dones_filter_supported_rewrites( $rules ) {
 	$rules_to_keep = array(
-		// Default rules
+		// Default rules.
 		'^wp-json/?$',
 		'^wp-json/(.*)?',
 		'robots\.txt$',
@@ -472,9 +490,9 @@ function dones_filter_supported_rewrites( $rules ) {
 		'(feed|rdf|rss|rss2|atom)/?$',
 		'embed/?$',
 
-		// Dones rules
+		// Dones rules.
 		'^date(/(\d{4}-\d{2}-\d{2}))?/?$',
-		'^tags(/([\w-]+)(/page/(\d+))?)?/?$'
+		'^tags(/([\w-]+)(/page/(\d+))?)?/?$',
 	);
 
 	$filtered_rules = array();
@@ -482,7 +500,7 @@ function dones_filter_supported_rewrites( $rules ) {
 		$filtered_rules[ $key ] = $rules[ $key ];
 	}
 
-    return $filtered_rules;
+	return $filtered_rules;
 }
 add_filter( 'rewrite_rules_array', 'dones_filter_supported_rewrites' );
 
@@ -490,7 +508,10 @@ add_filter( 'rewrite_rules_array', 'dones_filter_supported_rewrites' );
  * Bypass default 404 handling since we know posts data isn't available until
  * preload logic.
  *
- * @return bool Whether to short-circuit default header status handling
+ * @param bool $preempt Whether to short-circuit default header status
+ *                      handling. Default false.
+ * @return bool         Whether to short-circuit default header status
+ *                      handling.
  */
 function dones_avoid_paged_tags_404( $preempt ) {
 	foreach ( array( 'dones_date', 'dones_tag' ) as $var ) {
@@ -508,8 +529,8 @@ add_filter( 'pre_handle_404', 'dones_avoid_paged_tags_404' );
 /**
  * Reassigns tags for done post upon save, generated from title.
  *
- * @param int     $post_id Post ID
- * @param WP_Post $post    Post object
+ * @param int     $post_id Post ID.
+ * @param WP_Post $post    Post object.
  */
 function dones_assign_done_tags( $post_id, $post ) {
 	preg_match_all( '/(^|\s)#(\S+)\b/', $post->post_title, $tag_matches );
@@ -521,8 +542,9 @@ add_action( 'save_post_done', 'dones_assign_done_tags', 10, 2 );
 /**
  * Returns a default icon URL resource if a site icon isn't configured.
  *
- * @param  string $url Site icon URL
- * @return string $url Site icon URL, or default value
+ * @param  string $url  Site icon URL.
+ * @param  int    $size Size of the site icon.
+ * @return string       Site icon URL, or default value.
  */
 function dones_default_site_icon( $url, $size ) {
 	$icon_sizes = array( 32, 180, 192, 270, 512 );

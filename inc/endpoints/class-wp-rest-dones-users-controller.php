@@ -1,6 +1,8 @@
 <?php
 /**
  * REST API: WP_REST_Dones_Users_Controller class
+ *
+ * @package dones
  */
 
 /**
@@ -44,12 +46,12 @@ class WP_REST_Dones_Users_Controller extends WP_REST_Users_Controller {
 	 *
 	 * @access public
 	 *
-	 * @param WP_REST_Request $request Full details about the request.
+	 * @param WP_REST_Request $request   Full details about the request.
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
 	 */
 	public function get_items( $request ) {
-		// Find roles with `edit_posts` capability
-		$roles = wp_roles()->roles;
+		// Find roles with `edit_posts` capability.
+		$roles          = wp_roles()->roles;
 		$editable_roles = array();
 		foreach ( $roles as $role ) {
 			if ( isset( $role['capabilities']['edit_posts'] ) &&
@@ -59,14 +61,14 @@ class WP_REST_Dones_Users_Controller extends WP_REST_Users_Controller {
 		}
 
 		$query = new WP_User_Query( array(
-			'number' => -1,
-			'role__in' => $editable_roles
+			'number'   => -1,
+			'role__in' => $editable_roles,
 		) );
 
 		$users = array();
 
 		foreach ( $query->results as $user ) {
-			$data = $this->prepare_item_for_response( $user, $request );
+			$data    = $this->prepare_item_for_response( $user, $request );
 			$users[] = $this->prepare_response_for_collection( $data );
 		}
 
@@ -81,12 +83,12 @@ class WP_REST_Dones_Users_Controller extends WP_REST_Users_Controller {
 	 * @since 4.7.0
 	 * @access protected
 	 *
-	 * @param array           $object  Data object.
+	 * @param array           $data    Data object.
 	 * @param WP_REST_Request $request Full details about the request.
-	 * @return array Modified data object with additional fields.
+	 * @return array                   Modified data with additional fields.
 	 */
 	public function add_additional_fields_to_object( $data, $request ) {
-		// If avatars assigned, pick only the largest option
+		// If avatars assigned, pick only the largest option.
 		if ( ! empty( $data['avatar_urls'] ) ) {
 			$data['avatar'] = array_pop( $data['avatar_urls'] );
 			unset( $data['avatar_urls'] );
@@ -101,7 +103,7 @@ class WP_REST_Dones_Users_Controller extends WP_REST_Users_Controller {
 	 * @access protected
 	 *
 	 * @param WP_User $user User object.
-	 * @return array Links for the given user.
+	 * @return array        Links for the given user.
 	 */
 	protected function prepare_links( $user ) {
 		return array();
@@ -122,7 +124,7 @@ class WP_REST_Dones_Users_Controller extends WP_REST_Users_Controller {
 			array_flip( array(
 				'id',
 				'name',
-				'avatar_urls'
+				'avatar_urls',
 			) )
 		);
 

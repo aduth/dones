@@ -1,6 +1,8 @@
 <?php
 /**
  * REST API: WP_REST_Dones_Dones_Controller class
+ *
+ * @package dones
  */
 
 /**
@@ -22,58 +24,57 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 	public function register_routes() {
 		register_rest_route( 'dones/v1', '/dones', array(
 			array(
-				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => array( $this, 'get_items' ),
-				'args'                => array(
-					'date'            => array(
+				'methods'  => WP_REST_Server::READABLE,
+				'callback' => array( $this, 'get_items' ),
+				'args'     => array(
+					'date' => array(
 						'description' => __( 'The date the done was published, in YYYY-MM-DD format.', 'dones' ),
 						'type'        => 'string',
 						'arg_options' => array(
-							'sanitize_callback' => array( $this, 'sanitize_date' )
-						)
+							'sanitize_callback' => array( $this, 'sanitize_date' ),
+						),
 					),
-					'page'            => array(
+					'page' => array(
 						'description' => __( 'When paginating, page of dones to return', 'dones' ),
 						'type'        => 'integer',
-						'default'     => 1
+						'default'     => 1,
 					),
-					'tag'             => array(
+					'tag'  => array(
 						'description' => __( 'Include dones by tag.', 'dones' ),
-						'type'        => 'string'
-					)
-				)
+						'type'        => 'string',
+					),
+				),
 			),
 			array(
 				'methods'             => WP_REST_Server::CREATABLE,
 				'callback'            => array( $this, 'create_item' ),
 				'permission_callback' => array( $this, 'is_logged_in_permissions_check' ),
-				'args'                => $this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE )
+				'args'                => $this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE ),
 			),
 			'schema' => array( $this, 'get_public_item_schema' ),
 		) );
-
 
 		register_rest_route( 'dones/v1', '/dones/(?P<id>[\d]+)', array(
 			array(
 				'methods'             => WP_REST_Server::EDITABLE,
 				'callback'            => array( $this, 'update_item' ),
 				'permission_callback' => array( $this, 'is_logged_in_permissions_check' ),
-				'args'                => $this->get_endpoint_args_for_item_schema( WP_REST_Server::EDITABLE )
+				'args'                => $this->get_endpoint_args_for_item_schema( WP_REST_Server::EDITABLE ),
 			),
 			array(
 				'methods'             => WP_REST_Server::DELETABLE,
 				'callback'            => array( $this, 'delete_item' ),
-				'permission_callback' => array( $this, 'is_logged_in_permissions_check' )
+				'permission_callback' => array( $this, 'is_logged_in_permissions_check' ),
 			),
-			'schema' => array( $this, 'get_public_item_schema' )
+			'schema' => array( $this, 'get_public_item_schema' ),
 		) );
 	}
 
 	/**
 	 * Retrieves a collection of dones.
 	 *
-	 * @param  WP_REST_Request           $request Request details
-	 * @return WP_REST_Response|WP_Error          Response or WP_Error
+	 * @param WP_REST_Request $request   Request details.
+	 * @return WP_REST_Response|WP_Error Response or WP_Error.
 	 */
 	public function get_items( $request ) {
 		$args = $this->get_done_base_args( $request );
@@ -81,7 +82,7 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 			return $args;
 		}
 
-		$posts_query = new WP_Query();
+		$posts_query  = new WP_Query();
 		$query_result = $posts_query->query( $args );
 
 		$dones = array();
@@ -91,8 +92,8 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 
 		$response = rest_ensure_response( $dones );
 
-		// Add pagination headers
-		$per_page = (int) $posts_query->query_vars['posts_per_page'];
+		// Add pagination headers.
+		$per_page    = (int) $posts_query->query_vars['posts_per_page'];
 		$total_dones = (int) $posts_query->found_posts;
 		$total_pages = -1 === $per_page ? 1 : ceil( $total_dones / $per_page );
 		$response->header( 'X-WP-Total', $total_dones );
@@ -104,11 +105,11 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 	/**
 	 * Creates a single post.
 	 *
-	 * @param  WP_REST_Request           $request Request details
-	 * @return WP_REST_Response|WP_Error          Response or WP_Error
+	 * @param WP_REST_Request $request   Request details.
+	 * @return WP_REST_Response|WP_Error Response or WP_Error.
 	 */
 	public function create_item( $request ) {
-		$post = array(
+		$post       = array(
 			'post_type'   => 'done',
 			'post_author' => get_current_user_id(),
 			'post_title'  => $request['text'],
@@ -127,8 +128,8 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 	/**
 	 * Updates a single done.
 	 *
-	 * @param  WP_REST_Request           $request Request details
-	 * @return WP_REST_Response|WP_Error          Response or WP_Error
+	 * @param WP_REST_Request $request   Request details.
+	 * @return WP_REST_Response|WP_Error Response or WP_Error.
 	 */
 	public function update_item( $request ) {
 		$post = $this->get_done_post( $request['id'] );
@@ -139,15 +140,15 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 		$done = $request['done'];
 		$text = $request['text'];
 
-		// Update or delete post
+		// Update or delete post.
 		if ( empty( $text ) ) {
 			return $this->delete_item( $request );
 		}
 
-		// Replace text in content
-		$post->post_title = $text;
+		// Replace text in content.
+		$post->post_title  = $text;
 		$post->post_status = $done ? 'publish' : 'draft';
-		$success = ( 0 !== wp_update_post( $post ) );
+		$success           = ( 0 !== wp_update_post( $post ) );
 
 		if ( ! $success ) {
 			return new WP_Error( 'rest_cannot_update', __( 'The done cannot be updated.', 'dones' ), array( 'status' => 500 ) );
@@ -159,9 +160,8 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 	/**
 	 * Deletes a single done.
 	 *
-	 * @param  WP_REST_Request           $request Response details.
-	 * @return WP_REST_Response|WP_Error          Response on success, or
-	 *                                            WP_Error object on failure.
+	 * @param WP_REST_Request $request   Response details.
+	 * @return WP_REST_Response|WP_Error Response on success, or WP_Error.
 	 */
 	public function delete_item( $request ) {
 		$post = $this->get_done_post( $request['id'] );
@@ -179,9 +179,9 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 	/**
 	 * Checks if a given request has access to create a post.
 	 *
-	 * @param  WP_REST_Request $request Full details about the request.
-	 * @return true|WP_Error            True if the request has access to
-	 *                                  create items, WP_Error object otherwise.
+	 * @param WP_REST_Request $request Full details about the request.
+	 * @return true|WP_Error           True if the request has access to create.
+	 *                                 items, WP_Error object otherwise.
 	 */
 	public function is_logged_in_permissions_check( $request ) {
 		if ( ! is_user_logged_in() ) {
@@ -194,13 +194,13 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 	/**
 	 * Tries to find a post corresponding with dones for a given request.
 	 *
-	 * @param  WP_REST_Request $request Request details
-	 * @return WP_Post|null             Post or null if not found
+	 * @param int $id       Post ID.
+	 * @return WP_Post|null Post or null if not found.
 	 */
 	public function get_done_post( $id ) {
 		$post = get_post( $id );
 
-		if ( is_null( $post ) || (int) $post->post_author !== get_current_user_id() ) {
+		if ( is_null( $post ) || get_current_user_id() !== (int) $post->post_author ) {
 			return new WP_Error( 'not_found', __( 'Done not found.', 'dones' ), array( 'status' => 404 ) );
 		}
 
@@ -210,8 +210,9 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 	/**
 	 * Returns an array of done properties prepared for API response.
 	 *
-	 * @param  WP_Post $post Post object
-	 * @return array         Response array
+	 * @param WP_Post         $post    Post object.
+	 * @param WP_REST_Request $request Request object.
+	 * @return array                   Response array.
 	 */
 	public function prepare_item_for_response( $post, $request ) {
 		return array(
@@ -219,15 +220,15 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 			'user' => (int) $post->post_author,
 			'text' => $post->post_title,
 			'date' => $post->post_date,
-			'done' => ( 'draft' !== $post->post_status )
+			'done' => ( 'draft' !== $post->post_status ),
 		);
 	}
 
 	/**
 	 * Returns an array of base arguments to retrieve done post via WP_Query.
 	 *
-	 * @param  WP_REST_Request $request Request details
-	 * @return array                    Base WP_Query arguments
+	 * @param WP_REST_Request $request Request details.
+	 * @return array                   Base WP_Query arguments.
 	 */
 	public function get_done_base_args( $request ) {
 		$args = array(
@@ -235,16 +236,16 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 			'post_status' => array( 'publish', 'draft', 'future' ),
 			'orderby'     => 'date',
 			'order'       => 'desc',
-			'paged'       => (int) $request['page']
+			'paged'       => (int) $request['page'],
 		);
 
 		if ( ! empty( $request['date'] ) ) {
-			// Assumed to match by sanitization
+			// Assumed to match by sanitization.
 			preg_match( self::DATE_REGEXP, $request['date'], $date_matches );
 
-			$args['year'] = (int) $date_matches[1];
-			$args['monthnum'] = (int) $date_matches[2];
-			$args['day'] = (int) $date_matches[3];
+			$args['year']           = (int) $date_matches[1];
+			$args['monthnum']       = (int) $date_matches[2];
+			$args['day']            = (int) $date_matches[3];
 			$args['posts_per_page'] = -1;
 		}
 
@@ -253,8 +254,8 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 				array(
 					'taxonomy' => 'done-tag',
 					'field'    => 'slug',
-					'terms'    => $request['tag']
-				)
+					'terms'    => $request['tag'],
+				),
 			);
 		}
 
@@ -264,8 +265,8 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 	/**
 	 * Enforces and coerces incoming date value to proper format.
 	 *
-	 * @param  string $value Incoming date
-	 * @return string        Formatted date
+	 * @param string $value Incoming date.
+	 * @return string       Formatted date.
 	 */
 	public function sanitize_date( $value ) {
 		if ( empty( $value ) || ! preg_match( self::DATE_REGEXP, $value ) ) {
@@ -286,37 +287,37 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 			'title'      => 'done',
 			'type'       => 'object',
 			'properties' => array(
-				'id'              => array(
+				'id'    => array(
 					'description' => __( 'ID of the done post object.', 'dones' ),
 					'type'        => 'integer',
 					'readonly'    => true,
 				),
-				'user'            => array(
+				'user'  => array(
 					'description' => __( 'Unique identifier of user to which the done belongs.', 'dones' ),
 					'type'        => 'integer',
-					'readonly'    => true
+					'readonly'    => true,
 				),
-				'text'            => array(
+				'text'  => array(
 					'description' => __( 'Text of the task completed.', 'dones' ),
-					'type'        => 'string'
+					'type'        => 'string',
 				),
-				'done'            => array(
+				'done'  => array(
 					'description' => __( 'Whether the task has been completed or is a goal to be accomplished.', 'dones' ),
 					'type'        => 'boolean',
-					'default'     => true
+					'default'     => true,
 				),
-				'date'            => array(
+				'date'  => array(
 					'description' => __( 'The date the done was published.', 'dones' ),
 					'type'        => 'string',
 					'arg_options' => array(
-						'sanitize_callback' => array( $this, 'sanitize_date' )
-					)
+						'sanitize_callback' => array( $this, 'sanitize_date' ),
+					),
 				),
-				'index'           => array(
+				'index' => array(
 					'description' => __( 'Index of the done to be updated.', 'dones' ),
-					'type'        => 'integer'
-				)
-			)
+					'type'        => 'integer',
+				),
+			),
 		);
 	}
 }

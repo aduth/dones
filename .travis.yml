@@ -1,3 +1,10 @@
-language: node_js
-node_js:
-  - "node"
+matrix:
+  include:
+    - language: php
+      php: 5.6
+
+    - language: php
+      php: 7.1
+
+    - language: node_js
+      node_js: "node"

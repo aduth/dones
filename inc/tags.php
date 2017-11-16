@@ -1,9 +1,14 @@
 <?php
+/**
+ * Utility functions for managing Dones tags querying and caching.
+ *
+ * @package dones
+ */
 
 /**
  * Returns an array of 250 most recently used tag names.
  *
- * @return string[] 250 most recently used tag names
+ * @return string[] 250 most recently used tag names.
  */
 function dones_get_tags() {
 	$tags = wp_cache_get( 'dones_tags' );
@@ -33,10 +38,10 @@ function dones_get_tags() {
 /**
  * Clears cache for dones tags once tags have been set.
  *
- * @param int    $object_id  Object ID
- * @param array  $terms      An array of object terms
- * @param array  $tt_ids     An array of term taxonomy IDs
- * @param string $taxonomy   Taxonomy slug
+ * @param int    $object_id  Object ID.
+ * @param array  $terms      An array of object terms.
+ * @param array  $tt_ids     An array of term taxonomy IDs.
+ * @param string $taxonomy   Taxonomy slug.
  */
 function dones_flush_tags_cache( $object_id, $terms, $tt_ids, $taxonomy ) {
 	if ( 'done-tag' === $taxonomy ) {
