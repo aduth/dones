@@ -64,7 +64,13 @@ export default {
 		};
 	},
 	[ DONE_UPDATE ]( action ) {
-		const { id, text, done } = action;
+		const { id, text, done, replaceId } = action;
+
+		// Network request only when not replacing an existing done (i.e. in
+		// case that creation completes)
+		if ( replaceId ) {
+			return;
+		}
 
 		return {
 			type: REQUEST,
