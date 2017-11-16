@@ -72,7 +72,7 @@ function dones_scripts() {
 
 	// Theme stylesheet.
 	wp_enqueue_style( 'dones-style', get_theme_file_uri( '/dist/style.css' ), array(), dones_get_version() );
-	wp_add_inline_style( 'dones-style', sprintf( 'a { color: %s; }', dones_get_brand_color() ) );
+	wp_add_inline_style( 'dones-style', sprintf( 'a { color: %s; }', esc_html( dones_get_brand_color() ) ) );
 
 	// Custom logo with fallback.
 	$custom_logo_id = get_theme_mod( 'custom_logo' );
