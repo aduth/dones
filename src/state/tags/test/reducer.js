@@ -23,7 +23,7 @@ describe( 'reducer', () => {
 			tags: [ 'bar', 'baz' ],
 		} );
 
-		expect( state ).to.eql( [ 'bar', 'baz' ] );
+		expect( state ).to.have.members( [ 'bar', 'baz' ] );
 	} );
 
 	it( 'merges unique received tags', () => {
@@ -33,7 +33,7 @@ describe( 'reducer', () => {
 			tags: [ 'baz', 'foo' ],
 		} );
 
-		expect( state ).to.eql( [ 'bar', 'baz', 'foo' ] );
+		expect( state ).to.have.members( [ 'bar', 'baz', 'foo' ] );
 	} );
 
 	it( 'concatenates from created done', () => {
@@ -42,7 +42,7 @@ describe( 'reducer', () => {
 			text: 'foo #bar #baz',
 		} );
 
-		expect( state ).to.eql( [ 'bar', 'baz' ] );
+		expect( state ).to.have.members( [ 'bar', 'baz' ] );
 	} );
 
 	it( 'merges unique from created done', () => {
@@ -52,6 +52,6 @@ describe( 'reducer', () => {
 			text: '#foo #bar',
 		} );
 
-		expect( state ).to.eql( [ 'bar', 'baz', 'foo' ] );
+		expect( state ).to.have.members( [ 'bar', 'baz', 'foo' ] );
 	} );
 } );
