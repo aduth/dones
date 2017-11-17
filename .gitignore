@@ -3,8 +3,9 @@ node_modules
 vendor
 
 # Generated
-/dist
+dist/
 dones.zip
+cypress
 
 # Logs
 *.log

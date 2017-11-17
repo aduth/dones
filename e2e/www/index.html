@@ -1,0 +1,27 @@
+<!doctype html>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,300">
+<link rel="stylesheet" href="dist/style.css">
+<div id="app"></div>
+<script>
+window.dones = {
+	apiRoot: '/wp-json',
+	brandColor: '#986dda',
+	dateFormat: 'F j, Y',
+	gmtOffset: 0,
+	i18n: {},
+	preload: {
+		'/dones/v1/users': {
+			body: [ {
+				avatar: 'http://www.gravatar.com/avatar/?d=identicon',
+				id: 1,
+				name: 'Anonymous User',
+			} ],
+		},
+	},
+	siteName: 'Dones',
+	siteUrl: window.location.href.replace( /\/$/, '' ),
+	userId: 1,
+};
+</script>
+<script src="dist/vendor.js"></script>
+<script src="dist/app.js"></script>
