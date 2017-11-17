@@ -19,7 +19,7 @@ export default function( state = null, action ) {
 
 		case DONE_CREATE:
 		case DONE_UPDATE:
-			const pattern = /(^|\s)#(\S+)\b/g;
+			const pattern = /(^|\s)#(\S+)(\s|$)/g;
 
 			let match;
 			while ( match = pattern.exec( action.text ) ) {

@@ -533,7 +533,7 @@ add_filter( 'pre_handle_404', 'dones_avoid_paged_tags_404' );
  * @param WP_Post $post    Post object.
  */
 function dones_assign_done_tags( $post_id, $post ) {
-	preg_match_all( '/(^|\s)#(\S+)\b/', $post->post_title, $tag_matches );
+	preg_match_all( '/(^|\s)#(\S+)(\s|$)/', $post->post_title, $tag_matches );
 	$tags = $tag_matches[2];
 	wp_set_post_terms( $post_id, $tags, 'done-tag' );
 }
@@ -614,3 +614,9 @@ function dones_redirect_theme_activation() {
 	}
 }
 add_action( 'init', 'dones_redirect_theme_activation' );
+
+/**
+ * Remove emoji scripts, which are not compatible with dynamic re-rendering.
+ */
+remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+remove_action( 'wp_print_styles', 'print_emoji_styles' );

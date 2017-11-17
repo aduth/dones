@@ -19,7 +19,7 @@ const NULL_CHARACTER = String.fromCharCode( 0 );
 
 export default function DoneText( { onClick, onFocus, onMouseDown, children } ) {
 	const transforms = [ [
-		/(^|\s)#(\S+)\b/,
+		/(^|\s)#(\S+)(\s|$)/,
 		( [ , whitespace, tag ] ) => [
 			whitespace,
 			<Link preload to={ `/tags/${ tag }/` }>
