@@ -32,21 +32,26 @@ export function items( state = {}, action ) {
 		case REQUEST_PATH_REQUEST_SET: {
 			const { path, request, params = {} } = action;
 			const { method = 'GET' } = params;
-			if ( 'GET' !== method ) {
-				return state;
-			}
 
-			return { ...state, [ path ]: request };
+			return {
+				...state,
+				[ path ]: {
+					...state[ path ],
+					[ method ]: request,
+				},
+			};
 		}
 
 		case REQUEST_COMPLETE: {
 			const { path, params = {} } = action;
 			const { method = 'GET' } = params;
-			if ( 'GET' !== method ) {
-				return state;
+
+			const nextPath = omit( state[ path ], method );
+			if ( ! Object.keys( nextPath ).length ) {
+				return omit( state, path );
 			}
 
-			return omit( state, path );
+			return { ...state, [ path ]: nextPath };
 		}
 	}
 

@@ -11,6 +11,7 @@ import { setDocumentHeadTitle } from 'state/document-head/actions';
 import DocumentHead from 'components/document-head';
 import Sidebar from 'components/sidebar';
 import Notices from 'components/notices';
+import MutativeRequestPrompt from 'components/mutative-request-prompt';
 
 class Page extends Component {
 	componentWillMount() {
@@ -30,6 +31,7 @@ class Page extends Component {
 			<main className="page">
 				<DocumentHead />
 				<Notices />
+				<MutativeRequestPrompt />
 				<Sidebar />
 				<div className="page__content">
 					{ children }

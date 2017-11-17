@@ -1,11 +1,17 @@
 /**
+ * External dependencies
+ */
+import { get } from 'lodash';
+
+/**
  * Returns the request object for the specified path, or null if there is no
  * request in progress.
  *
- * @param  {Object}  state Global state object
- * @param  {String}  path  Request path
- * @return {Promise}       Request object
+ * @param  {Object}  state  Global state object
+ * @param  {String}  path   Request path
+ * @param  {?String} method Optional method for path to retrieve
+ * @return {Promise}        Request object
  */
-export default function getPathRequest( state, path ) {
-	return state.requests.items[ path ] || null;
+export default function getPathRequest( state, path, method = 'GET' ) {
+	return get( state.requests.items, [ path, method ], null );
 }

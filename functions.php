@@ -128,6 +128,7 @@ function dones_scripts() {
 			'User avatar'                                => __( 'User avatar', 'dones' ),
 			'What have you been up to?'                  => __( 'What have you been up to?', 'dones' ),
 			'No dones found for this tag'                => __( 'No dones found for this tag', 'dones' ),
+			'Changes you made may not be saved.'         => __( 'Changes you made may not be saved.', 'dones' ),
 		),
 	) );
 

@@ -8,11 +8,13 @@ import deepFreeze from 'deep-freeze';
  * Internal dependencies
  */
 import {
+	REQUEST_COMPLETE,
 	REQUEST_NONCE_SET,
+	REQUEST_PATH_REQUEST_SET,
 	REQUEST_PRELOAD_CLEAR,
 	REQUEST_PRELOAD_SET,
 } from 'state/action-types';
-import reducer, { preload, nonce } from '../reducer';
+import reducer, { items, preload, nonce } from '../reducer';
 
 describe( 'reducer', () => {
 	it( 'returns with expected keys', () => {
@@ -25,6 +27,88 @@ describe( 'reducer', () => {
 			'nonce',
 			'isCapturingPreload',
 		] );
+	} );
+
+	describe( 'items()', () => {
+		it( 'returns an empty object by default', () => {
+			const state = items( undefined, {} );
+
+			expect( state ).to.eql( {} );
+		} );
+
+		it( 'sets request path by method', () => {
+			const originalState = deepFreeze( {} );
+			const state = items( originalState, {
+				type: REQUEST_PATH_REQUEST_SET,
+				path: '/foo',
+				request: {},
+			} );
+
+			expect( state ).to.eql( {
+				'/foo': {
+					GET: {},
+				},
+			} );
+		} );
+
+		it( 'sets accumulates path by method', () => {
+			const originalState = deepFreeze( {
+				'/foo': {
+					GET: {},
+				},
+			} );
+			const state = items( originalState, {
+				type: REQUEST_PATH_REQUEST_SET,
+				path: '/foo',
+				params: {
+					method: 'POST',
+				},
+				request: {},
+			} );
+
+			expect( state ).to.eql( {
+				'/foo': {
+					GET: {},
+					POST: {},
+				},
+			} );
+		} );
+
+		it( 'omits completed path method', () => {
+			const originalState = deepFreeze( {
+				'/foo': {
+					GET: {},
+					POST: {},
+				},
+			} );
+			const state = items( originalState, {
+				type: REQUEST_COMPLETE,
+				path: '/foo',
+			} );
+
+			expect( state ).to.eql( {
+				'/foo': {
+					POST: {},
+				},
+			} );
+		} );
+
+		it( 'omits completed path', () => {
+			const originalState = deepFreeze( {
+				'/foo': {
+					POST: {},
+				},
+			} );
+			const state = items( originalState, {
+				type: REQUEST_COMPLETE,
+				path: '/foo',
+				params: {
+					method: 'POST',
+				},
+			} );
+
+			expect( state ).to.eql( {} );
+		} );
 	} );
 
 	describe( 'preload()', () => {
