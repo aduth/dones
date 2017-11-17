@@ -4,7 +4,7 @@
 import { createElement, Component } from 'preact';
 import { connect } from 'preact-redux';
 import classNames from 'classcat';
-import { last, map, transform, includes } from 'lodash';
+import { last, map, transform, sortBy, includes } from 'lodash';
 
 /**
  * Internal dependencies
@@ -198,7 +198,9 @@ class DoneInput extends Component {
 			}, [] );
 
 			// Sort by index of fragment in tag
-			suggestions.sort( ( a, b ) => a.indexOf( tagFragment ) - b.indexOf( tagFragment ) );
+			suggestions = sortBy( suggestions, ( suggestion ) => {
+				return suggestion.indexOf( tagFragment );
+			} );
 		}
 
 		return (
