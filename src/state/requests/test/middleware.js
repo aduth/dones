@@ -37,7 +37,7 @@ describe( 'middleware', () => {
 	const headers = [ [ 'x-ok', 1 ] ];
 	const body = { ok: true };
 	const response = {
-		headers: { entries: () => headers },
+		headers,
 		json: () => Promise.resolve( body ),
 	};
 	const result = { headers: { 'x-ok': 1 }, body };

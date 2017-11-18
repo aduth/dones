@@ -33,7 +33,7 @@ export default ( { dispatch, getState } ) => {
 	 */
 	async function getFormattedResponse( request ) {
 		const response = await request;
-		const headers = fromPairs( [ ...response.headers.entries() ] );
+		const headers = fromPairs( [ ...response.headers ] );
 		const result = { headers };
 		result.body = await response.json();
 		return result;
