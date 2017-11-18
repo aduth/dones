@@ -13,9 +13,10 @@
 		}
 	},
 	"rules": {
-		"no-cond-assign": "off",
-		"react/jsx-no-bind": "off",
 		"arrow-parens": "error",
+		"no-cond-assign": "off",
+		"no-restricted-globals": [ "error", "event" ],
+		"react/jsx-no-bind": "off",
 		"react/jsx-space-before-closing": "off",
 		"react/jsx-tag-spacing": "error"
 	}

@@ -121,7 +121,7 @@ class DonesList extends Component {
 						onToggle={ () => this.props.updateDone( id, text, ! done ) } />,
 					<DoneText
 						onFocus={ onFocus }
-						onMouseDown={ () => this.startTrackingSelection( event, id ) }>
+						onMouseDown={ ( event ) => this.startTrackingSelection( event, id ) }>
 						{ text }
 					</DoneText>,
 				];
