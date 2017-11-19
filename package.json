@@ -14,7 +14,6 @@
     "prebuild": "npm run clean",
     "build:es6": "cross-env NODE_ENV=production webpack",
     "build:legacy": "cross-env BUILD_TARGET=legacy BABEL_ENV=legacy NODE_ENV=production webpack",
-    "postbuild:e2e": "cp -r dist e2e/www",
     "build": "npm-run-all --parallel build:*",
     "build-theme": "./bin/build-theme.sh",
     "predev": "npm run clean",
@@ -22,7 +21,7 @@
     "test-file": "cross-env NODE_PATH=src NODE_ENV=test mocha -r mocha.config.js -r babel-register",
     "test:lint": "eslint .",
     "test:unit": "npm run test-file -- 'src/**/test/*.js'",
-    "pretest:e2e": "NODE_ENV=production DISABLE_NETWORK=1 webpack",
+    "pretest:e2e": "npm run build && cp -r dist e2e/www",
     "test:e2e": "cypress run --browser chrome",
     "pretest": "npm run clean",
     "test": "npm-run-all --parallel test:*"

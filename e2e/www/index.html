@@ -3,21 +3,88 @@
 <link rel="stylesheet" href="dist/style.css">
 <div id="app"></div>
 <script>
+const HANDLERS = [
+	{
+		method: 'GET',
+		url: '/wp-json/dones/v1/users',
+		response: [ {
+			avatar: 'http://www.gravatar.com/avatar/?d=identicon',
+			id: 1,
+			name: 'Anonymous User',
+		} ],
+	},
+	{
+		method: 'GET',
+		url: '/wp-json/dones/v1/dones',
+		response: [],
+	},
+	{
+		method: 'POST',
+		url: '/wp-json/dones/v1/dones',
+		response: function( params ) {
+			return params.body;
+		},
+	},
+	{
+		method: '*',
+		url: '*',
+		response: Promise.reject( new Error() ),
+	},
+];
+
+window.fetch = function( path, params ) {
+	const method = params.method || 'GET';
+	path = path.split( '?' )[ 0 ];
+
+	let handler;
+	for ( let i = 0; i < HANDLERS.length; i++ ) {
+		handler = HANDLERS[ i ];
+
+		// Test method match, allow wildcard method
+		if ( handler.method !== '*' && handler.method !== method ) {
+			continue;
+		}
+
+		// Escape URL as regex, allowing wildcard path
+		let regex = handler.url
+			.replace( /[-[\]{}()+?.,\\^$|#\s]/g, '\\$&' )
+			.replace( '*', '.*' );
+
+		regex = new RegExp( regex );
+
+		if ( regex.test( path ) ) {
+			break;
+		}
+	}
+
+	let response = handler.response;
+
+	if ( 'function' === typeof response ) {
+		response = response( params );
+	}
+
+	if ( ! ( response instanceof Promise ) ) {
+		response = Promise.resolve( response );
+	}
+
+	return response.then( function( result ) {
+		// Form response as fetch Response object
+		return {
+			json: function() {
+				return Promise.resolve( result );
+			},
+			headers: [],
+		};
+	} );
+};
+
 window.dones = {
 	apiRoot: '/wp-json',
 	brandColor: '#986dda',
 	dateFormat: 'F j, Y',
 	gmtOffset: 0,
 	i18n: {},
-	preload: {
-		'/dones/v1/users': {
-			body: [ {
-				avatar: 'http://www.gravatar.com/avatar/?d=identicon',
-				id: 1,
-				name: 'Anonymous User',
-			} ],
-		},
-	},
+	preload: {},
 	siteName: 'Dones',
 	siteUrl: window.location.href.replace( /\/$/, '' ),
 	userId: 1,

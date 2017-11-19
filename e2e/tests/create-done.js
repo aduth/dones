@@ -21,7 +21,7 @@ describe( 'Create done', () => {
 	it( 'Edits done', () => {
 		cy.get( '.done-text' ).focus();
 		cy.get( ':focus' ).type( ' with #tag!{enter}' );
-		cy.get( '.dones-list__item:not( .is-placeholder )' )
+		cy.get( '.dones-list__item' )
 			.should( 'have.length', 1 )
 			.and( 'have.text', '\u0000Auto\u0000 focus with #tag!' );
 		cy.get( '.done-text code' ).should( 'have.length', 1 );

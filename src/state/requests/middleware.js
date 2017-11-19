@@ -79,10 +79,6 @@ export default ( { dispatch, getState } ) => {
 			}
 		}
 
-		if ( process.env.DISABLE_NETWORK ) {
-			return;
-		}
-
 		// Append current nonce if exists
 		const nonce = getRequestNonce( state );
 		if ( nonce ) {
