@@ -57,14 +57,6 @@ class DoneInput extends Component {
 		return word.substr( 1 );
 	}
 
-	cancelOnFocusOut = ( event ) => {
-		// The `focusout` event will fire when tabbing between elements within
-		// the rendered form. Ensure that we only cancel when truly leaving.
-		if ( this.form && ! this.form.contains( event.relatedTarget ) ) {
-			this.props.onCancel();
-		}
-	};
-
 	setFormRef = ( component ) => {
 		this.form = component;
 	};
@@ -207,7 +199,6 @@ class DoneInput extends Component {
 			<form
 				ref={ this.setFormRef }
 				className={ classes }
-				onFocusOut={ this.cancelOnFocusOut }
 				onSubmit={ this.submit }>
 				<DoneStatus
 					onToggle={ this.toggleStatus }
