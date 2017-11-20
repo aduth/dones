@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) || die();
 	<p>
 		<?php
 		echo wp_kses( __(
-			'Dones is not a typical WordPress theme. It\'s not optimized to be used for your company\'s marketing page or your personal blog. Rather, Dones is an application to help you and your team manage and record the progress of your tasks and projects. It serves as a running record of your team\'s goals and accomplishments. It is not too much unlike a to-do list (or a <em>dones</em> list, if you will). With an emphasis on collaboration, tagging, and aggregating, Dones helps organize and keep your team in sync.',
+			'Dones is not a typical WordPress theme, and won\'t work well for your company\'s marketing page or your personal blog. Rather, Dones is an application to help you and your team manage and record the progress of your tasks and projects. It serves as a running record of your team\'s goals and accomplishments. It is not too much unlike a to-do list (or a <em>dones</em> list, if you will). With an emphasis on collaboration, tagging, and aggregating, Dones helps organize and keep your team in sync.',
 			'dones'
 		), array( 'em' => array() ) );
 		?>
@@ -98,7 +98,7 @@ defined( 'ABSPATH' ) || die();
 		<dd>
 			<?php
 			esc_html_e(
-				'While the Dones theme does not prevent plugins from loading, it was built in such a way to optimize for speed and user interaction at the expense of complete plugin interoperability.',
+				'While the Dones theme does not prevent plugins from loading, it was built in such a way to optimize for speed and user interaction, which may compromise complete plugin interoperability.',
 				'dones'
 			);
 			?>

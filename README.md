@@ -4,6 +4,10 @@ Dones is a free team task management and tracking application to help your organ
 
 <p align="center"><img src="https://cldup.com/bLkLOS6mGf.png" width="580" alt="Screenshot"></p>
 
+## About
+
+Dones is not a typical WordPress theme, and won't work well for your company's marketing page or your personal blog. Rather, Dones is an application to help you and your team manage and record the progress of your tasks and projects. It serves as a running record of your team's goals and accomplishments. It is not too much unlike a to-do list (or a _dones_ list, if you will). With an emphasis on collaboration, tagging, and aggregating, Dones helps organize and keep your team in sync.
+
 ## Installation
 
 Dones is distributed as a WordPress theme, meaning you can easily host it yourself on a number of [hosting providers](https://wordpress.org/hosting/) or VPS services ([AWS](https://aws.amazon.com/getting-started/tutorials/launch-a-wordpress-website/) and [Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-use-the-wordpress-one-click-install-on-digitalocean), for example).
@@ -16,6 +20,26 @@ Dones is distributed as a WordPress theme, meaning you can easily host it yourse
 4. Click __Choose File__, then find and __Upload__ the downloaded zip file.
 5. After the theme finishes installing, click __Activate__.
 6. You're done!
+
+## Setup
+
+To start using Dones, begin by adding user accounts for each member of your team, assigning any user role with permission to create posts (Contributor or above). Newly created users will appear automatically on the front page of your site. Once they have logged in, members of your team can immediately start adding new "dones" to record their progress.
+
+Next, head on over to the [Customizer](https://codex.wordpress.org/Appearance_Customize_Screen), where you'll find options to change the primary color of the site and site logo to match your team or company's brand.
+
+## Frequently Asked Questions
+
+**How do I make my site private?**
+
+The Dones theme does not include any features to turn your site private, so anyone can view your history if you choose to host your site publicly. It's up to you to decide how to authorize visitors to your site. You may choose to host the site on an internal network, configure your web server to implement [basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication), or [search for a plugin](https://wordpress.org/plugins/) that provides privacy options as a feature.
+
+**Where are the Posts and Pages menu links?**
+
+You should find that most of what you want to achieve is available from the front page of your site. Posts and pages screens are removed from the administration dashboard menu while the Dones theme is active because they are neither relevant nor supported for the theme.
+
+**Why does «insert plugin here» not work with Dones?**
+
+While the Dones theme does not prevent plugins from loading, it was built in such a way to optimize for speed and user interaction, which may compromise complete plugin interoperability.
 
 ## Development
 
