@@ -9,19 +9,14 @@
  * Class to access users via the REST API. Extends WP_REST_Users_Controller to
  * return a subset of properties and filter to users with write access.
  */
-class WP_REST_Dones_Users_Controller extends WP_REST_Users_Controller {
+class WP_REST_Dones_Users_Controller extends WP_REST_Controller {
 
 	/**
-	 * Constructor.
+	 * Avatar sizes to return in response.
 	 *
-	 * @access public
+	 * @var array
 	 */
-	public function __construct() {
-		$this->namespace = 'dones/v1';
-		$this->rest_base = 'users';
-
-		$this->meta = new WP_REST_User_Meta_Fields();
-	}
+	protected static $avatar_sizes = array( 30, 60 );
 
 	/**
 	 * Registers the routes for the objects of the controller.
@@ -31,11 +26,10 @@ class WP_REST_Dones_Users_Controller extends WP_REST_Users_Controller {
 	 * @see register_rest_route()
 	 */
 	public function register_routes() {
-		register_rest_route( $this->namespace, '/' . $this->rest_base, array(
+		register_rest_route( 'dones/v1', 'users', array(
 			array(
 				'methods'  => WP_REST_Server::READABLE,
 				'callback' => array( $this, 'get_items' ),
-				'args'     => $this->get_collection_params(),
 			),
 			'schema' => array( $this, 'get_public_item_schema' ),
 		) );
@@ -78,35 +72,33 @@ class WP_REST_Dones_Users_Controller extends WP_REST_Users_Controller {
 	}
 
 	/**
-	 * Adds the values from additional fields to a data object.
+	 * Prepares a single user output for response.
 	 *
-	 * @since 4.7.0
-	 * @access protected
-	 *
-	 * @param array           $data    Data object.
-	 * @param WP_REST_Request $request Full details about the request.
-	 * @return array                   Modified data with additional fields.
+	 * @param WP_User         $user    User object.
+	 * @param WP_REST_Request $request Request object.
+	 * @return WP_REST_Response Response object.
 	 */
-	public function add_additional_fields_to_object( $data, $request ) {
-		// If avatars assigned, pick only the largest option.
-		if ( ! empty( $data['avatar_urls'] ) ) {
-			$data['avatar'] = array_pop( $data['avatar_urls'] );
-			unset( $data['avatar_urls'] );
-		}
+	public function prepare_item_for_response( $user, $request ) {
+		add_filter( 'rest_avatar_sizes', array( $this, 'replace_avatar_sizes' ) );
 
-		return $data;
+		$data['id']      = $user->ID;
+		$data['name']    = $user->display_name;
+		$data['avatars'] = rest_get_avatar_urls( $user->user_email );
+
+		remove_filter( 'rest_avatar_sizes', array( $this, 'replace_avatar_sizes' ) );
+
+		$data = $this->add_additional_fields_to_object( $data, $request );
+
+		return rest_ensure_response( $data );
 	}
 
 	/**
-	 * Prepares links for the user request.
+	 * Returns an array of avatar sizes for user avatars.
 	 *
-	 * @access protected
-	 *
-	 * @param WP_User $user User object.
-	 * @return array        Links for the given user.
+	 * @return array Avatar sizes.
 	 */
-	protected function prepare_links( $user ) {
-		return array();
+	public function replace_avatar_sizes() {
+		return self::$avatar_sizes;
 	}
 
 	/**
@@ -117,18 +109,39 @@ class WP_REST_Dones_Users_Controller extends WP_REST_Users_Controller {
 	 * @return array Item schema data.
 	 */
 	public function get_item_schema() {
-		$schema = parent::get_item_schema();
+		$avatar_sizes = self::$avatar_sizes;
 
-		$schema['properties'] = array_intersect_key(
-			$schema['properties'],
-			array_flip( array(
-				'id',
-				'name',
-				'avatar_urls',
-			) )
+		foreach ( $avatar_sizes as $size ) {
+			$avatar_properties[ $size ] = array(
+				/* translators: %d: avatar image size in pixels */
+				'description' => sprintf( __( 'Avatar URL with image size of %d pixels.', 'dones' ), $size ),
+				'type'        => 'string',
+				'format'      => 'uri',
+			);
+		}
+
+		$schema = array(
+			'$schema'    => 'http://json-schema.org/draft-04/schema#',
+			'title'      => 'user',
+			'type'       => 'object',
+			'properties' => array(
+				'id'      => array(
+					'description' => __( 'Unique identifier for the user.', 'dones' ),
+					'type'        => 'integer',
+				),
+				'name'    => array(
+					'description' => __( 'Display name for the user.', 'dones' ),
+					'type'        => 'string',
+				),
+				'avatars' => array(
+					'description' => __( 'Avatar URLs for the user.', 'dones' ),
+					'type'        => 'object',
+					'properties'  => $avatar_properties,
+				),
+			),
 		);
 
-		return $schema;
+		return $this->add_additional_fields_schema( $schema );
 	}
 
 }

@@ -10,17 +10,16 @@ import { connect } from 'preact-redux';
 import { translate } from 'lib/i18n';
 import { getUser } from 'state/selectors';
 
-function User( { name, avatar } ) {
+function User( { name, avatars } ) {
 	return (
 		<span className="user">
-			{ avatar && (
-				<img
-					src={ avatar }
-					alt={ translate( 'User avatar' ) }
-					height="30"
-					width="30"
-					className="user__avatar-image" />
-			) }
+			<img
+				src={ avatars[ 30 ] }
+				alt={ translate( 'User avatar' ) }
+				srcset={ `${ avatars[ 30 ] } 1x, ${ avatars[ 60 ] } 2x` }
+				height="30"
+				width="30"
+				className="user__avatar-image" />
 			{ name }
 		</span>
 	);

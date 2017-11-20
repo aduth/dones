@@ -8,9 +8,12 @@ const HANDLERS = [
 		method: 'GET',
 		url: '/wp-json/dones/v1/users',
 		response: [ {
-			avatar: 'http://www.gravatar.com/avatar/?d=identicon',
 			id: 1,
 			name: 'Anonymous User',
+			avatars: {
+				30: 'http://www.gravatar.com/avatar/?d=identicon&s=30',
+				60: 'http://www.gravatar.com/avatar/?d=identicon&s=60',
+			},
 		} ],
 	},
 	{
