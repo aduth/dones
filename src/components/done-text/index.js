@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createElement } from 'preact';
-import { reduce, truncate } from 'lodash';
+import { repeat, reduce, truncate } from 'lodash';
 
 /**
  * Internal dependencies
@@ -10,12 +10,12 @@ import { reduce, truncate } from 'lodash';
 import Link from 'components/link';
 
 /**
- * Null character used as stand-in for replaced character to preserve behavior
- * of selection detection for editing done.
+ * Zero width character used as stand-in for replaced character to preserve
+ * behavior of selection detection for editing done.
  *
  * @type {String}
  */
-const NULL_CHARACTER = String.fromCharCode( 0 );
+const ZERO_WIDTH_SPACE = '​';
 
 export default function DoneText( { onClick, onFocus, onMouseDown, children } ) {
 	const transforms = [ [
@@ -28,17 +28,27 @@ export default function DoneText( { onClick, onFocus, onMouseDown, children } ) 
 		],
 	], [
 		/(^|\s)(https?:\/\/\S+)/,
-		( [ , whitespace, url ] ) => [
-			whitespace,
-			<span data-raw-text={ url }>
+		( [ , whitespace, url ] ) => {
+			const [ prefix ] = url.match( /^https?:\/\/(www\.)?/ );
+			const endRepeat = Math.max( 0, url.length - prefix.length - 30 );
+
+			return [
+				whitespace,
 				<Link to={ url }>
-					{ truncate( url.replace( /^https?:\/\/(www\.)?/, '' ) ) }
-				</Link>
-			</span>,
-		],
+					{ repeat( ZERO_WIDTH_SPACE, prefix.length ) }
+					{ truncate( url.substr( prefix.length ), {
+						omission: '…',
+						length: 30,
+					} ) }
+					{ repeat( ZERO_WIDTH_SPACE, endRepeat ) }
+				</Link>,
+			];
+		},
 	], [
 		/`([^`]+)`/,
-		( [ , code ] ) => <code>{ NULL_CHARACTER }{ code }{ NULL_CHARACTER }</code>,
+		( [ , code ] ) => (
+			<code>{ ZERO_WIDTH_SPACE }{ code }{ ZERO_WIDTH_SPACE }</code>
+		),
 	] ];
 
 	let parts = [ ...children ];
