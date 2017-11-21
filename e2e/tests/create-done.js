@@ -11,7 +11,7 @@ describe( 'Create done', () => {
 		cy.get( ':focus' ).type( '`Auto` focus{enter}' );
 		cy.get( '.done-text' )
 			.should( 'have.length', 1 )
-			.and( 'have.text', '\u0000Auto\u0000 focus' );
+			.and( 'have.text', '​Auto​ focus' );
 		cy.get( '.done-text code' ).should( 'have.length', 1 );
 		cy.get( ':focus' )
 			.should( 'have.class', 'done-input__textarea-input' )
@@ -23,7 +23,7 @@ describe( 'Create done', () => {
 		cy.get( ':focus' ).type( ' with #tag!{enter}' );
 		cy.get( '.dones-list__item' )
 			.should( 'have.length', 1 )
-			.and( 'have.text', '\u0000Auto\u0000 focus with #tag!' );
+			.and( 'have.text', '​Auto​ focus with #tag!' );
 		cy.get( '.done-text code' ).should( 'have.length', 1 );
 		cy.get( '.done-text a' ).should( 'have.length', 1 );
 	} );
