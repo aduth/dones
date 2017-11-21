@@ -16,7 +16,7 @@ function User( { name, avatars } ) {
 			<img
 				src={ avatars[ 30 ] }
 				alt={ translate( 'User avatar' ) }
-				srcset={ `${ avatars[ 30 ] } 1x, ${ avatars[ 60 ] } 2x` }
+				srcset={ avatars[ 60 ] + ' 2x' }
 				height="30"
 				width="30"
 				className="user__avatar-image" />
