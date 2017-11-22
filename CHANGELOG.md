@@ -1,3 +1,23 @@
+#### 1.1.2 (2017-11-21)
+
+- Improved: Better support for tags including emoji 🎉
+- Improved: Confirm navigation while saves are still pending
+- Improved: Order users by non-empty dones
+- Improved: Use appropriately sized user avatars by display pixel density
+- Fix: Avoid duplicate request when updating a done
+- Fix: Restrict tag suggestions to last item when results shrink
+- Fix: Improve selection within nested code snippets
+- Fix: Resolve issue where text cursor could jump after selecting tag
+- Fix: Resolve overlapping of done input on small viewports
+- Fix: Hide edit highlight for users other than own
+- Fix: Resolve failing requests in older version of Microsoft Edge
+- Fix: Resolve mid-text selection error in Firefox and IE
+- Fix: Submitting edited done by click in macOS Firefox and Safari works correctly
+- Fix: Resolve code text not displaying in IE11
+- Fix: Copying done text no longer includes zero-width spaces
+- Internal: Use transients for caching tags data
+- Internal: Avoid user agent detection for serving modern browser build
+
 #### 1.1.1 (2017-11-04)
 
 - Improved: Deleting dones is now more accessible for keyboard users
