@@ -11,6 +11,7 @@ import { map, sortBy } from 'lodash';
  */
 import { USER_ID } from 'constant';
 import { translate } from 'lib/i18n';
+import { getSelectedOffset } from 'lib/selection';
 import DoneStatus from 'components/done-status';
 import DoneInput from 'components/done-input';
 import DoneText from 'components/done-text';
@@ -45,26 +46,9 @@ class DonesList extends Component {
 		const editing = this.pendingEdit;
 		delete this.pendingEdit;
 
-		if ( 'A' === event.target.nodeName ) {
-			return;
+		if ( 'A' !== event.target.nodeName ) {
+			this.editDone( editing, getSelectedOffset( event.currentTarget ) );
 		}
-
-		const selection = window.getSelection();
-		if ( selection.rangeCount === 0 ) {
-			return;
-		}
-
-		// Find selection offset within DoneText
-		// See: https://stackoverflow.com/a/4812022/995445
-		const range = window.getSelection().getRangeAt( 0 );
-		const rangeBeforeCaret = range.cloneRange();
-		rangeBeforeCaret.selectNodeContents( event.currentTarget );
-		rangeBeforeCaret.setEnd( range.startContainer, range.startOffset );
-		const start = rangeBeforeCaret.toString().length;
-		rangeBeforeCaret.setEnd( range.endContainer, range.endOffset );
-		const end = rangeBeforeCaret.toString().length;
-
-		this.editDone( editing, [ start, end ] );
 	};
 
 	editIfNonePending = ( id ) => {
