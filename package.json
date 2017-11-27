@@ -8,6 +8,10 @@
     "email": "andrew@andrewduthie.com",
     "url": "http://andrewduthie.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aduth/dones.git"
+  },
   "license": "GPL-2.0+",
   "scripts": {
     "clean": "rimraf dist && mkdir -p dist",
