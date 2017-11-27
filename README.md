@@ -29,9 +29,21 @@ Next, head on over to the [Customizer](https://codex.wordpress.org/Appearance_Cu
 
 ## Frequently Asked Questions
 
+**Why should my team use Dones?**
+
+Dones seeks to occupy a small part of your effective day while simultaneously providing critical insight to a seemingly simple question: What has my team been doing lately? Its simple interface and tools provides you with the flexibility to organize your team's activities as you see fit, without feeling like a chore or bogging you down with clutter and confusion.
+
+**How does Dones compare to other task tracking solutions?**
+
+Dones aims to solve a simple problem, and solve it well. While similar platforms share a common basic feature set, I frequently find that they underperform, suffer from reliability issues, and generally work as a barrier to productivity. Feeling blocked by these common frustrations, I sought to create a solution which targeted the workflow of the daily user, performing well and optimizing for bulk entry and review.
+
+**Does Dones integrate with other software I use?**
+
+Because it was built on the WordPress platform, Dones can take advantage of a rich ecosystem of plugins and core software functionality to fit seamlessly into your existing workflow. The [wiki](https://github.com/aduth/dones/wiki) includes recipes for common integrations, such as a [Slack slash command](https://github.com/aduth/dones/wiki/Integration:-Slack), [Alfred workflow](https://github.com/aduth/dones/wiki/Integration:-Alfred), or [terminal command](https://github.com/aduth/dones-cli).
+
 **How do I make my site private?**
 
-The Dones theme does not include any features to turn your site private, so anyone can view your history if you choose to host your site publicly. It's up to you to decide how to authorize visitors to your site. You may choose to host the site on an internal network, configure your web server to implement [basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication), or [search for a plugin](https://wordpress.org/plugins/) that provides privacy options as a feature.
+The Dones theme does not include any features to turn your site private, so anyone can view your history if you choose to host your site publicly. It's up to you to decide how to authorize visitors to your site. You may choose to host the site on an internal network, configure your web server to implement [basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication), or [search for a plugin](https://wordpress.org/plugins/) that provides privacy options as a feature. See [**Tip: Private Site**](https://github.com/aduth/dones/wiki/Tip:-Private-Site) for more information.
 
 **Where are the Posts and Pages menu links?**
 
