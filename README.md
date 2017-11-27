@@ -39,7 +39,7 @@ Dones aims to solve a simple problem, and solve it well. While similar platforms
 
 **Does Dones integrate with other software I use?**
 
-Because it was built on the WordPress platform, Dones can take advantage of a rich ecosystem of plugins and core software functionality to fit seamlessly into your existing workflow. The [wiki](https://github.com/aduth/dones/wiki) includes recipes for common integrations, such as a [Slack slash command](https://github.com/aduth/dones/wiki/Integration:-Slack), [Alfred workflow](https://github.com/aduth/dones/wiki/Integration:-Alfred), or [terminal command](https://github.com/aduth/dones-cli).
+Because it was built on the WordPress platform, Dones can take advantage of a rich ecosystem of plugins and core software functionality to fit seamlessly into your existing workflow. The [wiki](https://github.com/aduth/dones/wiki) includes recipes for common integrations, such as a [Slack slash command](https://github.com/aduth/dones/wiki/Integration:-Slack), [Alfred workflow](https://github.com/aduth/dones/wiki/Integration:-Alfred), or [terminal command](https://github.com/aduth/dones/wiki/Integration:-Terminal).
 
 **How do I make my site private?**
 
