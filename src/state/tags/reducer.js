@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { uniq, includes } from 'lodash';
+import { uniq, without } from 'lodash';
 
 /**
  * Internal dependencies
@@ -24,12 +24,10 @@ export default function( state = null, action ) {
 			let match;
 			while ( match = pattern.exec( action.text ) ) {
 				const [ , , tag ] = match;
-				if ( ! includes( state, tag ) ) {
-					state = [
-						tag,
-						...( state || [] ),
-					];
-				}
+				state = [
+					tag,
+					...without( state, tag ),
+				];
 			}
 
 			return state;
