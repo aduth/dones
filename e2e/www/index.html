@@ -1,6 +1,7 @@
 <!doctype html>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,300">
 <link rel="stylesheet" href="dist/style.css">
+<style>a { color: #986dda; }</style>
 <div id="app"></div>
 <script>
 const HANDLERS = [
@@ -31,7 +32,9 @@ const HANDLERS = [
 	{
 		method: '*',
 		url: '*',
-		response: Promise.reject( new Error() ),
+		response: function() {
+			return Promise.reject( new Error() );
+		},
 	},
 ];
 
@@ -85,11 +88,11 @@ window.dones = {
 	apiRoot: '/wp-json',
 	brandColor: '#986dda',
 	dateFormat: 'F j, Y',
-	gmtOffset: 0,
+	gmtOffset: ( new Date() ).getTimezoneOffset() / -60,
 	i18n: {},
 	preload: {},
 	siteName: 'Dones',
-	siteUrl: window.location.href.replace( /\/$/, '' ),
+	siteUrl: window.location.origin,
 	userId: 1,
 };
 </script>
