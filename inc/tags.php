@@ -15,17 +15,20 @@ function dones_get_tags() {
 	if ( false === $tags ) {
 		global $wpdb;
 		$tags = $wpdb->get_col( "
-			SELECT name
-				FROM $wpdb->terms
-			INNER JOIN $wpdb->term_taxonomy
-				ON $wpdb->terms.term_id = $wpdb->term_taxonomy.term_id
-			INNER JOIN $wpdb->term_relationships
-				ON $wpdb->term_taxonomy.term_taxonomy_id = $wpdb->term_relationships.term_taxonomy_id
-			INNER JOIN $wpdb->posts
-				ON $wpdb->posts.ID = $wpdb->term_relationships.object_id
-			WHERE $wpdb->term_taxonomy.taxonomy = 'done-tag'
-			GROUP BY $wpdb->terms.term_id
-			ORDER BY $wpdb->posts.post_modified DESC
+			SELECT t.name
+				FROM (
+					SELECT wp_terms.name, MAX( $wpdb->posts.post_modified ) AS latest_date
+						FROM $wpdb->terms
+					INNER JOIN $wpdb->term_taxonomy
+						ON $wpdb->terms.term_id = $wpdb->term_taxonomy.term_id
+					INNER JOIN $wpdb->term_relationships
+						ON $wpdb->term_taxonomy.term_taxonomy_id = $wpdb->term_relationships.term_taxonomy_id
+					INNER JOIN $wpdb->posts
+						ON $wpdb->posts.ID = $wpdb->term_relationships.object_id
+					WHERE $wpdb->term_taxonomy.taxonomy = 'done-tag'
+					GROUP BY $wpdb->term_taxonomy.term_id
+				) AS t
+			ORDER BY t.latest_date DESC
 			LIMIT 250
 		" );
 
