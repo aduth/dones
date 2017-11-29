@@ -269,8 +269,10 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 	 * @return string       Formatted date.
 	 */
 	public function sanitize_date( $value ) {
-		if ( empty( $value ) || ! preg_match( self::DATE_REGEXP, $value ) ) {
-			$value = current_time( 'Y-m-d' );
+		// Default to now if empty, invalid, or occurring today.
+		if ( empty( $value ) || ! preg_match( self::DATE_REGEXP, $value ) ||
+				current_time( 'Y-m-d' ) === $value ) {
+			return current_time( 'Y-m-d H:i:s' );
 		}
 
 		return preg_replace( self::DATE_REGEXP, '$1-$2-$3 00:00:00', $value );
