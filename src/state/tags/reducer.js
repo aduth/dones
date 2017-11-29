@@ -25,7 +25,10 @@ export default function( state = null, action ) {
 			while ( match = pattern.exec( action.text ) ) {
 				const [ , , tag ] = match;
 				if ( ! includes( state, tag ) ) {
-					state = ( state || [] ).concat( tag );
+					state = [
+						tag,
+						...( state || [] ),
+					];
 				}
 			}
 

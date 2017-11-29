@@ -52,6 +52,6 @@ describe( 'reducer', () => {
 			text: '#foo #bar',
 		} );
 
-		expect( state ).to.have.members( [ 'bar', 'baz', 'foo' ] );
+		expect( state ).to.have.members( [ 'foo', 'bar', 'baz' ] );
 	} );
 } );
