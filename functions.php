@@ -413,6 +413,7 @@ function dones_register_custom_types() {
 		'capability_type'       => 'post',
 		'show_in_rest'          => true,
 		'rest_controller_class' => 'WP_REST_Dones_Dones_Controller',
+		'capability_type'       => array( 'done', 'dones' ),
 		'map_meta_cap'          => true,
 		'rewrite'               => false,
 		'query_var'             => false,
@@ -442,9 +443,55 @@ function dones_register_custom_types() {
 		'show_in_rest'          => true,
 		'rest_controller_class' => 'WP_REST_Dones_Tags_Controller',
 		'update_count_callback' => '_update_post_term_count',
+		'capabilities'          => array(
+			'manage_terms' => 'manage_done-tags',
+			'edit_terms'   => 'manage_done-tags',
+			'delete_terms' => 'manage_done-tags',
+			'assign_terms' => 'edit_dones',
+		),
 	) );
 }
 add_action( 'init', 'dones_register_custom_types' );
+
+/**
+ * Returns an updated array of all user capabilities when testing whether
+ * particular values exist, used in assigning a fallback capability value to
+ * the default post type when dones type custom capability is not assigned.
+ *
+ * @see WP_User::has_cap()
+ *
+ * @param  array $allcaps An array of all the user's capabilities.
+ * @param  array $caps    Actual capabilities for meta capability.
+ * @return array          Updated array of all the user's capabilities.
+ */
+function dones_dones_cap_fallback( $allcaps, $caps ) {
+	foreach ( $caps as $cap ) {
+		switch ( $cap ) {
+			case 'edit_done':
+			case 'read_done':
+			case 'delete_done':
+			case 'edit_dones':
+			case 'edit_others_dones':
+			case 'publish_dones':
+			case 'read_private_dones':
+			case 'manage_done-tags':
+				// Bail if already assigned.
+				if ( isset( $allcaps[ $cap ] ) ) {
+					break 2;
+				}
+
+				// Try value of equivalent "post" or "category" capability.
+				$fallback_cap = str_replace( '_done-tags', '_categories', $cap );
+				$fallback_cap = str_replace( '_done', '_post', $fallback_cap );
+				if ( ! empty( $allcaps[ $fallback_cap ] ) ) {
+					$allcaps[ $cap ] = true;
+				}
+		}
+	}
+
+	return $allcaps;
+}
+add_filter( 'user_has_cap', 'dones_dones_cap_fallback', 10, 2 );
 
 /**
  * Suppresses main query, since we don't use it.

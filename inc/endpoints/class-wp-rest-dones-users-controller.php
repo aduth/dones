@@ -44,13 +44,22 @@ class WP_REST_Dones_Users_Controller extends WP_REST_Controller {
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
 	 */
 	public function get_items( $request ) {
-		// Find roles with `edit_posts` capability.
+		// Find roles with capability to edit dones.
+		$post_type      = get_post_type_object( 'done' );
 		$roles          = wp_roles()->roles;
 		$editable_roles = array();
 		foreach ( $roles as $role ) {
-			if ( isset( $role['capabilities']['edit_posts'] ) &&
-					$role['capabilities']['edit_posts'] ) {
-				$editable_roles[] = $role['name'];
+			foreach ( array( $post_type->cap->edit_posts, 'edit_posts' ) as $cap ) {
+				// Prioritize by desired capability, presence of which is used
+				// in determining to explicitly consider as true or false.
+				if ( isset( $roles['capabilities'][ $cap ] ) ) {
+					if ( $role['capabilities'][ $cap ] ) {
+						$editable_roles[] = $role['name'];
+					}
+
+					// Continue to next role if passed, to avoid duplicate.
+					continue 2;
+				}
 			}
 		}
 
