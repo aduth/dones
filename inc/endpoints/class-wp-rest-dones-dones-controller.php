@@ -8,7 +8,7 @@
 /**
  * Class to access dones via the REST API.
  */
-class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
+class WP_REST_Dones_Dones_Controller extends WP_REST_Posts_Controller {
 	/**
 	 * Regular expression matching acceptable format of incoming date argument.
 	 *
@@ -17,16 +17,26 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 	const DATE_REGEXP = '/^(\d{4})-(\d{2})-(\d{2}).*/';
 
 	/**
+	 * Constructor.
+	 */
+	public function __construct() {
+		$this->post_type = 'done';
+		$this->namespace = 'dones/v1';
+		$this->rest_base = 'dones';
+	}
+
+	/**
 	 * Registers the routes for the objects of the controller.
 	 *
 	 * @see register_rest_route()
 	 */
 	public function register_routes() {
-		register_rest_route( 'dones/v1', '/dones', array(
+		register_rest_route( $this->namespace, '/' . $this->rest_base, array(
 			array(
-				'methods'  => WP_REST_Server::READABLE,
-				'callback' => array( $this, 'get_items' ),
-				'args'     => array(
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => array( $this, 'get_items' ),
+				'permission_callback' => array( $this, 'get_items_permissions_check' ),
+				'args'                => array(
 					'date' => array(
 						'description' => __( 'The date the done was published, in YYYY-MM-DD format.', 'dones' ),
 						'type'        => 'string',
@@ -48,23 +58,29 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 			array(
 				'methods'             => WP_REST_Server::CREATABLE,
 				'callback'            => array( $this, 'create_item' ),
-				'permission_callback' => array( $this, 'is_logged_in_permissions_check' ),
+				'permission_callback' => array( $this, 'create_item_permissions_check' ),
 				'args'                => $this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE ),
 			),
 			'schema' => array( $this, 'get_public_item_schema' ),
 		) );
 
-		register_rest_route( 'dones/v1', '/dones/(?P<id>[\d]+)', array(
+		register_rest_route( $this->namespace, '/' . $this->rest_base . '/(?P<id>[\d]+)', array(
+			'args'   => array(
+				'id' => array(
+					'description' => __( 'Unique identifier for the object.', 'dones' ),
+					'type'        => 'integer',
+				),
+			),
 			array(
 				'methods'             => WP_REST_Server::EDITABLE,
 				'callback'            => array( $this, 'update_item' ),
-				'permission_callback' => array( $this, 'is_logged_in_permissions_check' ),
+				'permission_callback' => array( $this, 'update_item_permissions_check' ),
 				'args'                => $this->get_endpoint_args_for_item_schema( WP_REST_Server::EDITABLE ),
 			),
 			array(
 				'methods'             => WP_REST_Server::DELETABLE,
 				'callback'            => array( $this, 'delete_item' ),
-				'permission_callback' => array( $this, 'is_logged_in_permissions_check' ),
+				'permission_callback' => array( $this, 'delete_item_permissions_check' ),
 			),
 			'schema' => array( $this, 'get_public_item_schema' ),
 		) );
@@ -174,21 +190,6 @@ class WP_REST_Dones_Dones_Controller extends WP_REST_Controller {
 		}
 
 		return new WP_Error( 'rest_cannot_delete', __( 'The done cannot be deleted.', 'dones' ), array( 'status' => 500 ) );
-	}
-
-	/**
-	 * Checks if a given request has access to create a post.
-	 *
-	 * @param WP_REST_Request $request Full details about the request.
-	 * @return true|WP_Error           True if the request has access to create.
-	 *                                 items, WP_Error object otherwise.
-	 */
-	public function is_logged_in_permissions_check( $request ) {
-		if ( ! is_user_logged_in() ) {
-			return new WP_error( 'rest_unauthorized', __( 'You must be logged in to create dones.', 'dones' ), array( 'status' => rest_authorization_required_code() ) );
-		}
-
-		return true;
 	}
 
 	/**

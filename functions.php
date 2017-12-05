@@ -314,12 +314,10 @@ function dones_create_rest_routes() {
 	// Tags.
 	require_once( dirname( __FILE__ ) . '/inc/endpoints/class-wp-rest-dones-tags-controller.php' );
 	$controller = new WP_REST_Dones_Tags_Controller;
-	$controller->register_routes();
 
 	// Dones.
 	require_once( dirname( __FILE__ ) . '/inc/endpoints/class-wp-rest-dones-dones-controller.php' );
 	$controller = new WP_REST_Dones_Dones_Controller;
-	$controller->register_routes();
 
 	// Users.
 	require_once( dirname( __FILE__ ) . '/inc/endpoints/class-wp-rest-dones-users-controller.php' );
@@ -388,7 +386,7 @@ add_filter( 'rest_user_query', 'dones_allow_list_user' );
 function dones_register_custom_types() {
 	// Done custom post type.
 	register_post_type( 'done', array(
-		'labels'              => array(
+		'labels'                => array(
 			'name'               => _x( 'Dones', 'post type general name', 'dones' ),
 			'singular_name'      => _x( 'Done', 'post type singular name', 'dones' ),
 			'menu_name'          => _x( 'Dones', 'admin menu', 'dones' ),
@@ -404,19 +402,21 @@ function dones_register_custom_types() {
 			'not_found'          => __( 'No dones found.', 'dones' ),
 			'not_found_in_trash' => __( 'No dones found in Trash.', 'dones' ),
 		),
-		'description'         => __( 'Tasks completed or to be completed.', 'dones' ),
-		'public'              => true,
-		'show_ui'             => true,
-		'has_archive'         => false,
-		'show_in_menu'        => true,
-		'menu_icon'           => 'dashicons-list-view',
-		'menu_position'       => 5,
-		'exclude_from_search' => true,
-		'capability_type'     => 'post',
-		'map_meta_cap'        => true,
-		'rewrite'             => false,
-		'query_var'           => false,
-		'supports'            => array( 'title', 'author' ),
+		'description'           => __( 'Tasks completed or to be completed.', 'dones' ),
+		'public'                => true,
+		'show_ui'               => true,
+		'has_archive'           => false,
+		'show_in_menu'          => true,
+		'menu_icon'             => 'dashicons-list-view',
+		'menu_position'         => 5,
+		'exclude_from_search'   => true,
+		'capability_type'       => 'post',
+		'show_in_rest'          => true,
+		'rest_controller_class' => 'WP_REST_Dones_Dones_Controller',
+		'map_meta_cap'          => true,
+		'rewrite'               => false,
+		'query_var'             => false,
+		'supports'              => array( 'title', 'author' ),
 	) );
 
 	// Done tag custom taxonomy.
@@ -439,6 +439,8 @@ function dones_register_custom_types() {
 		'show_admin_column'     => true,
 		'query_var'             => false,
 		'public'                => true,
+		'show_in_rest'          => true,
+		'rest_controller_class' => 'WP_REST_Dones_Tags_Controller',
 		'update_count_callback' => '_update_post_term_count',
 	) );
 }
