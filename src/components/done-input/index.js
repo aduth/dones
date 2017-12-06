@@ -14,7 +14,7 @@ import DoneStatus from 'components/done-status';
 import DoneInputTextarea from './textarea';
 import { createDone, updateDone, deleteDone } from 'state/dones/actions';
 import { translate } from 'lib/i18n';
-import { getTags } from 'state/selectors';
+import { getTags, isInitialRoute } from 'state/selectors';
 
 export class DoneInput extends Component {
 	static defaultProps = {
@@ -171,7 +171,7 @@ export class DoneInput extends Component {
 	}
 
 	render() {
-		const { className, onCancel } = this.props;
+		const { className, onCancel, hasNavigated } = this.props;
 		const { text, selectionOffset } = this.state;
 		const isEditing = this.isEditing();
 
@@ -217,7 +217,7 @@ export class DoneInput extends Component {
 					onSuggestionSelected={ this.insertSuggestion }
 					selectionOffset={ selectionOffset }
 					suggestions={ this.getSuggestions() }
-					autoFocus />
+					autoFocus={ ! hasNavigated } />
 				<div className="done-input__actions">
 					{ map( actions, ( action, i ) => (
 						<Button
@@ -233,6 +233,7 @@ export class DoneInput extends Component {
 
 export default connect(
 	( state ) => ( {
+		hasNavigated: ! isInitialRoute( state ),
 		tags: getTags( state ),
 	} ),
 	{

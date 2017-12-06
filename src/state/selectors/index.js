@@ -19,5 +19,6 @@ export { default as getUsers } from './get-users';
 export { default as hasReceivedDones } from './has-received-dones';
 export { default as hasReceivedTags } from './has-received-tags';
 export { default as isCapturingRequestPreload } from './is-capturing-request-preload';
+export { default as isInitialRoute } from './is-initial-route';
 export { default as isMutativeRequestInFlight } from './is-mutative-request-in-flight';
 export { default as isPreloadingPath } from './is-preloading-path';

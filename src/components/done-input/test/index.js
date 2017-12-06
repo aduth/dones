@@ -15,10 +15,21 @@ describe( 'DoneInput', () => {
 		const element = <DoneInput tags={ [] } />;
 
 		const node = render( element, document.body );
+		const textarea = node.querySelector( 'textarea:focus' );
 		const submit = node.querySelector( '[type="submit"]' );
 
 		expect( node.className ).to.equal( 'done-input' );
+		expect( textarea ).to.be.ok;
 		expect( submit.disabled ).to.be.true;
+	} );
+
+	it( 'renders a done input without autofocus on navigated', () => {
+		const element = <DoneInput tags={ [] } hasNavigated />;
+
+		const node = render( element, document.body );
+		const textarea = node.querySelector( 'textarea:focus' );
+
+		expect( textarea ).to.not.be.ok;
 	} );
 
 	it( 'renders a done input with typeahead results', () => {
