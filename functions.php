@@ -359,7 +359,7 @@ add_filter( 'query_vars', 'dones_add_custom_query_vars' );
 function dones_home_redirect() {
 	global $wp;
 	if ( home_url() === home_url( $wp->request ) ) {
-		wp_safe_redirect( home_url( '/date/' . date( 'Y-m-d' ) ) );
+		wp_safe_redirect( home_url( '/date/' . current_time( 'Y-m-d' ) ) );
 		exit;
 	}
 }
