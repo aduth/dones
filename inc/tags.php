@@ -17,7 +17,7 @@ function dones_get_tags() {
 		$tags = $wpdb->get_col( "
 			SELECT t.name
 				FROM (
-					SELECT wp_terms.name, MAX( $wpdb->posts.post_modified ) AS latest_date
+					SELECT $wpdb->terms.name, MAX( $wpdb->posts.post_modified ) AS latest_date
 						FROM $wpdb->terms
 					INNER JOIN $wpdb->term_taxonomy
 						ON $wpdb->terms.term_id = $wpdb->term_taxonomy.term_id
