@@ -13,4 +13,5 @@ require( 'preact' ).options.debounceRendering = ( render ) => render();
 global.dones = {
 	siteUrl: 'http://example.com',
 	userId: 1,
+	i18n: {},
 };

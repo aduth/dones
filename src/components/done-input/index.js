@@ -16,7 +16,7 @@ import { createDone, updateDone, deleteDone } from 'state/dones/actions';
 import { translate } from 'lib/i18n';
 import { getTags } from 'state/selectors';
 
-class DoneInput extends Component {
+export class DoneInput extends Component {
 	static defaultProps = {
 		initialDone: true,
 		initialText: '',
@@ -146,9 +146,33 @@ class DoneInput extends Component {
 		event.target.select();
 	}
 
+	getSuggestions() {
+		const { tagFragment } = this.state;
+		if ( ! tagFragment ) {
+			return [];
+		}
+
+		const { tags } = this.props;
+		const search = tagFragment.toLowerCase();
+
+		// Find by fragment included in tag (maximum 5)
+		const suggestions = transform( tags, ( memo, tag ) => {
+			if ( includes( tag.toLowerCase(), search ) ) {
+				memo.push( tag );
+			}
+
+			return memo.length < 5;
+		}, [] );
+
+		// Sort by index of fragment in tag
+		return sortBy( suggestions, ( suggestion ) => {
+			return suggestion.indexOf( search );
+		} );
+	}
+
 	render() {
-		const { className, onCancel, tags } = this.props;
-		const { text, tagFragment, selectionOffset } = this.state;
+		const { className, onCancel } = this.props;
+		const { text, selectionOffset } = this.state;
 		const isEditing = this.isEditing();
 
 		const classes = classNames( [ 'done-input', className, {
@@ -178,23 +202,6 @@ class DoneInput extends Component {
 			} );
 		}
 
-		let suggestions;
-		if ( tagFragment ) {
-			// Find by fragment included in tag (maximum 5)
-			suggestions = transform( tags, ( memo, tag ) => {
-				if ( includes( tag, tagFragment ) ) {
-					memo.push( tag );
-				}
-
-				return memo.length < 5;
-			}, [] );
-
-			// Sort by index of fragment in tag
-			suggestions = sortBy( suggestions, ( suggestion ) => {
-				return suggestion.indexOf( tagFragment );
-			} );
-		}
-
 		return (
 			<form
 				ref={ this.setFormRef }
@@ -209,7 +216,7 @@ class DoneInput extends Component {
 					onKeyDown={ this.maybeSubmit }
 					onSuggestionSelected={ this.insertSuggestion }
 					selectionOffset={ selectionOffset }
-					suggestions={ suggestions }
+					suggestions={ this.getSuggestions() }
 					autoFocus />
 				<div className="done-input__actions">
 					{ map( actions, ( action, i ) => (
