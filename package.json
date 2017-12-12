@@ -76,7 +76,6 @@
     "webpack": "3.8.1"
   },
   "dependencies": {
-    "autosize": "4.0.0",
     "classcat": "1.0.1",
     "date-fns": "1.28.5",
     "fast-stable-stringify": "1.0.0",

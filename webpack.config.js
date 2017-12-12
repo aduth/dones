@@ -14,7 +14,6 @@ const config = module.exports = {
 			'./src/index.js',
 		],
 		vendor: [
-			'autosize',
 			'classcat',
 			'fast-stable-stringify',
 			'flatpickr',

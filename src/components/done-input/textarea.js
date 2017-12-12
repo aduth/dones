@@ -2,13 +2,13 @@
  * External dependencies
  */
 import { createElement, Component } from 'preact';
-import autosize from 'autosize';
 import caret from 'textarea-caret';
 
 /**
  * Internal dependencies
  */
 import { translate } from 'lib/i18n';
+import AutosizeTextarea from 'components/autosize-textarea';
 import PopoverMenu from 'components/popover-menu';
 
 export default class DoneInputTextarea extends Component {
@@ -21,39 +21,24 @@ export default class DoneInputTextarea extends Component {
 		const { autoFocus, selectionOffset } = this.props;
 
 		if ( autoFocus ) {
-			this.textarea.focus();
+			this.textarea.base.focus();
 		}
 
 		if ( selectionOffset ) {
 			const [ start, stop ] = selectionOffset;
-			this.textarea.setSelectionRange( start, stop );
+			this.textarea.base.setSelectionRange( start, stop );
 		}
-
-		autosize( this.textarea );
-	}
-
-	componentWillUnmount() {
-		autosize.destroy( this.textarea );
 	}
 
 	componentDidUpdate( prevProps ) {
-		const { value, selectionOffset } = this.props;
-
-		if ( value !== prevProps.value ) {
-			this.resize();
-		}
-
+		const { selectionOffset } = this.props;
 		if ( selectionOffset && selectionOffset !== prevProps.selectionOffset ) {
 			const [ start, stop ] = selectionOffset;
-			this.textarea.setSelectionRange( start, stop );
+			this.textarea.base.setSelectionRange( start, stop );
 		}
 	}
 
-	resize() {
-		autosize.update( this.textarea );
-	}
-
-	setRef = ( textarea ) => this.textarea = textarea;
+	bindTextarea = ( textarea ) => this.textarea = textarea;
 
 	setCaretOffset = ( event ) => {
 		// Calculate caret offset for use in positioning suggestions menu
@@ -73,10 +58,10 @@ export default class DoneInputTextarea extends Component {
 
 	onSelectSuggestion = ( suggestion ) => {
 		// Insert suggestion at current caret index
-		this.props.onSuggestionSelected( suggestion, this.textarea.selectionStart );
+		this.props.onSuggestionSelected( suggestion, this.textarea.base.selectionStart );
 
 		// If suggestion inserted via click on PopoverMenu, preserve focus
-		setTimeout( () => this.textarea && this.textarea.focus() );
+		setTimeout( () => this.textarea.base && this.textarea.base.focus() );
 	};
 
 	render() {
@@ -85,8 +70,8 @@ export default class DoneInputTextarea extends Component {
 
 		return (
 			<div className="done-input__textarea">
-				<textarea
-					ref={ this.setRef }
+				<AutosizeTextarea
+					ref={ this.bindTextarea }
 					value={ value }
 					onKeyDown={ onKeyDown }
 					rows="1"
