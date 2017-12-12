@@ -166,7 +166,7 @@ export class DoneInput extends Component {
 
 		// Sort by index of fragment in tag
 		return sortBy( suggestions, ( suggestion ) => {
-			return suggestion.indexOf( search );
+			return suggestion.toLowerCase().indexOf( search );
 		} );
 	}
 

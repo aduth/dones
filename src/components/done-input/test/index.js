@@ -33,7 +33,7 @@ describe( 'DoneInput', () => {
 	} );
 
 	it( 'renders a done input with typeahead results', () => {
-		const element = <DoneInput tags={ [ 'foo' ] } />;
+		const element = <DoneInput tags={ [ 'foo', 'bafo', 'aFo' ] } />;
 
 		const node = render( element, document.body );
 		const component = node._component._component;
@@ -47,7 +47,7 @@ describe( 'DoneInput', () => {
 		} );
 
 		expect( component.state.tagFragment ).to.equal( 'fo' );
-		expect( component.getSuggestions() ).to.eql( [ 'foo' ] );
+		expect( component.getSuggestions() ).to.eql( [ 'foo', 'aFo', 'bafo' ] );
 
 		component.setText( {
 			target: {
