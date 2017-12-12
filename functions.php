@@ -26,6 +26,14 @@ function dones_get_version() {
  * Sets up theme defaults and registers support for various WordPress features.
  */
 function dones_setup() {
+	/**
+	 * Make theme available for translation.
+	 */
+	load_theme_textdomain( 'dones', get_template_directory() . '/languages' );
+
+	/**
+	 * Add theme supports.
+	 */
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'custom-logo', array(
 		'width'  => 120,
