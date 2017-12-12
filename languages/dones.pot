@@ -1,0 +1,370 @@
+# Copyright (C) 2017 Andrew Duthie
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Dones 1.1.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/dones\n"
+"POT-Creation-Date: 2017-12-12 01:24:14+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: functions.php:114
+msgid "An error occurred while saving"
+msgstr ""
+
+#: functions.php:115
+msgid "Are you sure you want to delete this done?"
+msgstr ""
+
+#: functions.php:116
+msgid "Cancel"
+msgstr ""
+
+#: functions.php:117
+msgid "Date"
+msgstr ""
+
+#: functions.php:118
+msgid "Done"
+msgstr ""
+
+#: functions.php:119
+msgid "Done or goal"
+msgstr ""
+
+#: functions.php:120
+msgid "Dones"
+msgstr ""
+
+#: functions.php:121
+msgid "Goal"
+msgstr ""
+
+#: functions.php:122
+msgid "Log In"
+msgstr ""
+
+#: functions.php:123
+msgid "Log Out"
+msgstr ""
+
+#: functions.php:124
+msgid "Next"
+msgstr ""
+
+#: functions.php:125 functions.php:138
+msgid "No dones found for this tag"
+msgstr ""
+
+#: functions.php:126
+msgid "No tags found"
+msgstr ""
+
+#: functions.php:127
+msgid "Nothing reported yet!"
+msgstr ""
+
+#: functions.php:128
+msgid "Page Not Found"
+msgstr ""
+
+#: functions.php:129
+msgid "Pick Date"
+msgstr ""
+
+#: functions.php:130
+msgid "Previous"
+msgstr ""
+
+#: functions.php:131
+msgid "Recent Tags"
+msgstr ""
+
+#: functions.php:132
+msgid "Submit"
+msgstr ""
+
+#. translators: Heading for tag detail page
+
+#: functions.php:134
+msgid "Tag: %s"
+msgstr ""
+
+#: functions.php:135
+msgid "Tags"
+msgstr ""
+
+#: functions.php:136
+msgid "User avatar"
+msgstr ""
+
+#: functions.php:137
+msgid "What have you been up to?"
+msgstr ""
+
+#: functions.php:139
+msgid "Changes you made may not be saved."
+msgstr ""
+
+#: functions.php:310
+msgid "Brand Color"
+msgstr ""
+
+#: functions.php:398
+msgctxt "post type general name"
+msgid "Dones"
+msgstr ""
+
+#: functions.php:399
+msgctxt "post type singular name"
+msgid "Done"
+msgstr ""
+
+#: functions.php:400
+msgctxt "admin menu"
+msgid "Dones"
+msgstr ""
+
+#: functions.php:401
+msgctxt "add new on admin bar"
+msgid "Done"
+msgstr ""
+
+#: functions.php:402
+msgctxt "done"
+msgid "Add New"
+msgstr ""
+
+#: functions.php:403
+msgid "Add New Done"
+msgstr ""
+
+#: functions.php:404
+msgid "New Done"
+msgstr ""
+
+#: functions.php:405
+msgid "Edit Done"
+msgstr ""
+
+#: functions.php:406
+msgid "View Done"
+msgstr ""
+
+#: functions.php:407
+msgid "All Dones"
+msgstr ""
+
+#: functions.php:408
+msgid "Search Dones"
+msgstr ""
+
+#: functions.php:410
+msgid "No dones found."
+msgstr ""
+
+#: functions.php:411
+msgid "No dones found in Trash."
+msgstr ""
+
+#: functions.php:413
+msgid "Tasks completed or to be completed."
+msgstr ""
+
+#: functions.php:434
+msgctxt "taxonomy general name"
+msgid "Done Tags"
+msgstr ""
+
+#: functions.php:435
+msgctxt "taxonomy singular name"
+msgid "Done Tag"
+msgstr ""
+
+#: functions.php:436
+msgid "Search Done Tags"
+msgstr ""
+
+#: functions.php:437
+msgid "All Done Tags"
+msgstr ""
+
+#: functions.php:440
+msgid "Edit Done Tag"
+msgstr ""
+
+#: functions.php:441
+msgid "Update Done Tag"
+msgstr ""
+
+#: functions.php:442
+msgid "Add New Done Tag"
+msgstr ""
+
+#: functions.php:443
+msgid "New Done Tag Name"
+msgstr ""
+
+#: functions.php:444
+msgid "Done Tag"
+msgstr ""
+
+#: functions.php:528
+msgctxt "manage column name"
+msgid "Done Text"
+msgstr ""
+
+#: functions.php:655 functions.php:656
+msgid "About Dones"
+msgstr ""
+
+#: inc/admin/about.php:22
+msgid "Welcome to Dones"
+msgstr ""
+
+#: inc/admin/about.php:27
+msgid "Dones is not a typical WordPress theme, and isn’t intended to be used for your company’s marketing page or your personal blog. Rather, Dones is an application to help you and your team manage and record the progress of your tasks and projects. It serves as a running record of your team’s goals and accomplishments. It is not too much unlike a to-do list (or a <em>dones</em> list, if you will). With an emphasis on collaboration, tagging, and aggregating, Dones helps organize and keep your team in sync."
+msgstr ""
+
+#. translators: About page refer to add users
+
+#: inc/admin/about.php:43
+msgid "To start using Dones, begin by <a href=\"%s\">adding user accounts</a> for each member of your team, assigning any user role with permission to create posts (Contributor or above). Newly created users will appear automatically on the front page of your site. Once they have logged in, members of your team can immediately start adding new \"dones\" to record their progress."
+msgstr ""
+
+#. translators: About page refer to Customizer
+
+#: inc/admin/about.php:55
+msgid "Next, head on over to the <a href=\"%s\">Customizer</a>, where you’ll find options to change the primary color of the site and site logo to match your team or company’s brand."
+msgstr ""
+
+#: inc/admin/about.php:65
+msgid "Frequently Asked Questions"
+msgstr ""
+
+#: inc/admin/about.php:68
+msgid "How do I make my site private?"
+msgstr ""
+
+#. translators: About page authenticated page views advice
+
+#: inc/admin/about.php:74
+msgid "The Dones theme does not include any features to turn your site private, so anyone can view your history if you choose to host your site publicly. It’s up to you to decide how to authorize visitors to your site. You may choose to host the site on an internal network, configure your web server to implement <a href=\"%1$s\">basic authentication</a>, or <a href=\"%2$s\">search for a plugin</a> that provides privacy options as a feature. See <strong><a href=\"%3$s\">Tip: Private Site</a></strong> for more information."
+msgstr ""
+
+#: inc/admin/about.php:89
+msgid "Where are the Posts and Pages menu links?"
+msgstr ""
+
+#. translators: About page refer to theme switch
+
+#: inc/admin/about.php:94
+msgid "You should find that most of what you want to achieve is available from the front page of your site. <a href=\"%1$s\">Posts</a> and <a href=\"%2$s\">pages</a> screens are removed from the administration dashboard menu while the Dones theme is active because they are neither relevant nor supported for the theme. You’re always free to <a href=\"%3$s\">switch to another theme</a> if Dones is not the right fit for you and your team."
+msgstr ""
+
+#: inc/admin/about.php:104
+msgid "Does Dones integrate with other software I use?"
+msgstr ""
+
+#. translators: About page integrations
+
+#: inc/admin/about.php:109
+msgid "Yes! <a href=\"%1$s\">Head on over to the wiki</a>, where you’ll find recipes for common integrations such as a <a href=\"%2$s\">Slack slash command</a>, <a href=\"%3$s\">Alfred workflow</a>, or <a href=\"%4$s\">terminal command</a>."
+msgstr ""
+
+#: inc/endpoints/class-wp-rest-dones-dones-controller.php:41
+msgid "The date the done was published, in YYYY-MM-DD format."
+msgstr ""
+
+#: inc/endpoints/class-wp-rest-dones-dones-controller.php:48
+msgid "When paginating, page of dones to return"
+msgstr ""
+
+#: inc/endpoints/class-wp-rest-dones-dones-controller.php:53
+msgid "Include dones by tag."
+msgstr ""
+
+#: inc/endpoints/class-wp-rest-dones-dones-controller.php:70
+msgid "Unique identifier for the object."
+msgstr ""
+
+#: inc/endpoints/class-wp-rest-dones-dones-controller.php:138
+msgid "The done cannot be created."
+msgstr ""
+
+#: inc/endpoints/class-wp-rest-dones-dones-controller.php:170
+msgid "The done cannot be updated."
+msgstr ""
+
+#: inc/endpoints/class-wp-rest-dones-dones-controller.php:192
+msgid "The done cannot be deleted."
+msgstr ""
+
+#: inc/endpoints/class-wp-rest-dones-dones-controller.php:205
+msgid "Done not found."
+msgstr ""
+
+#: inc/endpoints/class-wp-rest-dones-dones-controller.php:294
+msgid "ID of the done post object."
+msgstr ""
+
+#: inc/endpoints/class-wp-rest-dones-dones-controller.php:299
+msgid "Unique identifier of user to which the done belongs."
+msgstr ""
+
+#: inc/endpoints/class-wp-rest-dones-dones-controller.php:304
+msgid "Text of the task completed."
+msgstr ""
+
+#: inc/endpoints/class-wp-rest-dones-dones-controller.php:308
+msgid "Whether the task has been completed or is a goal to be accomplished."
+msgstr ""
+
+#: inc/endpoints/class-wp-rest-dones-dones-controller.php:313
+msgid "The date the done was published."
+msgstr ""
+
+#: inc/endpoints/class-wp-rest-dones-dones-controller.php:320
+msgid "Index of the done to be updated."
+msgstr ""
+
+#. translators: %d: avatar image size in pixels
+
+#: inc/endpoints/class-wp-rest-dones-users-controller.php:126
+msgid "Avatar URL with image size of %d pixels."
+msgstr ""
+
+#: inc/endpoints/class-wp-rest-dones-users-controller.php:138
+msgid "Unique identifier for the user."
+msgstr ""
+
+#: inc/endpoints/class-wp-rest-dones-users-controller.php:142
+msgid "Display name for the user."
+msgstr ""
+
+#: inc/endpoints/class-wp-rest-dones-users-controller.php:146
+msgid "Avatar URLs for the user."
+msgstr ""
+#. Theme Name of the plugin/theme
+msgid "Dones"
+msgstr ""
+
+#. Theme URI of the plugin/theme
+msgid "https://dones.today/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Simple team task management and tracking"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Andrew Duthie"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://andrewduthie.com"
+msgstr ""
