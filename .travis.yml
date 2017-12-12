@@ -6,7 +6,7 @@ matrix:
       script: "composer test"
       cache:
         directories:
-          - vendor
+          - $HOME/.composer/cache/files
 
     - language: php
       php: 7.1
@@ -14,7 +14,7 @@ matrix:
       script: "composer test"
       cache:
         directories:
-          - vendor
+          - $HOME/.composer/cache/files
 
     - language: node_js
       node_js: "node"
