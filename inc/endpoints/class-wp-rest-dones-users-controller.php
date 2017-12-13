@@ -63,16 +63,18 @@ class WP_REST_Dones_Users_Controller extends WP_REST_Controller {
 			}
 		}
 
-		$query = new WP_User_Query( array(
-			'number'   => -1,
-			'role__in' => $editable_roles,
-		) );
-
 		$users = array();
 
-		foreach ( $query->results as $user ) {
-			$data    = $this->prepare_item_for_response( $user, $request );
-			$users[] = $this->prepare_response_for_collection( $data );
+		if ( ! empty( $editable_roles ) ) {
+			$query = new WP_User_Query( array(
+				'number'   => -1,
+				'role__in' => $editable_roles,
+			) );
+
+			foreach ( $query->results as $user ) {
+				$data    = $this->prepare_item_for_response( $user, $request );
+				$users[] = $this->prepare_response_for_collection( $data );
+			}
 		}
 
 		$response = rest_ensure_response( $users );
