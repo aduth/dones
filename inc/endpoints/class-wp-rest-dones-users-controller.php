@@ -52,7 +52,7 @@ class WP_REST_Dones_Users_Controller extends WP_REST_Controller {
 			foreach ( array( $post_type->cap->edit_posts, 'edit_posts' ) as $cap ) {
 				// Prioritize by desired capability, presence of which is used
 				// in determining to explicitly consider as true or false.
-				if ( isset( $roles['capabilities'][ $cap ] ) ) {
+				if ( isset( $role['capabilities'][ $cap ] ) ) {
 					if ( $role['capabilities'][ $cap ] ) {
 						$editable_roles[] = $role['name'];
 					}
