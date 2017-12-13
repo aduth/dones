@@ -422,7 +422,6 @@ function dones_register_custom_types() {
 		'show_in_rest'          => true,
 		'rest_controller_class' => 'WP_REST_Dones_Dones_Controller',
 		'capability_type'       => array( 'done', 'dones' ),
-		'map_meta_cap'          => true,
 		'rewrite'               => false,
 		'query_var'             => false,
 		'supports'              => array( 'title', 'author' ),
@@ -489,8 +488,11 @@ function dones_dones_cap_fallback( $allcaps, $caps ) {
 				}
 
 				// Try value of equivalent "post" or "category" capability.
+				// Force singular post capability to multi, since this is
+				// normally handled by meta mapping.
 				$fallback_cap = str_replace( '_done-tags', '_categories', $cap );
-				$fallback_cap = str_replace( '_done', '_post', $fallback_cap );
+				$fallback_cap = str_replace( '_dones', '_posts', $fallback_cap );
+				$fallback_cap = str_replace( '_done', '_posts', $fallback_cap );
 				if ( ! empty( $allcaps[ $fallback_cap ] ) ) {
 					$allcaps[ $cap ] = true;
 				}
