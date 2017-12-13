@@ -9,6 +9,12 @@ export default class AutosizeTextarea extends Component {
 		this.resize();
 	}
 
+	componentDidUpdate( prevProps ) {
+		if ( this.props.value !== prevProps.value ) {
+			this.resize();
+		}
+	}
+
 	resize = () => {
 		const { base } = this;
 		base.style.height = '0';
