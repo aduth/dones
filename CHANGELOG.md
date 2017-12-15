@@ -1,3 +1,13 @@
+#### 1.1.3 (2017-12-15)
+
+- Improved: Theme localization activated ([translations welcome!](https://poeditor.com/join/project/NfvVvUxRDS))
+- Improved: "Done" post type uses custom capabilities to enable granular role permissions
+- Fix: Recent tags are more accurately ordered
+- Fix: Home page redirect respects site timezone
+- Fix: Tag autocomplete is case insensitive
+- Fix: Avoid mobile soft keyboard flyup from date input autofocus
+- Fix: Resolve iOS scrolling when typing in done input
+
 #### 1.1.2 (2017-11-21)
 
 - Improved: Better support for tags including emoji 🎉
