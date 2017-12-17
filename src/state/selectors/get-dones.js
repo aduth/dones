@@ -3,7 +3,14 @@
  */
 import createSelector from 'rememo';
 import stringify from 'fast-stable-stringify';
-import { get, omit, filter, every, includes } from 'lodash';
+import { get, omit, filter, every, includes, escapeRegExp } from 'lodash';
+
+/**
+ * Regular expression fragment matching expected prefix or suffix to a tag.
+ *
+ * @type {String}
+ */
+const RX_TERMINATOR = '(^|[\\s\\.,;!\\?]|$)';
 
 /**
  * Returns an array of dones for a given query, or null if dones have not been
@@ -38,8 +45,8 @@ export function getDones( state, query = {} ) {
 					return includes( pageIds, item.id );
 
 				case 'tag':
-					const tag = value.replace( /[^\w-]/g, '' );
-					const pattern = new RegExp( `(^|\\s)#${ tag }([^\\w-]|$)`, 'i' );
+					const tag = escapeRegExp( value );
+					const pattern = new RegExp( RX_TERMINATOR + '#' + tag + RX_TERMINATOR, 'i' );
 					return pattern.test( item.text );
 
 				default:

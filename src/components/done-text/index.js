@@ -26,7 +26,7 @@ const ZERO_WIDTH_SPACE = '​';
  */
 const TRANSFORMS = [
 	{
-		pattern: /(^|\s)#(\S+)/,
+		pattern: /(^|[\s\.,;!\?])#([^\s\.,;!\?]+)/,
 		transform: ( [ , whitespace, tag ] ) => [
 			whitespace,
 			<Link preload to={ `/tags/${ tag }/` }>

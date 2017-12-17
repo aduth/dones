@@ -339,7 +339,7 @@ add_action( 'rest_api_init', 'dones_create_rest_routes' );
  */
 function dones_add_rewrite_rules() {
 	add_rewrite_rule( '^date(/(\d{4}-\d{2}-\d{2}))?/?$', 'index.php?dones_date=$matches[2]', 'top' );
-	add_rewrite_rule( '^tags(/([\w-]+)(/page/(\d+))?)?/?$', 'index.php?dones_tag=$matches[2]&paged=$matches[4]', 'top' );
+	add_rewrite_rule( '^tags(/([^\s\.,;!\?/]+)(/page/(\d+))?)?/?$', 'index.php?dones_tag=$matches[2]&paged=$matches[4]', 'top' );
 
 	if ( in_array( current_filter(), array( 'after_switch_theme', 'upgrader_process_complete' ) ) ) {
 		flush_rewrite_rules();
@@ -552,7 +552,7 @@ function dones_filter_supported_rewrites( $rules ) {
 
 		// Dones rules.
 		'^date(/(\d{4}-\d{2}-\d{2}))?/?$',
-		'^tags(/([\w-]+)(/page/(\d+))?)?/?$',
+		'^tags(/([^\s\.,;!\?/]+)(/page/(\d+))?)?/?$',
 	);
 
 	$filtered_rules = array();
@@ -593,7 +593,7 @@ add_filter( 'pre_handle_404', 'dones_avoid_paged_tags_404' );
  * @param WP_Post $post    Post object.
  */
 function dones_assign_done_tags( $post_id, $post ) {
-	preg_match_all( '/(^|\s)#(\S+)/', $post->post_title, $tag_matches );
+	preg_match_all( '/(^|[\s\.,;!\?])#([^\s\.,;!\?]+)/', $post->post_title, $tag_matches );
 	$tags = $tag_matches[2];
 	wp_set_post_terms( $post_id, $tags, 'done-tag' );
 }

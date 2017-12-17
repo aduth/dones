@@ -9,20 +9,20 @@ import { expect } from 'chai';
 import { getDones } from '../get-dones';
 
 describe( 'getDones()', () => {
-	it( 'should return array of dones for query', () => {
+	it( 'returns dones for query (dash-delimited, unicode, terminators)', () => {
 		const dones = getDones( {
 			dones: {
 				items: {
 					290: {
 						id: 290,
 						user: 1,
-						text: '#fill, #the #dash-delimited #tag #cloud',
+						text: '#fill, #the,#dash-delimited-ö, #tag #cloud',
 						date: '2017-04-27 00:00:00',
 						done: true,
 					},
 				},
 				pages: {
-					'{"date":"2017-04-27","tag":"dash-delimited"}': [
+					'{"date":"2017-04-27","tag":"dash-delimited-ö"}': [
 						null,
 						[
 							290,
@@ -30,18 +30,56 @@ describe( 'getDones()', () => {
 					],
 				},
 				received: {
-					'{"page":2,"date":"2017-04-27","tag":"dash-delimited"}': true,
+					'{"page":2,"date":"2017-04-27","tag":"dash-delimited-ö"}': true,
 				},
 				totalPages: {
-					'{"date":"2017-04-27","tag":"dash-delimited"}': 2,
+					'{"date":"2017-04-27","tag":"dash-delimited-ö"}': 2,
 				},
 			},
-		}, { tag: 'dash-delimited', date: '2017-04-27', page: 2 } );
+		}, { tag: 'dash-delimited-ö', date: '2017-04-27', page: 2 } );
 
 		expect( dones ).to.eql( [ {
 			id: 290,
 			user: 1,
-			text: '#fill, #the #dash-delimited #tag #cloud',
+			text: '#fill, #the,#dash-delimited-ö, #tag #cloud',
+			date: '2017-04-27 00:00:00',
+			done: true,
+		} ] );
+	} );
+
+	it( 'returns dones for query (start, end)', () => {
+		const dones = getDones( {
+			dones: {
+				items: {
+					290: {
+						id: 290,
+						user: 1,
+						text: '#fill',
+						date: '2017-04-27 00:00:00',
+						done: true,
+					},
+				},
+				pages: {
+					'{"tag":"fill"}': [
+						null,
+						[
+							290,
+						],
+					],
+				},
+				received: {
+					'{"tag":"fill"}': true,
+				},
+				totalPages: {
+					'{"tag":"fill"}': 1,
+				},
+			},
+		}, { tag: 'fill' } );
+
+		expect( dones ).to.eql( [ {
+			id: 290,
+			user: 1,
+			text: '#fill',
 			date: '2017-04-27 00:00:00',
 			done: true,
 		} ] );
