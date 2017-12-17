@@ -2,7 +2,7 @@
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Dones 1.1.2\n"
+"Project-Id-Version: Dones 1.1.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/dones\n"
 "POT-Creation-Date: 2017-12-12 01:24:14+00:00\n"
 "MIME-Version: 1.0\n"
