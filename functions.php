@@ -341,12 +341,13 @@ function dones_add_rewrite_rules() {
 	add_rewrite_rule( '^date(/(\d{4}-\d{2}-\d{2}))?/?$', 'index.php?dones_date=$matches[2]', 'top' );
 	add_rewrite_rule( '^tags(/([\w-]+)(/page/(\d+))?)?/?$', 'index.php?dones_tag=$matches[2]&paged=$matches[4]', 'top' );
 
-	if ( 'after_switch_theme' === current_filter() ) {
+	if ( in_array( current_filter(), array( 'after_switch_theme', 'upgrader_process_complete' ) ) ) {
 		flush_rewrite_rules();
 	}
 }
 add_action( 'init', 'dones_add_rewrite_rules' );
 add_action( 'after_switch_theme', 'dones_add_rewrite_rules' );
+add_action( 'upgrader_process_complete', 'dones_add_rewrite_rules' );
 
 /**
  * Add query variables from custom route patterns.
