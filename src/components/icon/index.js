@@ -1,6 +1,21 @@
 /* eslint-disable max-len */
 
 /**
+ * Sourced from:
+ *  https://github.com/encharm/Font-Awesome-SVG-PNG
+ *  Copyright (c) 2014 Code Charm Ltd
+ *  Made available under the MIT License
+ *  https://github.com/encharm/Font-Awesome-SVG-PNG/blob/master/LICENSE
+ *
+ * Font assets authored by:
+ *  Font Awesome
+ *  http://fontawesome.io/
+ *  By Dave Gandy
+ *  Made available under the SIL OFL 1.1 License
+ *  http://fontawesome.io/license/
+ */
+
+/**
  * External dependencies
  */
 import { createElement } from 'preact';
