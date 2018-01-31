@@ -85,14 +85,14 @@
     "fast-stable-stringify": "1.0.0",
     "flatpickr": "3.0.7",
     "lodash": "4.17.4",
-    "memize": "1.0.4",
+    "memize": "1.0.5",
     "preact": "8.2.5",
     "preact-redux": "2.0.3",
     "querystringify": "1.0.0",
     "redux": "3.7.2",
     "redux-multi": "0.1.12",
     "refx": "3.0.0",
-    "rememo": "2.3.3",
+    "rememo": "2.3.4",
     "textarea-caret": "3.0.2",
     "wayfarer": "6.6.2"
   }
