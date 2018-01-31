@@ -131,6 +131,7 @@ function dones_scripts() {
 			'Are you sure you want to delete this done?' => __( 'Are you sure you want to delete this done?', 'dones' ),
 			'Cancel'                                     => __( 'Cancel', 'dones' ),
 			'Date'                                       => __( 'Date', 'dones' ),
+			'Delete'                                     => __( 'Delete', 'dones' ),
 			'Done'                                       => __( 'Done', 'dones' ),
 			'Done or goal'                               => __( 'Done or goal', 'dones' ),
 			'Dones'                                      => __( 'Dones', 'dones' ),

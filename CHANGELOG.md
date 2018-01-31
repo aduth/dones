@@ -1,6 +1,7 @@
 #### 1.1.4 (---)
 
 - Improved: Use user-configured locale
+- Fix: Added missing translation string "Delete"
 
 #### 1.1.3 (2017-12-15)
 

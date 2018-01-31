@@ -1,224 +1,228 @@
-# Copyright (C) 2017 Andrew Duthie
+# Copyright (C) 2018 Andrew Duthie
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
 "Project-Id-Version: Dones 1.1.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/dones\n"
-"POT-Creation-Date: 2017-12-12 01:24:14+00:00\n"
+"POT-Creation-Date: 2018-01-31 00:59:15+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: functions.php:114
+#: functions.php:130
 msgid "An error occurred while saving"
 msgstr ""
 
-#: functions.php:115
+#: functions.php:131
 msgid "Are you sure you want to delete this done?"
 msgstr ""
 
-#: functions.php:116
+#: functions.php:132
 msgid "Cancel"
 msgstr ""
 
-#: functions.php:117
+#: functions.php:133
 msgid "Date"
 msgstr ""
 
-#: functions.php:118
+#: functions.php:134
+msgid "Delete"
+msgstr ""
+
+#: functions.php:135
 msgid "Done"
 msgstr ""
 
-#: functions.php:119
+#: functions.php:136
 msgid "Done or goal"
 msgstr ""
 
-#: functions.php:120
+#: functions.php:137
 msgid "Dones"
 msgstr ""
 
-#: functions.php:121
+#: functions.php:138
 msgid "Goal"
 msgstr ""
 
-#: functions.php:122
+#: functions.php:139
 msgid "Log In"
 msgstr ""
 
-#: functions.php:123
+#: functions.php:140
 msgid "Log Out"
 msgstr ""
 
-#: functions.php:124
+#: functions.php:141
 msgid "Next"
 msgstr ""
 
-#: functions.php:125 functions.php:138
+#: functions.php:142 functions.php:155
 msgid "No dones found for this tag"
 msgstr ""
 
-#: functions.php:126
+#: functions.php:143
 msgid "No tags found"
 msgstr ""
 
-#: functions.php:127
+#: functions.php:144
 msgid "Nothing reported yet!"
 msgstr ""
 
-#: functions.php:128
+#: functions.php:145
 msgid "Page Not Found"
 msgstr ""
 
-#: functions.php:129
+#: functions.php:146
 msgid "Pick Date"
 msgstr ""
 
-#: functions.php:130
+#: functions.php:147
 msgid "Previous"
 msgstr ""
 
-#: functions.php:131
+#: functions.php:148
 msgid "Recent Tags"
 msgstr ""
 
-#: functions.php:132
+#: functions.php:149
 msgid "Submit"
 msgstr ""
 
 #. translators: Heading for tag detail page
 
-#: functions.php:134
+#: functions.php:151
 msgid "Tag: %s"
 msgstr ""
 
-#: functions.php:135
+#: functions.php:152
 msgid "Tags"
 msgstr ""
 
-#: functions.php:136
+#: functions.php:153
 msgid "User avatar"
 msgstr ""
 
-#: functions.php:137
+#: functions.php:154
 msgid "What have you been up to?"
 msgstr ""
 
-#: functions.php:139
+#: functions.php:156
 msgid "Changes you made may not be saved."
 msgstr ""
 
-#: functions.php:310
+#: functions.php:327
 msgid "Brand Color"
 msgstr ""
 
-#: functions.php:398
+#: functions.php:416
 msgctxt "post type general name"
 msgid "Dones"
 msgstr ""
 
-#: functions.php:399
+#: functions.php:417
 msgctxt "post type singular name"
 msgid "Done"
 msgstr ""
 
-#: functions.php:400
+#: functions.php:418
 msgctxt "admin menu"
 msgid "Dones"
 msgstr ""
 
-#: functions.php:401
+#: functions.php:419
 msgctxt "add new on admin bar"
 msgid "Done"
 msgstr ""
 
-#: functions.php:402
+#: functions.php:420
 msgctxt "done"
 msgid "Add New"
 msgstr ""
 
-#: functions.php:403
+#: functions.php:421
 msgid "Add New Done"
 msgstr ""
 
-#: functions.php:404
+#: functions.php:422
 msgid "New Done"
 msgstr ""
 
-#: functions.php:405
+#: functions.php:423
 msgid "Edit Done"
 msgstr ""
 
-#: functions.php:406
+#: functions.php:424
 msgid "View Done"
 msgstr ""
 
-#: functions.php:407
+#: functions.php:425
 msgid "All Dones"
 msgstr ""
 
-#: functions.php:408
+#: functions.php:426
 msgid "Search Dones"
 msgstr ""
 
-#: functions.php:410
+#: functions.php:428
 msgid "No dones found."
 msgstr ""
 
-#: functions.php:411
+#: functions.php:429
 msgid "No dones found in Trash."
 msgstr ""
 
-#: functions.php:413
+#: functions.php:431
 msgid "Tasks completed or to be completed."
 msgstr ""
 
-#: functions.php:434
+#: functions.php:451
 msgctxt "taxonomy general name"
 msgid "Done Tags"
 msgstr ""
 
-#: functions.php:435
+#: functions.php:452
 msgctxt "taxonomy singular name"
 msgid "Done Tag"
 msgstr ""
 
-#: functions.php:436
+#: functions.php:453
 msgid "Search Done Tags"
 msgstr ""
 
-#: functions.php:437
+#: functions.php:454
 msgid "All Done Tags"
 msgstr ""
 
-#: functions.php:440
+#: functions.php:457
 msgid "Edit Done Tag"
 msgstr ""
 
-#: functions.php:441
+#: functions.php:458
 msgid "Update Done Tag"
 msgstr ""
 
-#: functions.php:442
+#: functions.php:459
 msgid "Add New Done Tag"
 msgstr ""
 
-#: functions.php:443
+#: functions.php:460
 msgid "New Done Tag Name"
 msgstr ""
 
-#: functions.php:444
+#: functions.php:461
 msgid "Done Tag"
 msgstr ""
 
-#: functions.php:528
+#: functions.php:548
 msgctxt "manage column name"
 msgid "Done Text"
 msgstr ""
 
-#: functions.php:655 functions.php:656
+#: functions.php:675 functions.php:676
 msgid "About Dones"
 msgstr ""
 
@@ -334,19 +338,19 @@ msgstr ""
 
 #. translators: %d: avatar image size in pixels
 
-#: inc/endpoints/class-wp-rest-dones-users-controller.php:126
+#: inc/endpoints/class-wp-rest-dones-users-controller.php:128
 msgid "Avatar URL with image size of %d pixels."
 msgstr ""
 
-#: inc/endpoints/class-wp-rest-dones-users-controller.php:138
+#: inc/endpoints/class-wp-rest-dones-users-controller.php:140
 msgid "Unique identifier for the user."
 msgstr ""
 
-#: inc/endpoints/class-wp-rest-dones-users-controller.php:142
+#: inc/endpoints/class-wp-rest-dones-users-controller.php:144
 msgid "Display name for the user."
 msgstr ""
 
-#: inc/endpoints/class-wp-rest-dones-users-controller.php:146
+#: inc/endpoints/class-wp-rest-dones-users-controller.php:148
 msgid "Avatar URLs for the user."
 msgstr ""
 #. Theme Name of the plugin/theme
