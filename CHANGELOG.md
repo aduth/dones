@@ -1,3 +1,7 @@
+#### 1.1.4 (---)
+
+- Improved: Use user-configured locale
+
 #### 1.1.3 (2017-12-15)
 
 - Improved: Theme localization activated ([translations welcome!](https://poeditor.com/join/project/NfvVvUxRDS))

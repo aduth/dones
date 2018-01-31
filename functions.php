@@ -43,6 +43,22 @@ function dones_setup() {
 add_action( 'after_setup_theme', 'dones_setup' );
 
 /**
+ * Overrides theme locale to use user-configured locale if assigned.
+ *
+ * @param string $locale The theme's current locale.
+ *
+ * @return string The filtered locale.
+ */
+function dones_set_user_locale( $locale ) {
+	if ( is_user_logged_in() ) {
+		return get_user_locale();
+	}
+
+	return $locale;
+}
+add_filter( 'theme_locale', 'dones_set_user_locale' );
+
+/**
  * Removes unsupported post types from admin menu.
  */
 function dones_remove_unsupported_types_menu_items() {
