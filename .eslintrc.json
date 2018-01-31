@@ -15,6 +15,7 @@
 	"rules": {
 		"arrow-parens": "error",
 		"no-cond-assign": "off",
+		"no-process-exit": "off",
 		"no-restricted-globals": [ "error", "event" ],
 		"react/jsx-no-bind": "off",
 		"react/jsx-space-before-closing": "off",

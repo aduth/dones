@@ -3,6 +3,7 @@
 set -e
 cd "$(dirname "$0")"
 cd ..
+npm run clean
 npm install
 npm run build
 rm -f dones.zip
