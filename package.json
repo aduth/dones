@@ -57,7 +57,7 @@
     "chai": "4.1.2",
     "cross-env": "5.0.5",
     "css-loader": "0.28.7",
-    "cypress": "1.0.3",
+    "cypress": "1.4.1",
     "deep-freeze": "0.0.1",
     "eslint": "4.8.0",
     "eslint-config-wpcalypso": "1.1.0",
