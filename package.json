@@ -20,7 +20,7 @@
     "prebuild": "npm run clean",
     "build:es6": "cross-env NODE_ENV=production webpack",
     "build:legacy": "cross-env BUILD_TARGET=legacy BABEL_ENV=legacy NODE_ENV=production webpack",
-    "build": "npm-run-all --parallel build:* download-languages",
+    "build": "npm-run-all --parallel build:*",
     "build-theme": "./bin/build-theme.sh",
     "predev": "npm run clean",
     "dev": "webpack --watch",

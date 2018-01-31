@@ -1,11 +1,13 @@
 #!/bin/sh
 
+PATH:=./node_modules/.bin:$(PATH)
+
 set -e
 cd "$(dirname "$0")"
 cd ..
 npm run clean
 npm install
-npm run build
+npm-run-all --parallel build download-languages
 rm -f dones.zip
 zip -r dones.zip \
 	dist \
