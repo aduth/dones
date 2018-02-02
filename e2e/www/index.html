@@ -76,6 +76,7 @@ window.fetch = function( path, params ) {
 	return response.then( function( result ) {
 		// Form response as fetch Response object
 		return {
+			ok: true,
 			json: function() {
 				return Promise.resolve( result );
 			},
