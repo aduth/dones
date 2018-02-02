@@ -38,6 +38,8 @@ describe( 'middleware', () => {
 	const body = { ok: true };
 	const response = {
 		headers,
+		ok: true,
+		statusText: 'OK',
 		json: () => Promise.resolve( body ),
 	};
 	const result = { headers: { 'x-ok': 1 }, body };
@@ -134,7 +136,7 @@ describe( 'middleware', () => {
 		handler( {
 			type: REQUEST,
 			path: '/foo',
-			success: ( actualResult ) => {
+			success( actualResult ) {
 				expect( dispatch ).to.have.been.calledWithMatch( {
 					...setPathRequest( '/foo', {
 						method: 'GET',
@@ -143,6 +145,27 @@ describe( 'middleware', () => {
 					request: match.object,
 				} );
 				expect( actualResult ).to.eql( result );
+
+				done();
+			},
+		} );
+	} );
+
+	it( 'should reject from non-ok request', ( done ) => {
+		const originalResponse = { ...response };
+		response.ok = false;
+		response.statusText = 'Forbidden';
+
+		handler( {
+			type: REQUEST,
+			path: '/foo',
+			success() {
+				done( new Error( 'Unexpected success call' ) );
+			},
+			failure( error ) {
+				expect( error.message ).to.equal( 'Forbidden' );
+
+				Object.assign( response, originalResponse );
 
 				done();
 			},

@@ -33,6 +33,10 @@ export default ( { dispatch, getState } ) => {
 	 */
 	async function getFormattedResponse( request ) {
 		const response = await request;
+		if ( ! response.ok ) {
+			throw new Error( response.statusText );
+		}
+
 		const headers = fromPairs( [ ...response.headers ] );
 		const result = { headers };
 		result.body = await response.json();
