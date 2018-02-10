@@ -94,6 +94,7 @@
     "refx": "3.0.0",
     "rememo": "2.3.4",
     "textarea-caret": "3.0.2",
-    "wayfarer": "6.6.2"
+    "wayfarer": "6.6.2",
+    "wping": "1.0.0"
   }
 }
