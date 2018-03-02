@@ -2,38 +2,21 @@
  * External dependencies
  */
 
-const webpack = require( 'webpack' );
 const ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
-const UglifyJsPlugin = require( 'uglifyjs-webpack-plugin' );
 
 const { BUILD_TARGET, NODE_ENV } = process.env;
 
 const config = module.exports = {
-	entry: {
-		app: [
-			'./src/index.js',
-		],
-		vendor: [
-			'classcat',
-			'fast-stable-stringify',
-			'flatpickr',
-			'memize',
-			'preact',
-			'preact-redux',
-			'refx',
-			'textarea-caret',
-			'wayfarer',
-		],
-	},
+	entry: './src/index.js',
 	output: {
 		path: __dirname + '/dist',
-		filename: '[name]' + ( BUILD_TARGET ? '-' + BUILD_TARGET : '' ) + '.js',
+		filename: 'app' + ( BUILD_TARGET ? '-' + BUILD_TARGET : '' ) + '.js',
 		publicPath: '/',
 	},
 	resolve: {
 		modules: [ 'src', 'node_modules' ],
 		alias: {
-			'lodash-es': 'lodash',
+			lodash: 'lodash-es',
 		},
 	},
 	module: {
@@ -45,18 +28,6 @@ const config = module.exports = {
 			},
 		],
 	},
-	plugins: [
-		new webpack.DefinePlugin( {
-			'process.env.NODE_ENV': JSON.stringify( NODE_ENV ),
-		} ),
-		new webpack.optimize.CommonsChunkPlugin( {
-			name: 'vendor',
-		} ),
-		new webpack.LoaderOptionsPlugin( {
-			minimize: NODE_ENV === 'production',
-			debug: NODE_ENV !== 'production',
-		} ),
-	],
 };
 
 if ( 'production' === NODE_ENV ) {
@@ -100,26 +71,16 @@ if ( 'production' === NODE_ENV ) {
 		} ),
 	} );
 
-	config.plugins.push(
-		new UglifyJsPlugin( {
-			uglifyOptions: {
-				output: {
-					comments: false,
-				},
-			},
-			cache: true,
-			parallel: true,
-		} ),
-		new webpack.optimize.ModuleConcatenationPlugin(),
+	config.plugins = [
 		new ExtractTextPlugin( {
 			filename: './style.css',
 			disable: false,
 			allChunks: true,
-		} )
-	);
+		} ),
+	];
 } else {
 	config.devtool = 'cheap-module-source-map';
-	config.entry.app.push( 'preact/devtools' );
+	config.entry = [ config.entry, 'preact/devtools' ];
 	config.module.rules.push( {
 		test: /\.s?css$/,
 		use: [

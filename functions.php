@@ -107,10 +107,8 @@ function dones_scripts() {
 	}
 
 	// Application script.
-	wp_register_script( 'dones-vendor', get_theme_file_uri( '/dist/vendor.js' ), array(), dones_get_version(), true );
-	wp_enqueue_script( 'dones-app', get_theme_file_uri( '/dist/app.js' ), array( 'dones-vendor' ), dones_get_version(), true );
-	wp_register_script( 'dones-legacy-vendor', get_theme_file_uri( '/dist/vendor-legacy.js' ), array(), dones_get_version(), true );
-	wp_enqueue_script( 'dones-legacy-app', get_theme_file_uri( '/dist/app-legacy.js' ), array( 'dones-legacy-vendor' ), dones_get_version(), true );
+	wp_enqueue_script( 'dones-app', get_theme_file_uri( '/dist/app.js' ), array(), dones_get_version(), true );
+	wp_enqueue_script( 'dones-legacy-app', get_theme_file_uri( '/dist/app-legacy.js' ), array(), dones_get_version(), true );
 	wp_localize_script( 'dones-app', 'dones', array(
 		'siteName'   => get_bloginfo( 'name' ),
 		'siteUrl'    => site_url(),
