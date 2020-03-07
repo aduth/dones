@@ -1,5 +1,5 @@
 {
 	"integrationFolder": "e2e/tests",
 	"fileServerFolder": "e2e/www",
-	"videoRecording": false
+	"video": false
 }

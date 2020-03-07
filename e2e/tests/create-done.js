@@ -13,14 +13,13 @@ describe( 'Create done', () => {
 			.should( 'have.length', 1 )
 			.and( 'have.text', '​Auto​ focus' );
 		cy.get( '.done-text code' ).should( 'have.length', 1 );
-		cy.get( ':focus' )
-			.should( 'have.class', 'done-input__textarea-input' )
+		cy.get( '.done-input__textarea-input:focus' )
 			.and( 'have.value', '' );
 	} );
 
 	it( 'Edits done', () => {
 		cy.get( '.done-text' ).focus();
-		cy.get( ':focus' ).type( ' with #tag!{enter}' );
+		cy.get( '.done-input__textarea-input:focus' ).type( ' with #tag!{enter}' );
 		cy.get( '.dones-list__item' )
 			.should( 'have.length', 1 )
 			.and( 'have.text', '​Auto​ focus with #tag!' );

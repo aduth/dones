@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createElement, Component } from 'preact';
-import { connect } from 'preact-redux';
+import { connect } from 'react-redux';
 
 /**
  * Internal dependencies
@@ -14,19 +14,19 @@ import Icon from 'components/icon';
 import DatePicker from 'components/date-picker';
 import { toSiteTime, formatSiteDate, translate } from 'lib/i18n';
 import { pushRoute } from 'state/routing/actions';
-import { addDays, format as formatDate } from 'date-fns';
+import { addDays, parseISO, format as formatDate } from 'date-fns';
 
 class DateNavigation extends Component {
 	getDateLink = ( increment ) => {
 		const { date } = this.props;
-		return `/date/${ formatDate( addDays( date, increment ), 'YYYY-MM-DD' ) }/`;
+		return `/date/${ formatDate( addDays( parseISO( date ), increment ), 'yyyy-MM-dd' ) }/`;
 	};
 
 	toDate = ( selected, date ) => {
 		// Some date inputs on mobile allow clearing the value. Assume an empty
 		// value should default to today's date.
 		if ( ! date ) {
-			date = formatDate( toSiteTime(), 'YYYY-MM-DD' );
+			date = formatDate( toSiteTime(), 'yyyy-MM-dd' );
 		}
 
 		this.props.pushRoute( `/date/${ date }/` );

@@ -18,5 +18,5 @@ export function hasReceivedDones( state, query ) {
 
 export default createSelector(
 	hasReceivedDones,
-	( state ) => state.dones.received
+	( state ) => [ state.dones.received ]
 );

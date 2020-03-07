@@ -4,9 +4,10 @@
 
 const ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
 
-const { BUILD_TARGET, NODE_ENV } = process.env;
+const { BUILD_TARGET, NODE_ENV = 'development' } = process.env;
 
 const config = module.exports = {
+	mode: NODE_ENV,
 	entry: './src/index.js',
 	output: {
 		path: __dirname + '/dist',
@@ -17,6 +18,8 @@ const config = module.exports = {
 		modules: [ 'src', 'node_modules' ],
 		alias: {
 			lodash: 'lodash-es',
+			react: 'preact/compat',
+			'react-dom': 'preact/compat',
 		},
 	},
 	module: {
@@ -63,8 +66,10 @@ if ( 'production' === NODE_ENV ) {
 				'postcss-loader',
 				{
 					loader: 'sass-loader',
-					query: {
-						outputStyle: 'compressed',
+					options: {
+						sassOptions: {
+							outputStyle: 'compressed',
+						},
 					},
 				},
 			],
@@ -78,9 +83,14 @@ if ( 'production' === NODE_ENV ) {
 			allChunks: true,
 		} ),
 	];
-} else {
+} else if ( 'development' === NODE_ENV ) {
 	config.devtool = 'cheap-module-source-map';
 	config.entry = [ config.entry, 'preact/devtools' ];
+	config.resolve.alias['preact$'] = 'preact/src/index.js';
+	config.resolve.alias['preact/compat$'] = 'preact/compat/src/index.js';
+	config.resolve.alias['preact/debug$'] = 'preact/debug/src/index.js';
+	config.resolve.alias['preact/devtools$'] = 'preact/devtools/src/index.js';
+	config.resolve.alias['preact/hooks$'] = 'preact/hooks/src/index.js';
 	config.module.rules.push( {
 		test: /\.s?css$/,
 		use: [

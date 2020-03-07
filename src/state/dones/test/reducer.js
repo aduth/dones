@@ -2,7 +2,6 @@
  * External dependencies
  */
 import deepFreeze from 'deep-freeze';
-import { expect } from 'chai';
 
 /**
  * Internal dependencies
@@ -17,7 +16,7 @@ import reducer, { items, pages, received, totalPages } from '../reducer';
 
 describe( 'reducer', () => {
 	it( 'exports expected keys', () => {
-		expect( reducer( undefined, {} ) ).to.have.keys( [
+		expect( Object.keys( reducer( undefined, {} ) ) ).toEqual( [
 			'items',
 			'pages',
 			'received',
@@ -29,7 +28,7 @@ describe( 'reducer', () => {
 		it( 'defaults to an empty object', () => {
 			const state = items( undefined, {} );
 
-			expect( state ).to.eql( {} );
+			expect( state ).toEqual( {} );
 		} );
 
 		it( 'receives dones keyed by id', () => {
@@ -46,7 +45,7 @@ describe( 'reducer', () => {
 				],
 			} );
 
-			expect( state ).to.eql( {
+			expect( state ).toEqual( {
 				1: {
 					id: 1,
 					text: 'done',
@@ -80,7 +79,7 @@ describe( 'reducer', () => {
 				],
 			} );
 
-			expect( state ).to.equal( state );
+			expect( state ).toBe( state );
 		} );
 
 		it( 'returns with a created done', () => {
@@ -101,7 +100,7 @@ describe( 'reducer', () => {
 				done: true,
 			} );
 
-			expect( state ).to.eql( {
+			expect( state ).toEqual( {
 				1: {
 					id: 1,
 					text: 'done',
@@ -145,7 +144,7 @@ describe( 'reducer', () => {
 				user: 1,
 			} );
 
-			expect( state ).to.eql( {
+			expect( state ).toEqual( {
 				1: {
 					id: 1,
 					text: 'done updated',
@@ -189,7 +188,7 @@ describe( 'reducer', () => {
 				user: 1,
 			} );
 
-			expect( state ).to.equal( original );
+			expect( state ).toBe( original );
 		} );
 
 		it( 'replaces done', () => {
@@ -218,7 +217,7 @@ describe( 'reducer', () => {
 				user: 1,
 			} );
 
-			expect( state ).to.eql( {
+			expect( state ).toEqual( {
 				1: {
 					id: 1,
 					text: 'done updated',
@@ -258,7 +257,7 @@ describe( 'reducer', () => {
 				id: 1,
 			} );
 
-			expect( state ).to.eql( {
+			expect( state ).toEqual( {
 				2: {
 					id: 2,
 					text: 'next',
@@ -274,7 +273,7 @@ describe( 'reducer', () => {
 		it( 'defaults to an empty object', () => {
 			const state = pages( undefined, {} );
 
-			expect( state ).to.eql( {} );
+			expect( state ).toEqual( {} );
 		} );
 
 		it( 'returns same state when lacking query', () => {
@@ -290,7 +289,7 @@ describe( 'reducer', () => {
 				} ],
 			} );
 
-			expect( state ).to.equal( original );
+			expect( state ).toBe( original );
 		} );
 
 		it( 'should receive pages for new query, default page 1', () => {
@@ -309,7 +308,7 @@ describe( 'reducer', () => {
 				},
 			} );
 
-			expect( state ).to.eql( {
+			expect( state ).toEqual( {
 				'{"date":"2017-05-10"}': [ [ 320 ] ],
 			} );
 		} );
@@ -331,7 +330,7 @@ describe( 'reducer', () => {
 				},
 			} );
 
-			expect( state ).to.eql( {
+			expect( state ).toEqual( {
 				'{"date":"2017-05-10"}': [ , [ 321 ] ],
 			} );
 		} );
@@ -355,7 +354,7 @@ describe( 'reducer', () => {
 				},
 			} );
 
-			expect( state ).to.eql( {
+			expect( state ).toEqual( {
 				'{"date":"2017-05-10"}': [ [ 320 ], [ 321 ] ],
 			} );
 		} );
@@ -379,7 +378,7 @@ describe( 'reducer', () => {
 				},
 			} );
 
-			expect( state ).to.equal( original );
+			expect( state ).toBe( original );
 		} );
 	} );
 
@@ -387,7 +386,7 @@ describe( 'reducer', () => {
 		it( 'defaults to an empty object', () => {
 			const state = received( undefined, {} );
 
-			expect( state ).to.eql( {} );
+			expect( state ).toEqual( {} );
 		} );
 
 		it( 'returns same state when lacking query', () => {
@@ -396,7 +395,7 @@ describe( 'reducer', () => {
 				type: DONES_RECEIVE,
 			} );
 
-			expect( state ).to.equal( original );
+			expect( state ).toBe( original );
 		} );
 
 		it( 'should key any received query as value true', () => {
@@ -416,7 +415,7 @@ describe( 'reducer', () => {
 				},
 			} );
 
-			expect( state ).to.eql( {
+			expect( state ).toEqual( {
 				'{"date":"2017-05-10","page":1}': true,
 			} );
 		} );
@@ -426,7 +425,7 @@ describe( 'reducer', () => {
 		it( 'defaults to an empty object', () => {
 			const state = totalPages( undefined, {} );
 
-			expect( state ).to.eql( {} );
+			expect( state ).toEqual( {} );
 		} );
 
 		it( 'returns same state when lacking query', () => {
@@ -435,7 +434,7 @@ describe( 'reducer', () => {
 				type: DONES_RECEIVE,
 			} );
 
-			expect( state ).to.equal( original );
+			expect( state ).toBe( original );
 		} );
 
 		it( 'returns same state when non-numeric total', () => {
@@ -445,7 +444,7 @@ describe( 'reducer', () => {
 				query: {},
 			} );
 
-			expect( state ).to.equal( original );
+			expect( state ).toBe( original );
 		} );
 
 		it( 'returns total pages for query', () => {
@@ -466,7 +465,7 @@ describe( 'reducer', () => {
 				totalPages: 1,
 			} );
 
-			expect( state ).to.eql( {
+			expect( state ).toEqual( {
 				'{"date":"2017-05-10"}': 1,
 			} );
 		} );

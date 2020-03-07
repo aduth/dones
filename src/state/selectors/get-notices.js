@@ -16,5 +16,5 @@ export function getNotices( state ) {
 
 export default createSelector(
 	getNotices,
-	( state ) => state.notices
+	( state ) => [ state.notices ]
 );

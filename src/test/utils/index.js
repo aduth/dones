@@ -2,17 +2,24 @@
  * External dependencies
  */
 import { createElement, render as _render } from 'preact';
-import { Provider } from 'preact-redux';
+import { Provider } from 'react-redux';
 
 /**
  * Internal dependencies
  */
 import createReduxStore from 'state';
 
-export function render( element, parent, merge ) {
-	return _render( (
+export function render( element ) {
+	document.body.innerHTML = '';
+
+	const wrapper = document.createElement( 'div' );
+	document.body.appendChild( wrapper );
+
+	_render( (
 		<Provider store={ createReduxStore() }>
 			{ element }
 		</Provider>
-	), parent, merge );
+	), wrapper );
+
+	return wrapper.firstChild;
 }

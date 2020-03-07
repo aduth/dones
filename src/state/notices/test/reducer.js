@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { expect } from 'chai';
 import deepFreeze from 'deep-freeze';
 
 /**
@@ -14,7 +13,7 @@ describe( 'reducer', () => {
 	it( 'returns an empty object by default', () => {
 		const state = reducer( undefined, {} );
 
-		expect( state ).to.eql( {} );
+		expect( state ).toEqual( {} );
 	} );
 
 	it( 'keys action by id', () => {
@@ -25,7 +24,7 @@ describe( 'reducer', () => {
 			text: 'foo',
 		} );
 
-		expect( state ).to.eql( {
+		expect( state ).toEqual( {
 			1: {
 				status: 'error',
 				text: 'foo',
@@ -45,7 +44,7 @@ describe( 'reducer', () => {
 			id: '2',
 		} );
 
-		expect( state ).to.equal( original );
+		expect( state ).toBe( original );
 	} );
 
 	it( 'returns object with removed notice id', () => {
@@ -60,6 +59,6 @@ describe( 'reducer', () => {
 			id: '1',
 		} );
 
-		expect( state ).to.eql( {} );
+		expect( state ).toEqual( {} );
 	} );
 } );

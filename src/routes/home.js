@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Component } from 'preact';
-import { connect } from 'preact-redux';
+import { connect } from 'react-redux';
 import { format as formatDate } from 'date-fns';
 
 /**
@@ -13,7 +13,7 @@ import { toSiteTime } from 'lib/i18n';
 
 class HomeRoute extends Component {
 	componentWillMount() {
-		const date = formatDate( toSiteTime( new Date() ), 'YYYY-MM-DD' );
+		const date = formatDate( toSiteTime( new Date() ), 'yyyy-MM-dd' );
 		this.props.replaceRoute( `/date/${ date }/` );
 	}
 

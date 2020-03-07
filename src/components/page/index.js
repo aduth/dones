@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createElement, Component } from 'preact';
-import { connect } from 'preact-redux';
+import { connect } from 'react-redux';
 
 /**
  * Internal dependencies

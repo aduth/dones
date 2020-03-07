@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { expect } from 'chai';
 
 /**
  * Internal dependencies
@@ -11,8 +10,8 @@ import callbackify from '../';
 describe( 'callbackify', () => {
 	it( 'resolves callback with success', ( done ) => {
 		callbackify( Promise.resolve( 'success' ), ( error, result ) => {
-			expect( error ).to.be.null;
-			expect( result ).to.equal( 'success' );
+			expect( error ).toBe( null );
+			expect( result ).toBe( 'success' );
 
 			done();
 		} );
@@ -20,8 +19,8 @@ describe( 'callbackify', () => {
 
 	it( 'resolves callback with error', ( done ) => {
 		callbackify( Promise.reject( 'failure' ), ( error, result ) => {
-			expect( error ).to.equal( 'failure' );
-			expect( result ).to.be.undefined;
+			expect( error ).toBe( 'failure' );
+			expect( result ).toBeUndefined();
 
 			done();
 		} );

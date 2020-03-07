@@ -2,7 +2,6 @@
  * External dependencies
  */
 import { createElement } from 'preact';
-import { expect } from 'chai';
 
 /**
  * Internal dependencies
@@ -24,19 +23,19 @@ describe( 'Button', () => {
 			</Button>
 		);
 
-		const node = render( element, document.body );
+		const node = render( element );
 
-		expect( node.nodeName ).to.equal( 'BUTTON' );
-		expect( node.classList.contains( 'button' ) ).to.be.true;
-		expect( node.classList.contains( 'is-primary' ) ).to.be.true;
-		expect( node.classList.contains( 'is-unstyled' ) ).to.be.true;
-		expect( node.hasAttribute( 'primary' ) ).to.be.false;
-		expect( node.hasAttribute( 'unstyled' ) ).to.be.false;
-		expect( node.hasAttribute( 'to' ) ).to.be.false;
-		expect( node.hasAttribute( 'disabled' ) ).to.be.true;
-		expect( node.getAttribute( 'type' ) ).to.equal( 'submit' );
-		expect( node.getAttribute( 'aria-label' ) ).to.equal( 'Additional' );
-		expect( node.textContent ).to.equal( 'Hello World' );
+		expect( node.nodeName ).toBe( 'BUTTON' );
+		expect( node.classList.contains( 'button' ) ).toBe( true );
+		expect( node.classList.contains( 'is-primary' ) ).toBe( true );
+		expect( node.classList.contains( 'is-unstyled' ) ).toBe( true );
+		expect( node.hasAttribute( 'primary' ) ).toBe( false );
+		expect( node.hasAttribute( 'unstyled' ) ).toBe( false );
+		expect( node.hasAttribute( 'to' ) ).toBe( false );
+		expect( node.hasAttribute( 'disabled' ) ).toBe( true );
+		expect( node.getAttribute( 'type' ) ).toBe( 'submit' );
+		expect( node.getAttribute( 'aria-label' ) ).toBe( 'Additional' );
+		expect( node.textContent ).toBe( 'Hello World' );
 	} );
 
 	it( 'renders a link with `to` prop', () => {
@@ -46,12 +45,12 @@ describe( 'Button', () => {
 			</Button>
 		);
 
-		const node = render( element, document.body );
+		const node = render( element );
 
-		expect( node.nodeName ).to.equal( 'A' );
-		expect( node.hasAttribute( 'type' ) ).to.be.false;
-		expect( node.getAttribute( 'href' ) ).to.equal( SITE_URL + '/' );
-		expect( node.textContent ).to.equal( 'Hello World' );
+		expect( node.nodeName ).toBe( 'A' );
+		expect( node.hasAttribute( 'type' ) ).toBe( false );
+		expect( node.getAttribute( 'href' ) ).toBe( SITE_URL + '/' );
+		expect( node.textContent ).toBe( 'Hello World' );
 	} );
 
 	it( 'renders a button with `to` and `disabled` props', () => {
@@ -61,10 +60,10 @@ describe( 'Button', () => {
 			</Button>
 		);
 
-		const node = render( element, document.body );
+		const node = render( element );
 
-		expect( node.nodeName ).to.equal( 'BUTTON' );
-		expect( node.hasAttribute( 'to' ) ).to.be.false;
-		expect( node.getAttribute( 'type' ) ).to.equal( 'button' );
+		expect( node.nodeName ).toBe( 'BUTTON' );
+		expect( node.hasAttribute( 'to' ) ).toBe( false );
+		expect( node.getAttribute( 'type' ) ).toBe( 'button' );
 	} );
 } );

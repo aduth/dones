@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { expect } from 'chai';
 
 /**
  * Internal dependencies
@@ -16,7 +15,7 @@ describe( 'hasReceivedDones()', () => {
 			},
 		}, { date: '2017-05-09' } );
 
-		expect( result ).to.be.false;
+		expect( result ).toBe( false );
 	} );
 
 	it( 'returns received value for query', () => {
@@ -28,6 +27,6 @@ describe( 'hasReceivedDones()', () => {
 			},
 		}, { date: '2017-05-09' } );
 
-		expect( result ).to.be.true;
+		expect( result ).toBe( true );
 	} );
 } );

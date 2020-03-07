@@ -16,5 +16,5 @@ export function getUsers( state ) {
 
 export default createSelector(
 	getUsers,
-	( state ) => state.users
+	( state ) => [ state.users ]
 );

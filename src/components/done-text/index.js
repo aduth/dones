@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { createElement, Component } from 'preact';
+import { createElement, toChildArray, Component } from 'preact';
 import { repeat, reduce, truncate } from 'lodash';
 
 /**
@@ -68,7 +68,7 @@ const TRANSFORMS = [
  * @return {Array}          Transformed children
  */
 function getTransformedDoneText( children ) {
-	let parts = [ ...children ];
+	let parts = [ ...toChildArray( children ) ];
 
 	for ( const { pattern, transform } of TRANSFORMS ) {
 		parts = reduce( parts, ( memo, part ) => {

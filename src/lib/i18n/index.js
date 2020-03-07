@@ -4,7 +4,7 @@
 import memoize from 'memize';
 import {
 	addHours,
-	parse as parseDate,
+	parseISO,
 	format as formatDate,
 } from 'date-fns';
 
@@ -15,9 +15,9 @@ import { I18N, GMT_OFFSET, DATE_FORMAT } from 'constant';
 
 const getSiteFormat = memoize( () => {
 	const PHP_DATE_FORMAT_TO_JS = {
-		d: 'DD',
+		d: 'dd',
 		D: 'ddd',
-		j: 'D',
+		j: 'd',
 		l: 'dddd',
 		N: 'E',
 		S: 'o',
@@ -28,8 +28,8 @@ const getSiteFormat = memoize( () => {
 		m: 'MM',
 		M: 'MMM',
 		n: 'M',
-		o: 'YYYY',
-		Y: 'YYYY',
+		o: 'yyyy',
+		Y: 'yyyy',
 		y: 'YY',
 		a: 'a',
 		A: 'A',
@@ -58,7 +58,7 @@ export function toSiteTime( date ) {
 
 export function formatSiteDate( date ) {
 	if ( ! ( date instanceof Date ) ) {
-		date = parseDate( date );
+		date = parseISO( date );
 	}
 
 	return formatDate( date, getSiteFormat() );

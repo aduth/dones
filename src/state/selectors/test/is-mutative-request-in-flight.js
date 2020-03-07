@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { expect } from 'chai';
 
 /**
  * Internal dependencies
@@ -16,7 +15,7 @@ describe( 'isMutativeRequestInFlight()', () => {
 			},
 		} );
 
-		expect( isRequestInFlight ).to.equal( false );
+		expect( isRequestInFlight ).toBe( false );
 	} );
 
 	it( 'should return false if GET request in flight', () => {
@@ -30,7 +29,7 @@ describe( 'isMutativeRequestInFlight()', () => {
 			},
 		} );
 
-		expect( isRequestInFlight ).to.equal( false );
+		expect( isRequestInFlight ).toBe( false );
 	} );
 
 	it( 'should return true if POST request in flight', () => {
@@ -44,6 +43,6 @@ describe( 'isMutativeRequestInFlight()', () => {
 			},
 		} );
 
-		expect( isRequestInFlight ).to.equal( true );
+		expect( isRequestInFlight ).toBe( true );
 	} );
 } );

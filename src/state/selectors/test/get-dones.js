@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { expect } from 'chai';
 
 /**
  * Internal dependencies
@@ -38,7 +37,7 @@ describe( 'getDones()', () => {
 			},
 		}, { tag: 'dash-delimited-ö', date: '2017-04-27', page: 2 } );
 
-		expect( dones ).to.eql( [ {
+		expect( dones ).toEqual( [ {
 			id: 290,
 			user: 1,
 			text: '#fill, #the,#dash-delimited-ö, #tag #cloud',
@@ -76,7 +75,7 @@ describe( 'getDones()', () => {
 			},
 		}, { tag: 'fill' } );
 
-		expect( dones ).to.eql( [ {
+		expect( dones ).toEqual( [ {
 			id: 290,
 			user: 1,
 			text: '#fill',

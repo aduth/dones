@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { expect } from 'chai';
 
 /**
  * Internal dependencies
@@ -14,7 +13,7 @@ describe( 'hasReceivedTags()', () => {
 			tags: null,
 		} );
 
-		expect( hasReceived ).to.be.false;
+		expect( hasReceived ).toBe( false );
 	} );
 
 	it( 'returns true if tags have been received', () => {
@@ -22,6 +21,6 @@ describe( 'hasReceivedTags()', () => {
 			tags: [],
 		} );
 
-		expect( hasReceived ).to.be.true;
+		expect( hasReceived ).toBe( true );
 	} );
 } );

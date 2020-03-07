@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { expect } from 'chai';
 
 /**
  * Internal dependencies
@@ -16,7 +15,7 @@ describe( 'getPreloadedResponse()', () => {
 			},
 		}, '/dones/v1/users' );
 
-		expect( response ).to.be.null;
+		expect( response ).toBe( null );
 	} );
 
 	it( 'should return preloaded response payload', () => {
@@ -39,6 +38,6 @@ describe( 'getPreloadedResponse()', () => {
 			},
 		}, '/dones/v1/users' );
 
-		expect( response ).to.equal( payload );
+		expect( response ).toBe( payload );
 	} );
 } );

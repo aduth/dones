@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { expect } from 'chai';
 import { map } from 'lodash';
 
 /**
@@ -53,7 +52,7 @@ describe( 'getSortedUsersByDate()', () => {
 			},
 		}, '2017-05-11' );
 
-		expect( map( users, 'name' ) ).to.eql( [
+		expect( map( users, 'name' ) ).toEqual( [
 			'Andrew',
 			'Charlie',
 			'Ben',

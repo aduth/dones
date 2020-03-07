@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { expect } from 'chai';
 import deepFreeze from 'deep-freeze';
 
 /**
@@ -20,7 +19,7 @@ describe( 'reducer', () => {
 	it( 'returns with expected keys', () => {
 		const state = reducer( undefined, {} );
 
-		expect( state ).to.have.keys( [
+		expect( Object.keys( reducer( undefined, {} ) ) ).toEqual( [
 			'items',
 			'preloading',
 			'preload',
@@ -33,7 +32,7 @@ describe( 'reducer', () => {
 		it( 'returns an empty object by default', () => {
 			const state = items( undefined, {} );
 
-			expect( state ).to.eql( {} );
+			expect( state ).toEqual( {} );
 		} );
 
 		it( 'sets request path by method', () => {
@@ -44,7 +43,7 @@ describe( 'reducer', () => {
 				request: {},
 			} );
 
-			expect( state ).to.eql( {
+			expect( state ).toEqual( {
 				'/foo': {
 					GET: {},
 				},
@@ -66,7 +65,7 @@ describe( 'reducer', () => {
 				request: {},
 			} );
 
-			expect( state ).to.eql( {
+			expect( state ).toEqual( {
 				'/foo': {
 					GET: {},
 					POST: {},
@@ -86,7 +85,7 @@ describe( 'reducer', () => {
 				path: '/foo',
 			} );
 
-			expect( state ).to.eql( {
+			expect( state ).toEqual( {
 				'/foo': {
 					POST: {},
 				},
@@ -107,7 +106,7 @@ describe( 'reducer', () => {
 				},
 			} );
 
-			expect( state ).to.eql( {} );
+			expect( state ).toEqual( {} );
 		} );
 	} );
 
@@ -115,7 +114,7 @@ describe( 'reducer', () => {
 		it( 'returns an empty object by default', () => {
 			const state = preload( undefined, {} );
 
-			expect( state ).to.eql( {} );
+			expect( state ).toEqual( {} );
 		} );
 
 		it( 'returns object of response data with lowercase headers keys', () => {
@@ -137,7 +136,7 @@ describe( 'reducer', () => {
 				},
 			} );
 
-			expect( state ).to.eql( {
+			expect( state ).toEqual( {
 				'/dones/v1/users': [ {
 					body: {
 						avatar: 'https://example.com/avatar.png',
@@ -169,7 +168,7 @@ describe( 'reducer', () => {
 				id: '2',
 			} );
 
-			expect( state ).to.equal( original );
+			expect( state ).toBe( original );
 		} );
 
 		it( 'returns an object with responses of matching id removed', () => {
@@ -190,7 +189,7 @@ describe( 'reducer', () => {
 				id: '1',
 			} );
 
-			expect( state ).to.eql( {} );
+			expect( state ).toEqual( {} );
 		} );
 
 		it( 'returns same state if preload single path cleared with mismatched id', () => {
@@ -212,7 +211,7 @@ describe( 'reducer', () => {
 				id: '4',
 			} );
 
-			expect( state ).to.equal( original );
+			expect( state ).toBe( original );
 		} );
 
 		it( 'returns an object without matched id for single path cleared', () => {
@@ -234,7 +233,7 @@ describe( 'reducer', () => {
 				id: '3',
 			} );
 
-			expect( state ).to.eql( {} );
+			expect( state ).toEqual( {} );
 		} );
 	} );
 
@@ -242,7 +241,7 @@ describe( 'reducer', () => {
 		it( 'returns null by default', () => {
 			const state = nonce( undefined, {} );
 
-			expect( state ).to.be.null;
+			expect( state ).toBe( null );
 		} );
 
 		it( 'returns with the action nonce', () => {
@@ -251,7 +250,7 @@ describe( 'reducer', () => {
 				nonce: '1ab98c39ab',
 			} );
 
-			expect( state ).to.equal( '1ab98c39ab' );
+			expect( state ).toBe( '1ab98c39ab' );
 		} );
 
 		it( 'guards against an undefined action nonce', () => {
@@ -260,7 +259,7 @@ describe( 'reducer', () => {
 				nonce: undefined,
 			} );
 
-			expect( state ).to.be.null;
+			expect( state ).toBe( null );
 		} );
 	} );
 } );

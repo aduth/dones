@@ -24,5 +24,5 @@ export function getSortedDones( state, query, property = 'date', order = 'desc' 
 
 export default createSelector(
 	getSortedDones,
-	( state ) => state.dones
+	( state ) => [ state.dones ]
 );

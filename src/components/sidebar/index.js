@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createElement } from 'preact';
-import { connect } from 'preact-redux';
+import { connect } from 'react-redux';
 import { startsWith } from 'lodash';
 import { format as formatDate } from 'date-fns';
 
@@ -17,7 +17,7 @@ import SidebarAction from './action';
 
 function Sidebar( { path } ) {
 	const isLoggedIn = USER_ID > 0;
-	const date = formatDate( toSiteTime( new Date() ), 'YYYY-MM-DD' );
+	const date = formatDate( toSiteTime( new Date() ), 'yyyy-MM-dd' );
 
 	return (
 		<header className="sidebar">

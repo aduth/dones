@@ -1,28 +1,26 @@
 {
 	"presets": [
-		[ "env", {
+		[ "@babel/env", {
 			"modules": false,
 			"targets": {
 				"browsers": "last 1 Chrome version"
 			}
-		} ],
-		"stage-2"
+		} ]
 	],
 	"plugins": [
 		"date-fns",
 		"lodash",
-		"transform-react-display-name",
-		[ "transform-runtime", {
-			"polyfill": false
-		} ],
-		[ "transform-react-jsx", {
-			"pragma": "createElement"
+		"@babel/transform-runtime",
+		"@babel/proposal-class-properties",
+		[ "@babel/transform-react-jsx", {
+			"pragma": "createElement",
+			"pragmaFrag": "Fragment"
 		} ]
 	],
 	"env": {
 		"test": {
 			"presets": [
-				[ "env", {
+				[ "@babel/env", {
 					"targets": {
 						"node": "current"
 					}
@@ -31,7 +29,7 @@
 		},
 		"production": {
 			"presets": [
-				[ "env", {
+				[ "@babel/env", {
 					"modules": false,
 					"targets": {
 						"browsers": [
@@ -41,18 +39,17 @@
 							"Edge >= 16"
 						]
 					}
-				} ],
-				"stage-2"
+				} ]
 			]
 		},
 		"legacy": {
 			"plugins": [
-				[ "transform-runtime", {
-					"polyfill": true
+				[ "@babel/transform-runtime", {
+					"corejs": 2
 				} ]
 			],
 			"presets": [
-				[ "env", {
+				[ "@babel/env", {
 					"modules": false,
 					"targets": {
 						"browsers": [
@@ -60,8 +57,7 @@
 							"ie 11"
 						]
 					}
-				} ],
-				"stage-2"
+				} ]
 			]
 		}
 	}

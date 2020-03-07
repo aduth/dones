@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { createElement } from 'preact';
+import { createElement, toChildArray } from 'preact';
 import classNames from 'classcat';
 
 export default function Card( { className, title, subtitle, controls, children } ) {
@@ -28,7 +28,7 @@ export default function Card( { className, title, subtitle, controls, children }
 					) }
 				</header>
 			) }
-			{ children.length > 0 && (
+			{ toChildArray( children ).length > 0 && (
 				<div className="card__content">
 					{ children }
 				</div>

@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { expect } from 'chai';
 
 /**
  * Internal dependencies
@@ -15,6 +14,6 @@ describe( 'configureReduxStore()', () => {
 
 		store.dispatch( { type: '__UNHANDLED_ACTION__' } );
 
-		expect( store.getState() ).to.equal( state );
+		expect( store.getState() ).toBe( state );
 	} );
 } );

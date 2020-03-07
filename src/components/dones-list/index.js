@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createElement, Component } from 'preact';
-import { connect } from 'preact-redux';
+import { connect } from 'react-redux';
 import classNames from 'classcat';
 import { map, sortBy } from 'lodash';
 
@@ -112,8 +112,6 @@ class DonesList extends Component {
 			}
 
 			return (
-				// TODO: Resolve buggy lint behavior
-				// eslint-disable-next-line wpcalypso/jsx-classname-namespace
 				<li key={ id } className="dones-list__item">
 					{ children }
 				</li>

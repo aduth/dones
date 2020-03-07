@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { expect } from 'chai';
 
 /**
  * Internal dependencies
@@ -16,7 +15,7 @@ describe( 'getPathRequest()', () => {
 			},
 		}, '/foo' );
 
-		expect( request ).to.be.null;
+		expect( request ).toBe( null );
 	} );
 
 	it( 'returns GET request', () => {
@@ -31,7 +30,7 @@ describe( 'getPathRequest()', () => {
 			},
 		}, '/foo' );
 
-		expect( request ).to.eql( { get: true } );
+		expect( request ).toEqual( { get: true } );
 	} );
 
 	it( 'returns request by method', () => {
@@ -46,6 +45,6 @@ describe( 'getPathRequest()', () => {
 			},
 		}, '/foo', 'POST' );
 
-		expect( request ).to.eql( { post: true } );
+		expect( request ).toEqual( { post: true } );
 	} );
 } );

@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { expect } from 'chai';
 
 /**
  * Internal dependencies
@@ -16,7 +15,7 @@ describe( 'isInitialRoute()', () => {
 			},
 		} );
 
-		expect( isInitial ).to.be.true;
+		expect( isInitial ).toBe( true );
 	} );
 
 	it( 'should return false if not initial route', () => {
@@ -26,6 +25,6 @@ describe( 'isInitialRoute()', () => {
 			},
 		} );
 
-		expect( isInitial ).to.be.false;
+		expect( isInitial ).toBe( false );
 	} );
 } );

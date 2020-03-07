@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createElement, render } from 'preact';
-import { Provider } from 'preact-redux';
+import { Provider } from 'react-redux';
 import wping from 'wping';
 
 /**
@@ -43,6 +43,5 @@ render(
 	<Provider store={ store }>
 		<Root />
 	</Provider>,
-	target,
-	target.children[ 0 ]
+	target
 );

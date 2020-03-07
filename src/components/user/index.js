@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createElement } from 'preact';
-import { connect } from 'preact-redux';
+import { connect } from 'react-redux';
 
 /**
  * Internal dependencies
@@ -16,7 +16,7 @@ function User( { name, avatars } ) {
 			<img
 				src={ avatars[ 30 ] }
 				alt={ translate( 'User avatar' ) }
-				srcset={ avatars[ 60 ] + ' 2x' }
+				srcSet={ avatars[ 60 ] + ' 2x' }
 				height="30"
 				width="30"
 				className="user__avatar-image" />

@@ -1,15 +1,16 @@
 {
 	"root": true,
-	"extends": "wpcalypso/react",
+	"extends": "plugin:@wordpress/eslint-plugin/react",
 	"parser": "babel-eslint",
 	"env": {
 		"node": true,
 		"browser": true,
-		"mocha": true
+		"jest": true
 	},
 	"settings": {
 		"react": {
-			"pragma": "createElement"
+			"pragma": "createElement",
+			"version": "16.3"
 		}
 	},
 	"rules": {
@@ -17,6 +18,7 @@
 		"no-cond-assign": "off",
 		"no-process-exit": "off",
 		"no-restricted-globals": [ "error", "event" ],
+		"react/jsx-key": "off",
 		"react/jsx-no-bind": "off",
 		"react/jsx-space-before-closing": "off",
 		"react/jsx-tag-spacing": "error"

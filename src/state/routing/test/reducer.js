@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { expect } from 'chai';
 
 /**
  * Internal dependencies
@@ -13,7 +12,7 @@ describe( 'reducer', () => {
 	it( 'returns with expected keys', () => {
 		const state = reducer( undefined, {} );
 
-		expect( state ).to.have.keys( [
+		expect( Object.keys( reducer( undefined, {} ) ) ).toEqual( [
 			'path',
 			'isInitial',
 		] );
@@ -23,7 +22,7 @@ describe( 'reducer', () => {
 		it( 'defaults to null', () => {
 			const state = path( undefined, {} );
 
-			expect( state ).to.be.null;
+			expect( state ).toBe( null );
 		} );
 
 		it( 'returns the next path on replace', () => {
@@ -32,7 +31,7 @@ describe( 'reducer', () => {
 				path: '/foo',
 			} );
 
-			expect( state ).to.equal( '/foo' );
+			expect( state ).toBe( '/foo' );
 		} );
 
 		it( 'returns the next path on push', () => {
@@ -41,7 +40,7 @@ describe( 'reducer', () => {
 				path: '/bar',
 			} );
 
-			expect( state ).to.equal( '/bar' );
+			expect( state ).toBe( '/bar' );
 		} );
 	} );
 
@@ -49,7 +48,7 @@ describe( 'reducer', () => {
 		it( 'defaults to true', () => {
 			const state = isInitial( undefined, {} );
 
-			expect( state ).to.be.true;
+			expect( state ).toBe( true );
 		} );
 
 		it( 'returns false on push', () => {
@@ -57,7 +56,7 @@ describe( 'reducer', () => {
 				type: ROUTE_PUSH,
 			} );
 
-			expect( state ).to.be.false;
+			expect( state ).toBe( false );
 		} );
 
 		it( 'returns true on replace', () => {
@@ -65,7 +64,7 @@ describe( 'reducer', () => {
 				type: ROUTE_REPLACE,
 			} );
 
-			expect( state ).to.be.true;
+			expect( state ).toBe( true );
 		} );
 	} );
 } );

@@ -20,5 +20,5 @@ export function getDonesTotalPages( state, query ) {
 
 export default createSelector(
 	getDonesTotalPages,
-	( state ) => state.dones.totalPages
+	( state ) => [ state.dones.totalPages ]
 );

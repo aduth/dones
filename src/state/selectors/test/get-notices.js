@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { expect } from 'chai';
 
 /**
  * Internal dependencies
@@ -19,7 +18,7 @@ describe( 'getNotices()', () => {
 			},
 		} );
 
-		expect( notices ).to.eql( [
+		expect( notices ).toEqual( [
 			{ id: '1', status: 'error', text: 'foo' },
 		] );
 	} );

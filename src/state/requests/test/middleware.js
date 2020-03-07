@@ -1,10 +1,7 @@
 /**
  * External dependencies
  */
-import { expect } from 'chai';
-import { spy, stub, match } from 'sinon';
-import proxyquire from 'proxyquire';
-import { assign, noop, over } from 'lodash';
+import { noop, over } from 'lodash';
 
 /**
  * Internal dependencies
@@ -13,27 +10,23 @@ import {
 	REQUEST,
 	REQUEST_COMPLETE,
 } from 'state/action-types';
+import * as selectors from 'state/selectors';
 import {
 	addPreloadedResponse,
 	setPathIsPreloading,
 	setPathRequest,
 } from 'state/requests/actions';
+import middleware from '../middleware';
+
+jest.mock( 'state/selectors', () => ( {
+	getPreloadedResponse: jest.fn(),
+	getRequestNonce: jest.fn(),
+	isCapturingRequestPreload: jest.fn(),
+	isPreloadingPath: jest.fn(),
+	getPathRequest: jest.fn(),
+} ) );
 
 describe( 'middleware', () => {
-	let mockedHandlers = {};
-
-	const middleware = proxyquire( '../middleware', {
-		'state/selectors': [
-			'getPreloadedResponse',
-			'getRequestNonce',
-			'isCapturingRequestPreload',
-			'isPreloadingPath',
-			'getPathRequest',
-		].reduce( ( memo, name ) => assign( memo, {
-			[ name ]: ( ...args ) => ( mockedHandlers[ name ] || noop )( ...args ),
-		} ), {} ),
-	} ).default;
-
 	const headers = [ [ 'x-ok', 1 ] ];
 	const body = { ok: true };
 	const response = {
@@ -43,17 +36,22 @@ describe( 'middleware', () => {
 		json: () => Promise.resolve( body ),
 	};
 	const result = { headers: { 'x-ok': 1 }, body };
-	before( () => {
-		global.fetch = stub().returns( response );
+	beforeAll( () => {
+		global.fetch = jest.fn().mockReturnValue( response );
 		global.Headers = function() {};
 		global.Headers.prototype = {};
 	} );
 
 	let dispatch, next, handler;
 	beforeEach( () => {
-		mockedHandlers = {};
-		dispatch = spy();
-		next = spy();
+		selectors.getPreloadedResponse.mockRestore();
+		selectors.getRequestNonce.mockRestore();
+		selectors.isCapturingRequestPreload.mockRestore();
+		selectors.isPreloadingPath.mockRestore();
+		selectors.getPathRequest.mockRestore();
+
+		dispatch = jest.fn();
+		next = jest.fn();
 
 		handler = middleware( {
 			getState: noop,
@@ -61,7 +59,7 @@ describe( 'middleware', () => {
 		} )( next );
 	} );
 
-	after( () => {
+	afterAll( () => {
 		delete global.fetch;
 		delete global.Headers;
 	} );
@@ -71,8 +69,8 @@ describe( 'middleware', () => {
 
 		handler( action );
 
-		expect( next ).to.have.been.calledWith( action );
-		expect( dispatch ).to.not.have.been.called;
+		expect( next ).toHaveBeenCalledWith( action );
+		expect( dispatch ).not.toHaveBeenCalled()
 	} );
 
 	it( 'should append query string to request path', () => {
@@ -84,30 +82,30 @@ describe( 'middleware', () => {
 
 		handler( action );
 
-		expect( action.path ).to.equal( '/foo?bar=baz' );
+		expect( action.path ).toBe( '/foo?bar=baz' );
 	} );
 
 	it( 'should dispatch as preloading if capturing preload', () => {
-		mockedHandlers.isCapturingRequestPreload = () => true;
+		selectors.isCapturingRequestPreload.mockImplementation( () => true );
 
 		handler( {
 			type: REQUEST,
 			path: '/foo',
 		} );
 
-		expect( dispatch ).to.have.been.calledWith(
+		expect( dispatch ).toHaveBeenCalledWith(
 			setPathIsPreloading( '/foo', true )
 		);
 	} );
 
 	it( 'should resolve result from preload', ( done ) => {
-		mockedHandlers.getPreloadedResponse = ( state, path ) => path === '/foo' && result;
+		selectors.getPreloadedResponse.mockImplementation( ( state, path ) => path === '/foo' && result );
 
 		handler( {
 			type: REQUEST,
 			path: '/foo',
 			success: ( actualResult ) => {
-				expect( actualResult ).to.eql( result );
+				expect( actualResult ).toEqual( result );
 
 				done();
 			},
@@ -116,16 +114,16 @@ describe( 'middleware', () => {
 
 	it( 'should resolve from in-flight request', ( done ) => {
 		const request = Promise.resolve( response );
-		mockedHandlers.getPathRequest = ( state, path ) => path === '/foo' && request;
+		selectors.getPathRequest.mockImplementation( ( state, path ) => path === '/foo' && request );
 
 		handler( {
 			type: REQUEST,
 			path: '/foo',
 			success: ( actualResult ) => {
-				expect( dispatch ).to.have.been.calledWith(
+				expect( dispatch ).toHaveBeenCalledWith(
 					setPathIsPreloading( '/foo', false )
 				);
-				expect( actualResult ).to.eql( result );
+				expect( actualResult ).toEqual( result );
 
 				done();
 			},
@@ -137,14 +135,14 @@ describe( 'middleware', () => {
 			type: REQUEST,
 			path: '/foo',
 			success( actualResult ) {
-				expect( dispatch ).to.have.been.calledWithMatch( {
+				expect( dispatch ).toHaveBeenCalledWith( expect.objectContaining( {
 					...setPathRequest( '/foo', {
 						method: 'GET',
 						headers: {},
 					} ),
-					request: match.object,
-				} );
-				expect( actualResult ).to.eql( result );
+					request: expect.any( Object ),
+				} ) );
+				expect( actualResult ).toEqual( result );
 
 				done();
 			},
@@ -163,7 +161,7 @@ describe( 'middleware', () => {
 				done( new Error( 'Unexpected success call' ) );
 			},
 			failure( error ) {
-				expect( error.message ).to.equal( 'Forbidden' );
+				expect( error.message ).toBe( 'Forbidden' );
 
 				Object.assign( response, originalResponse );
 
@@ -173,16 +171,16 @@ describe( 'middleware', () => {
 	} );
 
 	it( 'should add preloaded response data', ( done ) => {
-		mockedHandlers.isPreloadingPath = ( state, path ) => path === '/foo';
+		selectors.isPreloadingPath.mockImplementation( ( state, path ) => path === '/foo' );
 
 		handler = middleware( {
 			getState: noop,
 			dispatch: over( dispatch, function( action ) {
 				if ( REQUEST_COMPLETE === action.type ) {
-					expect( dispatch ).to.have.been.calledWithMatch( {
+					expect( dispatch ).toHaveBeenCalledWith( expect.objectContaining( {
 						...addPreloadedResponse( '/foo', result ),
-						id: match.truthy,
-					} );
+						id: expect.anything(),
+					} ) );
 
 					done();
 				}

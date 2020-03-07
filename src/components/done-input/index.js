@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createElement, Component } from 'preact';
-import { connect } from 'preact-redux';
+import { connect } from 'react-redux';
 import classNames from 'classcat';
 import { last, map, transform, sortBy, includes } from 'lodash';
 

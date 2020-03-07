@@ -2,7 +2,6 @@
  * External dependencies
  */
 import deepFreeze from 'deep-freeze';
-import { expect } from 'chai';
 
 /**
  * Internal dependencies
@@ -14,7 +13,7 @@ describe( 'reducer', () => {
 	it( 'returns null by default', () => {
 		const state = reducer( undefined, {} );
 
-		expect( state ).to.be.null;
+		expect( state ).toBe( null );
 	} );
 
 	it( 'returns received tags', () => {
@@ -23,7 +22,7 @@ describe( 'reducer', () => {
 			tags: [ 'bar', 'baz' ],
 		} );
 
-		expect( state ).to.eql( [ 'bar', 'baz' ] );
+		expect( state ).toEqual( [ 'bar', 'baz' ] );
 	} );
 
 	it( 'merges unique received tags', () => {
@@ -33,7 +32,7 @@ describe( 'reducer', () => {
 			tags: [ 'baz', 'foo' ],
 		} );
 
-		expect( state ).to.eql( [ 'bar', 'baz', 'foo' ] );
+		expect( state ).toEqual( [ 'bar', 'baz', 'foo' ] );
 	} );
 
 	it( 'concatenates from created done', () => {
@@ -42,7 +41,7 @@ describe( 'reducer', () => {
 			text: 'foo #bar #baz',
 		} );
 
-		expect( state ).to.eql( [ 'baz', 'bar' ] );
+		expect( state ).toEqual( [ 'baz', 'bar' ] );
 	} );
 
 	it( 'merges unique from created done', () => {
@@ -52,6 +51,6 @@ describe( 'reducer', () => {
 			text: '#foo #baz',
 		} );
 
-		expect( state ).to.eql( [ 'baz', 'foo', 'bar' ] );
+		expect( state ).toEqual( [ 'baz', 'foo', 'bar' ] );
 	} );
 } );

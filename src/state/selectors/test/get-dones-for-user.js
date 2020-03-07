@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { expect } from 'chai';
 
 /**
  * Internal dependencies
@@ -40,7 +39,7 @@ describe( 'getDonesForUser()', () => {
 			},
 		}, { date: '2017-05-11' }, 1 );
 
-		expect( dones ).to.eql( [ {
+		expect( dones ).toEqual( [ {
 			id: 325,
 			user: 1,
 			text: '#in_valid',

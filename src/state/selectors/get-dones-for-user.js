@@ -23,5 +23,5 @@ export function getDonesForUser( state, query, userId ) {
 
 export default createSelector(
 	getDonesForUser,
-	( state ) => state.dones
+	( state ) => [ state.dones ]
 );
