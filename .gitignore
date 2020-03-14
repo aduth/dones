@@ -10,3 +10,6 @@ languages/*.mo
 
 # Logs
 *.log
+
+# System
+.DS_Store
