@@ -638,6 +638,15 @@ function dones_unenqueue_embeds() {
 add_action( 'wp_footer', 'dones_unenqueue_embeds' );
 
 /**
+ * Dequeues default scripts and styles which aren't expected to be used, as an
+ * optimization.
+ */
+function dones_dequeue_unused_scripts_and_styles() {
+	wp_dequeue_style( 'wp-block-library' );
+}
+add_action( 'wp_enqueue_scripts', 'dones_dequeue_unused_scripts_and_styles' );
+
+/**
  * Adds inline style to customize the login form logo.
  */
 function dones_login_css() {
