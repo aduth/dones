@@ -91,9 +91,6 @@ function dones_get_brand_color() {
  * Enqueue scripts and styles.
  */
 function dones_scripts() {
-	// Add custom fonts.
-	wp_enqueue_style( 'dones-fonts', 'https://fonts.googleapis.com/css?family=Roboto:400,400i,700,300', array(), null );
-
 	// Theme stylesheet.
 	wp_enqueue_style( 'dones-style', get_theme_file_uri( '/dist/style.css' ), array(), dones_get_version() );
 	wp_add_inline_style( 'dones-style', sprintf( 'a { color: %s; }', esc_html( dones_get_brand_color() ) ) );
