@@ -50,7 +50,6 @@
     "autoprefixer": "9.7.4",
     "babel-eslint": "10.1.0",
     "babel-loader": "8.0.6",
-    "babel-plugin-date-fns": "2.0.0",
     "babel-plugin-lodash": "3.3.4",
     "babel-plugin-minify-export-mirror": "1.0.0",
     "babel-plugin-unassert": "3.0.1",
