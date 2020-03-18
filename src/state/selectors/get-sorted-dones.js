@@ -18,11 +18,13 @@ import { getDones } from './';
  * @param  {string}   order    Direction in which to sort
  * @return {Object[]}          Ordered dones
  */
-export function getSortedDones( state, query, property = 'date', order = 'desc' ) {
+export function getSortedDones(
+	state,
+	query,
+	property = 'date',
+	order = 'desc'
+) {
 	return orderBy( getDones( state, query ), property, order );
 }
 
-export default createSelector(
-	getSortedDones,
-	( state ) => [ state.dones ]
-);
+export default createSelector( getSortedDones, ( state ) => [ state.dones ] );

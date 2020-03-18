@@ -20,7 +20,9 @@ function TagsList( { hasReceived, tags } ) {
 			{ ! hasReceived && <Placeholder height={ 100 } /> }
 			<ul className="tags-list__list">
 				{ hasReceived && ! tags.length && (
-					<li><em>{ translate( 'No tags found' ) }</em></li>
+					<li>
+						<em>{ translate( 'No tags found' ) }</em>
+					</li>
 				) }
 				{ map( tags, ( name ) => (
 					<li key={ name } className="tags-list__list-item">

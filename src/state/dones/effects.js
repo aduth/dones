@@ -21,11 +21,12 @@ export default {
 			type: REQUEST,
 			path: '/dones/v1/dones',
 			query,
-			success: ( { body, headers } ) => receiveDones(
-				body,
-				query,
-				Number( headers[ 'x-wp-totalpages' ] ) || null
-			),
+			success: ( { body, headers } ) =>
+				receiveDones(
+					body,
+					query,
+					Number( headers[ 'x-wp-totalpages' ] ) || null
+				),
 		};
 	},
 	[ DONE_CREATE ]( action ) {
@@ -50,7 +51,9 @@ export default {
 		};
 	},
 	[ DONE_CREATE_FAILURE ]() {
-		return displayErrorNotice( translate( 'An error occurred while saving' ) );
+		return displayErrorNotice(
+			translate( 'An error occurred while saving' )
+		);
 	},
 	[ DONE_DELETE ]( action ) {
 		const { id } = action;

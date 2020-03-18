@@ -11,9 +11,4 @@ import routing from './routing/middleware';
 import requests from './requests/middleware';
 import effects from './effects';
 
-export default [
-	multi,
-	refx( effects ),
-	routing,
-	requests,
-];
+export default [ multi, refx( effects ), routing, requests ];

@@ -33,11 +33,19 @@ class DonesList extends Component {
 		this.pendingEdit = id;
 
 		// Continue traking selection on DoneText until mouse released
-		event.currentTarget.addEventListener( 'mouseup', this.stopTrackingSelection, true );
+		event.currentTarget.addEventListener(
+			'mouseup',
+			this.stopTrackingSelection,
+			true
+		);
 	};
 
 	stopTrackingSelection = ( event ) => {
-		event.currentTarget.removeEventListener( 'mouseup', this.stopTrackingSelection, true );
+		event.currentTarget.removeEventListener(
+			'mouseup',
+			this.stopTrackingSelection,
+			true
+		);
 
 		if ( ! this.isEditable() ) {
 			return;
@@ -74,12 +82,15 @@ class DonesList extends Component {
 		const { dones, hasReceived } = this.props;
 		const { editing, editOffset } = this.state;
 		const isEditable = this.isEditable();
-		const classes = classNames( [ 'dones-list', {
-			'is-editable': isEditable,
-		} ] );
+		const classes = classNames( [
+			'dones-list',
+			{
+				'is-editable': isEditable,
+			},
+		] );
 
 		const items = map( sortBy( dones, 'id' ), ( { id, text, done } ) => {
-			const isEditing = ( id === editing );
+			const isEditing = id === editing;
 
 			let children;
 			if ( isEditing ) {
@@ -90,7 +101,8 @@ class DonesList extends Component {
 						initialSelectionOffset={ editOffset }
 						id={ id }
 						onCancel={ this.stopEditing }
-						onSubmit={ this.stopEditing } />
+						onSubmit={ this.stopEditing }
+					/>
 				);
 			} else {
 				let onFocus;
@@ -102,10 +114,16 @@ class DonesList extends Component {
 					<DoneStatus
 						done={ done }
 						disabled={ ! this.isEditable() }
-						onToggle={ () => this.props.updateDone( id, text, ! done ) } />,
+						onToggle={ () =>
+							this.props.updateDone( id, text, ! done )
+						}
+					/>,
 					<DoneText
 						onFocus={ onFocus }
-						onMouseDown={ ( event ) => this.startTrackingSelection( event, id ) }>
+						onMouseDown={ ( event ) =>
+							this.startTrackingSelection( event, id )
+						}
+					>
 						{ text }
 					</DoneText>,
 				];
@@ -121,9 +139,13 @@ class DonesList extends Component {
 		return (
 			<ul className={ classes }>
 				{ items }
-				{ ! hasReceived && <li className="dones-list__item is-placeholder" /> }
+				{ ! hasReceived && (
+					<li className="dones-list__item is-placeholder" />
+				) }
 				{ hasReceived && 0 === dones.length && (
-					<li><em>{ translate( 'Nothing reported yet!' ) }</em></li>
+					<li>
+						<em>{ translate( 'Nothing reported yet!' ) }</em>
+					</li>
 				) }
 			</ul>
 		);

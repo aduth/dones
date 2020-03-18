@@ -33,9 +33,7 @@ class Page extends Component {
 				<Notices />
 				<MutativeRequestPrompt />
 				<Sidebar />
-				<div className="page__content">
-					{ children }
-				</div>
+				<div className="page__content">{ children }</div>
 			</main>
 		);
 	}

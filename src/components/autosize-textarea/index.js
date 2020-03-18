@@ -39,7 +39,8 @@ export default class AutosizeTextarea extends Component {
 			<textarea
 				{ ...this.props }
 				onInput={ this.onInput }
-				className={ classes } />
+				className={ classes }
+			/>
 		);
 	}
 }

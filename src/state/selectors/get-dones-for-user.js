@@ -21,7 +21,4 @@ export function getDonesForUser( state, query, userId ) {
 	return filter( getDones( state, query ), { user: userId } );
 }
 
-export default createSelector(
-	getDonesForUser,
-	( state ) => [ state.dones ]
-);
+export default createSelector( getDonesForUser, ( state ) => [ state.dones ] );

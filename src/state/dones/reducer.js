@@ -20,18 +20,22 @@ import {
 export function items( state = {}, action ) {
 	switch ( action.type ) {
 		case DONES_RECEIVE:
-			return reduce( action.dones, ( memo, done ) => {
-				if ( isEqual( memo[ done.id ], done ) ) {
+			return reduce(
+				action.dones,
+				( memo, done ) => {
+					if ( isEqual( memo[ done.id ], done ) ) {
+						return memo;
+					}
+
+					if ( memo === state ) {
+						memo = { ...state };
+					}
+
+					memo[ done.id ] = done;
 					return memo;
-				}
-
-				if ( memo === state ) {
-					memo = { ...state };
-				}
-
-				memo[ done.id ] = done;
-				return memo;
-			}, state );
+				},
+				state
+			);
 
 		case DONE_CREATE: {
 			const { date, text, done, transientId } = action;
@@ -49,12 +53,16 @@ export function items( state = {}, action ) {
 
 		case DONE_UPDATE: {
 			const { id, date, text, done, replaceId } = action;
-			const item = defaults( {
-				id,
-				date,
-				text,
-				done,
-			}, state[ id ], state[ replaceId ] );
+			const item = defaults(
+				{
+					id,
+					date,
+					text,
+					done,
+				},
+				state[ id ],
+				state[ replaceId ]
+			);
 
 			if ( isEqual( state[ id ], item ) ) {
 				return state;

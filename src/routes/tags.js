@@ -19,6 +19,4 @@ export default function TagsRoute() {
 	);
 }
 
-TagsRoute.prepareRoute = () => [
-	requestTags(),
-];
+TagsRoute.prepareRoute = () => [ requestTags() ];

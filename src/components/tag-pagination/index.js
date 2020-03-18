@@ -17,13 +17,15 @@ function TagPagination( { tag, page, totalPages } ) {
 			<Button
 				disabled={ page <= 1 }
 				to={ `/tags/${ tag }/page/${ page - 1 }/` }
-				preload>
+				preload
+			>
 				{ translate( 'Previous' ) }
 			</Button>
 			<Button
 				disabled={ page >= totalPages }
 				to={ `/tags/${ tag }/page/${ page + 1 }/` }
-				preload>
+				preload
+			>
 				{ translate( 'Next' ) }
 			</Button>
 		</nav>

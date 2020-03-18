@@ -40,9 +40,7 @@ function TagDones( { hasReceived, dones } ) {
 			) }
 			{ map( groupBy( dones, byDate ), ( dateDones, date ) => (
 				<li key={ date }>
-					<TagDonesDate
-						date={ date }
-						dones={ dateDones } />
+					<TagDonesDate date={ date } dones={ dateDones } />
 				</li>
 			) ) }
 		</ul>

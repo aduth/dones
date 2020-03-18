@@ -34,8 +34,12 @@ export default ( { dispatch } ) => {
 	return ( next ) => ( action ) => {
 		const { type, path } = action;
 		if ( includes( ROUTE_CHANGE_TYPES, type ) ) {
-			const historyFn = ROUTE_PUSH === type ? 'pushState' : 'replaceState';
-			if ( ROUTE_PUSH !== type || path !== get( history.state, 'path' ) ) {
+			const historyFn =
+				ROUTE_PUSH === type ? 'pushState' : 'replaceState';
+			if (
+				ROUTE_PUSH !== type ||
+				path !== get( history.state, 'path' )
+			) {
 				history[ historyFn ]( { path }, null, SITE_URL + path );
 			}
 

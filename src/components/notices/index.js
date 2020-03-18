@@ -19,9 +19,7 @@ function Notices() {
 	return (
 		<ul className="notices">
 			{ map( notices, ( { id, status, text } ) => (
-				<li
-					key={ id }
-					className={ 'notices__notice is-' + status }>
+				<li key={ id } className={ 'notices__notice is-' + status }>
 					{ text }
 				</li>
 			) ) }

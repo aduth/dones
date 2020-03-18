@@ -1,14 +1,8 @@
 /**
  * Internal dependencies
  */
-import {
-	clearPreloadedResponse,
-	clearPreloadedResponses,
-} from './actions';
-import {
-	REQUEST_PRELOAD_ADD,
-	REQUEST_PRELOAD_SET,
-} from 'state/action-types';
+import { clearPreloadedResponse, clearPreloadedResponses } from './actions';
+import { REQUEST_PRELOAD_ADD, REQUEST_PRELOAD_SET } from 'state/action-types';
 
 /**
  * Time-to-live duration in milliseconds for preloaded responses.

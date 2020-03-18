@@ -280,13 +280,15 @@ describe( 'reducer', () => {
 			const original = deepFreeze( {} );
 			const state = pages( original, {
 				type: 'DONES_RECEIVE',
-				dones: [ {
-					id: 320,
-					user: 1,
-					text: 'done',
-					date: '2017-05-10 00:00:00',
-					done: true,
-				} ],
+				dones: [
+					{
+						id: 320,
+						user: 1,
+						text: 'done',
+						date: '2017-05-10 00:00:00',
+						done: true,
+					},
+				],
 			} );
 
 			expect( state ).toBe( original );
@@ -296,13 +298,15 @@ describe( 'reducer', () => {
 			const original = deepFreeze( {} );
 			const state = pages( original, {
 				type: 'DONES_RECEIVE',
-				dones: [ {
-					id: 320,
-					user: 1,
-					text: 'done',
-					date: '2017-05-10 00:00:00',
-					done: true,
-				} ],
+				dones: [
+					{
+						id: 320,
+						user: 1,
+						text: 'done',
+						date: '2017-05-10 00:00:00',
+						done: true,
+					},
+				],
 				query: {
 					date: '2017-05-10',
 				},
@@ -317,13 +321,15 @@ describe( 'reducer', () => {
 			const original = deepFreeze( {} );
 			const state = pages( original, {
 				type: 'DONES_RECEIVE',
-				dones: [ {
-					id: 321,
-					user: 1,
-					text: 'done',
-					date: '2017-05-10 00:00:00',
-					done: true,
-				} ],
+				dones: [
+					{
+						id: 321,
+						user: 1,
+						text: 'done',
+						date: '2017-05-10 00:00:00',
+						done: true,
+					},
+				],
 				query: {
 					date: '2017-05-10',
 					page: 2,
@@ -341,13 +347,15 @@ describe( 'reducer', () => {
 			} );
 			const state = pages( original, {
 				type: 'DONES_RECEIVE',
-				dones: [ {
-					id: 321,
-					user: 1,
-					text: 'done',
-					date: '2017-05-10 00:00:00',
-					done: true,
-				} ],
+				dones: [
+					{
+						id: 321,
+						user: 1,
+						text: 'done',
+						date: '2017-05-10 00:00:00',
+						done: true,
+					},
+				],
 				query: {
 					date: '2017-05-10',
 					page: 2,
@@ -365,13 +373,15 @@ describe( 'reducer', () => {
 			} );
 			const state = pages( original, {
 				type: 'DONES_RECEIVE',
-				dones: [ {
-					id: 321,
-					user: 1,
-					text: 'done',
-					date: '2017-05-10 00:00:00',
-					done: true,
-				} ],
+				dones: [
+					{
+						id: 321,
+						user: 1,
+						text: 'done',
+						date: '2017-05-10 00:00:00',
+						done: true,
+					},
+				],
 				query: {
 					date: '2017-05-10',
 					page: 2,
@@ -402,13 +412,15 @@ describe( 'reducer', () => {
 			const original = deepFreeze( {} );
 			const state = received( original, {
 				type: 'DONES_RECEIVE',
-				dones: [ {
-					id: 320,
-					user: 1,
-					text: 'done',
-					date: '2017-05-10 00:00:00',
-					done: true,
-				} ],
+				dones: [
+					{
+						id: 320,
+						user: 1,
+						text: 'done',
+						date: '2017-05-10 00:00:00',
+						done: true,
+					},
+				],
 				query: {
 					date: '2017-05-10',
 					page: 1,
@@ -451,13 +463,15 @@ describe( 'reducer', () => {
 			const original = deepFreeze( {} );
 			const state = totalPages( original, {
 				type: 'DONES_RECEIVE',
-				dones: [ {
-					id: 320,
-					user: 1,
-					text: 'done',
-					date: '2017-05-10 00:00:00',
-					done: true,
-				} ],
+				dones: [
+					{
+						id: 320,
+						user: 1,
+						text: 'done',
+						date: '2017-05-10 00:00:00',
+						done: true,
+					},
+				],
 				query: {
 					date: '2017-05-10',
 					page: 1,

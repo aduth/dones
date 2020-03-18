@@ -18,7 +18,10 @@ import { addDays, parseISO, format as formatDate } from 'date-fns';
 class DateNavigation extends Component {
 	getDateLink = ( increment ) => {
 		const { date } = this.props;
-		return `/date/${ formatDate( addDays( parseISO( date ), increment ), 'yyyy-MM-dd' ) }/`;
+		return `/date/${ formatDate(
+			addDays( parseISO( date ), increment ),
+			'yyyy-MM-dd'
+		) }/`;
 	};
 
 	toDate = ( selected, date ) => {
@@ -43,21 +46,22 @@ class DateNavigation extends Component {
 						<Button
 							to={ this.getDateLink( -1 ) }
 							aria-label={ translate( 'Previous' ) }
-							preload>
+							preload
+						>
 							<Icon icon="chevron-left" size={ 12 } />
 						</Button>
 						<Button
 							to={ this.getDateLink( 1 ) }
 							aria-label={ translate( 'Next' ) }
-							preload>
+							preload
+						>
 							<Icon icon="chevron-right" size={ 12 } />
 						</Button>
-						<DatePicker
-							value={ date }
-							onChange={ this.toDate } />
+						<DatePicker value={ date } onChange={ this.toDate } />
 					</ButtonGroup>
 				}
-				className="date-navigation" />
+				className="date-navigation"
+			/>
 		);
 	}
 }

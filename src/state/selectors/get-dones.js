@@ -46,7 +46,10 @@ export function getDones( state, query = {} ) {
 
 				case 'tag':
 					const tag = escapeRegExp( value );
-					const pattern = new RegExp( RX_TERMINATOR + '#' + tag + RX_TERMINATOR, 'i' );
+					const pattern = new RegExp(
+						RX_TERMINATOR + '#' + tag + RX_TERMINATOR,
+						'i'
+					);
 					return pattern.test( item.text );
 
 				default:
@@ -56,10 +59,7 @@ export function getDones( state, query = {} ) {
 	} );
 }
 
-export default createSelector(
-	getDones,
-	( state ) => [
-		state.dones.items,
-		state.dones.pages,
-	]
-);
+export default createSelector( getDones, ( state ) => [
+	state.dones.items,
+	state.dones.pages,
+] );

@@ -18,9 +18,7 @@ export default function TagDonesUser( { userId, dones } ) {
 			</h3>
 			<ul className="tag-dones__user-list">
 				{ map( dones, ( done ) => (
-					<li
-						key={ done.id }
-						className="tag-dones__user-list-item">
+					<li key={ done.id } className="tag-dones__user-list-item">
 						<DoneText>{ done.text }</DoneText>
 					</li>
 				) ) }

@@ -51,9 +51,10 @@ describe( 'DoneInput', () => {
 			textarea.dispatchEvent( event );
 		};
 
-		const getSuggestions = () => Array.from(
-			document.querySelectorAll( '.popover-menu__button' )
-		).map( ( button ) => button.textContent );
+		const getSuggestions = () =>
+			Array.from(
+				document.querySelectorAll( '.popover-menu__button' )
+			).map( ( button ) => button.textContent );
 
 		setText( '#fo' );
 

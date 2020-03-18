@@ -19,7 +19,9 @@ export default class DatePicker extends Component {
 		// Profiling shows that Flatpickr takes a non-trivial amount of time to
 		// initialize, so let's defer it to the next available frame.
 		if ( window.requestAnimationFrame ) {
-			this.scheduledInitialize = window.requestAnimationFrame( this.initialize );
+			this.scheduledInitialize = window.requestAnimationFrame(
+				this.initialize
+			);
 		} else {
 			this.initialize();
 		}
@@ -57,7 +59,10 @@ export default class DatePicker extends Component {
 		const { input, mobileInput } = this.flatpickr;
 		if ( mobileInput ) {
 			mobileInput.removeAttribute( 'tabindex' );
-			mobileInput.setAttribute( 'aria-label', input.getAttribute( 'aria-label' ) );
+			mobileInput.setAttribute(
+				'aria-label',
+				input.getAttribute( 'aria-label' )
+			);
 			input.setAttribute( 'aria-hidden', 'true' );
 		}
 
@@ -78,7 +83,8 @@ export default class DatePicker extends Component {
 					defaultValue={ value }
 					ref={ this.setInputRef }
 					aria-label={ translate( 'Pick Date' ) }
-					className="date-picker__input" />
+					className="date-picker__input"
+				/>
 			</span>
 		);
 	}

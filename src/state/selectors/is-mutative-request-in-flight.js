@@ -11,7 +11,7 @@ import { some } from 'lodash';
  * @return {boolean}       Whether mutative request is in flight
  */
 export default function isMutativeRequestInFlight( state ) {
-	return some( state.requests.items, ( methods ) => (
+	return some( state.requests.items, ( methods ) =>
 		some( methods, ( request, method ) => 'GET' !== method )
-	) );
+	);
 }

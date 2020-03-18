@@ -16,7 +16,6 @@ export function hasReceivedDones( state, query ) {
 	return !! state.dones.received[ stringify( query ) ];
 }
 
-export default createSelector(
-	hasReceivedDones,
-	( state ) => [ state.dones.received ]
-);
+export default createSelector( hasReceivedDones, ( state ) => [
+	state.dones.received,
+] );

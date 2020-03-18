@@ -8,11 +8,4 @@ import routing from './routing/effects';
 import tags from './tags/effects';
 import users from './users/effects';
 
-export default [
-	dones,
-	notices,
-	requests,
-	routing,
-	tags,
-	users,
-];
+export default [ dones, notices, requests, routing, tags, users ];

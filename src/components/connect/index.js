@@ -6,17 +6,13 @@ import { useMemo } from 'preact/hooks';
 import { useSelector, useStore } from 'prsh';
 import { mapValues, isPlainObject } from 'lodash-es';
 
-export default (
-	mapSelectToProps,
-	mapDispatchToProps
-) => ( WrappedComponent ) => ( props ) => {
+export default ( mapSelectToProps, mapDispatchToProps ) => (
+	WrappedComponent
+) => ( props ) => {
 	const { dispatch } = useStore();
 	const selector = useMemo(
-		() => ( state ) => (
-			mapSelectToProps
-				? mapSelectToProps( state, props )
-				: {}
-		),
+		() => ( state ) =>
+			mapSelectToProps ? mapSelectToProps( state, props ) : {},
 		[ props ]
 	);
 	const selectProps = useSelector( selector );
@@ -27,7 +23,8 @@ export default (
 	} else if ( isPlainObject( mapDispatchToProps ) ) {
 		dispatchProps = mapValues(
 			mapDispatchToProps,
-			( actionCreator ) => ( ...args ) => dispatch( actionCreator( ...args ) )
+			( actionCreator ) => ( ...args ) =>
+				dispatch( actionCreator( ...args ) )
 		);
 	}
 

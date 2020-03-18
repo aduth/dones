@@ -14,7 +14,4 @@ export function getNotices( state ) {
 	return map( state.notices, ( notice, id ) => ( { ...notice, id } ) );
 }
 
-export default createSelector(
-	getNotices,
-	( state ) => [ state.notices ]
-);
+export default createSelector( getNotices, ( state ) => [ state.notices ] );

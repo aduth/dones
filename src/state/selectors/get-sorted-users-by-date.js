@@ -23,7 +23,7 @@ export function getSortedUsersByDate( state, date ) {
 
 	return sortBy( users, [
 		// By current user:
-		( { id } ) => id === USER_ID ? 0 : 1,
+		( { id } ) => ( id === USER_ID ? 0 : 1 ),
 
 		// By dones for user by date, negating since default sort is ascending,
 		// so those with more dones should be more negative:
@@ -34,7 +34,7 @@ export function getSortedUsersByDate( state, date ) {
 	] );
 }
 
-export default createSelector(
-	getSortedUsersByDate,
-	( state ) => [ state.dones, state.users ]
-);
+export default createSelector( getSortedUsersByDate, ( state ) => [
+	state.dones,
+	state.users,
+] );

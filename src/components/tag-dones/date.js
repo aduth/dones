@@ -17,9 +17,7 @@ export default function TagDonesDate( { date, dones } ) {
 			<ul className="tag-dones__date-list">
 				{ map( groupBy( dones, 'user' ), ( userDones, userId ) => (
 					<li key={ userId } className="tag-dones__date-list-item">
-						<TagDonesUser
-							userId={ userId }
-							dones={ userDones } />
+						<TagDonesUser userId={ userId } dones={ userDones } />
 					</li>
 				) ) }
 			</ul>

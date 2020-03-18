@@ -6,10 +6,7 @@ import { uniqueId } from 'lodash';
 /**
  * Internal dependencies
  */
-import {
-	NOTICE_DISPLAY,
-	NOTICE_HIDE,
-} from 'state/action-types';
+import { NOTICE_DISPLAY, NOTICE_HIDE } from 'state/action-types';
 
 /**
  * Returns an action object used in signalling that a new notice should be

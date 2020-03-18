@@ -111,7 +111,9 @@ export class DoneInput extends Component {
 	delete = () => {
 		const { id } = this.props;
 		// eslint-disable-next-line no-alert
-		if ( confirm( translate( 'Are you sure you want to delete this done?' ) ) ) {
+		if (
+			confirm( translate( 'Are you sure you want to delete this done?' ) )
+		) {
 			this.props.onDelete( id );
 		}
 	};
@@ -157,13 +159,17 @@ export class DoneInput extends Component {
 		const search = tagFragment.toLowerCase();
 
 		// Find by fragment included in tag (maximum 5)
-		const suggestions = transform( tags, ( memo, tag ) => {
-			if ( includes( tag.toLowerCase(), search ) ) {
-				memo.push( tag );
-			}
+		const suggestions = transform(
+			tags,
+			( memo, tag ) => {
+				if ( includes( tag.toLowerCase(), search ) ) {
+					memo.push( tag );
+				}
 
-			return memo.length < 5;
-		}, [] );
+				return memo.length < 5;
+			},
+			[]
+		);
 
 		// Sort by index of fragment in tag
 		return sortBy( suggestions, ( suggestion ) => {
@@ -176,17 +182,23 @@ export class DoneInput extends Component {
 		const { text, selectionOffset } = this.state;
 		const isEditing = this.isEditing();
 
-		const classes = classNames( [ 'done-input', className, {
-			'is-editing': isEditing,
-		} ] );
+		const classes = classNames( [
+			'done-input',
+			className,
+			{
+				'is-editing': isEditing,
+			},
+		] );
 
-		const actions = [ {
-			type: 'submit',
-			primary: true,
-			'aria-label': translate( 'Submit' ),
-			children: translate( 'Submit' ),
-			disabled: text.length === 0,
-		} ];
+		const actions = [
+			{
+				type: 'submit',
+				primary: true,
+				'aria-label': translate( 'Submit' ),
+				children: translate( 'Submit' ),
+				disabled: text.length === 0,
+			},
+		];
 
 		if ( isEditing ) {
 			actions.push( {
@@ -207,10 +219,12 @@ export class DoneInput extends Component {
 			<form
 				ref={ this.setFormRef }
 				className={ classes }
-				onSubmit={ this.submit }>
+				onSubmit={ this.submit }
+			>
 				<DoneStatus
 					onToggle={ this.toggleStatus }
-					done={ this.state.done } />
+					done={ this.state.done }
+				/>
 				<DoneInputTextarea
 					value={ text }
 					onInput={ this.setText }
@@ -219,13 +233,15 @@ export class DoneInput extends Component {
 					selectionOffset={ selectionOffset }
 					suggestions={ this.getSuggestions() }
 					// eslint-disable-next-line jsx-a11y/no-autofocus
-					autoFocus={ ! hasNavigated } />
+					autoFocus={ ! hasNavigated }
+				/>
 				<div className="done-input__actions">
 					{ map( actions, ( action, i ) => (
 						<Button
 							key={ [ 'action', i ].join() }
 							className="done-input__action"
-							{ ...action } />
+							{ ...action }
+						/>
 					) ) }
 				</div>
 			</form>

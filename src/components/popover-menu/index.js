@@ -100,19 +100,24 @@ export default class PopoverMenu extends Component {
 				isVisible={ this.isVisible() }
 				position={ position }
 				style={ style }
-				className="popover-menu">
+				className="popover-menu"
+			>
 				<ul className="popover-menu__list">
 					{ map( items, ( child, i ) => {
-						const isSelected = ( selectedIndex === i );
-						const itemClasses = classNames( [ 'popover-menu__list-item', {
-							'is-selected': isSelected,
-						} ] );
+						const isSelected = selectedIndex === i;
+						const itemClasses = classNames( [
+							'popover-menu__list-item',
+							{
+								'is-selected': isSelected,
+							},
+						] );
 
 						return (
 							<li key={ i } className={ itemClasses }>
 								<button
 									onMouseDown={ () => onSelect( child ) }
-									className="popover-menu__button">
+									className="popover-menu__button"
+								>
 									{ child }
 								</button>
 							</li>

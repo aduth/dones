@@ -10,7 +10,14 @@ import { format as formatDate } from 'date-fns';
  * Internal dependencies
  */
 import Link from 'components/link';
-import { USER_ID, BRAND_COLOR, LOGO, LOGIN_URL, LOGOUT_URL, SITE_NAME } from 'constant';
+import {
+	USER_ID,
+	BRAND_COLOR,
+	LOGO,
+	LOGIN_URL,
+	LOGOUT_URL,
+	SITE_NAME,
+} from 'constant';
 import { translate, toSiteTime } from 'lib/i18n';
 import { getRoutePath } from 'state/selectors';
 import SidebarAction from './action';
@@ -25,16 +32,16 @@ function Sidebar( { path } ) {
 				to={ `/date/${ date }/` }
 				preload
 				style={ { backgroundColor: BRAND_COLOR } }
-				className="sidebar__logo-link">
+				className="sidebar__logo-link"
+			>
 				<h1 className="sidebar__logo">
-					<span className="sidebar__site-name">
-						{ SITE_NAME }
-					</span>
+					<span className="sidebar__site-name">{ SITE_NAME }</span>
 					{ LOGO && (
 						<img
 							src={ LOGO }
 							alt="logo"
-							className="sidebar__logo-image" />
+							className="sidebar__logo-image"
+						/>
 					) }
 				</h1>
 			</Link>
@@ -43,13 +50,15 @@ function Sidebar( { path } ) {
 					<SidebarAction
 						icon="th-list"
 						to={ `/date/${ date }/` }
-						selected={ startsWith( path, '/date/' ) }>
+						selected={ startsWith( path, '/date/' ) }
+					>
 						{ translate( 'Dones' ) }
 					</SidebarAction>
 					<SidebarAction
 						icon="hashtag"
 						to="/tags/"
-						selected={ startsWith( path, '/tags/' ) }>
+						selected={ startsWith( path, '/tags/' ) }
+					>
 						{ translate( 'Tags' ) }
 					</SidebarAction>
 				</nav>

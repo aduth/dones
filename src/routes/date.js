@@ -20,25 +20,25 @@ import { getSortedUsersByDate, getRouteParam } from 'state/selectors';
 
 function DateRoute() {
 	const date = useSelector( ( state ) => getRouteParam( state, 'date' ) );
-	const users = useSelector( ( state ) => getSortedUsersByDate( state, date ) );
+	const users = useSelector( ( state ) =>
+		getSortedUsersByDate( state, date )
+	);
 
 	return (
 		<Page title={ formatSiteDate( date ) }>
 			<DateNavigation date={ date } />
 			{ map( users, ( user ) => (
-				<UserDones
-					key={ user.id }
-					date={ date }
-					userId={ user.id } />
+				<UserDones key={ user.id } date={ date } userId={ user.id } />
 			) ) }
 		</Page>
 	);
 }
 
-DateRoute.prepareRoute = ( { params } ) => compact( [
-	requestUsers(),
-	requestDones( { date: params.date } ),
-	USER_ID && requestTags(),
-] );
+DateRoute.prepareRoute = ( { params } ) =>
+	compact( [
+		requestUsers(),
+		requestDones( { date: params.date } ),
+		USER_ID && requestTags(),
+	] );
 
 export default DateRoute;

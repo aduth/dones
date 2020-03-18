@@ -19,14 +19,13 @@ import { translate } from 'lib/i18n';
 
 function TagRoute() {
 	const tag = useSelector( ( state ) => getRouteParam( state, 'tag' ) );
-	const page = useSelector( ( state ) => Number( defaultTo( getRouteParam( state, 'page' ), 1 ) ) );
+	const page = useSelector( ( state ) =>
+		Number( defaultTo( getRouteParam( state, 'page' ), 1 ) )
+	);
 
 	return (
 		<Page title={ translate( 'Tags' ) }>
-			<Card title={
-				translate( 'Tag: %s' )
-					.replace( '%s', '#' + tag )
-			} />
+			<Card title={ translate( 'Tag: %s' ).replace( '%s', '#' + tag ) } />
 			<TagDones query={ { tag, page } } />
 			<TagPagination page={ page } tag={ tag } />
 		</Page>

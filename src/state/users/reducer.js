@@ -11,18 +11,22 @@ import { USERS_RECEIVE } from 'state/action-types';
 export default function( state = null, action ) {
 	switch ( action.type ) {
 		case USERS_RECEIVE:
-			return reduce( action.users, ( memo, user ) => {
-				if ( isEqual( memo[ user.id ], user ) ) {
+			return reduce(
+				action.users,
+				( memo, user ) => {
+					if ( isEqual( memo[ user.id ], user ) ) {
+						return memo;
+					}
+
+					if ( memo === state ) {
+						memo = { ...state };
+					}
+
+					memo[ user.id ] = user;
 					return memo;
-				}
-
-				if ( memo === state ) {
-					memo = { ...state };
-				}
-
-				memo[ user.id ] = user;
-				return memo;
-			}, state || {} );
+				},
+				state || {}
+			);
 	}
 
 	return state;

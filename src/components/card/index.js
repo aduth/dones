@@ -4,7 +4,13 @@
 import { createElement, toChildArray } from 'preact';
 import classNames from 'classcat';
 
-export default function Card( { className, title, subtitle, controls, children } ) {
+export default function Card( {
+	className,
+	title,
+	subtitle,
+	controls,
+	children,
+} ) {
 	const classes = classNames( [ 'card', className ] );
 
 	return (
@@ -12,26 +18,18 @@ export default function Card( { className, title, subtitle, controls, children }
 			{ title && (
 				<header className="card__header">
 					<div className="card__title-subtitle">
-						<h2 className="card__title">
-							{ title }
-						</h2>
+						<h2 className="card__title">{ title }</h2>
 						{ subtitle && (
-							<p className="card__subtitle">
-								{ subtitle }
-							</p>
+							<p className="card__subtitle">{ subtitle }</p>
 						) }
 					</div>
 					{ controls && (
-						<div className="card__controls">
-							{ controls }
-						</div>
+						<div className="card__controls">{ controls }</div>
 					) }
 				</header>
 			) }
 			{ toChildArray( children ).length > 0 && (
-				<div className="card__content">
-					{ children }
-				</div>
+				<div className="card__content">{ children }</div>
 			) }
 		</section>
 	);

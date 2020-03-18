@@ -10,11 +10,7 @@ import { omit, reduce } from 'lodash';
  */
 import Link from 'components/link';
 
-const STYLE_MODIFIERS = [
-	'primary',
-	'unstyled',
-	'dangerous',
-];
+const STYLE_MODIFIERS = [ 'primary', 'unstyled', 'dangerous' ];
 
 export default class Button extends Component {
 	static defaultProps = {
@@ -27,29 +23,37 @@ export default class Button extends Component {
 		};
 	}
 
-	onMouseDown = this.toggleOutlineActive( false )
+	onMouseDown = this.toggleOutlineActive( false );
 
-	onBlur = this.toggleOutlineActive( true )
+	onBlur = this.toggleOutlineActive( true );
 
 	render() {
 		const { type, to, preload, disabled, className, children } = this.props;
 		const isLink = to && ! disabled;
 
-		return createElement( isLink ? Link : 'button', {
-			...omit( this.props, STYLE_MODIFIERS ),
-			to: isLink ? to : null,
-			type: isLink ? null : type,
-			preload: isLink ? preload : null,
-			onMouseDown: this.onMouseDown,
-			onBlur: this.onBlur,
-			className: classNames( [
-				'button',
-				className,
-				reduce( STYLE_MODIFIERS, ( memo, modifier ) => {
-					memo[ `is-${ modifier }` ] = this.props[ modifier ];
-					return memo;
-				}, {} ),
-			] ),
-		}, children );
+		return createElement(
+			isLink ? Link : 'button',
+			{
+				...omit( this.props, STYLE_MODIFIERS ),
+				to: isLink ? to : null,
+				type: isLink ? null : type,
+				preload: isLink ? preload : null,
+				onMouseDown: this.onMouseDown,
+				onBlur: this.onBlur,
+				className: classNames( [
+					'button',
+					className,
+					reduce(
+						STYLE_MODIFIERS,
+						( memo, modifier ) => {
+							memo[ `is-${ modifier }` ] = this.props[ modifier ];
+							return memo;
+						},
+						{}
+					),
+				] ),
+			},
+			children
+		);
 	}
 }

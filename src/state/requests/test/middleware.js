@@ -6,10 +6,7 @@ import { noop, over } from 'lodash';
 /**
  * Internal dependencies
  */
-import {
-	REQUEST,
-	REQUEST_COMPLETE,
-} from 'state/action-types';
+import { REQUEST, REQUEST_COMPLETE } from 'state/action-types';
 import * as selectors from 'state/selectors';
 import {
 	addPreloadedResponse,
@@ -99,7 +96,9 @@ describe( 'middleware', () => {
 	} );
 
 	it( 'should resolve result from preload', ( done ) => {
-		selectors.getPreloadedResponse.mockImplementation( ( state, path ) => path === '/foo' && result );
+		selectors.getPreloadedResponse.mockImplementation(
+			( state, path ) => path === '/foo' && result
+		);
 
 		handler( {
 			type: REQUEST,
@@ -114,7 +113,9 @@ describe( 'middleware', () => {
 
 	it( 'should resolve from in-flight request', ( done ) => {
 		const request = Promise.resolve( response );
-		selectors.getPathRequest.mockImplementation( ( state, path ) => path === '/foo' && request );
+		selectors.getPathRequest.mockImplementation(
+			( state, path ) => path === '/foo' && request
+		);
 
 		handler( {
 			type: REQUEST,
@@ -135,13 +136,15 @@ describe( 'middleware', () => {
 			type: REQUEST,
 			path: '/foo',
 			success( actualResult ) {
-				expect( dispatch ).toHaveBeenCalledWith( expect.objectContaining( {
-					...setPathRequest( '/foo', {
-						method: 'GET',
-						headers: {},
-					} ),
-					request: expect.any( Object ),
-				} ) );
+				expect( dispatch ).toHaveBeenCalledWith(
+					expect.objectContaining( {
+						...setPathRequest( '/foo', {
+							method: 'GET',
+							headers: {},
+						} ),
+						request: expect.any( Object ),
+					} )
+				);
 				expect( actualResult ).toEqual( result );
 
 				done();
@@ -171,16 +174,20 @@ describe( 'middleware', () => {
 	} );
 
 	it( 'should add preloaded response data', ( done ) => {
-		selectors.isPreloadingPath.mockImplementation( ( state, path ) => path === '/foo' );
+		selectors.isPreloadingPath.mockImplementation(
+			( state, path ) => path === '/foo'
+		);
 
 		handler = middleware( {
 			getState: noop,
 			dispatch: over( dispatch, function( action ) {
 				if ( REQUEST_COMPLETE === action.type ) {
-					expect( dispatch ).toHaveBeenCalledWith( expect.objectContaining( {
-						...addPreloadedResponse( '/foo', result ),
-						id: expect.anything(),
-					} ) );
+					expect( dispatch ).toHaveBeenCalledWith(
+						expect.objectContaining( {
+							...addPreloadedResponse( '/foo', result ),
+							id: expect.anything(),
+						} )
+					);
 
 					done();
 				}

@@ -2,11 +2,7 @@
  * External dependencies
  */
 import memoize from 'memize';
-import {
-	addHours,
-	parseISO,
-	format as formatDate,
-} from 'date-fns';
+import { addHours, parseISO, format as formatDate } from 'date-fns';
 
 /**
  * Internal dependencies
@@ -53,7 +49,10 @@ export function translate( string ) {
 }
 
 export function toSiteTime( date ) {
-	return addHours( addHours( date, date.getTimezoneOffset() / 60 ), GMT_OFFSET );
+	return addHours(
+		addHours( date, date.getTimezoneOffset() / 60 ),
+		GMT_OFFSET
+	);
 }
 
 export function formatSiteDate( date ) {

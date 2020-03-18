@@ -15,11 +15,12 @@ export function render( element ) {
 	const wrapper = document.createElement( 'div' );
 	document.body.appendChild( wrapper );
 
-	_render( (
+	_render(
 		<StoreContext.Provider value={ createReduxStore() }>
 			{ element }
-		</StoreContext.Provider>
-	), wrapper );
+		</StoreContext.Provider>,
+		wrapper
+	);
 
 	return wrapper.firstChild;
 }

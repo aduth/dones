@@ -9,11 +9,14 @@ import getPreloadedResponse from '../get-preloaded-response';
 
 describe( 'getPreloadedResponse()', () => {
 	it( 'should return null if path is not preloaded', () => {
-		const response = getPreloadedResponse( {
-			requests: {
-				preload: {},
+		const response = getPreloadedResponse(
+			{
+				requests: {
+					preload: {},
+				},
 			},
-		}, '/dones/v1/users' );
+			'/dones/v1/users'
+		);
 
 		expect( response ).toBe( null );
 	} );
@@ -30,13 +33,16 @@ describe( 'getPreloadedResponse()', () => {
 			headers: [],
 		};
 
-		const response = getPreloadedResponse( {
-			requests: {
-				preload: {
-					'/dones/v1/users': [ payload, '1' ],
+		const response = getPreloadedResponse(
+			{
+				requests: {
+					preload: {
+						'/dones/v1/users': [ payload, '1' ],
+					},
 				},
 			},
-		}, '/dones/v1/users' );
+			'/dones/v1/users'
+		);
 
 		expect( response ).toBe( payload );
 	} );

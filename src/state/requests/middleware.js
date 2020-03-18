@@ -58,10 +58,13 @@ export default ( { dispatch, getState } ) => {
 		const state = getState();
 
 		// Clone parameters with defaults
-		params = assign( {
-			method: 'GET',
-			headers: new Headers(),
-		}, params );
+		params = assign(
+			{
+				method: 'GET',
+				headers: new Headers(),
+			},
+			params
+		);
 
 		if ( 'GET' === params.method ) {
 			// First yield with potentially preloaded data
@@ -78,7 +81,10 @@ export default ( { dispatch, getState } ) => {
 				// if a non-preload request is invoked while preload request is
 				// already in-flight.
 				dispatch( setPathIsPreloading( path, false ) );
-				callbackify( getFormattedResponse( inFlightRequest ), callback );
+				callbackify(
+					getFormattedResponse( inFlightRequest ),
+					callback
+				);
 				return;
 			}
 		}

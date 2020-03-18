@@ -59,10 +59,7 @@ export default class Popover extends Component {
 		] );
 
 		return (
-			<div
-				ref={ this.setNode }
-				style={ style }
-				className={ classes }>
+			<div ref={ this.setNode } style={ style } className={ classes }>
 				{ children }
 			</div>
 		);

@@ -19,7 +19,8 @@ function User( { name, avatars } ) {
 				srcSet={ avatars[ 60 ] + ' 2x' }
 				height="30"
 				width="30"
-				className="user__avatar-image" />
+				className="user__avatar-image"
+			/>
 			{ name }
 		</span>
 	);

@@ -18,7 +18,8 @@ describe( 'Button', () => {
 				unstyled
 				disabled
 				type="submit"
-				aria-label="Additional">
+				aria-label="Additional"
+			>
 				Hello World
 			</Button>
 		);
@@ -39,11 +40,7 @@ describe( 'Button', () => {
 	} );
 
 	it( 'renders a link with `to` prop', () => {
-		const element = (
-			<Button to="/">
-				Hello World
-			</Button>
-		);
+		const element = <Button to="/">Hello World</Button>;
 
 		const node = render( element );
 

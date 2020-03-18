@@ -12,10 +12,7 @@ describe( 'reducer', () => {
 	it( 'returns with expected keys', () => {
 		const state = reducer( undefined, {} );
 
-		expect( Object.keys( state ) ).toEqual( [
-			'path',
-			'isInitial',
-		] );
+		expect( Object.keys( state ) ).toEqual( [ 'path', 'isInitial' ] );
 	} );
 
 	describe( 'path()', () => {

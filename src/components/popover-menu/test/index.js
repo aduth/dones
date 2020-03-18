@@ -12,11 +12,7 @@ import PopoverMenu from '../';
 describe( 'PopoverMenu', () => {
 	it( 'renders nothing if there are no items', () => {
 		const onSelect = jest.fn();
-		const element = (
-			<PopoverMenu
-				items={ [] }
-				onSelect={ onSelect } />
-		);
+		const element = <PopoverMenu items={ [] } onSelect={ onSelect } />;
 
 		const node = render( element );
 
@@ -38,8 +34,12 @@ describe( 'PopoverMenu', () => {
 
 		expect( list ).toBeTruthy();
 		expect( list.childElementCount ).toBe( 2 );
-		expect( list.childNodes[ 0 ].classList.contains( 'is-selected' ) ).toBe( true );
-		expect( list.childNodes[ 1 ].classList.contains( 'is-selected' ) ).toBe( false );
+		expect( list.childNodes[ 0 ].classList.contains( 'is-selected' ) ).toBe(
+			true
+		);
+		expect( list.childNodes[ 1 ].classList.contains( 'is-selected' ) ).toBe(
+			false
+		);
 	} );
 
 	it( 'navigates list items by keypress', () => {
@@ -56,12 +56,20 @@ describe( 'PopoverMenu', () => {
 		} );
 
 		window.dispatchEvent( event );
-		expect( list.childNodes[ 0 ].classList.contains( 'is-selected' ) ).toBe( false );
-		expect( list.childNodes[ 1 ].classList.contains( 'is-selected' ) ).toBe( true );
+		expect( list.childNodes[ 0 ].classList.contains( 'is-selected' ) ).toBe(
+			false
+		);
+		expect( list.childNodes[ 1 ].classList.contains( 'is-selected' ) ).toBe(
+			true
+		);
 
 		window.dispatchEvent( event );
-		expect( list.childNodes[ 0 ].classList.contains( 'is-selected' ) ).toBe( false );
-		expect( list.childNodes[ 1 ].classList.contains( 'is-selected' ) ).toBe( true );
+		expect( list.childNodes[ 0 ].classList.contains( 'is-selected' ) ).toBe(
+			false
+		);
+		expect( list.childNodes[ 1 ].classList.contains( 'is-selected' ) ).toBe(
+			true
+		);
 
 		// Up twice: test minimum selected
 		event = new KeyboardEvent( 'keydown', {
@@ -69,20 +77,26 @@ describe( 'PopoverMenu', () => {
 		} );
 
 		window.dispatchEvent( event );
-		expect( list.childNodes[ 0 ].classList.contains( 'is-selected' ) ).toBe( true );
-		expect( list.childNodes[ 1 ].classList.contains( 'is-selected' ) ).toBe( false );
+		expect( list.childNodes[ 0 ].classList.contains( 'is-selected' ) ).toBe(
+			true
+		);
+		expect( list.childNodes[ 1 ].classList.contains( 'is-selected' ) ).toBe(
+			false
+		);
 
 		window.dispatchEvent( event );
-		expect( list.childNodes[ 0 ].classList.contains( 'is-selected' ) ).toBe( true );
-		expect( list.childNodes[ 1 ].classList.contains( 'is-selected' ) ).toBe( false );
+		expect( list.childNodes[ 0 ].classList.contains( 'is-selected' ) ).toBe(
+			true
+		);
+		expect( list.childNodes[ 1 ].classList.contains( 'is-selected' ) ).toBe(
+			false
+		);
 	} );
 
 	it( 'selects item on enter by default', () => {
 		const onSelect = jest.fn();
 		const element = (
-			<PopoverMenu
-				onSelect={ onSelect }
-				items={ [ 'Foo', 'Bar' ] } />
+			<PopoverMenu onSelect={ onSelect } items={ [ 'Foo', 'Bar' ] } />
 		);
 
 		render( element );
@@ -101,7 +115,8 @@ describe( 'PopoverMenu', () => {
 			<PopoverMenu
 				onSelect={ onSelect }
 				items={ [ 'Foo', 'Bar' ] }
-				selectKeyCode={ 32 } />
+				selectKeyCode={ 32 }
+			/>
 		);
 
 		render( element );
@@ -142,6 +157,8 @@ describe( 'PopoverMenu', () => {
 		const list = node.querySelector( '.popover-menu__list' );
 
 		window.dispatchEvent( event );
-		expect( list.childNodes[ 1 ].classList.contains( 'is-selected' ) ).toBe( true );
+		expect( list.childNodes[ 1 ].classList.contains( 'is-selected' ) ).toBe(
+			true
+		);
 	} );
 } );

@@ -6,10 +6,7 @@ import { omit } from 'lodash';
 /**
  * Internal dependencies
  */
-import {
-	NOTICE_DISPLAY,
-	NOTICE_HIDE,
-} from 'state/action-types';
+import { NOTICE_DISPLAY, NOTICE_HIDE } from 'state/action-types';
 
 /**
  * Returns the updated notices state after an action has been dispatched. Each

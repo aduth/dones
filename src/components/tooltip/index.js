@@ -30,7 +30,7 @@ export default class Tooltip extends Component {
 
 	hideTooltip = () => this.setState( { isVisible: false } );
 
-	setRef = ( node ) => this.node = node;
+	setRef = ( node ) => ( this.node = node );
 
 	render() {
 		const { position, children } = this.props;
@@ -39,9 +39,7 @@ export default class Tooltip extends Component {
 		return (
 			<span ref={ this.setRef } className="tooltip">
 				{ isVisible && (
-					<Popover position={ position }>
-						{ children }
-					</Popover>
+					<Popover position={ position }>{ children }</Popover>
 				) }
 			</span>
 		);

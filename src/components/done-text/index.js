@@ -56,7 +56,11 @@ const TRANSFORMS = [
 	{
 		pattern: /`([^`]+)`/,
 		transform: ( [ , code ] ) => (
-			<code>{ ZERO_WIDTH_SPACE }{ code }{ ZERO_WIDTH_SPACE }</code>
+			<code>
+				{ ZERO_WIDTH_SPACE }
+				{ code }
+				{ ZERO_WIDTH_SPACE }
+			</code>
 		),
 	},
 ];
@@ -71,22 +75,26 @@ function getTransformedDoneText( children ) {
 	let parts = [ ...toChildArray( children ) ];
 
 	for ( const { pattern, transform } of TRANSFORMS ) {
-		parts = reduce( parts, ( memo, part ) => {
-			if ( 'string' !== typeof part ) {
-				return memo.concat( part );
-			}
+		parts = reduce(
+			parts,
+			( memo, part ) => {
+				if ( 'string' !== typeof part ) {
+					return memo.concat( part );
+				}
 
-			let match;
-			while ( ( match = part.match( pattern ) ) ) {
-				memo.push( part.substr( 0, match.index ) );
-				memo = memo.concat( transform( match ) );
-				part = part.substr( match.index + match[ 0 ].length );
-			}
+				let match;
+				while ( ( match = part.match( pattern ) ) ) {
+					memo.push( part.substr( 0, match.index ) );
+					memo = memo.concat( transform( match ) );
+					part = part.substr( match.index + match[ 0 ].length );
+				}
 
-			memo.push( part );
+				memo.push( part );
 
-			return memo;
-		}, [] );
+				return memo;
+			},
+			[]
+		);
 	}
 
 	return parts;
@@ -102,7 +110,8 @@ export default class DoneText extends Component {
 		if ( window.clipboardData ) {
 			setData = ( text ) => window.clipboardData.setData( 'Text', text );
 		} else if ( event.clipboardData ) {
-			setData = ( text ) => event.clipboardData.setData( 'text/plain', text );
+			setData = ( text ) =>
+				event.clipboardData.setData( 'text/plain', text );
 		}
 
 		if ( ! setData ) {
@@ -134,12 +143,13 @@ export default class DoneText extends Component {
 			/* eslint-disable jsx-a11y/click-events-have-key-events */
 			/* eslint-disable jsx-a11y/no-static-element-interactions */
 			<div
-				ref={ ( node ) => this.node = node }
+				ref={ ( node ) => ( this.node = node ) }
 				{ ...focusProps }
 				onClick={ onClick }
 				onMouseDown={ onMouseDown }
 				onCopy={ this.setCopyText }
-				className="done-text">
+				className="done-text"
+			>
 				<div className="done-text__overflow">
 					{ getTransformedDoneText( children ) }
 				</div>

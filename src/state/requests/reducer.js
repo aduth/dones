@@ -104,9 +104,10 @@ export function preload( state = {}, action ) {
 		case REQUEST_PRELOAD_ADD:
 		case REQUEST_PRELOAD_SET:
 			// Reformat singular preload add as object of path: response
-			let responses = REQUEST_PRELOAD_ADD === action.type
-				? { [ action.path ]: action.response }
-				: action.responses;
+			let responses =
+				REQUEST_PRELOAD_ADD === action.type
+					? { [ action.path ]: action.response }
+					: action.responses;
 
 			// Structure responses as array of [ response, id ] where ID can be
 			// used later in targeting the correctly timed preload to clear
@@ -117,9 +118,8 @@ export function preload( state = {}, action ) {
 					// Response header keys are normalized to lowercase due to
 					// inconsistent casing between Fetch's `entries` iterator
 					// and WordPress REST API response headers keys.
-					headers: mapKeys(
-						response.headers,
-						( value, key ) => key.toLowerCase()
+					headers: mapKeys( response.headers, ( value, key ) =>
+						key.toLowerCase()
 					),
 				},
 
@@ -137,8 +137,10 @@ export function preload( state = {}, action ) {
 			// Singular clear
 			if ( action.path ) {
 				// Verify path is already tracked and matches ID
-				if ( state.hasOwnProperty( action.path ) &&
-						state[ action.path ][ 1 ] === action.id ) {
+				if (
+					state.hasOwnProperty( action.path ) &&
+					state[ action.path ][ 1 ] === action.id
+				) {
 					return omit( state, action.path );
 				}
 
@@ -146,21 +148,25 @@ export function preload( state = {}, action ) {
 			}
 
 			// Total clear
-			return reduce( state, ( result, preloaded, path ) => {
-				const [ , id ] = preloaded;
-				// Verify matches ID
-				if ( id === action.id ) {
-					// Avoid state mutation by creating shallow clone
-					if ( result === state ) {
-						result = { ...state };
+			return reduce(
+				state,
+				( result, preloaded, path ) => {
+					const [ , id ] = preloaded;
+					// Verify matches ID
+					if ( id === action.id ) {
+						// Avoid state mutation by creating shallow clone
+						if ( result === state ) {
+							result = { ...state };
+						}
+
+						// With clone, mutate as deleting path key
+						delete result[ path ];
 					}
 
-					// With clone, mutate as deleting path key
-					delete result[ path ];
-				}
-
-				return result;
-			}, state );
+					return result;
+				},
+				state
+			);
 	}
 
 	return state;

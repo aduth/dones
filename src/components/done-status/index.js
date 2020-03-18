@@ -15,14 +15,15 @@ import { translate } from 'lib/i18n';
 export default function DoneStatus() {
 	const { done, onToggle, disabled } = this.props;
 	const isToggleable = onToggle && ! disabled;
-	const classes = classNames( [ 'done-status', {
-		'is-done': done,
-		'is-toggleable': isToggleable,
-	} ] );
+	const classes = classNames( [
+		'done-status',
+		{
+			'is-done': done,
+			'is-toggleable': isToggleable,
+		},
+	] );
 
-	const text = done
-		? translate( 'Done' )
-		: translate( 'Goal' );
+	const text = done ? translate( 'Done' ) : translate( 'Goal' );
 
 	// Avoid assigning `disabled` prop because the Tooltip's onMouseOver
 	// behavior won't be triggered while disabled. Substitute instead with
@@ -39,7 +40,8 @@ export default function DoneStatus() {
 			aria-pressed={ isToggleable ? done : null }
 			aria-label={ text }
 			className={ classes }
-			unstyled>
+			unstyled
+		>
 			<Icon icon="check" size={ 14 } />
 			<Tooltip>{ text }</Tooltip>
 		</Button>

@@ -93,11 +93,9 @@ class Link extends Component {
 		if ( ! this.isLocalPath() ) {
 			assign( props, {
 				target: '_blank',
-				rel: uniq( compact( [
-					props.rel,
-					'noopener',
-					'noreferrer',
-				] ) ).join( ' ' ),
+				rel: uniq(
+					compact( [ props.rel, 'noopener', 'noreferrer' ] )
+				).join( ' ' ),
 			} );
 		}
 
@@ -118,15 +116,13 @@ class Link extends Component {
 				href={ href }
 				onClick={ this.onClick }
 				onMouseEnter={ this.onMouseEnter }
-				onMouseLeave={ this.onMouseLeave } />
+				onMouseLeave={ this.onMouseLeave }
+			/>
 		);
 	}
 }
 
-export default connect(
-	null,
-	{
-		onNavigate: pushRoute,
-		onPreload: preloadRoute,
-	}
-)( Link );
+export default connect( null, {
+	onNavigate: pushRoute,
+	onPreload: preloadRoute,
+} )( Link );
