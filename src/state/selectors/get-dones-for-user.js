@@ -14,7 +14,7 @@ import { getDones } from './';
  *
  * @param  {Object}  state  Global state object
  * @param  {Object}  query  Query object to filter
- * @param  {Number}  userId User ID to filter
+ * @param  {number}  userId User ID to filter
  * @return {?Object}        Dones, or null if not known
  */
 export function getDonesForUser( state, query, userId ) {

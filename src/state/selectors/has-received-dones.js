@@ -10,7 +10,7 @@ import stringify from 'fast-stable-stringify';
  *
  * @param  {Object}  state Global state object
  * @param  {Object}  query Query object
- * @return {Boolean}       Whether dones have been received
+ * @return {boolean}       Whether dones have been received
  */
 export function hasReceivedDones( state, query ) {
 	return !! state.dones.received[ stringify( query ) ];

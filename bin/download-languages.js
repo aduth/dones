@@ -13,21 +13,21 @@ const fs = require( 'fs' );
 /**
  * POEditor project ID.
  *
- * @type {Number}
+ * @type {number}
  */
 const PROJECT_ID = 151513;
 
 /**
  * Token for POEditor API, provided via environment variable.
  *
- * @type {String}
+ * @type {string}
  */
 const API_TOKEN = process.env.POEDITOR_API_TOKEN;
 
 /**
  * POEditor root API URL.
  *
- * @type {String}
+ * @type {string}
  */
 const API_ROOT = 'https://api.poeditor.com/v2';
 
@@ -41,7 +41,7 @@ const RX_FILENAME = /(?:^|;\s*)filename="(.+?\.mo)"(?:;|$)/;
 /**
  * Output folder for language files.
  *
- * @type {[type]}
+ * @type {string}
  */
 const OUTPUT_FOLDER = path.join( __dirname, '/../languages' );
 
@@ -50,7 +50,7 @@ const OUTPUT_FOLDER = path.join( __dirname, '/../languages' );
  * headers, or undefined if the filename cannot be determined.
  *
  * @param  {Object}  response Request response.
- * @return {?String}          Response filename.
+ * @return {?string}          Response filename.
  */
 function getFilename( response ) {
 	const disposition = response.headers[ 'content-disposition' ];
@@ -69,7 +69,7 @@ function getFilename( response ) {
 /**
  * Utility for retrieving API response from POEditor.
  *
- * @param  {String}  route POEditor API route path.
+ * @param  {string}  route POEditor API route path.
  * @param  {Object}  body  Body to send as form data.
  * @return {Promise}       Promise resolved with API result.
  */
@@ -85,7 +85,7 @@ async function getApiResult( route, body ) {
 /**
  * Downloads and writes provided URL to languages output folder.
  *
- * @param  {String} link URL to download.
+ * @param  {string} link URL to download.
  * @return {Promise}     Promise resolved when file written.
  */
 async function getExport( link ) {
@@ -110,7 +110,7 @@ async function getExport( link ) {
 /**
  * Downloads and writes provided URLs to languages output folder.
  *
- * @param  {String[]} links URLs to download.
+ * @param  {string[]} links URLs to download.
  * @return {Promise}        Promise resolved when files written.
  */
 async function getExports( links ) {
@@ -134,7 +134,7 @@ async function getLanguageCodes() {
 /**
  * Retrieves and resolves with export link for given language code.
  *
- * @param  {String}  code Language code to retrieve.
+ * @param  {string}  code Language code to retrieve.
  * @return {Promise}      Promise resolving with export link.
  */
 async function getExportLink( code ) {
@@ -151,7 +151,7 @@ async function getExportLink( code ) {
 /**
  * Retrieves and resolves with export links for given language codes.
  *
- * @param  {String[]} codes Language codes to retrieve.
+ * @param  {string[]} codes Language codes to retrieve.
  * @return {Promise}        Promise resolving with export links.
  */
 async function getExportLinks( codes ) {

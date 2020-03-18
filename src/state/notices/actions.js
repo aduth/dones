@@ -15,8 +15,8 @@ import {
  * Returns an action object used in signalling that a new notice should be
  * displayed.
  *
- * @param  {String} status Status type of notice
- * @param  {String} text   Text of notice
+ * @param  {string} status Status type of notice
+ * @param  {string} text   Text of notice
  * @return {Object}        Action object
  */
 export function displayNotice( status, text ) {
@@ -32,7 +32,7 @@ export function displayNotice( status, text ) {
  * Returns an action object used in signalling that a new error notice should
  * be displayed.
  *
- * @param  {String} text Text of notice
+ * @param  {string} text Text of notice
  * @return {Object}      Action object
  */
 export function displayErrorNotice( text ) {
@@ -43,7 +43,7 @@ export function displayErrorNotice( text ) {
  * Returns an action object used in signalling that an existing notice should
  * be dismissed.
  *
- * @param  {String} id Notice ID
+ * @param  {string} id Notice ID
  * @return {Object}    Action object
  */
 export function hideNotice( id ) {

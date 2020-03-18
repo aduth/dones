@@ -3,7 +3,7 @@
  * otherwise.
  *
  * @param  {Object}  state Global state object
- * @return {Boolean}       Whether initial route
+ * @return {boolean}       Whether initial route
  */
 export default function isInitialRoute( state ) {
 	return state.routing.isInitial;

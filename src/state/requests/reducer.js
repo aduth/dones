@@ -186,9 +186,9 @@ export function nonce( state = null, action ) {
  * Returns next preload capture state, reflecting whether requests are being
  * captured for preload.
  *
- * @param  {Boolean} state  Current state
+ * @param  {boolean} state  Current state
  * @param  {Object}  action Action object
- * @return {Boolean}        Next state
+ * @return {boolean}        Next state
  */
 export function isCapturingPreload( state = false, action ) {
 	switch ( action.type ) {

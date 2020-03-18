@@ -5,7 +5,7 @@
  *
  * @param  {?Element} referenceNode Optional node from which to get offset.
  *                                  Defaults to range common ancestor.
- * @return {Number[]}               Tuple of start and end offset
+ * @return {number[]}               Tuple of start and end offset
  */
 export function getSelectedOffset( referenceNode ) {
 	const selection = window.getSelection();

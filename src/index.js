@@ -21,7 +21,7 @@ import 'assets/stylesheets/main.scss';
 /**
  * Redux store instance
  *
- * @type {Redux.Store}
+ * @type {import('redux').Store}
  */
 const store = createReduxStore();
 

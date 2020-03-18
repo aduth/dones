@@ -8,7 +8,7 @@ import { some } from 'lodash';
  * false otherwise.
  *
  * @param  {Object}  state Global state object
- * @return {Boolean}       Whether mutative request is in flight
+ * @return {boolean}       Whether mutative request is in flight
  */
 export default function isMutativeRequestInFlight( state ) {
 	return some( state.requests.items, ( methods ) => (

@@ -3,7 +3,7 @@
  * otherwise.
  *
  * @param  {Object}  state Global state object
- * @return {Boolean}       Whether requests are captured for preload
+ * @return {boolean}       Whether requests are captured for preload
  */
 export default function isCapturingRequestPreload( state ) {
 	return state.requests.isCapturingPreload;

@@ -51,7 +51,7 @@ export function setPreloadedResponses( responses ) {
  * Returns an action object used in signalling that a preloaded response has
  * been made available for the specified path.
  *
- * @param  {String} path     Path for which preloaded data is received
+ * @param  {string} path     Path for which preloaded data is received
  * @param  {Object} response Response payload with data and headers
  * @return {Object}          Action object
  */
@@ -68,7 +68,7 @@ export function addPreloadedResponse( path, response ) {
  * Returns an action object used in signalling that the preloaded responses
  * received with the given preload transaction ID should be removed.
  *
- * @param  {String} id Assigned preload transaction ID
+ * @param  {string} id Assigned preload transaction ID
  * @return {Object}    Action object
  */
 export function clearPreloadedResponses( id ) {
@@ -82,8 +82,8 @@ export function clearPreloadedResponses( id ) {
  * Returns an action object used in signalling that the preloaded response
  * received with the given preload transaction ID and path should be removed.
  *
- * @param  {String} path Path for which preloaded response was received
- * @param  {String} id   Assigned preload transaction ID
+ * @param  {string} path Path for which preloaded response was received
+ * @param  {string} id   Assigned preload transaction ID
  * @return {Object}      Action object
  */
 export function clearPreloadedResponse( path, id ) {
@@ -123,7 +123,7 @@ export function stopPreloadCapture() {
  * Returns an action object used in signalling that the request object for the
  * specified path and parameters should be assigned.
  *
- * @param  {String}  path    Request path
+ * @param  {string}  path    Request path
  * @param  {Object}  params  Request parameters
  * @param  {Promise} request Request
  * @return {Object}          Action object
@@ -141,8 +141,8 @@ export function setPathRequest( path, params, request ) {
  * Returns an action object used in signalling whether a request is in progress
  * to preload the specified path
  *
- * @param  {String}  path         Request path
- * @param  {Boolean} isPreloading Whether preloading
+ * @param  {string}  path         Request path
+ * @param  {boolean} isPreloading Whether preloading
  * @return {Object}               Action object
  */
 export function setPathIsPreloading( path, isPreloading ) {

@@ -50,7 +50,7 @@ export default ( { dispatch, getState } ) => {
 	 *
 	 * @see getFormattedResponse
 	 *
-	 * @param {String}   path     Request path
+	 * @param {string}   path     Request path
 	 * @param {Object}   params   Request fetch parameters
 	 * @param {Function} callback Node-style callback to trigger with result
 	 */

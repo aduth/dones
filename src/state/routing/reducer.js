@@ -29,9 +29,9 @@ export function path( state = null, action ) {
  * Returns the updated is initial state after an action has been dispatched.
  * Is initial reflects whether navigation has occurred within the app.
  *
- * @param  {Boolean} state  Current state
+ * @param  {boolean} state  Current state
  * @param  {Object}  action Action object
- * @return {Boolean}        Updated state
+ * @return {boolean}        Updated state
  */
 export function isInitial( state = true, action ) {
 	switch ( action.type ) {

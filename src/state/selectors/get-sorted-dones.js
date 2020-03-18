@@ -14,8 +14,8 @@ import { getDones } from './';
  *
  * @param  {Object}   state    Global state object
  * @param  {Object}   query    Query object
- * @param  {String}   property Property on which to sort
- * @param  {String}   order    Direction in which to sort
+ * @param  {string}   property Property on which to sort
+ * @param  {string}   order    Direction in which to sort
  * @return {Object[]}          Ordered dones
  */
 export function getSortedDones( state, query, property = 'date', order = 'desc' ) {

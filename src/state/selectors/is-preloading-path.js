@@ -3,8 +3,8 @@
  * false otherwise.
  *
  * @param  {Object}  state Global state object
- * @param  {String}  path  Request path
- * @return {Boolean}       Whether request is in progress to preload
+ * @param  {string}  path  Request path
+ * @return {boolean}       Whether request is in progress to preload
  */
 export default function isPreloadingPath( state, path ) {
 	return !! state.requests.preloading[ path ];

@@ -8,7 +8,7 @@ import { get, omit, filter, every, includes, escapeRegExp } from 'lodash';
 /**
  * Regular expression fragment matching expected prefix or suffix to a tag.
  *
- * @type {String}
+ * @type {string}
  */
 const RX_TERMINATOR = '(^|[\\s\\.,;!\\?]|$)';
 

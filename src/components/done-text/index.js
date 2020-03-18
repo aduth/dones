@@ -14,7 +14,7 @@ import { getSelectedOffset } from 'lib/selection';
  * Zero width character used as stand-in for replaced character to preserve
  * behavior of selection detection for editing done.
  *
- * @type {String}
+ * @type {string}
  */
 const ZERO_WIDTH_SPACE = '​';
 

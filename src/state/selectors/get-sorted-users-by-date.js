@@ -15,7 +15,7 @@ import { getUsers, getDonesForUser } from './';
  * dones reported for the day, then by name.
  *
  * @param  {Object}   state Global state object
- * @param  {String}   date  Date to check for user dones
+ * @param  {string}   date  Date to check for user dones
  * @return {Object[]}       Sorted users
  */
 export function getSortedUsersByDate( state, date ) {

@@ -13,7 +13,7 @@ import {
 /**
  * Time-to-live duration in milliseconds for preloaded responses.
  *
- * @type {Number}
+ * @type {number}
  */
 const PRELOAD_RESET_TIMEOUT = 3000;
 

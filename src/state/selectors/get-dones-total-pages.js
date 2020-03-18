@@ -11,7 +11,7 @@ import { get, omit } from 'lodash';
  *
  * @param  {Object}  state Global state object
  * @param  {Object}  query Query object
- * @return {?Number}       Page count if known
+ * @return {?number}       Page count if known
  */
 export function getDonesTotalPages( state, query ) {
 	query = stringify( omit( query, 'page' ) );

@@ -20,9 +20,9 @@ const ROUTE_CHANGE_TYPES = [ ROUTE_PUSH, ROUTE_REPLACE ];
 /**
  * Redux middleware used in synchronizing Redux routing state with History API.
  *
- * @param  {Function} store.dispatch Store instance dispatch
- * @param  {Function} store.getState Store instance state getter
- * @return {Function}                Redux middleware
+ * @param {import('redux').Store} store
+ *
+ * @return {Function} Redux middleware
  */
 export default ( { dispatch } ) => {
 	window.addEventListener( 'popstate', function( event ) {
