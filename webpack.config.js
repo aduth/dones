@@ -85,7 +85,7 @@ if ( 'production' === NODE_ENV ) {
 	];
 } else if ( 'development' === NODE_ENV ) {
 	config.devtool = 'cheap-module-source-map';
-	config.entry = [ config.entry, 'preact/devtools' ];
+	config.entry = [ 'preact/debug', config.entry ];
 	config.resolve.alias['preact$'] = 'preact/src/index.js';
 	config.resolve.alias['preact/compat$'] = 'preact/compat/src/index.js';
 	config.resolve.alias['preact/debug$'] = 'preact/debug/src/index.js';
