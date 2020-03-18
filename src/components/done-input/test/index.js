@@ -47,7 +47,7 @@ describe( 'DoneInput', () => {
 						selectionEnd: text.length,
 					} );
 				},
-			} )
+			} );
 			textarea.dispatchEvent( event );
 		};
 

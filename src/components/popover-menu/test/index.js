@@ -27,7 +27,7 @@ describe( 'PopoverMenu', () => {
 		} );
 		window.dispatchEvent( event );
 
-		expect( onSelect ).not.toHaveBeenCalled;
+		expect( onSelect ).not.toHaveBeenCalled();
 	} );
 
 	it( 'renders a list of items', () => {
@@ -114,7 +114,7 @@ describe( 'PopoverMenu', () => {
 		} );
 		window.dispatchEvent( event );
 
-		expect( onSelect ).not.toHaveBeenCalled;
+		expect( onSelect ).not.toHaveBeenCalled();
 
 		// Test custom keycode
 		event = new KeyboardEvent( 'keydown', {
@@ -122,7 +122,7 @@ describe( 'PopoverMenu', () => {
 		} );
 		window.dispatchEvent( event );
 
-		expect( onSelect ).toHaveBeenCalled;
+		expect( onSelect ).toHaveBeenCalled();
 	} );
 
 	it( 'limits selected index when options shrink', () => {

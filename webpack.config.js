@@ -87,11 +87,11 @@ if ( 'production' === NODE_ENV ) {
 } else if ( 'development' === NODE_ENV ) {
 	config.devtool = 'cheap-module-source-map';
 	config.entry = [ 'preact/debug', config.entry ];
-	config.resolve.alias['preact$'] = 'preact/src/index.js';
-	config.resolve.alias['preact/compat$'] = 'preact/compat/src/index.js';
-	config.resolve.alias['preact/debug$'] = 'preact/debug/src/index.js';
-	config.resolve.alias['preact/devtools$'] = 'preact/devtools/src/index.js';
-	config.resolve.alias['preact/hooks$'] = 'preact/hooks/src/index.js';
+	config.resolve.alias.preact$ = 'preact/src/index.js';
+	config.resolve.alias[ 'preact/compat$' ] = 'preact/compat/src/index.js';
+	config.resolve.alias[ 'preact/debug$' ] = 'preact/debug/src/index.js';
+	config.resolve.alias[ 'preact/devtools$' ] = 'preact/devtools/src/index.js';
+	config.resolve.alias[ 'preact/hooks$' ] = 'preact/hooks/src/index.js';
 	config.module.rules.push( {
 		test: /\.s?css$/,
 		use: [

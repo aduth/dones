@@ -70,7 +70,7 @@ describe( 'middleware', () => {
 		handler( action );
 
 		expect( next ).toHaveBeenCalledWith( action );
-		expect( dispatch ).not.toHaveBeenCalled()
+		expect( dispatch ).not.toHaveBeenCalled();
 	} );
 
 	it( 'should append query string to request path', () => {

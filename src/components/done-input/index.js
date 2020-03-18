@@ -110,6 +110,7 @@ export class DoneInput extends Component {
 
 	delete = () => {
 		const { id } = this.props;
+		// eslint-disable-next-line no-alert
 		if ( confirm( translate( 'Are you sure you want to delete this done?' ) ) ) {
 			this.props.onDelete( id );
 		}
@@ -217,6 +218,7 @@ export class DoneInput extends Component {
 					onSuggestionSelected={ this.insertSuggestion }
 					selectionOffset={ selectionOffset }
 					suggestions={ this.getSuggestions() }
+					// eslint-disable-next-line jsx-a11y/no-autofocus
 					autoFocus={ ! hasNavigated } />
 				<div className="done-input__actions">
 					{ map( actions, ( action, i ) => (

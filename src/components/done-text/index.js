@@ -131,6 +131,8 @@ export default class DoneText extends Component {
 		}
 
 		return (
+			/* eslint-disable jsx-a11y/click-events-have-key-events */
+			/* eslint-disable jsx-a11y/no-static-element-interactions */
 			<div
 				ref={ ( node ) => this.node = node }
 				{ ...focusProps }
@@ -142,6 +144,8 @@ export default class DoneText extends Component {
 					{ getTransformedDoneText( children ) }
 				</div>
 			</div>
+			/* eslint-enable jsx-a11y/no-static-element-interactions */
+			/* eslint-enable jsx-a11y/click-events-have-key-events */
 		);
 	}
 }

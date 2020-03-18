@@ -107,7 +107,11 @@ class Link extends Component {
 			href = SITE_URL + href;
 		}
 
+		// ESLint disable reason: The content is provided via spread children
+		// prop.
+
 		return (
+			// eslint-disable-next-line jsx-a11y/anchor-has-content
 			<a
 				{ ...props }
 				className={ classes }

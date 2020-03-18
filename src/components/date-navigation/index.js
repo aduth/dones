@@ -15,8 +15,7 @@ import DatePicker from 'components/date-picker';
 import { toSiteTime, formatSiteDate, translate } from 'lib/i18n';
 import { pushRoute } from 'state/routing/actions';
 import { addDays, parseISO, format as formatDate } from 'date-fns';
-
-class DateNavigation extends Component {
+class DateNavigation extends Component {
 	getDateLink = ( increment ) => {
 		const { date } = this.props;
 		return `/date/${ formatDate( addDays( parseISO( date ), increment ), 'yyyy-MM-dd' ) }/`;
@@ -63,4 +62,4 @@ class DateNavigation extends Component {
 	}
 }
 
-export default connect( null, { pushRoute } )( DateNavigation );
+export default connect( null, { pushRoute } )( DateNavigation );
