@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { createElement, render } from 'preact';
-import { Provider } from 'react-redux';
 import wping from 'wping';
+import { StoreContext } from 'prsh';
 
 /**
  * Internal dependencies
@@ -40,8 +40,8 @@ store.dispatch( replaceRoute( path ) );
 // Render
 const target = document.getElementById( 'app' );
 render(
-	<Provider store={ store }>
+	<StoreContext.Provider value={ store }>
 		<Root />
-	</Provider>,
+	</StoreContext.Provider>,
 	target
 );

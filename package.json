@@ -81,8 +81,8 @@
     "lodash-es": "4.17.15",
     "memize": "1.1.0",
     "preact": "10.3.3",
+    "prsh": "1.0.0",
     "querystringify": "2.1.1",
-    "react-redux": "7.2.0",
     "redux": "4.0.5",
     "redux-multi": "0.1.12",
     "refx": "3.1.1",
@@ -93,10 +93,6 @@
   },
   "jest": {
     "preset": "@wordpress/jest-preset-default",
-    "moduleNameMapper": {
-      "^react$": "preact/compat",
-      "^react-dom$": "preact/compat"
-    },
     "setupFilesAfterEnv": [
       "<rootDir>/jest.setup.js"
     ]

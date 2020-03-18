@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { createElement } from 'preact';
-import { connect } from 'react-redux';
 import { map, compact } from 'lodash';
+import { useSelector } from 'prsh';
 
 /**
  * Internal dependencies
@@ -18,7 +18,10 @@ import DateNavigation from 'components/date-navigation';
 import UserDones from 'components/user-dones';
 import { getSortedUsersByDate, getRouteParam } from 'state/selectors';
 
-function DateRoute( { date, users } ) {
+function DateRoute() {
+	const date = useSelector( ( state ) => getRouteParam( state, 'date' ) );
+	const users = useSelector( ( state ) => getSortedUsersByDate( state, date ) );
+
 	return (
 		<Page title={ formatSiteDate( date ) }>
 			<DateNavigation date={ date } />
@@ -38,11 +41,4 @@ DateRoute.prepareRoute = ( { params } ) => compact( [
 	USER_ID && requestTags(),
 ] );
 
-export default connect( ( state ) => {
-	const date = getRouteParam( state, 'date' );
-
-	return {
-		date,
-		users: getSortedUsersByDate( state, date ),
-	};
-} )( DateRoute );
+export default DateRoute;

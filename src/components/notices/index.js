@@ -2,15 +2,16 @@
  * External dependencies
  */
 import { createElement } from 'preact';
-import { connect } from 'react-redux';
 import { isEmpty, map } from 'lodash';
+import { useSelector } from 'prsh';
 
 /**
  * Internal dependencies
  */
 import { getNotices } from 'state/selectors';
 
-function Notices( { notices } ) {
+function Notices() {
+	const notices = useSelector( ( state ) => getNotices( state ) );
 	if ( isEmpty( notices ) ) {
 		return null;
 	}
@@ -28,6 +29,4 @@ function Notices( { notices } ) {
 	);
 }
 
-export default connect( ( state ) => ( {
-	notices: getNotices( state ),
-} ) )( Notices );
+export default Notices;

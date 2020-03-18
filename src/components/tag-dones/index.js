@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createElement } from 'preact';
-import { connect } from 'react-redux';
+import connect from 'components/connect';
 import { isEmpty, map, groupBy } from 'lodash';
 
 /**

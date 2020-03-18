@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createElement, render as _render } from 'preact';
-import { Provider } from 'react-redux';
+import { StoreContext } from 'prsh';
 
 /**
  * Internal dependencies
@@ -16,9 +16,9 @@ export function render( element ) {
 	document.body.appendChild( wrapper );
 
 	_render( (
-		<Provider store={ createReduxStore() }>
+		<StoreContext.Provider value={ createReduxStore() }>
 			{ element }
-		</Provider>
+		</StoreContext.Provider>
 	), wrapper );
 
 	return wrapper.firstChild;

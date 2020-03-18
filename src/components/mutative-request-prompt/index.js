@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Component } from 'preact';
-import { connect } from 'react-redux';
+import connect from 'components/connect';
 
 /**
  * Internal dependencies

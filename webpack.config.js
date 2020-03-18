@@ -19,8 +19,6 @@ const config = module.exports = {
 		modules: [ 'src', 'node_modules' ],
 		alias: {
 			lodash: 'lodash-es',
-			react: 'preact/compat',
-			'react-dom': 'preact/compat',
 		},
 	},
 	module: {

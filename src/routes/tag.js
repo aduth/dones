@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { createElement } from 'preact';
-import { connect } from 'react-redux';
 import { defaultTo } from 'lodash';
+import { useSelector } from 'prsh';
 
 /**
  * Internal dependencies
@@ -17,7 +17,10 @@ import TagPagination from 'components/tag-pagination';
 import { getRouteParam } from 'state/selectors';
 import { translate } from 'lib/i18n';
 
-function TagRoute( { tag, page = 1 } ) {
+function TagRoute() {
+	const tag = useSelector( ( state ) => getRouteParam( state, 'tag' ) );
+	const page = useSelector( ( state ) => Number( defaultTo( getRouteParam( state, 'page' ), 1 ) ) );
+
 	return (
 		<Page title={ translate( 'Tags' ) }>
 			<Card title={
@@ -38,7 +41,4 @@ TagRoute.prepareRoute = ( { params } ) => [
 	} ),
 ];
 
-export default connect( ( state ) => ( {
-	tag: getRouteParam( state, 'tag' ),
-	page: Number( defaultTo( getRouteParam( state, 'page' ), 1 ) ),
-} ) )( TagRoute );
+export default TagRoute;

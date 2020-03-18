@@ -2,17 +2,17 @@
  * External dependencies
  */
 import { createElement } from 'preact';
-import { connect } from 'react-redux';
+import { useSelector } from 'prsh';
 
 /**
  * Internal dependencies
  */
 import { getMatchedRoute } from 'state/selectors';
 
-function Root( { Route } ) {
+function Root() {
+	const { Route } = useSelector( ( state ) => getMatchedRoute( state ) );
+
 	return <Route />;
 }
 
-export default connect( ( state ) => ( {
-	Route: getMatchedRoute( state ).Route,
-} ) )( Root );
+export default Root;
