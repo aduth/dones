@@ -1,10 +1,11 @@
 /**
  * External dependencies
  */
-import { createElement, Component } from 'preact';
-import connect from 'components/connect';
+import { createElement } from 'preact';
+import { useState, useEffect } from 'preact/hooks';
 import classNames from 'classcat';
-import { startsWith, omit, assign, uniq, compact } from 'lodash';
+import { startsWith, assign, uniq, compact } from 'lodash';
+import { useStore } from 'prsh';
 
 /**
  * Internal dependencies
@@ -12,117 +13,88 @@ import { startsWith, omit, assign, uniq, compact } from 'lodash';
 import { SITE_URL } from 'constant';
 import { preloadRoute, pushRoute } from 'state/routing/actions';
 
-class Link extends Component {
-	static defaultProps = {
-		onClick: () => {},
-		onMouseEnter: () => {},
-		onMouseLeave: () => {},
-		to: '',
-	};
+function Link( {
+	onClick = () => {},
+	onMouseEnter = () => {},
+	onMouseLeave = () => {},
+	to = '',
+	className,
+	preload,
+	...additionalProps
+} ) {
+	const { dispatch } = useStore();
+	const [ isMouseOver, setIsMouseOver ] = useState( false );
 
-	constructor() {
-		super( ...arguments );
+	useEffect( () => {
+		if ( preload && isMouseOver ) {
+			dispatch( preloadRoute( to ) );
+		}
+	}, [ to ] );
 
-		this.state = {
-			isMouseOver: false,
-		};
+	function isManagedPath() {
+		return '/' === to[ 0 ];
 	}
 
-	componentWillReceiveProps( nextProps ) {
-		const { to, preload, onPreload } = nextProps;
-		const { isMouseOver } = this.state;
+	function isLocalPath() {
+		return isManagedPath() || startsWith( to, location.origin + '/' );
+	}
 
-		if ( this.props.to !== to && preload && onPreload && isMouseOver ) {
-			onPreload( to );
+	function handleOnClick( event ) {
+		if ( isManagedPath() ) {
+			event.preventDefault();
+			dispatch( pushRoute( to ) );
+			onClick();
 		}
 	}
 
-	isManagedPath() {
-		return '/' === this.props.to[ 0 ];
-	}
-
-	isLocalPath() {
-		const { to } = this.props;
-		return this.isManagedPath() || startsWith( to, location.origin + '/' );
-	}
-
-	onClick = ( event ) => {
-		const { onNavigate, to, onClick } = this.props;
-		if ( ! this.isManagedPath() ) {
-			return;
-		}
-
-		event.preventDefault();
-		onNavigate( to );
-		onClick();
-	};
-
-	onMouseEnter = ( event ) => {
-		const { onMouseEnter, preload, onPreload, to } = this.props;
-
+	function handleOnMouseEnter( event ) {
 		// Preserve original handler of rendering parent
 		onMouseEnter( event );
 
 		// If preload intent, trigger on mouse over
 		if ( preload ) {
-			onPreload( to );
+			dispatch( preloadRoute( to ) );
 		}
 
 		// Set mouseover as state so we can track prop changes and re-trigger
 		// preload if the link changes while mouse within
-		this.setState( { isMouseOver: true } );
-	};
+		setIsMouseOver( true );
+	}
 
-	onMouseLeave = ( event ) => {
-		const { onMouseLeave } = this.props;
-		const { isMouseOver } = this.state;
-
+	function handleOnMouseLeave( event ) {
 		// Preserve original handler of rendering parent
 		onMouseLeave( event );
 
-		if ( isMouseOver ) {
-			this.setState( { isMouseOver: false } );
-		}
-	};
-
-	render() {
-		const { to, className } = this.props;
-		const props = omit( this.props, 'to', 'pushRoute', 'preload' );
-		const classes = classNames( [ 'link', className ] );
-
-		if ( ! this.isLocalPath() ) {
-			assign( props, {
-				target: '_blank',
-				rel: uniq(
-					compact( [ props.rel, 'noopener', 'noreferrer' ] )
-				).join( ' ' ),
-			} );
-		}
-
-		// Prefix with site URL if root-relative path
-		let href = to;
-		if ( this.isManagedPath() ) {
-			href = SITE_URL + href;
-		}
-
-		// ESLint disable reason: The content is provided via spread children
-		// prop.
-
-		return (
-			// eslint-disable-next-line jsx-a11y/anchor-has-content
-			<a
-				{ ...props }
-				className={ classes }
-				href={ href }
-				onClick={ this.onClick }
-				onMouseEnter={ this.onMouseEnter }
-				onMouseLeave={ this.onMouseLeave }
-			/>
-		);
+		setIsMouseOver( false );
 	}
+
+	const classes = classNames( [ 'link', className ] );
+
+	if ( ! isLocalPath() ) {
+		assign( additionalProps, {
+			target: '_blank',
+			rel: uniq(
+				compact( [ additionalProps.rel, 'noopener', 'noreferrer' ] )
+			).join( ' ' ),
+		} );
+	}
+
+	// Prefix with site URL if root-relative path
+	const href = ( isManagedPath() ? SITE_URL : '' ) + to;
+
+	// ESLint disable reason: The content is provided via spread children props.
+
+	return (
+		// eslint-disable-next-line jsx-a11y/anchor-has-content
+		<a
+			{ ...additionalProps }
+			className={ classes }
+			href={ href }
+			onClick={ handleOnClick }
+			onMouseEnter={ handleOnMouseEnter }
+			onMouseLeave={ handleOnMouseLeave }
+		/>
+	);
 }
 
-export default connect( null, {
-	onNavigate: pushRoute,
-	onPreload: preloadRoute,
-} )( Link );
+export default Link;
