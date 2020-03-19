@@ -2,9 +2,9 @@
  * External dependencies
  */
 import { createElement } from 'preact';
-import connect from 'components/connect';
 import { startsWith } from 'lodash';
 import { date as phpdate } from 'phpdate';
+import { useSelector } from 'prsh';
 
 /**
  * Internal dependencies
@@ -22,7 +22,8 @@ import { translate, toSiteTime } from 'lib/i18n';
 import { getRoutePath } from 'state/selectors';
 import SidebarAction from './action';
 
-function Sidebar( { path } ) {
+function Sidebar() {
+	const path = useSelector( ( state ) => getRoutePath( state ) );
 	const isLoggedIn = USER_ID > 0;
 	const date = phpdate( 'Y-m-d', toSiteTime() );
 
@@ -79,6 +80,4 @@ function Sidebar( { path } ) {
 	);
 }
 
-export default connect( ( state ) => ( {
-	path: getRoutePath( state ),
-} ) )( Sidebar );
+export default Sidebar;
