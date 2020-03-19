@@ -4,7 +4,7 @@
 import { createElement } from 'preact';
 import { useMemo } from 'preact/hooks';
 import { useSelector, useStore } from 'prsh';
-import { mapValues, isPlainObject } from 'lodash-es';
+import { mapValues, isPlainObject } from 'lodash';
 
 export default ( mapSelectToProps, mapDispatchToProps ) => (
 	WrappedComponent
