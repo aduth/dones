@@ -2,6 +2,7 @@
  * External dependencies
  */
 import { createElement, Component } from 'preact';
+import { useRef, useEffect } from 'preact/hooks';
 import Flatpickr from 'flatpickr';
 
 /**
@@ -10,82 +11,67 @@ import Flatpickr from 'flatpickr';
 import { toSiteTime, translate } from 'lib/i18n';
 import Icon from 'components/icon';
 
-export default class DatePicker extends Component {
-	static defaultProps = {
-		options: {},
-	};
+function DatePicker( { value, onChange } ) {
+	const input = useRef();
+	const flatpickr = useRef();
+	const scheduledInitialize = useRef();
 
-	componentDidMount() {
-		// Profiling shows that Flatpickr takes a non-trivial amount of time to
-		// initialize, so let's defer it to the next available frame.
+	useEffect( () => {
 		if ( window.requestAnimationFrame ) {
-			this.scheduledInitialize = window.requestAnimationFrame(
-				this.initialize
-			);
-		} else {
-			this.initialize();
-		}
-	}
+			scheduledInitialize.current = window.requestAnimationFrame( () => {
+				flatpickr.current = new Flatpickr( input.current, {
+					onChange,
+				} );
 
-	componentWillReceiveProps( nextProps ) {
-		if ( this.flatpickr && nextProps.value ) {
-			this.flatpickr.setDate( nextProps.value );
-		}
-	}
+				// By default, Flatpickr intializes to the browser-offset date.
+				// Update the value and force a redraw (to reapply the "today"
+				// class)
+				flatpickr.current.now = toSiteTime( new Date() );
 
-	componentWillUnmount() {
-		if ( this.flatpickr ) {
-			this.flatpickr.destroy();
-		} else {
-			window.cancelAnimationFrame( this.initialize );
-		}
-	}
+				// Override Flatpickr's mobile accessibility attributes to
+				// inherit more from the base input element
+				if ( flatpickr.current.mobileInput ) {
+					flatpickr.current.mobileInput.removeAttribute( 'tabindex' );
+					flatpickr.current.mobileInput.setAttribute(
+						'aria-label',
+						flatpickr.current.input.getAttribute( 'aria-label' )
+					);
+					flatpickr.current.input.setAttribute(
+						'aria-hidden',
+						'true'
+					);
+				}
 
-	shouldComponentUpdate() {
-		return false;
-	}
-
-	initialize = () => {
-		this.flatpickr = new Flatpickr( this.input, {
-			onChange: this.props.onChange,
-		} );
-
-		// By default, Flatpickr intializes to the browser-offset date. Update
-		// the value and force a redraw (to reapply the "today" class)
-		this.flatpickr.now = toSiteTime( new Date() );
-
-		// Override Flatpickr's mobile accessibility attributes to inherit more
-		// from the base input element
-		const { input, mobileInput } = this.flatpickr;
-		if ( mobileInput ) {
-			mobileInput.removeAttribute( 'tabindex' );
-			mobileInput.setAttribute(
-				'aria-label',
-				input.getAttribute( 'aria-label' )
-			);
-			input.setAttribute( 'aria-hidden', 'true' );
+				flatpickr.current.redraw();
+			} );
 		}
 
-		this.flatpickr.redraw();
-	};
+		return () => {
+			if ( flatpickr.current ) {
+				flatpickr.current.destroy();
+			} else {
+				window.cancelAnimationFrame( scheduledInitialize.current );
+			}
+		};
+	}, [] );
 
-	setInputRef = ( input ) => {
-		this.input = input;
-	};
+	useEffect( () => {
+		if ( flatpickr.current ) {
+			flatpickr.current.setDate( value );
+		}
+	}, [ value ] );
 
-	render() {
-		const { value } = this.props;
-
-		return (
-			<span className="date-picker button">
-				<Icon icon="calendar" size={ 12 } />
-				<input
-					defaultValue={ value }
-					ref={ this.setInputRef }
-					aria-label={ translate( 'Pick Date' ) }
-					className="date-picker__input"
-				/>
-			</span>
-		);
-	}
+	return (
+		<span className="date-picker button">
+			<Icon icon="calendar" size={ 12 } />
+			<input
+				ref={ input }
+				defaultValue={ value }
+				aria-label={ translate( 'Pick Date' ) }
+				className="date-picker__input"
+			/>
+		</span>
+	);
 }
+
+export default DatePicker;
