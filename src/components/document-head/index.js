@@ -1,36 +1,24 @@
 /**
  * External dependencies
  */
-import { Component } from 'preact';
-import connect from 'components/connect';
+import { useEffect } from 'preact/hooks';
+import { useSelector } from 'prsh';
 
 /**
  * Internal dependencies
  */
 import { getFormattedTitle } from 'state/selectors';
 
-class DocumentHead extends Component {
-	componentWillMount() {
-		if ( 'undefined' === typeof document ) {
-			return;
+function DocumentHead() {
+	const title = useSelector( ( state ) => getFormattedTitle( state ) );
+
+	useEffect( () => {
+		if ( typeof document !== 'undefined' && document.title !== title ) {
+			document.title = title;
 		}
+	}, [ title ] );
 
-		document.title = this.props.title;
-	}
-
-	componentWillReceiveProps( { title } ) {
-		if ( 'undefined' === typeof document || title === document.title ) {
-			return;
-		}
-
-		document.title = title;
-	}
-
-	render() {
-		return null;
-	}
+	return null;
 }
 
-export default connect( ( state ) => ( {
-	title: getFormattedTitle( state ),
-} ) )( DocumentHead );
+export default DocumentHead;
