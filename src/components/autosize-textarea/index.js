@@ -1,46 +1,32 @@
 /**
  * External dependencies
  */
-import { Component, createElement } from 'preact';
+import { createElement } from 'preact';
+import { over, compact } from 'lodash';
+import { useEffect, useRef } from 'preact/hooks';
 import classcat from 'classcat';
 
-export default class AutosizeTextarea extends Component {
-	componentDidMount() {
-		this.resize();
+function AutosizeTextarea( { className, value, onInput, ...additionalProps } ) {
+	const node = useRef();
+
+	useEffect( resize, [ value ] );
+
+	function resize() {
+		node.current.style.height = '0';
+		node.current.style.height = node.current.scrollHeight + 'px';
 	}
 
-	componentDidUpdate( prevProps ) {
-		if ( this.props.value !== prevProps.value ) {
-			this.resize();
-		}
-	}
+	const classes = classcat( [ 'autosize-textarea', className ] );
 
-	resize = () => {
-		const { base } = this;
-		base.style.height = '0';
-		base.style.height = base.scrollHeight + 'px';
-	};
-
-	onInput = ( event ) => {
-		this.resize();
-
-		// Preserve original prop handler behavior
-		const { onInput } = this.props;
-		if ( onInput ) {
-			onInput( event );
-		}
-	};
-
-	render() {
-		const { className } = this.props;
-		const classes = classcat( [ 'autosize-textarea', className ] );
-
-		return (
-			<textarea
-				{ ...this.props }
-				onInput={ this.onInput }
-				className={ classes }
-			/>
-		);
-	}
+	return (
+		<textarea
+			ref={ node }
+			{ ...additionalProps }
+			onInput={ over( compact( [ resize, onInput ] ) ) }
+			value={ value }
+			className={ classes }
+		/>
+	);
 }
+
+export default AutosizeTextarea;
