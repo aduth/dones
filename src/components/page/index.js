@@ -1,8 +1,9 @@
 /**
  * External dependencies
  */
-import { createElement, Component } from 'preact';
-import connect from 'components/connect';
+import { createElement } from 'preact';
+import { useEffect } from 'preact/hooks';
+import { useStore } from 'prsh';
 
 /**
  * Internal dependencies
@@ -13,32 +14,22 @@ import Sidebar from 'components/sidebar';
 import Notices from 'components/notices';
 import MutativeRequestPrompt from 'components/mutative-request-prompt';
 
-class Page extends Component {
-	componentWillMount() {
-		this.props.setTitle( this.props.title );
-	}
+function Page( { title, children } ) {
+	const { dispatch } = useStore();
 
-	componentWillReceiveProps( nextProps ) {
-		if ( nextProps.title !== this.props.title ) {
-			nextProps.setTitle( nextProps.title );
-		}
-	}
+	useEffect( () => {
+		dispatch( setDocumentHeadTitle( title ) );
+	}, [ title ] );
 
-	render() {
-		const { children } = this.props;
-
-		return (
-			<main className="page">
-				<DocumentHead />
-				<Notices />
-				<MutativeRequestPrompt />
-				<Sidebar />
-				<div className="page__content">{ children }</div>
-			</main>
-		);
-	}
+	return (
+		<main className="page">
+			<DocumentHead />
+			<Notices />
+			<MutativeRequestPrompt />
+			<Sidebar />
+			<div className="page__content">{ children }</div>
+		</main>
+	);
 }
 
-export default connect( null, {
-	setTitle: setDocumentHeadTitle,
-} )( Page );
+export default Page;
