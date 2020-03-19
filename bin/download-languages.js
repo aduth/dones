@@ -95,7 +95,11 @@ async function getExport( link ) {
 			.on( 'response', function( response ) {
 				const filename = getFilename( response );
 				if ( ! filename ) {
-					reject( new Error( 'Could not determine filename for link: ' + link ) );
+					reject(
+						new Error(
+							'Could not determine filename for link: ' + link
+						)
+					);
 					return;
 				}
 
@@ -161,8 +165,8 @@ async function getExportLinks( codes ) {
 if ( ! API_TOKEN ) {
 	throw new Error(
 		'Must provide POEditor API token.\n' +
-		'Generate an API token at: https://poeditor.com/account/api\n\n' +
-		'Usage: POEDITOR_API_TOKEN=42a1f3d622cf5182942c856bd2d508c7 npm run download-languages\n'
+			'Generate an API token at: https://poeditor.com/account/api\n\n' +
+			'Usage: POEDITOR_API_TOKEN=42a1f3d622cf5182942c856bd2d508c7 npm run download-languages\n'
 	);
 }
 

@@ -110,8 +110,8 @@ export class DoneInput extends Component {
 
 	delete = () => {
 		const { id } = this.props;
-		// eslint-disable-next-line no-alert
 		if (
+			// eslint-disable-next-line no-alert
 			confirm( translate( 'Are you sure you want to delete this done?' ) )
 		) {
 			this.props.onDelete( id );

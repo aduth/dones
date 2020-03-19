@@ -7,7 +7,7 @@ const ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
 const { BUILD_TARGET, NODE_ENV = 'development' } = process.env;
 
 /** @type {import('webpack').Configuration} */
-const config = module.exports = {
+const config = ( module.exports = {
 	mode: NODE_ENV,
 	entry: './src/index.js',
 	output: {
@@ -30,7 +30,7 @@ const config = module.exports = {
 			},
 		],
 	},
-};
+} );
 
 if ( 'production' === NODE_ENV ) {
 	config.module.rules.unshift( {
@@ -92,11 +92,6 @@ if ( 'production' === NODE_ENV ) {
 	config.resolve.alias[ 'preact/hooks$' ] = 'preact/hooks/src/index.js';
 	config.module.rules.push( {
 		test: /\.s?css$/,
-		use: [
-			'style-loader',
-			'css-loader',
-			'postcss-loader',
-			'sass-loader',
-		],
+		use: [ 'style-loader', 'css-loader', 'postcss-loader', 'sass-loader' ],
 	} );
 }

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { createElement, Component } from 'preact';
+import { createElement } from 'preact';
 import { useRef, useEffect } from 'preact/hooks';
 import Flatpickr from 'flatpickr';
 
