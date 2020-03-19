@@ -3,7 +3,7 @@
  */
 import { Component } from 'preact';
 import connect from 'components/connect';
-import { format as formatDate } from 'date-fns';
+import { date as phpdate } from 'phpdate';
 
 /**
  * Internal dependencies
@@ -13,7 +13,7 @@ import { toSiteTime } from 'lib/i18n';
 
 class HomeRoute extends Component {
 	componentWillMount() {
-		const date = formatDate( toSiteTime( new Date() ), 'yyyy-MM-dd' );
+		const date = phpdate( 'Y-m-d', toSiteTime() );
 		this.props.replaceRoute( `/date/${ date }/` );
 	}
 

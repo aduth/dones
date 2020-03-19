@@ -1,64 +1,34 @@
 /**
  * External dependencies
  */
-import memoize from 'memize';
-import { addHours, parseISO, format as formatDate } from 'date-fns';
+import { date as phpdate } from 'phpdate';
 
 /**
  * Internal dependencies
  */
 import { I18N, GMT_OFFSET, DATE_FORMAT } from 'constant';
 
-const getSiteFormat = memoize( () => {
-	const PHP_DATE_FORMAT_TO_JS = {
-		d: 'dd',
-		D: 'ddd',
-		j: 'd',
-		l: 'dddd',
-		N: 'E',
-		S: 'o',
-		w: 'e',
-		z: 'DDD',
-		W: 'W',
-		F: 'MMMM',
-		m: 'MM',
-		M: 'MMM',
-		n: 'M',
-		o: 'yyyy',
-		Y: 'yyyy',
-		y: 'YY',
-		a: 'a',
-		A: 'A',
-		g: 'h',
-		G: 'H',
-		h: 'hh',
-		H: 'HH',
-		i: 'mm',
-		s: 'ss',
-		u: 'SSS',
-		U: 'X',
-	};
-
-	return DATE_FORMAT.replace( /\\?[a-zA-Z]/g, ( format ) => {
-		return PHP_DATE_FORMAT_TO_JS[ format ] || '';
-	} );
-} );
+/**
+ * Constant GMT offset, in milliseconds.
+ *
+ * @type {number}
+ */
+const GMT_OFFSET_MS = GMT_OFFSET * 60 * 60 * 1000;
 
 export function translate( string ) {
 	return I18N[ string ] || string;
 }
 
-export function toSiteTime( date ) {
-	return addHours(
-		addHours( date, date.getTimezoneOffset() / 60 ),
-		GMT_OFFSET
-	);
+export function toSiteTime( date = new Date() ) {
+	const dateOffsetMs = date.getTimezoneOffset() * 60 * 1000;
+	date.setTime( date.getTime() + dateOffsetMs + GMT_OFFSET_MS );
+	return date;
 }
 
 export function formatSiteDate( date ) {
 	if ( ! ( date instanceof Date ) ) {
-		date = parseISO( date );
+		date = toSiteTime( new Date( date ) );
 	}
 
-	return formatDate( date, getSiteFormat() );
+	return phpdate( DATE_FORMAT, date );
 }

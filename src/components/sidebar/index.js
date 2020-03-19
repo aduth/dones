@@ -4,7 +4,7 @@
 import { createElement } from 'preact';
 import connect from 'components/connect';
 import { startsWith } from 'lodash';
-import { format as formatDate } from 'date-fns';
+import { date as phpdate } from 'phpdate';
 
 /**
  * Internal dependencies
@@ -24,7 +24,7 @@ import SidebarAction from './action';
 
 function Sidebar( { path } ) {
 	const isLoggedIn = USER_ID > 0;
-	const date = formatDate( toSiteTime( new Date() ), 'yyyy-MM-dd' );
+	const date = phpdate( 'Y-m-d', toSiteTime() );
 
 	return (
 		<header className="sidebar">

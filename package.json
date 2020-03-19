@@ -77,11 +77,11 @@
   },
   "dependencies": {
     "classcat": "4.0.2",
-    "date-fns": "2.10.0",
     "fast-stable-stringify": "1.0.0",
     "flatpickr": "4.6.3",
     "lodash-es": "4.17.15",
     "memize": "1.1.0",
+    "phpdate": "1.0.0",
     "preact": "10.3.3",
     "prsh": "1.0.0",
     "querystringify": "2.1.1",

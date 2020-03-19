@@ -3,6 +3,7 @@
  */
 import { createElement, Component } from 'preact';
 import connect from 'components/connect';
+import { date as phpdate } from 'phpdate';
 
 /**
  * Internal dependencies
@@ -14,21 +15,20 @@ import Icon from 'components/icon';
 import DatePicker from 'components/date-picker';
 import { toSiteTime, formatSiteDate, translate } from 'lib/i18n';
 import { pushRoute } from 'state/routing/actions';
-import { addDays, parseISO, format as formatDate } from 'date-fns';
+
 class DateNavigation extends Component {
 	getDateLink = ( increment ) => {
-		const { date } = this.props;
-		return `/date/${ formatDate(
-			addDays( parseISO( date ), increment ),
-			'yyyy-MM-dd'
-		) }/`;
+		const { date: isoDate } = this.props;
+		const date = toSiteTime( new Date( isoDate ) );
+		date.setDate( date.getDate() + increment );
+		return `/date/${ phpdate( 'Y-m-d', date ) }/`;
 	};
 
 	toDate = ( selected, date ) => {
 		// Some date inputs on mobile allow clearing the value. Assume an empty
 		// value should default to today's date.
 		if ( ! date ) {
-			date = formatDate( toSiteTime(), 'yyyy-MM-dd' );
+			date = phpdate( 'Y-m-d', toSiteTime() );
 		}
 
 		this.props.pushRoute( `/date/${ date }/` );
