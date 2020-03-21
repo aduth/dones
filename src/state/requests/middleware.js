@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { stringify } from 'querystringify';
 import { assign, isPlainObject, fromPairs } from 'lodash';
 
 /**
@@ -98,12 +97,8 @@ export default ( { dispatch, getState } ) => {
 
 		// Append form contents
 		if ( isPlainObject( params.body ) ) {
-			params.headers.append(
-				'Content-Type',
-				'application/x-www-form-urlencoded'
-			);
-
-			params.body = stringify( params.body );
+			params.body = JSON.stringify( params.body );
+			params.headers.append( 'Content-Type', 'application/json' );
 		}
 
 		// Trigger and await network request
@@ -157,9 +152,8 @@ export default ( { dispatch, getState } ) => {
 		const { type, query } = action;
 		if ( REQUEST === type ) {
 			// Append query string
-			const querystring = stringify( query );
-			if ( querystring ) {
-				action.path += '?' + querystring;
+			if ( query && Object.keys( query ).length > 0 ) {
+				action.path += '?' + new URLSearchParams( query ).toString();
 			}
 
 			// Assign flag for considering request completion as intended for
