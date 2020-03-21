@@ -52,7 +52,6 @@
     "babel-eslint": "10.1.0",
     "babel-loader": "8.1.0",
     "babel-plugin-minify-export-mirror": "1.0.0",
-    "babel-plugin-unassert": "3.0.1",
     "babel-plugin-webpack-alias": "2.1.2",
     "browser-env": "3.3.0",
     "cross-env": "7.0.2",
@@ -89,7 +88,6 @@
     "refx": "3.1.1",
     "rememo": "3.0.0",
     "textarea-caret": "3.1.0",
-    "wayfarer": "7.0.0",
     "wping": "1.0.0"
   },
   "jest": {

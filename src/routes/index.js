@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import wayfarer from 'wayfarer';
 import memoize from 'memize';
 
 /**
@@ -13,19 +12,56 @@ import TagsRoute from './tags';
 import TagRoute from './tag';
 import NotFoundRoute from './not-found';
 
-const withParams = ( Route ) => ( params ) => ( { params, Route } );
+/** @typedef {import('preact').AnyComponent} PreactAnyComponent */
 
-const router = wayfarer();
-router.on( '/', withParams( HomeRoute ) );
-router.on( '/date/:date', withParams( DateRoute ) );
-router.on( '/tags/:tag/page/:page', withParams( TagRoute ) );
-router.on( '/tags/:tag', withParams( TagRoute ) );
-router.on( '/tags', withParams( TagsRoute ) );
-router.on( '*', withParams( NotFoundRoute ) );
+/**
+ * Route matching tuple pair.
+ *
+ * @typedef {[RegExp,PreactAnyComponent]} RouteMatcher
+ */
 
+/**
+ * Route descriptor object.
+ *
+ * @typedef RouteDescriptor
+ *
+ * @property {Record<string,string>} params Matched named parameter groups.
+ * @property {PreactAnyComponent}    Route  Route component.
+ */
+
+/**
+ * Router matchers.
+ *
+ * @type {RouteMatcher[]}
+ */
+const ROUTES = [
+	[ /^$/, HomeRoute ],
+	[ /^\/date\/(?<date>.*?)$/, DateRoute ],
+	[ /^\/tags\/(?<tag>.*?)(\/page\/(?<page>.*?))?$/, TagRoute ],
+	[ /^\/tags$/, TagsRoute ],
+	[ /.*/, NotFoundRoute ],
+];
+
+/**
+ * Given a string path, returns a route descriptor for that path, or undefined
+ * if a route could not be matched.
+ *
+ * @param {string} path Path to match.
+ *
+ * @return {RouteDescriptor=} Route descriptor object.
+ */
 export const getRouteByPath = memoize( ( path ) => {
 	// Strip query parameters, hash, trailing slash
-	path = path.replace( /\/?[\?|#].*$/g, '' );
+	path = path.replace( /\/?[\?|#].*$/g, '' ).replace( /\/$/, '' );
 
-	return router( path.replace( /\/$/, '' ) );
+	for ( let i = 0; i < ROUTES.length; i++ ) {
+		const [ pattern, Route ] = ROUTES[ i ];
+		const match = path.match( pattern );
+		if ( match ) {
+			return {
+				params: match.groups,
+				Route,
+			};
+		}
+	}
 } );

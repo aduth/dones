@@ -44,20 +44,6 @@ if ( 'production' === NODE_ENV ) {
 		include: __dirname + '/src/state',
 	} );
 
-	// The Wayfarer module uses `assert` to validate incoming arguments. This
-	// is a non-trivial dependency, and not desirable for production.
-	config.module.rules.unshift( {
-		test: /\.js$/,
-		use: {
-			loader: 'babel-loader',
-			options: {
-				babelrc: false,
-				plugins: [ 'unassert' ],
-			},
-		},
-		include: __dirname + '/node_modules/wayfarer',
-	} );
-
 	config.module.rules.push( {
 		test: /\.s?css$/,
 		use: ExtractTextPlugin.extract( {
