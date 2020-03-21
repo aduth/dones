@@ -1,7 +1,8 @@
 /**
  * External dependencies
  */
-import { createElement, toChildArray, Component } from 'preact';
+import { createElement, toChildArray } from 'preact';
+import { useRef } from 'preact/hooks';
 import { repeat, reduce, truncate } from 'lodash';
 
 /**
@@ -100,8 +101,10 @@ function getTransformedDoneText( children ) {
 	return parts;
 }
 
-export default class DoneText extends Component {
-	setCopyText = ( event ) => {
+function DoneText( { onClick, onFocus, onMouseDown, children } ) {
+	const node = useRef();
+
+	function setCopyText( event ) {
 		// Override the clipboard data with the original children text to avoid
 		// zero-width spaces, and because its generally more useful if planned
 		// to paste into a separate new done.
@@ -118,44 +121,41 @@ export default class DoneText extends Component {
 			return;
 		}
 
-		const { children } = this.props;
-		const [ start, end ] = getSelectedOffset( this.node );
+		const [ start, end ] = getSelectedOffset( node.current );
 		const text = children.join( '' ).slice( start, end );
 		setData( text );
 		event.preventDefault();
-	};
-
-	render() {
-		const { onClick, onFocus, onMouseDown, children } = this.props;
-
-		// Infer focus handlers as intent to edit. Ensure element can receive focus
-		// and apply ARIA role to indicate editability.
-		let focusProps;
-		if ( onFocus ) {
-			focusProps = {
-				tabIndex: 0,
-				role: 'textbox',
-				onFocus,
-			};
-		}
-
-		return (
-			/* eslint-disable jsx-a11y/click-events-have-key-events */
-			/* eslint-disable jsx-a11y/no-static-element-interactions */
-			<div
-				ref={ ( node ) => ( this.node = node ) }
-				{ ...focusProps }
-				onClick={ onClick }
-				onMouseDown={ onMouseDown }
-				onCopy={ this.setCopyText }
-				className="done-text"
-			>
-				<div className="done-text__overflow">
-					{ getTransformedDoneText( children ) }
-				</div>
-			</div>
-			/* eslint-enable jsx-a11y/no-static-element-interactions */
-			/* eslint-enable jsx-a11y/click-events-have-key-events */
-		);
 	}
+
+	// Infer focus handlers as intent to edit. Ensure element can receive focus
+	// and apply ARIA role to indicate editability.
+	let focusProps;
+	if ( onFocus ) {
+		focusProps = {
+			tabIndex: 0,
+			role: 'textbox',
+			onFocus,
+		};
+	}
+
+	return (
+		/* eslint-disable jsx-a11y/click-events-have-key-events */
+		/* eslint-disable jsx-a11y/no-static-element-interactions */
+		<div
+			ref={ node }
+			{ ...focusProps }
+			onClick={ onClick }
+			onMouseDown={ onMouseDown }
+			onCopy={ setCopyText }
+			className="done-text"
+		>
+			<div className="done-text__overflow">
+				{ getTransformedDoneText( children ) }
+			</div>
+		</div>
+		/* eslint-enable jsx-a11y/no-static-element-interactions */
+		/* eslint-enable jsx-a11y/click-events-have-key-events */
+	);
 }
+
+export default DoneText;
