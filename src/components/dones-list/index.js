@@ -1,8 +1,9 @@
 /**
  * External dependencies
  */
-import { createElement, Component } from 'preact';
-import connect from 'components/connect';
+import { createElement } from 'preact';
+import { useState, useRef } from 'preact/hooks';
+import { useSelector, useStore } from 'prsh';
 import classNames from 'classcat';
 import { map, sortBy } from 'lodash';
 
@@ -18,144 +19,136 @@ import DoneText from 'components/done-text';
 import { updateDone } from 'state/dones/actions';
 import { getDonesForUser, hasReceivedDones } from 'state/selectors';
 
-class DonesList extends Component {
-	state = {
-		editing: null,
-	};
+function DonesList( { query, userId } ) {
+	const [ editing, setEditing ] = useState( null );
+	const [ editOffset, setEditOffset ] = useState( null );
+	const pendingEdit = useRef();
+	const dones = useSelector( ( state ) =>
+		getDonesForUser( state, query, userId )
+	);
+	const hasReceived = useSelector( ( state ) =>
+		hasReceivedDones( state, query )
+	);
+	const { dispatch } = useStore();
 
-	stopEditing = () => this.setState( { editing: null } );
+	const isEditable = userId === USER_ID;
 
-	startTrackingSelection = ( event, id ) => {
-		if ( ! this.isEditable() ) {
+	function startTrackingSelection( event, id ) {
+		if ( ! isEditable ) {
 			return;
 		}
 
-		this.pendingEdit = id;
+		pendingEdit.current = id;
 
-		// Continue traking selection on DoneText until mouse released
+		// Continue tracking selection on DoneText until mouse released
 		event.currentTarget.addEventListener(
 			'mouseup',
-			this.stopTrackingSelection,
+			stopTrackingSelection,
 			true
 		);
-	};
+	}
 
-	stopTrackingSelection = ( event ) => {
+	function stopTrackingSelection( event ) {
 		event.currentTarget.removeEventListener(
 			'mouseup',
-			this.stopTrackingSelection,
+			stopTrackingSelection,
 			true
 		);
 
-		if ( ! this.isEditable() ) {
+		if ( ! isEditable ) {
 			return;
 		}
 
-		const editing = this.pendingEdit;
-		delete this.pendingEdit;
-
 		if ( 'A' !== event.target.nodeName ) {
-			this.editDone( editing, getSelectedOffset( event.currentTarget ) );
+			editDone(
+				pendingEdit.current,
+				getSelectedOffset( event.currentTarget )
+			);
 		}
-	};
 
-	editIfNonePending = ( id ) => {
+		delete pendingEdit.current;
+	}
+
+	function editIfNonePending( id ) {
 		// Don't start edit if a selection is in progress. Otherwise it will
 		// clobber the selection offset calculation.
-		if ( ! this.pendingEdit && this.isEditable() ) {
-			this.editDone( id );
+		if ( ! pendingEdit.current && isEditable ) {
+			editDone( id );
 		}
-	};
-
-	editDone = ( id, offset = 0 ) => {
-		this.setState( {
-			editing: id,
-			editOffset: offset,
-		} );
-	};
-
-	isEditable() {
-		return this.props.userId === USER_ID;
 	}
 
-	render() {
-		const { dones, hasReceived } = this.props;
-		const { editing, editOffset } = this.state;
-		const isEditable = this.isEditable();
-		const classes = classNames( [
-			'dones-list',
-			{
-				'is-editable': isEditable,
-			},
-		] );
+	function editDone( id, offset = 0 ) {
+		setEditing( id );
+		setEditOffset( offset );
+	}
 
-		const items = map( sortBy( dones, 'id' ), ( { id, text, done } ) => {
-			const isEditing = id === editing;
+	const classes = classNames( [
+		'dones-list',
+		{
+			'is-editable': isEditable,
+		},
+	] );
 
-			let children;
-			if ( isEditing ) {
-				children = (
-					<DoneInput
-						initialText={ text }
-						initialDone={ done }
-						initialSelectionOffset={ editOffset }
-						id={ id }
-						onCancel={ this.stopEditing }
-						onSubmit={ this.stopEditing }
-					/>
-				);
-			} else {
-				let onFocus;
-				if ( isEditable ) {
-					onFocus = () => this.editIfNonePending( id );
-				}
+	const items = map( sortBy( dones, 'id' ), ( { id, text, done } ) => {
+		const isEditing = id === editing;
 
-				children = [
-					<DoneStatus
-						done={ done }
-						disabled={ ! this.isEditable() }
-						onToggle={ () =>
-							this.props.updateDone( id, text, ! done )
-						}
-					/>,
-					<DoneText
-						onFocus={ onFocus }
-						onMouseDown={ ( event ) =>
-							this.startTrackingSelection( event, id )
-						}
-					>
-						{ text }
-					</DoneText>,
-				];
+		let children;
+		if ( isEditing ) {
+			children = (
+				<DoneInput
+					initialText={ text }
+					initialDone={ done }
+					initialSelectionOffset={ editOffset }
+					id={ id }
+					onCancel={ () => setEditing( null ) }
+					onSubmit={ () => setEditing( null ) }
+				/>
+			);
+		} else {
+			let onFocus;
+			if ( isEditable ) {
+				onFocus = () => editIfNonePending( id );
 			}
 
-			return (
-				<li key={ id } className="dones-list__item">
-					{ children }
-				</li>
-			);
-		} );
+			children = [
+				<DoneStatus
+					done={ done }
+					disabled={ ! isEditable }
+					onToggle={ () =>
+						dispatch( updateDone( id, text, ! done ) )
+					}
+				/>,
+				<DoneText
+					onFocus={ onFocus }
+					onMouseDown={ ( event ) =>
+						startTrackingSelection( event, id )
+					}
+				>
+					{ text }
+				</DoneText>,
+			];
+		}
 
 		return (
-			<ul className={ classes }>
-				{ items }
-				{ ! hasReceived && (
-					<li className="dones-list__item is-placeholder" />
-				) }
-				{ hasReceived && 0 === dones.length && (
-					<li>
-						<em>{ translate( 'Nothing reported yet!' ) }</em>
-					</li>
-				) }
-			</ul>
+			<li key={ id } className="dones-list__item">
+				{ children }
+			</li>
 		);
-	}
+	} );
+
+	return (
+		<ul className={ classes }>
+			{ items }
+			{ ! hasReceived && (
+				<li className="dones-list__item is-placeholder" />
+			) }
+			{ hasReceived && 0 === dones.length && (
+				<li>
+					<em>{ translate( 'Nothing reported yet!' ) }</em>
+				</li>
+			) }
+		</ul>
+	);
 }
 
-export default connect(
-	( state, { query, userId } ) => ( {
-		dones: getDonesForUser( state, query, userId ),
-		hasReceived: hasReceivedDones( state, query ),
-	} ),
-	{ updateDone }
-)( DonesList );
+export default DonesList;
