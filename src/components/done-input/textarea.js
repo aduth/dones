@@ -75,13 +75,15 @@ function DoneInputTextarea( {
 				aria-label={ translate( 'Done or goal' ) }
 				placeholder={ translate( 'What have you been up to?' ) }
 			/>
-			<PopoverMenu
-				position="bottom right"
-				selectKeyCode={ 9 }
-				onSelect={ onSelectSuggestion }
-				items={ suggestions }
-				style={ style }
-			/>
+			{ suggestions.length > 0 && (
+				<PopoverMenu
+					position="bottom right"
+					selectKeyCode={ 9 }
+					onSelect={ onSelectSuggestion }
+					items={ suggestions }
+					style={ style }
+				/>
+			) }
 		</div>
 	);
 }

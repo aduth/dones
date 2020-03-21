@@ -5,22 +5,6 @@ import { render } from 'test/utils';
 import PopoverMenu from '../';
 
 describe( 'PopoverMenu', () => {
-	it( 'renders nothing if there are no items', () => {
-		const onSelect = jest.fn();
-		const element = <PopoverMenu items={ [] } onSelect={ onSelect } />;
-
-		const node = render( element );
-
-		expect( node ).not.toBeTruthy();
-
-		const event = new KeyboardEvent( 'keydown', {
-			keyCode: 13,
-		} );
-		window.dispatchEvent( event );
-
-		expect( onSelect ).not.toHaveBeenCalled();
-	} );
-
 	it( 'renders a list of items', () => {
 		const element = <PopoverMenu items={ [ 'Foo', 'Bar' ] } />;
 
