@@ -2,6 +2,7 @@
  * External dependencies
  */
 import { createElement, render as _render } from 'preact';
+import { act } from 'preact/test-utils';
 import { StoreContext } from 'prsh';
 
 /**
@@ -15,12 +16,14 @@ export function render( element, store = createReduxStore() ) {
 	const wrapper = document.createElement( 'div' );
 	document.body.appendChild( wrapper );
 
-	_render(
-		<StoreContext.Provider value={ store }>
-			{ element }
-		</StoreContext.Provider>,
-		wrapper
-	);
+	act( () => {
+		_render(
+			<StoreContext.Provider value={ store }>
+				{ element }
+			</StoreContext.Provider>,
+			wrapper
+		);
+	} );
 
 	return wrapper.firstChild;
 }
