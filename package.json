@@ -52,7 +52,6 @@
     "babel-loader": "8.1.0",
     "babel-plugin-minify-export-mirror": "1.0.0",
     "babel-plugin-webpack-alias": "2.1.2",
-    "browser-env": "3.3.0",
     "cross-env": "7.0.2",
     "css-loader": "3.4.2",
     "cypress": "4.1.0",
