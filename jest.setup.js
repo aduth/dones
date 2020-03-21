@@ -4,7 +4,9 @@ require( 'preact' ).options.debounceRendering = ( render ) => render();
 
 // Constant initialization
 global.dones = {
-	siteUrl: 'http://example.com',
+	siteUrl: window.location.origin,
 	userId: 1,
 	i18n: {},
 };
+
+window.scrollTo = () => {};
