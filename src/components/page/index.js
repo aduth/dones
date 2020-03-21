@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { createElement } from 'preact';
 import { useEffect } from 'preact/hooks';
 import { useStore } from 'prsh';
 

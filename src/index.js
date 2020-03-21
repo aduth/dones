@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { createElement, render } from 'preact';
+import { render } from 'preact';
 import wping from 'wping';
 import { StoreContext } from 'prsh';
 

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { createElement, toChildArray } from 'preact';
+import { toChildArray } from 'preact';
 import classNames from 'classcat';
 
 export default function Card( {

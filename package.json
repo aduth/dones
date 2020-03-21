@@ -44,6 +44,7 @@
     "@babel/plugin-transform-runtime": "7.9.0",
     "@babel/preset-env": "7.9.0",
     "@babel/runtime-corejs2": "7.9.0",
+    "@wordpress/babel-plugin-import-jsx-pragma": "2.5.0",
     "@wordpress/eslint-plugin": "4.0.0",
     "@wordpress/jest-preset-default": "5.4.0",
     "@wordpress/scripts": "7.1.2",

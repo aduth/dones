@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { createElement } from 'preact';
 import connect from 'components/connect';
 import { map } from 'lodash';
 

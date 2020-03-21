@@ -15,11 +15,6 @@
  *  http://fontawesome.io/license/
  */
 
-/**
- * External dependencies
- */
-import { createElement } from 'preact';
-
 export default function Icon( { icon, size } ) {
 	let IconVariant;
 	switch ( icon ) {

@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { createElement } from 'preact';
 import { useState } from 'preact/hooks';
 import { useSelector, useStore } from 'prsh';
 import classNames from 'classcat';

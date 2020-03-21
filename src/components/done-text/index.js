@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { createElement, toChildArray } from 'preact';
+import { toChildArray } from 'preact';
 import { useRef } from 'preact/hooks';
 import { repeat, reduce, truncate } from 'lodash';
 

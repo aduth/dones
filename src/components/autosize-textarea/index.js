@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { createElement } from 'preact';
 import { over, compact } from 'lodash';
 import { useEffect, useRef } from 'preact/hooks';
 import classcat from 'classcat';

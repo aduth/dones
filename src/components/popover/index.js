@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { createElement, Component } from 'preact';
+import { Component } from 'preact';
 import classNames from 'classcat';
 
 export default class Popover extends Component {

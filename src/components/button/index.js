@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { createElement } from 'preact';
+import { h } from 'preact';
 import classNames from 'classcat';
 import { omit, reduce } from 'lodash';
 
@@ -30,7 +30,7 @@ function Button( props ) {
 
 	const isLink = to && ! disabled;
 
-	return createElement(
+	return h(
 		isLink ? Link : 'button',
 		{
 			...omit( props, STYLE_MODIFIERS ),

@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { createElement } from 'preact';
 import { map, compact } from 'lodash';
 import { useSelector } from 'prsh';
 

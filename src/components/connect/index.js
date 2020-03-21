@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { createElement } from 'preact';
 import { useMemo } from 'preact/hooks';
 import { useSelector, useStore } from 'prsh';
 import { mapValues, isPlainObject } from 'lodash';

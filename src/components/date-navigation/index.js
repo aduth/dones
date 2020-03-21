@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { createElement } from 'preact';
 import { date as phpdate } from 'phpdate';
 import { useStore } from 'prsh';
 

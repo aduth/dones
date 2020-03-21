@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { createElement } from 'preact';
 import { startsWith } from 'lodash';
 import { date as phpdate } from 'phpdate';
 import { useSelector } from 'prsh';

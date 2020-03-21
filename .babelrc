@@ -11,8 +11,14 @@
 		"lodash",
 		"@babel/transform-runtime",
 		"@babel/proposal-class-properties",
+		[ "@wordpress/babel-plugin-import-jsx-pragma", {
+			"scopeVariable": "h",
+			"scopeVariableFrag": "Fragment",
+			"source": "preact",
+			"isDefault": false
+		} ],
 		[ "@babel/transform-react-jsx", {
-			"pragma": "createElement",
+			"pragma": "h",
 			"pragmaFrag": "Fragment"
 		} ]
 	],

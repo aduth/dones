@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { createElement } from 'preact';
 import { defaultTo } from 'lodash';
 import { useSelector } from 'prsh';
 

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { createElement, render as _render } from 'preact';
+import { render as _render } from 'preact';
 import { act } from 'preact/test-utils';
 import { StoreContext } from 'prsh';
 

@@ -1,9 +1,4 @@
 /**
- * External dependencies
- */
-import { createElement } from 'preact';
-
-/**
  * Internal dependencies
  */
 import { render } from 'test/utils';

@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { createElement } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 import classNames from 'classcat';
 import { startsWith, assign, uniq, compact } from 'lodash';

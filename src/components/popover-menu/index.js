@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { createElement, Component } from 'preact';
+import { Component } from 'preact';
 import classNames from 'classcat';
 import { size, map } from 'lodash';
 

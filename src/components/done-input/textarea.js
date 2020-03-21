@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { createElement } from 'preact';
 import { useRef, useState, useEffect } from 'preact/hooks';
 import caret from 'textarea-caret';
 
