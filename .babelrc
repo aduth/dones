@@ -31,13 +31,9 @@
 				[ "@babel/env", {
 					"modules": false,
 					"targets": {
-						"browsers": [
-							"Chrome >= 61",
-							"Safari >= 11",
-							"iOS >= 11",
-							"Edge >= 16"
-						]
-					}
+						"esmodules": true
+					},
+					"bugfixes": true
 				} ]
 			]
 		},
