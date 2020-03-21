@@ -1,8 +1,9 @@
 /**
  * External dependencies
  */
-import { createElement, Component } from 'preact';
-import connect from 'components/connect';
+import { createElement } from 'preact';
+import { useState } from 'preact/hooks';
+import { useSelector, useStore } from 'prsh';
 import classNames from 'classcat';
 import { last, map, transform, sortBy, includes } from 'lodash';
 
@@ -16,29 +17,29 @@ import { createDone, updateDone, deleteDone } from 'state/dones/actions';
 import { translate } from 'lib/i18n';
 import { getTags, isInitialRoute } from 'state/selectors';
 
-export class DoneInput extends Component {
-	static defaultProps = {
-		initialDone: true,
-		initialText: '',
-		onCancel: () => {},
-		onSubmit: () => {},
-	};
+function DoneInput( {
+	initialDone = true,
+	initialText = '',
+	initialSelectionOffset,
+	onCancel = () => {},
+	onSubmit = () => {},
+	id,
+	date,
+	className,
+} ) {
+	const [ done, setDone ] = useState( initialDone );
+	const [ text, setText ] = useState( initialText );
+	const [ selectionOffset, setSelectionOffset ] = useState(
+		initialSelectionOffset
+	);
+	const [ tagFragment, setTagFragment ] = useState( null );
+	const hasNavigated = useSelector( ( state ) => ! isInitialRoute( state ) );
+	const tags = useSelector( getTags );
+	const { dispatch } = useStore();
 
-	constructor( props ) {
-		super( ...arguments );
+	const isEditing = !! id;
 
-		this.state = {
-			done: props.initialDone,
-			text: props.initialText,
-			selectionOffset: props.initialSelectionOffset,
-		};
-	}
-
-	isEditing() {
-		return !! this.props.id;
-	}
-
-	getTagFragment( textarea ) {
+	function getTagFragment( textarea ) {
 		const { selectionStart, selectionEnd, value } = textarea;
 
 		// Only tracking fragments if not a selection range
@@ -57,25 +58,18 @@ export class DoneInput extends Component {
 		return word.substr( 1 );
 	}
 
-	setFormRef = ( component ) => {
-		this.form = component;
-	};
+	function toggleStatus( nextDone ) {
+		setDone( nextDone );
+	}
 
-	toggleStatus = ( done ) => {
-		this.setState( { done } );
-	};
+	function setTextFromInput( event ) {
+		const nextText = event.target.value.replace( /[\n\r]/g, '' );
 
-	setText = ( event ) => {
-		const text = event.target.value.replace( /[\n\r]/g, '' );
+		setText( nextText );
+		setTagFragment( getTagFragment( event.target ) );
+	}
 
-		this.setState( {
-			text,
-			tagFragment: this.getTagFragment( event.target ),
-		} );
-	};
-
-	insertSuggestion = ( suggestion, index ) => {
-		const { tagFragment, text } = this.state;
+	function insertSuggestion( suggestion, index ) {
 		if ( ! tagFragment ) {
 			return;
 		}
@@ -84,78 +78,67 @@ export class DoneInput extends Component {
 		// temporary instance variable to force offset to be preserved
 		const offsetIndex = index - tagFragment.length + suggestion.length + 1;
 
-		this.setState( {
-			text: [
+		setText(
+			[
 				// Append suggestion to text up to and including hash character
 				text.substr( 0, index - tagFragment.length ) + suggestion,
 				// Concatenate with remainder of original text
 				text.substr( index ).replace( /^ /, '' ),
-			].join( ' ' ),
-			tagFragment: null,
-			selectionOffset: [ offsetIndex, offsetIndex ],
-		} );
-	};
+			].join( ' ' )
+		);
+		setTagFragment( null );
+		setSelectionOffset( [ offsetIndex, offsetIndex ] );
+	}
 
-	maybeSubmit = ( event ) => {
+	function maybeSubmit( event ) {
 		switch ( event.keyCode ) {
 			case 13: // Enter
-				this.submit( event );
+				submit( event );
 				break;
 
 			case 27: // Escape
-				this.props.onCancel();
+				onCancel();
 				break;
 		}
-	};
+	}
 
-	delete = () => {
-		const { id } = this.props;
+	function confirmAndDelete() {
 		if (
 			// eslint-disable-next-line no-alert
 			confirm( translate( 'Are you sure you want to delete this done?' ) )
 		) {
-			this.props.onDelete( id );
+			dispatch( deleteDone( id ) );
 		}
-	};
+	}
 
-	submit = ( event ) => {
-		const { id, date, initialText, initialDone } = this.props;
-		const { done } = this.state;
-		const text = this.state.text.trim();
+	function submit( event ) {
+		const trimmedText = text.trim();
 
 		if ( event ) {
 			event.preventDefault();
 		}
 
-		this.props.onSubmit();
+		onSubmit();
 
-		if ( text === initialText && done === initialDone ) {
+		if ( trimmedText === initialText && done === initialDone ) {
 			return;
 		}
 
-		if ( this.isEditing() ) {
-			this.props.updateDone( id, text, done );
-		} else if ( text ) {
-			this.props.createDone( date, text, done );
+		if ( isEditing ) {
+			dispatch( updateDone( id, trimmedText, done ) );
+		} else if ( trimmedText ) {
+			dispatch( createDone( date, trimmedText, done ) );
 		}
 
-		this.setState( {
-			text: this.constructor.defaultProps.initialText,
-			tagFragment: null,
-		} );
-	};
-
-	selectText( event ) {
-		event.target.select();
+		setText( '' );
+		setTagFragment( null );
 	}
 
-	getSuggestions() {
-		const { tagFragment } = this.state;
+	function getSuggestions() {
 		if ( ! tagFragment ) {
 			return [];
 		}
 
-		const { tags } = this.props;
 		const search = tagFragment.toLowerCase();
 
 		// Find by fragment included in tag (maximum 5)
@@ -177,86 +160,63 @@ export class DoneInput extends Component {
 		} );
 	}
 
-	render() {
-		const { className, onCancel, hasNavigated } = this.props;
-		const { text, selectionOffset } = this.state;
-		const isEditing = this.isEditing();
+	const classes = classNames( [
+		'done-input',
+		className,
+		{
+			'is-editing': isEditing,
+		},
+	] );
 
-		const classes = classNames( [
-			'done-input',
-			className,
-			{
-				'is-editing': isEditing,
-			},
-		] );
+	const actions = [
+		{
+			type: 'submit',
+			primary: true,
+			'aria-label': translate( 'Submit' ),
+			children: translate( 'Submit' ),
+			disabled: text.length === 0,
+		},
+	];
 
-		const actions = [
-			{
-				type: 'submit',
-				primary: true,
-				'aria-label': translate( 'Submit' ),
-				children: translate( 'Submit' ),
-				disabled: text.length === 0,
-			},
-		];
+	if ( isEditing ) {
+		actions.push( {
+			onClick: confirmAndDelete,
+			'aria-label': translate( 'Delete' ),
+			children: translate( 'Delete' ),
+			dangerous: true,
+		} );
 
-		if ( isEditing ) {
-			actions.push( {
-				onClick: this.delete,
-				'aria-label': translate( 'Delete' ),
-				children: translate( 'Delete' ),
-				dangerous: true,
-			} );
-
-			actions.push( {
-				onClick: onCancel,
-				'aria-label': translate( 'Cancel' ),
-				children: translate( 'Cancel' ),
-			} );
-		}
-
-		return (
-			<form
-				ref={ this.setFormRef }
-				className={ classes }
-				onSubmit={ this.submit }
-			>
-				<DoneStatus
-					onToggle={ this.toggleStatus }
-					done={ this.state.done }
-				/>
-				<DoneInputTextarea
-					value={ text }
-					onInput={ this.setText }
-					onKeyDown={ this.maybeSubmit }
-					onSuggestionSelected={ this.insertSuggestion }
-					selectionOffset={ selectionOffset }
-					suggestions={ this.getSuggestions() }
-					// eslint-disable-next-line jsx-a11y/no-autofocus
-					autoFocus={ ! hasNavigated }
-				/>
-				<div className="done-input__actions">
-					{ map( actions, ( action, i ) => (
-						<Button
-							key={ [ 'action', i ].join() }
-							className="done-input__action"
-							{ ...action }
-						/>
-					) ) }
-				</div>
-			</form>
-		);
+		actions.push( {
+			onClick: onCancel,
+			'aria-label': translate( 'Cancel' ),
+			children: translate( 'Cancel' ),
+		} );
 	}
+
+	return (
+		<form className={ classes } onSubmit={ submit }>
+			<DoneStatus onToggle={ toggleStatus } done={ done } />
+			<DoneInputTextarea
+				value={ text }
+				onInput={ setTextFromInput }
+				onKeyDown={ maybeSubmit }
+				onSuggestionSelected={ insertSuggestion }
+				selectionOffset={ selectionOffset }
+				suggestions={ getSuggestions() }
+				// eslint-disable-next-line jsx-a11y/no-autofocus
+				autoFocus={ ! hasNavigated }
+			/>
+			<div className="done-input__actions">
+				{ map( actions, ( action, i ) => (
+					<Button
+						key={ [ 'action', i ].join() }
+						className="done-input__action"
+						{ ...action }
+					/>
+				) ) }
+			</div>
+		</form>
+	);
 }
 
-export default connect(
-	( state ) => ( {
-		hasNavigated: ! isInitialRoute( state ),
-		tags: getTags( state ),
-	} ),
-	{
-		createDone,
-		updateDone,
-		onDelete: deleteDone,
-	}
-)( DoneInput );
+export default DoneInput;
