@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { Component } from 'preact';
-import connect from 'components/connect';
+import { useEffect } from 'preact/hooks';
+import { useSelector } from 'prsh';
 
 /**
  * Internal dependencies
@@ -10,31 +10,24 @@ import connect from 'components/connect';
 import { translate } from 'lib/i18n';
 import { isMutativeRequestInFlight } from 'state/selectors';
 
-class MutativeRequestPrompt extends Component {
-	componentDidMount() {
-		window.addEventListener( 'beforeunload', this.maybePrompt );
-	}
+function MutativeRequestPrompt() {
+	const isRequestInFlight = useSelector( isMutativeRequestInFlight );
 
-	componentWillUnmount() {
-		window.removeEventListener( 'beforeunload', this.maybePrompt );
-	}
-
-	maybePrompt = ( event ) => {
-		const { isRequestInFlight } = this.props;
-		if ( ! isRequestInFlight ) {
-			return;
+	useEffect( () => {
+		function maybePrompt( event ) {
+			const message = translate( 'Changes you made may not be saved.' );
+			event.returnValue = message;
+			return message;
 		}
 
-		const message = translate( 'Changes you made may not be saved.' );
-		event.returnValue = message;
-		return message;
-	};
+		if ( isRequestInFlight ) {
+			window.addEventListener( 'beforeunload', maybePrompt );
+		}
 
-	render() {
-		return null;
-	}
+		return () => window.removeEventListener( 'beforeunload', maybePrompt );
+	}, [ isRequestInFlight ] );
+
+	return null;
 }
 
-export default connect( ( state ) => ( {
-	isRequestInFlight: isMutativeRequestInFlight( state ),
-} ) )( MutativeRequestPrompt );
+export default MutativeRequestPrompt;
