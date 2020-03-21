@@ -1,47 +1,42 @@
 /**
  * External dependencies
  */
-import { Component } from 'preact';
+import { useState, useRef, useEffect } from 'preact/hooks';
 
 /**
  * Internal dependencies
  */
 import Popover from 'components/popover';
 
-export default class Tooltip extends Component {
-	componentDidMount() {
-		this.toggleEventBinding( true );
-	}
+function Tooltip( { position, children } ) {
+	const [ isVisible, setIsVisible ] = useState( false );
+	const node = useRef();
 
-	componentWillUnmount() {
-		this.toggleEventBinding( false );
-	}
+	useEffect( () => {
+		const showTooltip = () => setIsVisible( true );
+		const hideTooltip = () => setIsVisible( false );
 
-	toggleEventBinding( toggle ) {
-		const bindFn = toggle ? 'addEventListener' : 'removeEventListener';
-		const { parentNode } = this.node;
-		parentNode[ bindFn ]( 'mouseenter', this.showTooltip );
-		parentNode[ bindFn ]( 'focusin', this.showTooltip );
-		parentNode[ bindFn ]( 'mouseleave', this.hideTooltip );
-		parentNode[ bindFn ]( 'focusout', this.hideTooltip );
-	}
+		const { parentNode } = node.current;
+		parentNode.addEventListener( 'mouseenter', showTooltip );
+		parentNode.addEventListener( 'focusin', showTooltip );
+		parentNode.addEventListener( 'mouseleave', hideTooltip );
+		parentNode.addEventListener( 'focusout', hideTooltip );
 
-	showTooltip = () => this.setState( { isVisible: true } );
+		return () => {
+			parentNode.removeEventListener( 'mouseenter', showTooltip );
+			parentNode.removeEventListener( 'focusin', showTooltip );
+			parentNode.removeEventListener( 'mouseleave', hideTooltip );
+			parentNode.removeEventListener( 'focusout', hideTooltip );
+		};
+	}, [] );
 
-	hideTooltip = () => this.setState( { isVisible: false } );
-
-	setRef = ( node ) => ( this.node = node );
-
-	render() {
-		const { position, children } = this.props;
-		const { isVisible } = this.state;
-
-		return (
-			<span ref={ this.setRef } className="tooltip">
-				{ isVisible && (
-					<Popover position={ position }>{ children }</Popover>
-				) }
-			</span>
-		);
-	}
+	return (
+		<span ref={ node } className="tooltip">
+			{ isVisible && (
+				<Popover position={ position }>{ children }</Popover>
+			) }
+		</span>
+	);
 }
+
+export default Tooltip;
