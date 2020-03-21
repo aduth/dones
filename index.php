@@ -16,8 +16,8 @@
 				src: url( <?php echo get_theme_file_uri( '/fonts/roboto-bold.woff' ); ?> ) format( 'woff' );
 				font-weight: bold;
 			}
+			<?php @include( dirname( __FILE__ ) . '/dist/critical.css.php' ); ?>
 		</style>
-		<style><?php @include( dirname( __FILE__ ) . '/dist/critical.css.php' ); ?></style>
 		<?php wp_head() ?>
 	</head>
 	<body <?php body_class(); ?>>
