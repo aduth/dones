@@ -9,14 +9,14 @@ import { StoreContext } from 'prsh';
  */
 import createReduxStore from 'state';
 
-export function render( element ) {
+export function render( element, store = createReduxStore() ) {
 	document.body.innerHTML = '';
 
 	const wrapper = document.createElement( 'div' );
 	document.body.appendChild( wrapper );
 
 	_render(
-		<StoreContext.Provider value={ createReduxStore() }>
+		<StoreContext.Provider value={ store }>
 			{ element }
 		</StoreContext.Provider>,
 		wrapper
