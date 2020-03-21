@@ -23,7 +23,7 @@ import { getRoutePath } from 'state/selectors';
 import SidebarAction from './action';
 
 function Sidebar() {
-	const path = useSelector( ( state ) => getRoutePath( state ) );
+	const path = useSelector( getRoutePath );
 	const isLoggedIn = USER_ID > 0;
 	const date = phpdate( 'Y-m-d', toSiteTime() );
 

@@ -10,7 +10,7 @@ import { useSelector } from 'prsh';
 import { getMatchedRoute } from 'state/selectors';
 
 function Root() {
-	const { Route } = useSelector( ( state ) => getMatchedRoute( state ) );
+	const { Route } = useSelector( getMatchedRoute );
 
 	return <Route />;
 }

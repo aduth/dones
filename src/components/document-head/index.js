@@ -10,7 +10,7 @@ import { useSelector } from 'prsh';
 import { getFormattedTitle } from 'state/selectors';
 
 function DocumentHead() {
-	const title = useSelector( ( state ) => getFormattedTitle( state ) );
+	const title = useSelector( getFormattedTitle );
 
 	useEffect( () => {
 		if ( typeof document !== 'undefined' && document.title !== title ) {

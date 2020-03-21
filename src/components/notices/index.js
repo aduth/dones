@@ -11,7 +11,7 @@ import { useSelector } from 'prsh';
 import { getNotices } from 'state/selectors';
 
 function Notices() {
-	const notices = useSelector( ( state ) => getNotices( state ) );
+	const notices = useSelector( getNotices );
 	if ( isEmpty( notices ) ) {
 		return null;
 	}
