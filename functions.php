@@ -279,31 +279,6 @@ function dones_page_specific_preload( $paths ) {
 add_filter( 'dones_preload', 'dones_page_specific_preload' );
 
 /**
- * Add preconnect for external resources.
- *
- * @param array  $urls          URLs to print for resource hints.
- * @param string $relation_type The relation type the URLs are printed for,
- *                              e.g. 'preconnect' or 'prerender'.
- * @return array                URLs to print for resource hints.
- */
-function dones_resource_hints( $urls, $relation_type ) {
-	if ( 'preconnect' === $relation_type ) {
-		$urls[] = array(
-			'href' => 'https://fonts.gstatic.com',
-			'crossorigin',
-		);
-
-		$urls[] = array(
-			'href' => 'https://cdn.polyfill.io',
-			'crossorigin',
-		);
-	}
-
-	return $urls;
-}
-add_filter( 'wp_resource_hints', 'dones_resource_hints', 10, 2 );
-
-/**
  * Add custom fields to the Theme Customizer.
  *
  * @param WP_Customize_Manager $wp_customize WP_Customize_Manager instance.
