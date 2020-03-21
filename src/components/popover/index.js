@@ -1,67 +1,47 @@
 /**
  * External dependencies
  */
-import { Component } from 'preact';
+import { useRef, useState, useEffect } from 'preact/hooks';
 import classNames from 'classcat';
 
-export default class Popover extends Component {
-	static defaultProps = {
-		position: 'top',
-	};
+function Popover( { position = 'top', style, children } ) {
+	const node = useRef();
+	const [ forcedYAxis, setForcedYAxis ] = useState( null );
+	const [ forcedXAxis, setForcedXAxis ] = useState( null );
 
-	constructor() {
-		super( ...arguments );
-
-		this.state = {
-			forcedYAxis: null,
-			forcedXAxis: null,
-		};
-	}
-
-	componentDidMount() {
-		this.setForcedPositions();
-	}
-
-	setForcedPositions() {
-		const rect = this.node.getBoundingClientRect();
+	useEffect( () => {
+		const rect = node.current.getBoundingClientRect();
 
 		// Check exceeding top or bottom of viewport
 		if ( rect.top < 0 ) {
-			this.setState( { forcedYAxis: 'bottom' } );
+			setForcedYAxis( 'bottom' );
 		} else if ( rect.bottom > window.innerHeight ) {
-			this.setState( { forcedYAxis: 'top' } );
+			setForcedYAxis( 'top' );
 		}
 
 		// Check exceeding left or right of viewport
 		if ( rect.left < 0 ) {
-			this.setState( { forcedXAxis: 'right' } );
+			setForcedXAxis( 'right' );
 		} else if ( rect.right > window.innerWidth ) {
-			this.setState( { forcedXAxis: 'left' } );
+			setForcedXAxis( 'left' );
 		}
-	}
+	}, [] );
 
-	setNode = ( node ) => {
-		this.node = node;
-	};
+	// Normalize position to include both y and x offsets
+	const [ yAxis = 'top', xAxis = 'center' ] = position.split( ' ' );
 
-	render() {
-		const { position, style, children } = this.props;
-		const { forcedYAxis, forcedXAxis } = this.state;
+	// Generate className
+	const classes = classNames( [
+		'popover',
+		`is-${ forcedYAxis || yAxis }`,
+		`is-${ forcedXAxis || xAxis }`,
+	] );
 
-		// Normalize position to include both y and x offsets
-		const [ yAxis = 'top', xAxis = 'center' ] = position.split( ' ' );
-
-		// Generate className
-		const classes = classNames( [
-			'popover',
-			`is-${ forcedYAxis || yAxis }`,
-			`is-${ forcedXAxis || xAxis }`,
-		] );
-
-		return (
-			<div ref={ this.setNode } style={ style } className={ classes }>
-				{ children }
-			</div>
-		);
-	}
+	return (
+		<div ref={ node } style={ style } className={ classes }>
+			{ children }
+		</div>
+	);
 }
+
+export default Popover;
