@@ -9,7 +9,6 @@
 	],
 	"plugins": [
 		"@babel/transform-runtime",
-		"@babel/proposal-class-properties",
 		[ "@wordpress/babel-plugin-import-jsx-pragma", {
 			"scopeVariable": "h",
 			"scopeVariableFrag": "Fragment",
