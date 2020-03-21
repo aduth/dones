@@ -10,15 +10,11 @@
 			@font-face {
 				font-family: Roboto;
 				src: url( <?php echo get_theme_file_uri( '/fonts/roboto.woff' ); ?> ) format( 'woff' );
-				font-weight: normal;
-				font-style: normal;
 			}
-
 			@font-face {
 				font-family: Roboto;
 				src: url( <?php echo get_theme_file_uri( '/fonts/roboto-bold.woff' ); ?> ) format( 'woff' );
 				font-weight: bold;
-				font-style: normal;
 			}
 		</style>
 		<style><?php @include( dirname( __FILE__ ) . '/dist/critical.css.php' ); ?></style>
