@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import connect from 'components/connect';
+import { useSelector } from 'prsh';
 
 /**
  * Internal dependencies
@@ -10,7 +10,11 @@ import Button from 'components/button';
 import { translate } from 'lib/i18n';
 import { getDonesTotalPages } from 'state/selectors';
 
-function TagPagination( { tag, page, totalPages } ) {
+function TagPagination( { tag, page } ) {
+	const totalPages = useSelector( ( state ) =>
+		getDonesTotalPages( state, { tag } )
+	);
+
 	return (
 		<nav className="tag-pagination">
 			<Button
@@ -31,6 +35,4 @@ function TagPagination( { tag, page, totalPages } ) {
 	);
 }
 
-export default connect( ( state, { tag } ) => ( {
-	totalPages: getDonesTotalPages( state, { tag } ),
-} ) )( TagPagination );
+export default TagPagination;

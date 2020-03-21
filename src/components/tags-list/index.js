@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import connect from 'components/connect';
+import { useSelector } from 'prsh';
 import { map } from 'lodash';
 
 /**
@@ -13,7 +13,10 @@ import Placeholder from 'components/placeholder';
 import { translate } from 'lib/i18n';
 import { hasReceivedTags, getTags } from 'state/selectors';
 
-function TagsList( { hasReceived, tags } ) {
+function TagsList() {
+	const hasReceived = useSelector( hasReceivedTags );
+	const tags = useSelector( getTags );
+
 	return (
 		<Card title={ translate( 'Recent Tags' ) }>
 			{ ! hasReceived && <Placeholder height={ 100 } /> }
@@ -35,7 +38,4 @@ function TagsList( { hasReceived, tags } ) {
 	);
 }
 
-export default connect( ( state ) => ( {
-	hasReceived: hasReceivedTags( state ),
-	tags: getTags( state ),
-} ) )( TagsList );
+export default TagsList;

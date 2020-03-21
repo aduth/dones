@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import connect from 'components/connect';
+import { useSelector } from 'prsh';
 import { isEmpty, map, groupBy } from 'lodash';
 
 /**
@@ -13,7 +13,12 @@ import Placeholder from 'components/placeholder';
 import { getSortedDones, hasReceivedDones } from 'state/selectors';
 import TagDonesDate from './date';
 
-function TagDones( { hasReceived, dones } ) {
+function TagDones( { query } ) {
+	const dones = useSelector( ( state ) => getSortedDones( state, query ) );
+	const hasReceived = useSelector( ( state ) =>
+		hasReceivedDones( state, query )
+	);
+
 	// We need to preserve time accuracy within date to enable sorting, but for
 	// purposes of displaying grouped by date, we split between date and time
 	// parts, pulling date (e.g. "2017-01-01 00:00:00" => "2017-01-01")
@@ -46,7 +51,4 @@ function TagDones( { hasReceived, dones } ) {
 	);
 }
 
-export default connect( ( state, { query } ) => ( {
-	dones: getSortedDones( state, query ),
-	hasReceived: hasReceivedDones( state, query ),
-} ) )( TagDones );
+export default TagDones;

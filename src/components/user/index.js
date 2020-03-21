@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import connect from 'components/connect';
+import { useSelector } from 'prsh';
 
 /**
  * Internal dependencies
@@ -9,7 +9,11 @@ import connect from 'components/connect';
 import { translate } from 'lib/i18n';
 import { getUser } from 'state/selectors';
 
-function User( { name, avatars } ) {
+function User( { userId } ) {
+	const { name, avatars } = useSelector( ( state ) =>
+		getUser( state, userId )
+	);
+
 	return (
 		<span className="user">
 			<img
@@ -25,6 +29,4 @@ function User( { name, avatars } ) {
 	);
 }
 
-export default connect( ( state, { userId } ) => ( {
-	...getUser( state, userId ),
-} ) )( User );
+export default User;
