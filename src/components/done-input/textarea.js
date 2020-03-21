@@ -1,7 +1,8 @@
 /**
  * External dependencies
  */
-import { createElement, Component } from 'preact';
+import { createElement } from 'preact';
+import { useRef, useState, useEffect } from 'preact/hooks';
 import caret from 'textarea-caret';
 
 /**
@@ -11,89 +12,79 @@ import { translate } from 'lib/i18n';
 import AutosizeTextarea from 'components/autosize-textarea';
 import PopoverMenu from 'components/popover-menu';
 
-export default class DoneInputTextarea extends Component {
-	static defaultProps = {
-		onSuggestionSelected: () => {},
-		onInput: () => {},
-	};
+function DoneInputTextarea( {
+	onSuggestionSelected = () => {},
+	onInput = () => {},
+	autoFocus,
+	selectionOffset,
+	suggestions,
+	value,
+	onKeyDown,
+} ) {
+	const textarea = useRef();
+	const [ style, setStyle ] = useState();
 
-	componentDidMount() {
-		const { autoFocus, selectionOffset } = this.props;
-
+	useEffect( () => {
 		if ( autoFocus ) {
-			this.textarea.base.focus();
+			textarea.current.base.focus();
 		}
+	}, [] );
 
+	useEffect( () => {
 		if ( selectionOffset ) {
 			const [ start, stop ] = selectionOffset;
-			this.textarea.base.setSelectionRange( start, stop );
+			textarea.current.base.setSelectionRange( start, stop );
 		}
-	}
+	}, [ selectionOffset ] );
 
-	componentDidUpdate( prevProps ) {
-		const { selectionOffset } = this.props;
-		if (
-			selectionOffset &&
-			selectionOffset !== prevProps.selectionOffset
-		) {
-			const [ start, stop ] = selectionOffset;
-			this.textarea.base.setSelectionRange( start, stop );
-		}
-	}
-
-	bindTextarea = ( textarea ) => ( this.textarea = textarea );
-
-	setCaretOffset = ( event ) => {
+	function setCaretOffset( event ) {
 		// Calculate caret offset for use in positioning suggestions menu
 		const { target } = event;
 		const { lineHeight } = window.getComputedStyle( target );
 		let { left, top } = caret( target, target.selectionEnd );
 		left -= 13;
 		top += parseInt( lineHeight, 10 ) - target.clientHeight;
-		this.setState( {
-			style: {
-				transform: `translate( ${ left }px, ${ top }px )`,
-			},
+		setStyle( {
+			transform: `translate( ${ left }px, ${ top }px )`,
 		} );
 
-		this.props.onInput( event );
-	};
+		onInput( event );
+	}
 
-	onSelectSuggestion = ( suggestion ) => {
+	function onSelectSuggestion( suggestion ) {
 		// Insert suggestion at current caret index
-		this.props.onSuggestionSelected(
+		onSuggestionSelected(
 			suggestion,
-			this.textarea.base.selectionStart
+			textarea.current.base.selectionStart
 		);
 
 		// If suggestion inserted via click on PopoverMenu, preserve focus
-		setTimeout( () => this.textarea.base && this.textarea.base.focus() );
-	};
-
-	render() {
-		const { suggestions, value, onKeyDown } = this.props;
-		const { style } = this.state;
-
-		return (
-			<div className="done-input__textarea">
-				<AutosizeTextarea
-					ref={ this.bindTextarea }
-					value={ value }
-					onKeyDown={ onKeyDown }
-					rows="1"
-					onInput={ this.setCaretOffset }
-					className="done-input__textarea-input"
-					aria-label={ translate( 'Done or goal' ) }
-					placeholder={ translate( 'What have you been up to?' ) }
-				/>
-				<PopoverMenu
-					position="bottom right"
-					selectKeyCode={ 9 }
-					onSelect={ this.onSelectSuggestion }
-					items={ suggestions }
-					style={ style }
-				/>
-			</div>
+		setTimeout(
+			() => textarea.current.base && textarea.current.base.focus()
 		);
 	}
+
+	return (
+		<div className="done-input__textarea">
+			<AutosizeTextarea
+				ref={ textarea }
+				value={ value }
+				onKeyDown={ onKeyDown }
+				rows="1"
+				onInput={ setCaretOffset }
+				className="done-input__textarea-input"
+				aria-label={ translate( 'Done or goal' ) }
+				placeholder={ translate( 'What have you been up to?' ) }
+			/>
+			<PopoverMenu
+				position="bottom right"
+				selectKeyCode={ 9 }
+				onSelect={ onSelectSuggestion }
+				items={ suggestions }
+				style={ style }
+			/>
+		</div>
+	);
 }
+
+export default DoneInputTextarea;
