@@ -1,6 +1,14 @@
+#### 1.1.4 (2024-06-27)
+
+- Security: Remove code references to [vulnerable polyfill service](https://sansec.io/research/polyfill-supply-chain-attack)
+   - These polyfills were only loaded for browsers which do not support [Fetch](https://caniuse.com/fetch) or [Promises](https://caniuse.com/promises), which are widely supported as of 2024. As noted in the article, network operators have taken some steps to mitigate the vulnerability. Nevertheless, you should update if you are using an older version of the plugin.
+- Security: Remove references to expired domain
+
+**Please note:** Dones is no longer actively maintained, and future security updates cannot be guaranteed. You are encouraged to find an alternative task management platform.
+
 #### 1.1.3 (2017-12-15)
 
-- Improved: Theme localization activated ([translations welcome!](https://poeditor.com/join/project/NfvVvUxRDS))
+- Improved: Theme localization activated
 - Improved: "Done" post type uses custom capabilities to enable granular role permissions
 - Fix: Recent tags are more accurately ordered
 - Fix: Home page redirect respects site timezone
