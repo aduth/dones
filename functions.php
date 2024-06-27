@@ -151,38 +151,8 @@ function dones_scripts() {
 			'Changes you made may not be saved.'         => __( 'Changes you made may not be saved.', 'dones' ),
 		),
 	) );
-
-	// Add conditional feature polyfill for older browsers.
-	wp_add_inline_script( 'dones-app', dones_get_script_polyfill( array(
-		'promise' => '\'Promise\' in window',
-		'fetch'   => '\'fetch\' in window',
-	) ), 'before' );
 }
 add_action( 'wp_enqueue_scripts', 'dones_scripts' );
-
-/**
- * Returns contents of an inline script used in appending a polyfill script for
- * browsers which fail one or more of the provided tests. The provided array is
- * a mapping from features to a JavaScript condition to verify feature support.
- *
- * @param array $tests Features to detect.
- * @return string      Conditional polyfill inline script.
- */
-function dones_get_script_polyfill( $tests ) {
-	// Each key in tests is a feature to join in creating the polyfill URL.
-	$polyfill_url = add_query_arg( array(
-		'features' => implode( ',', array_keys( $tests ) ),
-	), 'https://cdn.polyfill.io/v2/polyfill.min.js' );
-
-	return (
-		// Test presence of features...
-		'( ' . implode( ' && ', array_values( $tests ) ) . ' ) || ' .
-		// ...appending polyfill on any failures. Cautious onlookers may balk
-		// at the `document.write`. Its typical caveat of mid-stream blocking
-		// synchronous write is exactly the behavior we need though.
-		'document.write( \'<script src="' . esc_url( $polyfill_url ) . '"></scr\' + \'ipt>\' );'
-	);
-}
 
 /**
  * Overrides the script loader tag to set "type='module'" or add a "nomodule"
