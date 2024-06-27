@@ -250,11 +250,6 @@ function dones_resource_hints( $urls, $relation_type ) {
 			'href' => 'https://fonts.gstatic.com',
 			'crossorigin',
 		);
-
-		$urls[] = array(
-			'href' => 'https://cdn.polyfill.io',
-			'crossorigin',
-		);
 	}
 
 	return $urls;
