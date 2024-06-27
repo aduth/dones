@@ -358,7 +358,7 @@ msgid "Dones"
 msgstr ""
 
 #. Theme URI of the plugin/theme
-msgid "https://dones.today/"
+msgid "https://github.com/aduth/dones"
 msgstr ""
 
 #. Description of the plugin/theme
